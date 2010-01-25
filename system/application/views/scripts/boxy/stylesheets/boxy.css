@@ -1,0 +1,77 @@
+.boxy_input
+{
+	border:1px solid #666;
+	color:#666;
+	direction:rtl;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+}
+
+.boxy-wrapper { position: absolute; width:400px; }
+.boxy-wrapper.fixed { position: fixed; }
+
+  /* Modal */
+  
+  .boxy-modal-blackout { position: absolute; background-color: #fdb515; left: 0; top: 0; z-index:1002; }
+  
+  /* Border */
+
+  .boxy-wrapper { empty-cells: show; }
+	.boxy-wrapper .top-left,
+	.boxy-wrapper .top-right,
+	.boxy-wrapper .bottom-right,
+	.boxy-wrapper .bottom-left { width: 10px; height: 5px; overflow:hidden; padding: 0; }
+	
+	.boxy-wrapper .top-right { background: black; border:0px; opacity: 0.2; filter: alpha(opacity=20); }
+	.boxy-wrapper .top-left { background: black; border:0px; opacity: 0.2; filter: alpha(opacity=20); }
+	.boxy-wrapper .bottom-left{ background: black; border:0px; opacity: 0.2; filter: alpha(opacity=20); }
+	.boxy-wrapper .bottom-right { background: black; border:0px; opacity: 0.2; filter: alpha(opacity=20); }
+
+	/* IE6+7 hacks for the border. IE7 should support this natively but fails in conjuction with modal blackout bg. */
+	/* NB: these must be absolute paths or URLs to your images */
+
+
+	.boxy-wrapper .top,
+	.boxy-wrapper .bottom { height: 0px; overflow:hidden; background-color: black; opacity: 0.2; filter: alpha(opacity=20); padding: 0; border:0px; }
+
+	.boxy-wrapper .left,
+	.boxy-wrapper .right {width: 10px; background-color: black; opacity: 0.2; filter: alpha(opacity=20); padding: 0; border:0px; }
+
+	/* Title bar */
+	
+	.boxy-wrapper .title-bar { background-color: #fdb515; padding: 6px; position: relative; border:0px; color:#4f4f4f;}
+	  .boxy-wrapper .title-bar.dragging { cursor: move; }
+	    .boxy-wrapper .title-bar h2 {		color:#4f4f4f;
+	font-family:Tahoma, Arial;
+	font-size:11px; line-height: 1; margin: 0; padding: 0; font-weight: bold; }
+	    .boxy-wrapper .title-bar .close { color:#4f4f4f;
+	font-family:Tahoma, Arial;
+	font-size:11px; position: absolute; top: 6px; right: 6px; font-size: 90%; line-height: 1; }
+		
+	/* Content Region */
+	
+	.boxy-inner {color:#666;
+	line-height:16px;
+	font-family:Tahoma, Arial;
+	 text-align: right;
+	font-size:11px; background-color: white; padding: 0; border:0px; }
+	.boxy-content {color:#666;
+	font-family:Tahoma, Arial;
+	font-size:11px; padding: 15px; border:0px;}
+	
+	/* Question Boxes */
+
+    .boxy-wrapper .question { width: 350px; min-height: 80px; direction:rtl;
+		color:#666;
+	font-family:Tahoma, Arial;
+	font-size:11px; }
+    .boxy-wrapper .answers { text-align: left;		color:#666;
+	font-family:Tahoma, Arial;
+	font-size:11px; }
+	
+    .boxy-button { direction:rtl;
+		color:#666;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+	border:1px solid #000;
+	background:#DDD; }

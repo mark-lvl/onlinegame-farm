@@ -1,0 +1,836 @@
+#dtitle, textarea {
+	border:1px solid #CCC;
+	width:160px;
+}
+
+.title {
+	background:url("../../images/inside/rally_selection/title.png") no-repeat top left;
+	height:38px;
+	width:216px;
+}
+
+.container {
+	background:url("../../images/inside/rally/main_bg.jpg") no-repeat top left #f7f7f7;
+	border:1px solid #b5b5b5;
+	height:540px;
+	margin-top:11px;
+	min-height:540px;
+	position:relative;
+	width:900px;
+}
+
+.container_header {
+	background:url("") no-repeat top left;
+	height:123px;
+	overflow:hidden;
+	position:relative;
+	width:900px;
+}
+
+#dashboard_panel {
+	bottom:82px;
+	height:433px;
+	left:12px;
+	position:absolute;
+	width:878px;
+	z-index:0;
+}
+
+.dashboard_up {
+	left:0px;
+	position:absolute;
+	top:0px;
+}
+
+.dashboard_down {
+	left:0px;
+	position:absolute;
+	bottom:7px;
+}
+
+.navigation_panel {
+	background:url("../../images/inside/rally/navigator.png") no-repeat top left;
+	bottom:16px;
+	cursor:pointer;
+	height:58px;
+	left:20px;
+	position:absolute;
+	width:48px;
+}
+
+.rank_panel {
+	background:url("../../images/inside/rally/ranks.png") no-repeat top left;
+	bottom:22px;
+	height:52px;
+	left:75px;
+	position:absolute;
+	width:104px;
+}
+
+.time_panel {
+	background:url("../../images/inside/rally/time.png") no-repeat top left;
+	bottom:22px;
+	height:54px;
+	left:185px;
+	position:absolute;
+	width:145px;
+}
+
+.status_panel {
+	background:url("../../images/inside/rally/road_status.png") no-repeat top left;
+	bottom:22px;
+	height:34px;
+	left:337px;
+	padding:7px 4px 5px 5px;
+	position:absolute;
+	width:40px;
+}
+
+.speed_panel {
+	bottom:27px;
+	color:#FFF;
+	font-family: Arial, Tahoma;
+	font-size:30px;
+	font-weight:bold;
+	letter-spacing:20px;
+	height:41px;
+	left:401px;
+	padding:5px 16px 0px 0px;
+	.padding:5px 16px 0px 8px;
+	position:absolute;
+	text-align:right;
+	.text-align:left;
+	width:118px;
+}
+
+.fuel_panel {
+	background:url("../../images/inside/rally/fuel_panel.png") no-repeat top left;
+	bottom:22px;
+	height:46px;
+	overflow:hidden;
+	left:533px;
+	position:absolute;
+	width:224px;
+}
+
+.fuel_gauge, .water_gauge, .oil_gauge, .sleep_gauge, .tire_gauge {
+	background:url("../../images/inside/rally/steps.png") repeat-y bottom left;
+	bottom:0px;
+	height:20px;
+	overflow:hidden;
+	position:absolute;
+	width:8px;
+}
+
+.fuel_gauge {
+	left:40px;
+}
+
+.water_gauge {
+	left:82px;
+}
+
+.oil_gauge {
+	left:124px;
+}
+
+.sleep_gauge {
+	left:168px;
+}
+
+.tire_gauge {
+	left:210px;
+}
+
+.nokia_panel {
+	bottom:19px;
+	cursor:pointer;
+	height:65px;
+	left:753px;
+	position:absolute;
+	width:105px;
+}
+
+.secs, .mins, .hours, .secs2, .mins2, .hours2 {
+	float:right;
+}
+
+.my_time {
+	color:#ffd800;
+	cursor:pointer;
+	font-size:12px;
+	font-weight:bold;
+	position:absolute;
+	right:45px;
+	top:12px;
+	width:92px;
+}
+
+.time_record {
+	color:#FFF;
+	cursor:pointer;
+	font-size:12px;
+	font-weight:normal;
+	position:absolute;
+	right:48px;
+	top:35px;
+	width:92px;
+}
+
+.my_rank {
+	color:#FFF;
+	font-size:12px;
+	font-weight:bold;
+	position:absolute;
+	text-align:center;
+	right:10px;
+	top:11px;
+	width:92px;
+}
+
+.race_drivers {
+	color:#FFF;
+	cursor:pointer;
+	font-size:12px;
+	font-weight:normal;
+	position:absolute;
+	text-align:center;
+	right:10px;
+	top:33px;
+	width:92px;
+}
+
+#dialog_box_panel1 {
+	display:none;
+	left:175px;
+	bottom:70px;
+	z-index:10;
+}
+
+#dialog_box_panel2 {
+	display:none;
+	left:20px;
+	bottom:70px;
+	z-index:11;
+}
+
+#dialog_box_panel3 {
+	display:none;
+	right:20px;
+	bottom:90px;
+	z-index:12;
+}
+
+.dialog_box_panel_big {
+	height:217px;
+	overflow:hidden;
+	position:absolute;
+	width:348px;
+	z-index:101;
+}
+
+#dialog_bk_big {
+	background:url("../../images/inside/rally/dialog_bk2.png") no-repeat top left;
+}
+
+#dialog_bk_big {
+	height:217px;
+	left:0px;
+	position:absolute;
+	top:0px;
+	width:348px;
+
+	filter:alpha(opacity=90);
+	-moz-opacity:0.9;
+	-khtml-opacity: 0.9;
+	opacity: 0.9;
+}
+
+.dialog_bk_big_loader {
+	display:none;
+	position:absolute;
+	left:43%;
+	top:52%;
+	height:50px;
+	width:50px;
+}
+
+.dialog_text2 {
+	color:#FFF;
+	direction:rtl;
+	font-size:11px;
+	height:auto;
+	line-height:14px;
+	margin:15px;
+	position:relative;
+	text-align:right;
+	width:318px;
+}
+
+.question_submit {
+	position:relative;
+	display:none;
+	text-align:center;
+}
+
+.dialog_box_panel {
+	height:98px;
+	position:absolute;
+	width:178px;
+}
+
+.dialog_bk {
+	background:url("../../images/inside/rally/dialog_bk.png") no-repeat top left;
+	height:98px;
+	left:0px;
+	position:absolute;
+	top:0px;
+	width:178px;
+	
+	filter:alpha(opacity=70);
+	-moz-opacity:0.7;
+	-khtml-opacity: 0.7;
+	opacity: 0.7;
+}
+
+.dialog_close {
+	background:url("../../images/inside/rally/dialog_close.png") no-repeat top left;
+	cursor:pointer;
+	height:14px;
+	right:0px;
+	position:absolute;
+	top:0px;
+	width:14px;
+}
+
+.bar_race_name {
+	position:absolute;
+	color:#FFF;
+	font-size:10px;
+	top:17px;
+	right:0px;
+}
+
+.progress_bar {
+	position:absolute;
+	bottom:15px;
+	left:140px;
+	height:65px;
+	width:225px;
+	text-align:right;
+	z-index:77;
+}
+
+.bar_bk {
+	position:absolute;
+	top:23px;
+	left:24px;
+	height:15px;
+	width:111px;
+	overflow:hidden;
+}
+
+.bar_progress {
+	background:url("../../images/inside/rally/progress_bar.png") no-repeat top left;
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:15px;
+}
+
+.bar_top_info {
+	color:#FFF;
+	height:20px;
+	position:absolute;
+	font-size:10px;
+	right:5px;
+	text-align:center;
+	top:2px;
+	width:210px;
+}
+
+.bar_bottom_info {
+	color:#FFF;
+	height:20px;
+	position:absolute;
+	font-size:10px;
+	right:5px;
+	text-align:center;
+	bottom:2px;
+	width:210px;
+}
+
+.rank {
+	bottom:45px;
+	color:#FFF;
+	font-size:24px;
+	font-weight:bold;
+	height:20px;
+	left:30px;
+	position:absolute;
+	text-align:center;
+	width:100px;
+}
+
+.challenge {
+	bottom:15px;
+	height:65px;
+	position:absolute;
+	right:180px;
+	width:150px;
+}
+
+.challenge_photo {
+	border:1px solid #a2a2a2;
+	top:4px;
+	height:50px;
+	overflow:hidden;
+	position:absolute;
+	right:5px;
+	width:50px;
+}
+
+.challenge_name {
+	top:3px;
+	color:#FFF;
+	font-size:11px;
+	height:20px;
+	overflow:hidden;
+	position:absolute;
+	right:57px;
+	text-align:center;
+	width:100px;
+}
+
+.challeng_button {
+	cursor:pointer;
+	height:21px;
+	position:absolute;
+	right:68px;
+	width:72px;
+}
+
+.challengim {
+	background:url("../../images/inside/rally/challengeim.png") no-repeat top left;
+	bottom:6px;
+}
+
+.get_challenged {
+	background:url("../../images/inside/rally/be_carefull.png") no-repeat top left;
+	bottom:18px;
+}
+
+.has_challenged {
+	background:url("../../images/inside/rally/answer_wait.png") no-repeat top left;
+	bottom:18px;
+}
+
+.cancel_challenged {
+	background:url("../../images/inside/rally/cancel_kalkal.png") no-repeat top left;
+	bottom:-2px;
+}
+
+.ok_challenged {
+	background:url("../../images/inside/rally/ok.png") no-repeat top left;
+	bottom:5px;
+	display:none;
+}
+
+.first_hint {
+	background:url("../../images/inside/rally/hint.png") no-repeat top left;
+	position:absolute;
+	bottom:8px;
+	left:12px;
+	height:197px;
+	width:878px;
+	z-index:189;
+}
+
+.hint_close {
+	cursor:pointer;
+	width:30px;
+	height:30px;
+	position:absolute;
+	top:3px;
+	right:52px;
+}
+
+.alert_panel_close {
+	cursor:pointer;
+	right:0px;
+	position:absolute;
+	top:0px;
+	width:30px;
+	height:30px;
+}
+
+.alert_panel, .info_panel, .pov_panel {
+	background:url("../../images/inside/rally/alert_bg.png") no-repeat top left;
+	height:112px;
+	right:100px;
+	line-height:15px;
+	position:absolute;
+	text-align:right;
+	direction:rtl;
+	padding:30px 22px 0px 13px;
+	top:231px;
+	width:145px;
+	z-index:33;
+}
+
+.alert_icon, .info_icon, .pov_icon {
+	cursor:pointer;
+	height:48px;
+	right:95px;
+	position:absolute;
+	top:360px;
+	width:48px;
+	z-index:32;
+}
+
+.photo_border {
+	background:url("../../images/inside/rally/photo_border.png") no-repeat top left;
+	cursor:pointer;
+	position:absolute;
+	top:20px;
+	right:74px;
+	height:42px;
+	width:42px;
+}
+
+.pov_photo {
+	position:absolute;
+	top:21px;
+	right:75px;
+	height:40px;
+	width:40px;
+}
+
+.pov_text {
+	position:absolute;
+	bottom:37px;
+	right:35px;
+	width:120px;
+	height:15px;
+	overflow:hidden;
+	text-align:center;
+}
+
+.pov_icon {
+	background:url("../../images/inside/rally/cam.png") no-repeat top left;
+}
+
+.pov_panel {
+	background:url("../../images/inside/rally/view_bk.png") no-repeat top left;
+}
+
+.alert_icon {
+	background:url("../../images/inside/rally/alert.png") no-repeat top left;
+}
+
+.alert_panel {
+	background:url("../../images/inside/rally/alert_bg.png") no-repeat top left;
+}
+
+.info_icon {
+	background:url("../../images/inside/rally/info.png") no-repeat top left;
+}
+
+.info_panel {
+	background:url("../../images/inside/rally/info_bk.png") no-repeat top left;
+}
+
+.dialog_text {
+	color:#FFF;
+	direction:rtl;
+	font-size:10px;
+	height:68px;
+	line-height:22px;
+	margin:15px;
+	left:0px;
+	.left:20px;
+	position:absolute;
+	text-align:right;
+	top:0px;
+	width:148px;
+}
+
+.dialog_textx {
+	color:#FFF;
+	direction:rtl;
+	font-size:10px;
+	height:68px;
+	line-height:14px;
+	margin:15px;
+	left:0px;
+	.left:23px;
+	position:absolute;
+	text-align:right;
+	top:0px;
+	width:148px;
+}
+
+.question_counter {
+	color:#FFF;
+	cursor:pointer;
+	font-weight:normal;
+	font-size:14px;
+	overflow:hidden;
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:20px;
+}
+
+.sliding_panel {
+	background:url("../../images/inside/rally/sliding_panel_flash.png") no-repeat top left;
+	cursor:pointer;
+	height:220px;
+	position:absolute;
+	left:12px;
+	top:200px;
+	width:21px;
+	z-index:97;
+}
+
+.sliding_panel_open {
+	background:url("../../images/inside/rally/left_panel_open.png") no-repeat top right;
+	height:232px;
+	position:absolute;
+	left:12px;
+	top:188px;
+	width:0px;
+	overflow:hidden;
+	z-index:97;
+}
+
+.sliding_panel_close {
+	cursor:pointer;
+	position:absolute;
+	right:0px;
+	top:0px;
+	width:30px;
+	height:30px;
+}
+
+/*
+.updown {
+	background:url("../../images/inside/rally/updown.png") no-repeat top left;
+	height:13px;
+	position:absolute;
+	left:10px;
+	bottom:10px;
+	width:10px;
+	overflow:hidden;
+}
+
+.up {
+	cursor:pointer;
+	height:5px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:10px;
+}
+
+.down {
+	cursor:pointer;
+	height:5px;
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	width:10px;
+}
+*/
+
+.diary_body_sim {
+	height:130px;
+	position:absolute;
+	top:55px;
+	right:-30px;
+	width:216px;
+	z-index:121;
+}
+
+.updown {
+	height:130px;
+	width:57px;
+	position:absolute;
+	right:0px;
+	top:0px;
+	overflow:hidden;
+}
+
+.up {
+	background:url("../../images/inside/rally/up.png") no-repeat top left;
+	cursor:pointer;
+	height:65px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:57px;
+}
+
+.down {
+	background:url("../../images/inside/rally/down.png") no-repeat bottom left;
+	cursor:pointer;
+	height:65px;
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	width:57px;
+}
+
+.diary_title, .diary_title2 {
+	color:#fdb515;
+	height:15px;
+	overflow:hidden;
+	font-size:12px;
+	text-align:right;
+	direction:rtl;
+	width:190px;
+	.width:160px;
+	position:absolute;
+	top:30px;
+	right:30px;
+}
+
+.diary_body {
+	padding-right:5px;
+	color:#FFF;
+	padding-right:45px;
+	font-size:10px;
+	text-align:right;
+	direction:rtl;
+	.direction:ltr;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	height:130px;
+	position:absolute;
+	top:55px;
+	right:-30px;
+	width:0px;
+	z-index:120;
+}
+
+.diary_body2 {
+	padding-right:5px;
+	color:#FFF;
+	padding-right:45px;
+	font-size:10px;
+	text-align:right;
+	direction:rtl;
+	height:130px;
+	position:absolute;
+	top:55px;
+	right:-15px;
+	width:0px;
+	z-index:120;
+}
+
+.diary_body, .diary_title {
+	display:none;
+	font-family:Tahoma, Arial;
+	font-size:10px;
+}
+
+.diary_box {
+	position:absolute;
+	bottom:10px;
+	right:30px;
+	overflow:hidden;
+	height:25px;
+	width:180px;
+}
+
+.diary_box_item {
+	cursor:pointer;
+	color:#DDD;
+	direction:rtl;
+	text-align:right;
+	padding-right:27px;
+	padding-top:4px;
+	font-size:10px;
+	float:right;
+	width:33px;
+	height:21px;
+}
+
+.diary_box_item_delete {
+	background:url("../../images/inside/rally/delete.png") no-repeat top left;
+	cursor:pointer;
+	position:absolute;
+	top:20px;
+	left:5px;
+	width:20px;
+	height:20px;
+}
+
+.heart {
+	background:url("../../images/inside/rally/heart.png") no-repeat top right;
+}
+
+.new {
+	background:url("../../images/inside/rally/add.png") no-repeat top right;
+}
+
+.edit {
+	background:url("../../images/inside/rally/edit.png") no-repeat top right;
+}
+
+.submit {
+	background:url("../../images/inside/rally/submit.png") no-repeat top right;
+}
+
+#diary_input, #input_title {
+	display:none;
+}
+
+.rank_popup {
+	margin: 100px auto;
+	padding: 0;
+	width: 100px;
+	position: absolute;
+	bottom:-20px;
+	left:30px;
+}
+
+.speed_popup, .rank_popup, .challenge_popup, .question_popup, .cancel_challenged_popup {
+	margin: 100px auto;
+	padding: 0;
+	width: 100px;
+	position: absolute;
+	bottom:-20px;
+	z-index:3333;
+}
+
+.rank_popup {
+	left:30px;
+}
+
+.speed_popup {
+	left:410px;
+}
+
+.challenge_popup, .cancel_challenged_popup {
+	left:570px;
+}
+
+.question_popup {
+	left:750px;
+}
+
+div.rank_popup em, div.speed_popup em, div.challenge_popup em, div.question_popup em, div.cancel_challenged_popup em {
+	background:url("../../images/inside/rally/hint_box.png") no-repeat top right;
+	color:#FFF;
+	font-size:10px;
+	width: 100px;
+	height: 49px;
+	position: absolute;
+	top: -70px;
+	left: -0px;
+	text-align: center;
+	z-index: 2;
+	font-style:normal;
+	display: none;
+}

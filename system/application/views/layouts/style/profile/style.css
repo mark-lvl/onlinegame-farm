@@ -1,0 +1,416 @@
+tr {
+	height:20px;
+}
+
+.divider1 {
+	background:#a7a7a7;
+	height:1px;
+	margin-bottom:12px;
+	margin-top:12px;
+	overflow:hidden;
+	width:95%;
+}
+
+.drivers_car {
+	background:url("../../images/inside/profile/car_bg.jpg") no-repeat top left;
+	height:220px;
+	width:493px;
+}
+
+.drivers_car_vote {
+	height:120px;
+	left:5px;
+	overflow:hidden;
+	position:absolute;
+	text-align:right;
+	top:70px;
+	width:125px;
+}
+
+.drivers_friends {
+	background:url("../../images/inside/profile/friends_bg.jpg") no-repeat top left;
+	height:126px;
+	left:0px;
+	position:absolute;
+	top:0px;
+	width:174px;
+}
+
+.drivers_information {
+	height:160px;
+	line-height:16px;
+	overflow:hidden;
+	position:absolute;
+	right:10px;
+	text-align:right;
+	top:220px;
+	width:130px;
+}
+
+.drivers_photo {
+	border:1px solid #b2b2b2;
+	height:110px;
+	overflow:hidden;
+	position:absolute;
+	right:20px;
+	top:21px;
+	width:110px;
+}
+
+.friends_list {
+	height:100px;
+	overflow:hidden;
+	position:absolute;
+	right:5px;
+	top:40px;
+	width:170px;
+}
+
+.friends_photo {
+	border:1px solid #b2b2b2;
+	cursor:pointer;
+	float:right;
+	height:30px;
+	margin:4px;
+	overflow:hidden;
+	width:30px;
+}
+
+.left_box {
+	float:right;
+	height:auto;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	width:175px;
+}
+
+.lnk_bg {
+	background:url("../../images/inside/profile/link_bg.png") no-repeat bottom right;
+	margin-bottom:5px;
+	text-align:center;
+	width:103px;
+}
+
+.middle_box {
+	float:right;
+	height:auto;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	width:493px;
+}
+
+.positions {
+	background:url("../../images/inside/profile/positions_bg.jpg") no-repeat top left;
+	direction:rtl;
+	height:78px;
+	left:0px;
+	line-height:18px;
+	padding:35px 14px 0px 0px;
+	position:absolute;
+	text-align:right;
+	top:136px;
+	width:160px;
+}
+
+.private_messages {
+	background:url("../../images/inside/profile/message_bg.jpg") no-repeat top left;
+	height:128px;
+	left:0px;
+	position:absolute;
+	top:260px;
+	width:174px;
+}
+
+.infos {
+	background:url("../../images/inside/profile/infos.jpg") no-repeat top left;
+	height:128px;
+	left:0px;
+	position:absolute;
+	top:260px;
+	width:174px;
+}
+
+.private_messages_load {
+	color:#000;
+	background:#CCC;
+	display:none;
+	height:68px;
+	right:11px;
+	position:absolute;
+	text-align:center;
+	top:34px;
+	width:151px;
+	
+	opacity: 0.85;
+	-ms-filter: "alpha(opacity=85)";
+	filter: alpha(opacity=85);
+}
+
+.private_messages_for_me {
+	color:#000;
+	background:#CCC;
+	height:68px;
+	right:11px;
+	padding-right:5px;
+	position:absolute;
+	text-align:right;
+	top:34px;
+	width:146px;
+
+	opacity: 0.75;
+	-ms-filter: "alpha(opacity=75)";
+	filter: alpha(opacity=75);
+}
+
+.private_messages_send {
+	left:13px;
+	position:absolute;
+	top:106px;
+}
+
+.private_messages_text {
+	right:15px;
+	position:absolute;
+	text-align:right;
+	direction:rtl;
+	top:40px;
+}
+
+.right_box {
+	background:url("../../images/inside/profile/right_box_bg.jpg") no-repeat top left;
+	float:right;
+	height:391px;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	width:153px;
+}
+
+.title {
+	background:url("../../images/inside/profile/title.png") no-repeat top left;
+	height:47px;
+	width:131px;
+}
+
+.text_h6 {
+	color:#772200;
+}
+
+.all_friends {
+	left:10px;
+	position:absolute;
+	top:15px;
+}
+
+.no_current_race {
+	background:url("../../images/inside/profile/no_current_race.jpg") no-repeat top left;
+}
+
+.driver_current_race_free, .driver_current_race_desert, .driver_current_race_jungle, .driver_current_race_mountain, .no_current_race {
+	cursor:pointer;
+	height:158px;
+	margin-top:12px;
+	position:relative;
+	width:493px;
+}
+
+.driver_current_race_free {
+	background:url("../../images/inside/profile/current_race_free.jpg") no-repeat top left;
+}
+
+.driver_current_race_desert {
+	background:url("../../images/inside/profile/current_race_desert.jpg") no-repeat top left;
+}
+
+.driver_current_race_jungle {
+	background:url("../../images/inside/profile/current_race_jungle.jpg") no-repeat top left;
+}
+
+.driver_current_race_mountain {
+	background:url("../../images/inside/profile/current_race_mountain.jpg") no-repeat top left;
+}
+
+.driver_current_speed {
+	position:absolute;
+	right:200px;
+	top:69px;
+}
+
+.driver_current_race_name {
+	font-weight:bold;
+	position:absolute;
+	right:195px;
+	top:88px;
+}
+
+.driver_nex_checkpoint {
+	position:absolute;
+	right:251px;
+	top:109px;
+}
+
+.driver_position {
+	color:#dd4900;
+	font-family:Arial, Tahoma;
+	font-size:37px;
+	font-weight:bold;
+	overflow:hidden;
+	position:absolute;
+	left:22px;
+	height:40px;
+	text-align:center;
+	top:65px;
+	width:95px;
+}
+
+.race_type {
+	position:absolute;
+	right:17px;
+	bottom:32px;
+	width:120px;
+	text-align:center;
+}
+
+.drivers_total_rank, .drivers_total_score {
+	color:#772200;
+	font-family:Arial;
+	font-size:18px;
+	font-weight:bold;
+	position:absolute;
+}
+
+.drivers_total_rank {
+	right:65px;
+	top:160px;
+}
+
+.drivers_total_score {
+	right:75px;
+	top:183px;
+}
+
+.like {
+	background:url("../../images/inside/profile/like.png") no-repeat top left;
+	cursor:pointer;
+	height:20px;
+	position:absolute;
+	right:40px;
+	top:72px;
+	width:20px;
+}
+
+.dislike {
+	background:url("../../images/inside/profile/dislike.png") no-repeat top left;
+	cursor:pointer;
+	height:20px;
+	position:absolute;
+	right:70px;
+	top:72px;
+	width:20px;
+}
+
+.voters {
+	color:#827f76;
+	display:none;
+	font-family:Arial, Tahoma;
+	font-size:45px;
+	font-weight:bold;
+	height:0px;
+	position:absolute;
+	right:5px;
+	text-align:center;
+	top:85px;
+	width:110px;
+}
+
+.voters_submit {
+	color:#EEE;
+	font-size: 12px;
+	direction:rtl;
+	display:none;
+	height:auto;
+	position:absolute;
+	right:5px;
+	text-align:center;
+	top:95px;
+	width:110px;
+}
+
+.vote_description {
+	color:#333;
+	direction:rtl;
+	font-size:10px;
+	height:auto;
+	line-height:12px;
+	position:absolute;
+	right:10px;
+	text-align:right;
+	top:130px;
+	width:120px;
+}
+
+.delete_vote {
+	background:url("../../images/inside/profile/vote_delete.gif") no-repeat top left;
+	cursor:pointer;
+	height:16px;
+	right:20px;
+	position:absolute;
+	top:44px;
+	width:16px;
+}
+
+.car_edit {
+	background:url("../../images/inside/profile/edit_car.png") no-repeat top left;
+	cursor:pointer;
+	height:16px;
+	left:11px;
+	position:absolute;
+	bottom:180px;
+	width:16px;
+}
+
+.car_edit_desc {
+	display:none;
+	font-size:10px;
+	height:0px;
+	overflow:hidden;
+	left:0px;
+	position:absolute;
+	bottom:175px;
+	width:185px;
+}
+
+.alert {
+	background:url("../../images/inside/profile/alert.png") no-repeat center right;
+	margin-bottom:8px;
+	height:32px;
+	width:110px;
+	line-height:14px;
+	padding-right:35px;
+	text-align:right;
+	direction:rtl;
+}
+
+.newsletter {
+	background:url("../../images/inside/profile/newsletter.png") no-repeat center right;
+	margin-bottom:8px;
+	height:32px;
+	width:110px;
+	line-height:14px;
+	padding-right:35px;
+	text-align:right;
+	direction:rtl;
+}
+
+.objective {
+	background:url("../../images/inside/profile/objective.png") no-repeat center right;
+	margin-bottom:8px;
+	height:32px;
+	width:110px;
+	line-height:14px;
+	padding-right:35px;
+	text-align:right;
+	direction:rtl;
+}

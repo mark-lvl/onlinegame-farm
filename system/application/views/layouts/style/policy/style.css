@@ -1,0 +1,21 @@
+tr {
+	height:22px;
+	text-align:right;
+}
+
+.captcha_img {
+	border:1px solid #f6f6f6;
+	cursor:pointer;
+}
+
+.title {
+	background:url("../../images/inside/policy/title.png") no-repeat top left;
+	height:45px;
+	width:175px;
+}
+
+.text_title {
+	color:#b93400;
+	font-size:14px;
+	font-weight:bold;
+}

@@ -1,0 +1,484 @@
+a {
+	color:#772200;
+	text-decoration:none;
+}
+
+body {
+	background: #e6e6e6;
+	color:#393939;
+	direction:rtl;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+	margin:0px;
+	.margin-top:10px;
+	padding:0px;
+	text-align:right;
+}
+
+input {
+	border:1px solid #b5b5b5;
+	color:#393939;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+}
+
+
+.km100_sign {
+	background:url("../images/home/100km.png") no-repeat top left;
+	display:none;
+	height:38px;
+	left:185px;
+	overflow:hidden;
+	position:absolute;
+	top:261px;
+	width:93px;
+}
+
+.km300_sign {
+	background:url("../images/home/300km.png") no-repeat top left;
+	display:none;
+	height:38px;
+	left:365px;
+	overflow:hidden;
+	position:absolute;
+	top:355px;
+	width:93px;
+}
+
+.km500_sign {
+	background:url("../images/home/500km.png") no-repeat top left;
+	display:none;
+	height:38px;
+	left:185px;
+	overflow:hidden;
+	position:absolute;
+	top:447px;
+	width:93px;
+}
+
+.container {
+	background:url("../images/home/main_bk.jpg") no-repeat top left #f7f7f7;
+	border:1px solid #b5b5b5;
+	height:540px;
+	margin-top:11px;
+	min-height:540px;
+	position:relative;
+	width:900px;
+}
+
+.container_header {
+	background:url("../images/inside/header_bg.jpg") no-repeat top left;
+	height:123px;
+	overflow:hidden;
+	position:relative;
+	width:900px;
+	z-index:22;
+}
+
+.header_bg {
+	background:url("../images/header_stripe.png") repeat;
+	height:135px;
+	left:0px;
+	position:absolute;
+	top:0px;
+	width:100%;
+	z-index:-1;
+}
+
+.login_box {
+	background:url("../images/login_box_bk.png") no-repeat top left;
+	height:18px;
+	left:20px;
+	overflow:hidden;
+	padding:5px;
+	position:absolute;
+	top:30px;
+	width:285px;
+}
+
+.personal_menu {
+	background:url("../images/personal_menu.png") no-repeat top left;
+	cursor:pointer;
+	height:19px;
+	left:20px;
+	overflow:hidden;
+	position:absolute;
+	top:30px;
+	width:98px;
+}
+
+.personal_menu_photo {
+	float:right;
+	margin-right:4px;
+	margin-top:2px;
+}
+
+.personal_menu_down {
+	background:#c3c3c3;
+	display:none;
+	direction:rtl;
+	height:auto;
+	left:20px;
+	line-height:15px;
+	overflow:hidden;
+	padding:5px 0px 5px 5px;
+	position:absolute;
+	text-align:right;
+	top:47px;
+	width:93px;
+	z-index:0;
+}
+
+.personal_menu_down a {
+	color:#444;
+	font-size:10px;
+}
+
+.personal_menu_down a:hover {
+	color:#777;
+	font-size:10px;
+}
+
+.personal_menu_down ul {
+	color:#EEE;
+	margin:0px;
+	padding-right:20px;
+}
+
+.mountain_icon, .jungle_icon, .desert_icon, .city_icon {
+	cursor:pointer;
+	display:none;
+	height:70px;
+	left:64px;
+	position:absolute;
+	width:70px;
+}
+
+.jungle_icon {
+	background:url("../images/home/jungle.jpg") no-repeat top left;
+	top:420px;
+}
+
+.mountain_icon {
+	background:url("../images/home/mountain.jpg") no-repeat top left;
+	top:175px;
+}
+
+.city_icon {
+	background:url("../images/home/city.jpg") no-repeat top left;
+	top:341px;
+}
+
+.desert_icon {
+	background:url("../images/home/desert.jpg") no-repeat top left;
+	top:257px;
+}
+
+.jungle_ranks_image, .mountain_ranks_image, .desert_ranks_image, .city_ranks_image {
+	display:none;
+	height:409px;
+	left:184px;
+	overflow:hidden;
+	position:absolute;
+	top:130px;
+	width:289px;
+}
+
+.title {
+	background:url("../images/home/title.png") no-repeat top left;
+	height:29px;
+	left:35px;
+	position:absolute;
+	top:80px;
+	width:70px;
+}
+
+.footer {
+	height:30px;
+	overflow:hidden;
+	width:900px;
+}
+
+.best_view {
+	background:url("../images/footer/best_view.png") no-repeat bottom left;
+	height:25px;
+	float:right;
+	width:120px;
+}
+
+.footer_logo {
+	background:url("../images/parspake.png") no-repeat bottom left;
+	cursor:pointer;
+	height:25px;
+	float:left;
+	width:130px;
+}
+
+.footer_logo2 {
+	background:url("../images/parspake2.png") no-repeat bottom left;
+	cursor:pointer;
+	height:25px;
+	float:left;
+	width:130px;
+}
+
+.copyright {
+	background:url("../images/footer/renault_logo.png") no-repeat bottom right;
+	height:28px;
+	float:right;
+	width:350px;
+}
+
+.play_link, .home_link, .ranks_link, .renaults_link, .howtoplay_link, .prizes_link {
+	cursor:pointer;
+	height:15px;
+	position:absolute;
+	top:67px;
+}
+
+.play_link {
+	right:415px;
+	width:45px;
+}
+
+.home_link {
+	right:100px;
+	width:58px;
+}
+
+.ranks_link {
+	right:170px;
+	width:40px;
+}
+
+.renaults_link {
+	right:225px;
+	width:65px;
+}
+
+.howtoplay_link {
+	right:304px;
+	width:52px;
+}
+
+.prizes_link {
+	right:372px;
+	width:30px;
+}
+
+.footer {
+	height:30px;
+	overflow:hidden;
+	width:900px;
+}
+
+.center_first {
+	height:314px;
+	left:295px;
+	position:absolute;
+	top:179px;
+	width:240px;
+}
+
+.top_drivers {
+	direction:rtl;
+	text-align:right;
+	position:absolute;
+	top:190px;
+	left:33px;
+	width:200px;
+	height:130px;
+	overflow:hidden;
+}
+
+.top_driver_item {
+	direction:rtl;
+	text-align:right;
+	height:40px;
+	width:200px;
+	margin-bottom:7px;
+}
+
+.top_driver_image {
+	width:40px;
+	height:35px;
+	float:right;
+}
+
+.top_driver_text {
+	width:150px;
+	line-height:15px;
+	height:35px;
+	float:right;
+}
+
+.top_cars {
+	direction:rtl;
+	text-align:right;
+	position:absolute;
+	top:360px;
+	left:50px;
+	width:200px;
+	height:130px;
+	overflow:hidden;
+}
+
+.top_cars_item {
+	display:none;
+	background:url("../images/inside/list/item_bk.png") no-repeat top right;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:177px;
+	height:102px;
+}
+
+.car_image {
+	background:url("../images/inside/list/item_bk.png") no-repeat top right;
+	display:none;
+	height:125px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:177px;
+}
+
+.car_image_holder1 {
+	position:absolute;
+	width:175px;
+	height:98px;
+	overflow:hidden;
+	top:0px;
+	left:0px;
+}
+
+.car_image_holder2 {
+	position:absolute;
+	top:2px;
+	left:2px;
+}
+
+.top_cars_numbers {
+	width:15px;
+	height:auto;
+	position:absolute;
+	top:0px;
+	right:0px;
+	overflow:hidden;
+}
+
+.car_desc {
+	direction:rtl;
+	text-align:right;
+	height:20px;
+	position:absolute;
+	bottom:3px;
+	width:177px;
+	left:0px;
+}
+
+.top_cars_numbers_item {
+	background:#757575;
+	color:#FFF;
+	width:15px;
+	height:15px;
+	font-family:Arial, Tahoma;
+	font-size: 10px;
+	margin-bottom:3px;
+	overflow:hidden;
+	text-align:center;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+.logan {
+	cursor:pointer;
+	height:25px;
+	left:35px;
+	position:absolute;
+	top:118px;
+	width:80px;
+}
+
+.megane {
+	cursor:pointer;
+	height:18px;
+	left:65px;
+	position:absolute;
+	top:73px;
+	width:40px;
+}
+
+.contact {
+	cursor:pointer;
+	height:21px;
+	left:130px;
+	position:absolute;
+	top:114px;
+	width:60px;
+}
+
+.gogo {
+	cursor:pointer;
+	height:20px;
+	left:135px;
+	position:absolute;
+	top:70px;
+	width:80px;
+}
+
+.best {
+	cursor:pointer;
+	height:20px;
+	left:38px;
+	position:absolute;
+	top:33px;
+	width:70px;
+}
+
+.best_alert {
+	display:none;
+	height:20px;
+	left:0px;
+	position:absolute;
+	direction:rtl;
+	text-align:left;
+	top:10px;
+	width:150px;
+}
+
+.home_desc {
+	background:url("../images/home/desc.png") no-repeat top right;
+	direction:rtl;
+	height:auto;
+	right:45px;
+	line-height:15px;
+	padding-right:17px;
+	padding-top:1px;
+	position:absolute;
+	text-align:right;
+	top:210px;
+	width:230px;
+}
+
+.left_menu {
+	height:15px;
+	left:10px;
+	position:absolute;
+	top:10px;
+	width:auto;
+}
+
+.little_link {
+	color:#888;
+	font-size:10px;
+}
+
+.renault_home {
+	cursor:pointer;
+	height:70px;
+	position:absolute;
+	right:10px;
+	top:25px;
+	width:70px;
+}

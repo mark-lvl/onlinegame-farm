@@ -1,0 +1,72 @@
+.title {
+	background:url("../../images/inside/friends/title.png") no-repeat top left;
+	height:47px;
+	width:131px;
+}
+
+.middle_box {
+	background:url("../../images/inside/inner_box_bk.jpg") no-repeat top right;
+	direction:rtl;
+	float:right;
+	height:391px;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	text-align:right;
+	width:493px;
+}
+
+.edition_list {
+	height:340px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	margin-top:5px;
+	padding:20px;
+	width:453px;
+}
+
+.one_friend_item {
+	float:right;
+	height:72px;
+	margin-bottom:15px;
+	overflow:hidden;
+	text-align:right;
+	width:210px;
+}
+
+.friend_photo {
+	border:1px solid #aaaaaa;
+	height:70px;
+	float:right;
+	width:70px;
+}
+
+.friend_info {
+	height:70px;
+	float:right;
+	line-height:16px;
+	margin-right:10px;
+	width:125px;
+}
+
+.message_delete {
+	background:url("../../images/inside/inbox/bin.png") no-repeat center right;
+	cursor:pointer;
+	float:right;
+	color:#444;
+	font-size:10px;
+	overflow:hidden;
+	padding-right:14px;
+	width:auto;
+}
+
+.add_friendx {
+	background:url("../../images/inside/friends/add.png") no-repeat center right;
+	cursor:pointer;
+	float:right;
+	color:#444;
+	font-size:10px;
+	overflow:hidden;
+	padding-right:14px;
+	width:auto;
+}

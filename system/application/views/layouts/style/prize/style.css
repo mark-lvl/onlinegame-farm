@@ -1,0 +1,30 @@
+tr {
+	height:22px;
+	text-align:right;
+}
+
+.captcha_img {
+	border:1px solid #f6f6f6;
+	cursor:pointer;
+}
+
+.title {
+	background:url("../../images/inside/prize/title.png") no-repeat top left;
+	height:45px;
+	width:175px;
+}
+
+.main_bg {
+	background:url("../../images/inside/prize/main_bk.png") no-repeat top left;
+	height:300px;
+	text-align:right;
+	padding:200px 20px 0px 0px;
+	direction:rtl;
+	width:739px;
+}
+
+.text_title {
+	color:#b93400;
+	font-size:14px;
+	font-weight:bold;
+}

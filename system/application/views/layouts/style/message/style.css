@@ -1,0 +1,40 @@
+.title {
+	background:url("../../images/inside/message/title.png") no-repeat top left;
+	height:38px;
+	width:214px;
+}
+
+.middle_box {
+	background:url("../../images/inside/list/main_bk.jpg") no-repeat top right;
+	direction:rtl;
+	height:358px;
+	margin-bottom:40px;
+	margin-top:20px;
+	padding:15px;
+	position:relative;
+	text-align:right;
+	width:659px;
+}
+
+.message_box {
+	background:url("../../images/inside/message/box_bk.jpg") no-repeat top right;
+	color:#000;
+	direction:rtl;
+	font-size:12px;
+	overflow:hidden;
+	padding:20px;
+	position:absolute;
+	left:155px;
+	top:90px;
+	height:175px;
+	text-align:right;
+	width:342px;
+}
+
+.message_box h1 {
+	color:#000;
+	font-weight:bold;
+	font-size:16px;
+	padding-bottom:5px;
+	border-bottom:1px solid #FFF;
+}

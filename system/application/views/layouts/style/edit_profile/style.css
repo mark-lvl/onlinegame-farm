@@ -1,0 +1,36 @@
+select {
+	font-family:Tahoma, Arial;
+	direction:rtl;
+	font-size:11px;
+	border:1px solid #AAA;
+}
+
+.title {
+	background:url("../../images/inside/edit_profile/title.png") no-repeat top left;
+	height:47px;
+	width:131px;
+}
+
+.tbl_ins tr {
+	height:23px;
+}
+
+.middle_box {
+	background:url("../../images/inside/inner_box_bk.jpg") no-repeat top right;
+	direction:rtl;
+	float:right;
+	height:391px;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	text-align:right;
+	width:493px;
+}
+
+.edition_list {
+	height:340px;
+	overflow:hidden;
+	margin-top:5px;
+	padding:20px;
+	width:453px;
+}

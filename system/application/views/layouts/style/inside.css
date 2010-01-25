@@ -1,0 +1,229 @@
+a {
+	color:#772200;
+	text-decoration:none;
+}
+
+body {
+	background: #e6e6e6;
+	color:#393939;
+	direction:rtl;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+	margin:0px;
+	.margin-top:10px;
+	padding:0px;
+	text-align:right;
+}
+
+input {
+	border:1px solid #b5b5b5;
+	color:#292929;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+}
+
+.title {
+	left:35px;
+	position:absolute;
+	top:80px;
+}
+
+.submit {
+	cursor:pointer;
+}
+
+.blur_hint {
+	color:#979797;
+}
+
+.container {
+	background:url("../images/inside/container_bg.jpg") no-repeat top left #f7f7f7;
+	border:1px solid #b5b5b5;
+	height:auto;
+	margin-top:11px;
+	min-height:540px;
+	width:900px;
+}
+
+.container_header {
+	background:url("../images/inside/header_bg.jpg") no-repeat top left;
+	height:123px;
+	overflow:hidden;
+	position:relative;
+	width:900px;
+	z-index:22;
+}
+
+.general_box {
+	background:url("../images/inside/box_bk.png") no-repeat top center;
+	height:393px;
+	overflow:hidden;
+	padding:15px;
+	width:351px;
+}
+
+.header_bg {
+	background:url("../images/header_stripe.png") repeat;
+	height:135px;
+	left:0px;
+	position:absolute;
+	top:0px;
+	width:100%;
+	z-index:-1;
+}
+
+.login_box {
+	background:url("../images/login_box_bk.png") no-repeat top left;
+	height:18px;
+	left:20px;
+	overflow:hidden;
+	padding:5px;
+	position:absolute;
+	top:30px;
+	width:285px;
+	z-index:20;
+}
+
+.personal_menu {
+	background:url("../images/personal_menu.png") no-repeat top left;
+	cursor:pointer;
+	height:19px;
+	left:20px;
+	overflow:hidden;
+	position:absolute;
+	top:30px;
+	width:98px;
+}
+
+.personal_menu_photo {
+	float:right;
+	margin-right:4px;
+	margin-top:2px;
+}
+
+.personal_menu_down {
+	background:#c3c3c3;
+	display:none;
+	direction:rtl;
+	height:auto;
+	left:20px;
+	line-height:15px;
+	overflow:hidden;
+	padding:5px 0px 5px 5px;
+	position:absolute;
+	text-align:right;
+	top:47px;
+	width:93px;
+	z-index:0;
+}
+
+.personal_menu_down a {
+	color:#444;
+	font-size:10px;
+}
+
+.personal_menu_down a:hover {
+	color:#777;
+	font-size:10px;
+}
+
+.personal_menu_down ul {
+	color:#EEE;
+	margin:0px;
+	padding-right:20px;
+}
+
+.play_link, .home_link, .ranks_link, .renaults_link, .howtoplay_link, .prizes_link {
+	cursor:pointer;
+	height:15px;
+	position:absolute;
+	top:67px;
+}
+
+.play_link {
+	right:415px;
+	width:45px;
+}
+
+.home_link {
+	right:100px;
+	width:58px;
+}
+
+.ranks_link {
+	right:170px;
+	width:40px;
+}
+
+.renaults_link {
+	right:225px;
+	width:65px;
+}
+
+.howtoplay_link {
+	right:304px;
+	width:52px;
+}
+
+.prizes_link {
+	right:372px;
+	width:30px;
+}
+
+.footer {
+	height:30px;
+	overflow:hidden;
+	width:900px;
+}
+
+.best_view {
+	background:url("../images/footer/best_view.png") no-repeat bottom left;
+	height:25px;
+	float:right;
+	width:120px;
+}
+
+.footer_logo {
+	background:url("../images/parspake.png") no-repeat bottom left;
+	cursor:pointer;
+	height:25px;
+	float:left;
+	width:130px;
+}
+
+.footer_logo2 {
+	background:url("../images/parspake2.png") no-repeat bottom left;
+	cursor:pointer;
+	height:25px;
+	float:left;
+	width:130px;
+}
+
+.copyright {
+	background:url("../images/footer/renault_logo.png") no-repeat bottom right;
+	height:28px;
+	float:right;
+	width:350px;
+}
+
+.left_menu {
+	height:15px;
+	left:10px;
+	position:absolute;
+	top:10px;
+	width:auto;
+}
+
+.little_link {
+	color:#888;
+	font-size:10px;
+}
+
+.renault_home {
+	cursor:pointer;
+	height:70px;
+	position:absolute;
+	right:10px;
+	top:25px;
+	width:70px;
+}

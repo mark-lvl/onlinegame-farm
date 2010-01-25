@@ -1,0 +1,22 @@
+tr {
+	height:22px;
+	text-align:right;
+}
+
+.title {
+	background:url("../../images/inside/contact/title.png") no-repeat top left;
+	height:45px;
+	width:175px;
+}
+
+.text_title {
+	color:#b93400;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.main_bg {
+	direction:rtl;
+	text-align:right;
+	width:300px;
+}

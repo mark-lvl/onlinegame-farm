@@ -1,0 +1,22 @@
+select {
+	font-family:Tahoma, Arial;
+	direction:rtl;
+	font-size:11px;
+	border:1px solid #AAA;
+}
+
+tr {
+	height:22px;
+	text-align:right;
+}
+
+.captcha_img {
+	border:1px solid #f6f6f6;
+	cursor:pointer;
+}
+
+.title {
+	background:url("../../images/inside/registration/title.png") no-repeat top left;
+	height:45px;
+	width:125px;
+}

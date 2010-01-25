@@ -1,0 +1,76 @@
+.title {
+	background:url("../../images/inside/list/title.png") no-repeat top left;
+	height:38px;
+	width:214px;
+}
+
+.middle_box {
+	background:url("../../images/inside/list/main_bk.jpg") no-repeat top right;
+	direction:rtl;
+	height:358px;
+	margin-bottom:40px;
+	margin-top:20px;
+	padding:15px;
+	position:relative;
+	text-align:right;
+	width:659px;
+}
+
+.car_item {
+	float:right;
+	height:102px;
+	margin-right:5px;
+	margin-bottom:10px;
+	overflow:hidden;
+	position:relative;
+	width:310px;
+}
+
+.car_image {
+	background:url("../../images/inside/list/item_bk.png") no-repeat top right;
+	height:102px;
+	float:right;
+	position:relative;
+	width:177px;
+}
+
+.car_image_holder1 {
+	position:absolute;
+	width:175px;
+	height:98px;
+	overflow:hidden;
+	top:0px;
+	left:0px;
+}
+
+.car_image_holder2 {
+	position:absolute;
+	top:2px;
+	left:2px;
+}
+
+.car_descritpion {
+	height:102px;
+	line-height:18px;
+	float:right;
+	font-size:12px;
+	margin-right:7px;
+	overflow:hidden;
+	position:relative;
+	width:115px;
+	text-align:right;
+}
+
+.label {
+	background:url("../../images/inside/list/label.png") no-repeat top right;
+	overflow:hidden;
+	margin-bottom:5px;
+	color:#FFF;
+	font-family:Arial, Tahoma;
+	font-size:18px;
+	font-weight:bold;
+	padding-top:2px;
+	text-align:center;
+	height:22px;
+	width:54px;
+}

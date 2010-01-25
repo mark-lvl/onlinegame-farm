@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<meta http-equiv=Content-Type content="text/html;  charset=ISO-8859-1">
+<TITLE>main1</TITLE>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+var InternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+// Handle all the the FSCommand messages in a Flash movie
+function main1_DoFSCommand(command, args) {
+  var main1Obj = InternetExplorer ? main1 : document.main1;
+  //
+  // Place your code here...
+  //
+}
+// Hook for Internet Explorer 
+if (navigator.appName && navigator.appName.indexOf("Microsoft") != -1 && 
+	  navigator.userAgent.indexOf("Windows") != -1 && navigator.userAgent.indexOf("Windows 3.1") == -1) {
+	document.write('<SCRIPT LANGUAGE=VBScript\> \n');
+	document.write('on error resume next \n');
+	document.write('Sub main1_FSCommand(ByVal command, ByVal args)\n');
+	document.write('  call main1_DoFSCommand(command, args)\n');
+	document.write('end sub\n');
+	document.write('</SCRIPT\> \n');
+}
+//-->
+</SCRIPT>
+<!-- URL's used in the movie-->
+<!-- text used in the movie-->
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+ codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+ ID="main1" WIDTH="600" HEIGHT="400" ALIGN="">
+ <PARAM NAME=movie VALUE="main1.swf"> <PARAM NAME=menu VALUE=false> <PARAM NAME=quality VALUE=high> <PARAM NAME=bgcolor VALUE=#FFFFFF> <EMBED src="main1.swf" menu=false quality=high bgcolor=#FFFFFF  WIDTH="600" HEIGHT="400" swLiveConnect=true ID="main1" NAME="main1" ALIGN=""
+ TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED>
+</OBJECT>
+</BODY>
+</HTML>

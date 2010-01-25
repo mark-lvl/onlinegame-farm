@@ -1,0 +1,158 @@
+select {
+    width:150px;
+	direction:rtl;
+	text-align:right;
+	border:1px solid #000;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+}
+
+.title {
+	background:url("../../images/inside/rally_selection/title.png") no-repeat top left;
+	height:38px;
+	width:216px;
+}
+
+.middle_box {
+	background:url("../../images/inside/rally_selection/box_bk.jpg") no-repeat top right;
+	direction:rtl;
+	float:right;
+	height:391px;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	text-align:right;
+	width:493px;
+}
+
+.races_desc {
+	top:265px;
+	right:20px;
+	position:absolute;
+	text-align:right;
+	direction:rtl;
+	height:auto;
+	width:450px;
+}
+
+.message_list {
+	height:auto;
+	line-height:14px;
+	margin:25px;
+	width:440px;
+}
+
+.races_type1 {
+	height:70px;
+	position:absolute;
+	top:107px;
+	right:151px;
+	width:70px;
+}
+
+.races_type2 {
+	height:70px;
+	position:absolute;
+	top:107px;
+	right:390px;
+	width:70px;
+}
+
+.races_type3 {
+	height:70px;
+	position:absolute;
+	top:107px;
+	right:33px;
+	width:70px;
+}
+
+.races_type4 {
+	height:70px;
+	position:absolute;
+	top:107px;
+	right:271px;
+	width:70px;
+}
+
+.race_item11, .race_item12, .race_item21, .race_item22, .race_item23, .race_item31, .race_item32, .race_item33 {
+	cursor:pointer;
+	float:right;
+	height:18px;
+	margin-bottom:3px;
+	width:70px;
+}
+
+.race_item11 {
+	background:url("../../images/inside/rally_selection/rk_open.png") no-repeat top right;
+}
+
+.race_item12 {
+	background:url("../../images/inside/rally_selection/rk.png") no-repeat top right;
+}
+
+.race_item21 {
+	background:url("../../images/inside/rally_selection/rd_open.png") no-repeat top right;
+}
+
+.race_item22 {
+	background:url("../../images/inside/rally_selection/rd.png") no-repeat top right;
+}
+
+.race_item23 {
+	background:url("../../images/inside/rally_selection/rd_lock.png") no-repeat top right;
+}
+
+.race_item31 {
+	background:url("../../images/inside/rally_selection/rt_open.png") no-repeat top right;
+}
+
+.race_item32 {
+	background:url("../../images/inside/rally_selection/rt.png") no-repeat top right;
+}
+
+.race_item33 {
+	cursor:default;
+	background:url("../../images/inside/rally_selection/tg_lock.png") no-repeat top right;
+}
+
+.combo {
+	display:none;
+	position:absolute;
+	left:175px;
+	top:195px;
+}
+
+.distance_selection {
+	background:#fcb415;
+ 	display:none;
+ 	direction:rtl;
+ 	font-size:10px;
+	height:0px;
+	line-height:1px;
+	overflow:hidden;
+	padding-top:2px;
+	position:absolute;
+	top:271px;
+	width:70px;
+}
+
+.distance_divider {
+	background:#fcb415;
+	height:2px;
+	overflow:hidden;
+	width:70px;
+}
+
+.go {
+	display:none;
+	position:absolute;
+	right:25px;
+	top:240px;
+	text-align:center;
+	width:440px;
+}
+
+.go_button {
+	background:#fcb415;
+	cursor:pointer;
+}
