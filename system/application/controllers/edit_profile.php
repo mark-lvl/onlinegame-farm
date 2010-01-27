@@ -10,7 +10,6 @@ class Edit_profile extends MainController {
 	function index($reason = "")
 	{
 	    $user = $this->user_model->is_authenticated();
-
 	    if(!$user) {
   			header("Location: " . base_url());
 		    die();
@@ -37,8 +36,9 @@ class Edit_profile extends MainController {
 	}
 	
 	function register() {
-	    $user = $this->users_model->is_user();
+	    $user = $this->user_model->is_authenticated();
 
+//var_dump($user);exit;
 	    if(!$user) {
   			header("Location: " . base_url());
 		    die();
@@ -63,7 +63,7 @@ class Edit_profile extends MainController {
 		}
 
 		if($_POST['email'] != $user->email) {
-			if(!$this->users_model->is_email_unique(trim($_POST['email'], " "))) { //email already registered
+			if(!$this->user_model->is_email_unique(trim($_POST['email'], " "))) { //email already registered
 			    header("Location: " . base_url() . "edit_profile/index/email_repeated/");
 			    die();
 			}
@@ -79,21 +79,15 @@ class Edit_profile extends MainController {
 		    die();
 		}
 		
-		$user = new user($_POST);
+		$userHolder = new user_entity($_POST);
 		
-		$user->first_name	= $user->first_name;
-		$user->last_name	= $user->last_name;
-		$user->email		= $user->email;
-		$user->sex		= $user->sex;
-		$user->car_t		= $user->car_t;
-		$user->birthdate	= $user->birthdate;
+    		$user->first_name	= $userHolder->first_name;
+		$user->last_name	= $userHolder->last_name;
+		$user->email		= $userHolder->email;
+		$user->sex		= $userHolder->sex;
+		$user->birthdate	= $userHolder->birthdate;
 		$user->city	= $user->city;
-		
-        if(isset($_POST['car_tt']) && trim($_POST['car_tt'], " ") != "") {
-            $user->car_t = $_POST['car_tt'];
-        }
-        
-		$fields = array("first_name", "last_name", "email", "sex", "car_t", "birthdate", "city");
+		$fields = array("first_name", "last_name", "email", "sex", "birthdate", "city");
 		
 		if(isset($_POST['password']) && $_POST['password'] != "") {
 		    $user->password = md5($_POST['password']);
@@ -117,7 +111,7 @@ class Edit_profile extends MainController {
 			$user->photo = "";
 		}
 		
-		if($this->users_model->update($user, $fields)) {
+		if($this->user_model->update($user, $fields)) {
 		    header("Location: " . base_url() . "profile/user/" . $user->id);
 		    die();
 		}

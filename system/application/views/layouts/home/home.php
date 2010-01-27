@@ -3,34 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8;" />
 <meta name="robots" content="index, follow" />
-<meta name="keywords" content="بازی, آنلاین, سرگرمی, رنو, مگان, لوگان, تندر90, مسابقه, جایزه" />
+<meta name="keywords" content="" />
 
-<meta name="description" content="در رالی رنو شرکت کنید, مسابقه دهید و جایزه ببرید" />
-<meta name="generator" content="فواد امیری" />
-<!--
-	Company: Parspake Solutions
-	Website: www.parspake.com
+<meta name="description" content="" />
+<meta name="generator" content="" />
 
-    Web analysts:
-    	Fouad Amiri (http://fouad.ir)
-    	Sassan Behzadi
-
-    Web programmer:
-    	Fouad Amiri
-
-    Database programmer / Analyst:
-    	Fouad Amiri
-
-    Graphic designer:
-    	Arash KhosroNejad
-
-    Flash designer:
-    	HamidReza amlah
-
-	Version: 0.1
-	2009
-	Iran, Tehran
--->
 
 <title><?= $title ?></title>
 
@@ -61,10 +38,6 @@
 				        <?= $lang['laws'] ?>
 				    </a>
 					:
-				    <a class="little_link" href="http://renault.co.ir" target="_blank">
-				        <?= $lang['renault'] ?>
-				    </a>
-				    :
 				    <a class="little_link" href="<?= base_url() ?>contact/">
 				        <?= $lang['contact'] ?>
 				    </a>
@@ -92,28 +65,28 @@
 
 			<div class="top_drivers">
 			    <?php
-			        if(is_array($top_drivers) && count($top_drivers) > 0) {
-			    		foreach($top_drivers as $x => $k) {
+			        if(is_array($top_users) && count($top_users) > 0) {
+			    		foreach($top_users as $x => $k) {
 			    ?>
 			            <div class="top_driver_item">
 			                <div class="top_driver_image">
-				                <a href="<?= base_url() ?>profile/driver/<?= $k->id ?>">
+				                <a href="<?= base_url() ?>profile/user/<?= $k->id ?>">
 							    <?php
 							        if($k->photo != "") {
 							    ?>
-							    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=35&nh=35&source=../views/layouts/images/drivers/<?= $k->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("YmdHis") ?>" border="0" />
+							    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=35&nh=35&source=../views/layouts/images/users/<?= $k->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("YmdHis") ?>" border="0" />
 								<?php
 								    }
 								    else {
 							    ?>
-							    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=35&nh=35&source=../views/layouts/images/drivers/default.jpg&stype=jpg&dest=x&type=little" border="0" />
+							    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=35&nh=35&source=../views/layouts/images/users/default.jpg&stype=jpg&dest=x&type=little" border="0" />
 								<?php
 								    }
 								?>
 								</a>
 				    		</div>
 				    		<div class="top_driver_text">
-				    		    <a href="<?= base_url() ?>profile/driver/<?= $k->id ?>">
+				    		    <a href="<?= base_url() ?>profile/user/<?= $k->id ?>">
 									<?= $k->first_name . " " . $k->last_name ?>
 								</a><BR />
 								<?= $lang['score'] . ": " . convert_number($k->score . "") ?>
@@ -125,43 +98,7 @@
 			    ?>
 			</div>
 			
-			<div class="top_cars">
-			    <?php
-			        if(is_array($top_cars) && count($top_cars) > 0) {
-			            ?>
-			            <div class="top_cars_numbers">
-						<?php
-							foreach($top_cars as $x => $k) {
-						?>
-			                <div class="top_cars_numbers_item" id="car_<?= $x ?>">
-			                    <?= $x + 1 ?>
-			                </div>
-						<?php
-						    }
-						?>
-			    		</div>
-			            <?php
-			    		foreach($top_cars as $x => $k) {
-			    ?>
-				        <div class="car_image" id="car_<?= $x ?>_view">
-				            <div class="car_image_holder1">
-					            <div class="car_image_holder2">
-					            	<img src="<?= base_url() ?>system/application/helpers/render.php?bg=profile_bg.jpg&driver_id=<?= $k['car_id'] ?>&left=28&top=30&nw=224&nh=100&date=<?= date('Y_m_d_H_i_s') ?>" />
-					            </div>
-							</div>
-							<div class="car_desc">
-							    <?= $lang['renault_of'] . " " ?>
-								<a href="<?= base_url() ?>profile/driver/<?= $k['car_id'] ?>">
-							    	<?= $k['first_name'] ?>
-								</a><BR />
-								<?= $lang['score'] . ": " . convert_number((int)($k['avt'] * 100) . "") ?>%
-							</div>
-				        </div>
-			    <?php
-			    		}
-					}
-			    ?>
-			</div>
+			
 			
 			<div class="center_first">
 			    <div class="logan">
@@ -216,7 +153,7 @@
 		        window.location = "<?= base_url() ?>renault_list/";
 			});
 		    $(".ranks_link").click( function() {
-		        window.location = "<?= base_url() ?>drivers_list/";
+		        window.location = "<?= base_url() ?>users_list/";
 			});
 		    $(".contact").click( function() {
 		        window.location = "<?= base_url() ?>contact/";

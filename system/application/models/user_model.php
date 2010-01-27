@@ -94,9 +94,7 @@
 				}
 		    }
 		    $cols = rtrim($cols, ",");
-		    
 		    $sql = "UPDATE `users` SET " . $cols . " WHERE id = '" . $user->id . "'";
-
 			if($this->db->query($sql)) {
 			    return TRUE;
 			}
