@@ -1,6 +1,6 @@
 <?php
-	$this->load->module('profile_information');
-	$this->profile_information->method(array("friends" => $friends, "rank" => $drivers_rank, "driver_profile" => $driver_profile, "driver" => $driver, "lang" => $lang));
+    $this->load->module('profile_information');
+    $this->profile_information->method(array("friends" => $friends, "rank" => $users_rank, "user_profile" => $user_profile, "user" => $user, "lang" => $lang));
 ?>
 <div class="middle_box">
 	<div class="message_list">
@@ -29,7 +29,7 @@
 			?>
 					<div class="message" id="msg<?= $k['id'] ?>">
 					    <div class="message_sender" id="msgx<?= $k['id'] ?>" <?= ($k['checked'] == 0) ? 'style="font-weight:bold"' : NULL ?>>
-					        <a href="<?= base_url() ?>profile/driver/<?= $k['from'] ?>" style="color:#444;">
+					        <a href="<?= base_url() ?>profile/user/<?= $k['from'] ?>" style="color:#444;">
 								<?= $k['first_name'] ?>
 							</a>
 					    </div>
@@ -63,7 +63,7 @@
 </div>
 <?php
 	$this->load->module('profile_left_boxes');
-	$this->profile_left_boxes->method(array("friends" => $friends, "driver_profile" => $driver_profile, "drivers_ranks" => $drivers_ranks, "driver" => $driver, "lang" => $lang));
+	$this->profile_left_boxes->method(array("friends" => $friends, "user_profile" => $user_profile, "users_ranks" => $users_ranks, "user" => $user, "lang" => $lang));
 ?>
 <br style="clear:both" />
 <br /><br />
@@ -92,7 +92,7 @@
 		    $(".private_messages_load").fadeIn();
 		    $(".private_messages_load").html('<BR /><BR /><?= $lang["wait_a_moment"] ?>');
 
-			$.post("<?= base_url() ?>gateway/send_message/", { to: "<?= $driver_profile->id ?>", body: $("#private_messages_textarea").val() },
+			$.post("<?= base_url() ?>gateway/send_message/", { to: "<?= $user_profile->id ?>", body: $("#private_messages_textarea").val() },
 				function(data){
 					switch(data) {
 					    case "TRUE":

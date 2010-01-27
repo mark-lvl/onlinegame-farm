@@ -1,52 +1,45 @@
 <?php
 
-class Edit_profile extends Controller {
+class Edit_profile extends MainController {
 
 	function Edit_profile()
 	{
-		parent::Controller();
-
-		$this->load->language('titles', get_lang());
-		$this->load->language('labels', get_lang());
-		$this->load->language('errors', get_lang());
+		parent::MainController();
 	}
 	
 	function index($reason = "")
 	{
-	    $driver = $this->drivers_model->is_driver();
+	    $user = $this->user_model->is_authenticated();
 
-	    if(!$driver) {
+	    if(!$user) {
   			header("Location: " . base_url());
 		    die();
 	    }
 
 	    $data['title']		= $this->lang->language['edit_title'];
+            $data['header']		= '<script type="text/javascript" src="' . base_url() . 'system/application/views/scripts/jquery.hints.js"></script>';
+            $data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/profile/style.css" rel="stylesheet" type="text/css" />';
+            $data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/edit_profile/style.css" rel="stylesheet" type="text/css" />';
 
-		$data['header']		= '<script type="text/javascript" src="' . base_url() . 'system/application/views/scripts/jquery.hints.js"></script>';
-		$data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/profile/style.css" rel="stylesheet" type="text/css" />';
-		$data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/edit_profile/style.css" rel="stylesheet" type="text/css" />';
+	    $data['lang'] = $this->lang->language;
 
-	    $data['lang']		= $this->lang->language;
-
-	    $data['driver'] 		= $driver;
-	    $data['driver_profile'] = $driver;
+	    $data['user'] = $user;
+	    $data['user_profile'] = $user;
 	    
-	    $data['drivers_rank']   = Drivers_model::get_drivers_total_rank($driver);
-	    $data['drivers_ranks']  = Drivers_model::get_drivers_ranks($driver);
 	    
-	    $data['friends']		= Drivers_model::get_friends($driver);
+	    $data['friends'] = user_model::get_friends($user);
 	    
 	    $data['reason']     = $reason;
 	    
 	    $data['body']		= $this->load->view('layouts/controllers_body/edit_profile.php', $data, TRUE);
 	    
-		$this->load->view('layouts/inside/inside.php', $data);
+            $this->load->view('layouts/inside/inside.php', $data);
 	}
 	
 	function register() {
-	    $driver = $this->drivers_model->is_driver();
+	    $user = $this->users_model->is_user();
 
-	    if(!$driver) {
+	    if(!$user) {
   			header("Location: " . base_url());
 		    die();
 	    }
@@ -69,14 +62,14 @@ class Edit_profile extends Controller {
 		    die();
 		}
 
-		if($_POST['email'] != $driver->email) {
-			if(!$this->drivers_model->is_email_unique(trim($_POST['email'], " "))) { //email already registered
+		if($_POST['email'] != $user->email) {
+			if(!$this->users_model->is_email_unique(trim($_POST['email'], " "))) { //email already registered
 			    header("Location: " . base_url() . "edit_profile/index/email_repeated/");
 			    die();
 			}
 		}
 		
-		if(isset($_POST['password']) && $_POST['password'] != "" && md5($_POST['password']) != $driver->password) {
+		if(isset($_POST['password']) && $_POST['password'] != "" && md5($_POST['password']) != $user->password) {
 		    header("Location: " . base_url() . "edit_profile/index/password/");
 		    die();
 		}
@@ -86,24 +79,24 @@ class Edit_profile extends Controller {
 		    die();
 		}
 		
-		$user = new Driver($_POST);
+		$user = new user($_POST);
 		
-		$driver->first_name	= $user->first_name;
-		$driver->last_name	= $user->last_name;
-		$driver->email		= $user->email;
-		$driver->sex		= $user->sex;
-		$driver->car_t		= $user->car_t;
-		$driver->birthdate	= $user->birthdate;
-		$driver->city	= $user->city;
+		$user->first_name	= $user->first_name;
+		$user->last_name	= $user->last_name;
+		$user->email		= $user->email;
+		$user->sex		= $user->sex;
+		$user->car_t		= $user->car_t;
+		$user->birthdate	= $user->birthdate;
+		$user->city	= $user->city;
 		
         if(isset($_POST['car_tt']) && trim($_POST['car_tt'], " ") != "") {
-            $driver->car_t = $_POST['car_tt'];
+            $user->car_t = $_POST['car_tt'];
         }
         
 		$fields = array("first_name", "last_name", "email", "sex", "car_t", "birthdate", "city");
 		
 		if(isset($_POST['password']) && $_POST['password'] != "") {
-		    $driver->password = md5($_POST['password']);
+		    $user->password = md5($_POST['password']);
 		    $fields[] = "password";
 		}
 		
@@ -118,14 +111,14 @@ class Edit_profile extends Controller {
 				$user->photo = "";
 			}
 			$fields[] = "photo";
-			$driver->photo	= $user->photo;
+			$user->photo	= $user->photo;
 		}
 		else {
 			$user->photo = "";
 		}
 		
-		if($this->drivers_model->update($driver, $fields)) {
-		    header("Location: " . base_url() . "profile/driver/" . $driver->id);
+		if($this->users_model->update($user, $fields)) {
+		    header("Location: " . base_url() . "profile/user/" . $user->id);
 		    die();
 		}
 		else {

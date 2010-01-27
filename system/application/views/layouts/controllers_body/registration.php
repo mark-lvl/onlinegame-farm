@@ -61,14 +61,7 @@
 					<input type="password" value="" maxlength="50" style="direction:ltr;" name="password" id="password" />
 		        </td>
 		    </tr>
-		    <tr>
-		        <td>
-					&nbsp;
-		        </td>
-		        <td>
-					<input type="text" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['car_tt'] : ''; ?>" maxlength="50" style="direction:rtl; display:none;" name="car_tt" id="car_tt" title="<?= $lang['car'] ?>" />
-		        </td>
-		    </tr>
+		    
 		    <tr>
 		        <td>
 					<?= $lang['province'] ?>
@@ -150,16 +143,6 @@
 			$("#captcha_val").val(selected_captcha);
 		});
 		
-		$("#car_t").change( function() {
-      		if($("#car_t").val() == "سایر") {
-      		    $("#car_tt").fadeIn('fast');
-      		}
-      		else {
-      			$("#car_tt").fadeOut('fast');
-      			$("#car_tt").val("");
-      		}
-		});
-		
 		<?php
 		if($reason != "") {
 		?>
@@ -171,18 +154,18 @@
 			        case "fill":
 			        	Boxy.alert("<?= $lang['starred_filling'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
 			            break;
-					case "email_repeated":
-						Boxy.alert("<?= $lang['email_repeated'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
-					    break;
-					case "date":
-						Boxy.alert("<?= $lang['date_over'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
-					    break;
-					case "reg_error":
-						Boxy.alert("<?= $lang['reg_error'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
-					    break;
-					case "captcha":
-						Boxy.alert("<?= $lang['captcha_error'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
-					    break;
+                                case "email_repeated":
+                                        Boxy.alert("<?= $lang['email_repeated'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
+                                    break;
+                                case "date":
+                                        Boxy.alert("<?= $lang['date_over'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
+                                    break;
+                                case "reg_error":
+                                        Boxy.alert("<?= $lang['reg_error'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
+                                    break;
+                                case "captcha":
+                                        Boxy.alert("<?= $lang['captcha_error'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
+                                    break;
 			    }
 			}
 		<?php

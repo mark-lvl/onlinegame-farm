@@ -12,7 +12,7 @@
 |
 */
 $config['base_url']	= "http://yammy";
-$config['upload_url'] = "/var/www/yammy/system/application/views/layouts/images/users";
+$config['upload_url'] = "/var/www/yammy/system/application/views/layouts/images/users/";
 $config['security_code'] = "rntx";
 
 

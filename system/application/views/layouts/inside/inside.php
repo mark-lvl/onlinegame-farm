@@ -89,10 +89,10 @@
 						</div>
 						<?php
 							$this->load->module('login');
-							if(!isset($driver)) {
-							    $driver = FALSE;
+							if(!isset($user)) {
+							    $user = FALSE;
 							}
-							$this->login->method(array("driver" => $driver, "lang" => $lang));
+							$this->login->method(array("user" => $user, "lang" => $lang));
 						?>
 					</div>
 			<?php
@@ -102,10 +102,10 @@
 		    		<div class="container_header" style="width:200px; float:left;">
 						<?php
 							$this->load->module('login');
-							if(!isset($driver)) {
-							    $driver = FALSE;
+							if(!isset($user)) {
+							    $user = FALSE;
 							}
-							$this->login->method(array("driver" => $driver, "lang" => $lang));
+							$this->login->method(array("user" => $user, "lang" => $lang));
 						?>
 					</div>
 			<?php
@@ -130,7 +130,7 @@
 	        window.location = "<?= base_url() ?>renault_list/";
 		});
 	    $(".ranks_link").click( function() {
-	        window.location = "<?= base_url() ?>drivers_list/";
+	        window.location = "<?= base_url() ?>users_list/";
 		});
 	    $(".prizes_link").click( function() {
 	        window.location = "<?= base_url() ?>prize/";

@@ -1,5 +1,5 @@
 <?php
-	if(!$data['driver']) {
+	if(!$data['user']) {
 ?>
 		<div class="login_box">
 			<form action="<?= base_url() ?>gateway/login/" method="POST">
@@ -15,14 +15,14 @@
 	    <div class="personal_menu">
 	        <div class="personal_menu_photo">
 			    <?php
-			        if($data['driver']->photo != "") {
+			        if($data['user']->photo != "") {
 			    ?>
-			    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=15&nh=15&source=../views/layouts/images/drivers/<?= $data['driver']->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
+			    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=15&nh=15&source=../views/layouts/images/users/<?= $data['user']->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
 				<?php
 				    }
 				    else {
 			    ?>
-	       			<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=15&nh=15&source=../views/layouts/images/drivers/default.jpg&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
+	       			<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=15&nh=15&source=../views/layouts/images/users/default.jpg&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
 				<?php
 				    }
 				?>
@@ -31,7 +31,7 @@
 	    <div class="personal_menu_down">
 	        <ul>
 		        <li>
-		        	<a href="<?= base_url() ?>profile/driver/<?= $data['driver']->id ?>/"><?= $data['lang']['profile'] ?></a>
+		        	<a href="<?= base_url() ?>profile/user/<?= $data['user']->id ?>/"><?= $data['lang']['profile'] ?></a>
 		        </li>
 		        <li>
 		        	<a href="<?= base_url() ?>inbox/"><?= $data['lang']['inbox'] ?> <?= ($data['unchecked'] != 0) ? "(" . convert_number($data['unchecked'] . "") . ")" : NULL;  ?></a>

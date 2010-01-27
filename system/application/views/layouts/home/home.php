@@ -86,7 +86,7 @@
 				</div>
 				<?php
 					$this->load->module('login');
-					$this->login->method(array("driver" => $driver, "lang" => $lang));
+					$this->login->method(array("user" => $user, "lang" => $lang));
 				?>
 			</div>
 

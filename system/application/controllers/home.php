@@ -1,32 +1,26 @@
 <?php
 
-class Home extends Controller {
+class Home extends MainController {
 
 	function Home()
 	{
-		parent::Controller();
-
-		$this->load->language('titles', get_lang());
-		$this->load->language('labels', get_lang());
-		$this->load->language('errors', get_lang());
+		parent::MainController();
 	}
 	
 	function index()
 	{
-	    $driver = $this->drivers_model->is_driver();
+	    $user = $this->user_model->is_authenticated();
 
-	    $data['title']		= $this->lang->language['home_title'];
+	    $data['title']  = $this->lang->language['home_title'];
 
-		$data['header']		= '';
+            $data['header'] = '';
 
-	    $data['lang']		= $this->lang->language;
+	    $data['lang']  = $this->lang->language;
+	
+            $data['user'] = $user;
 
-	    $data['driver'] = $driver;
+            $data['body'] = '';
 
-		$data['top_drivers']	= Drivers_model::get_top_drivers(0, 3, $filter);
-		$data['top_cars']		= Drivers_model::get_top_renault(0, 6);
-		$data['body']		= '';
-
-		$this->load->view('layouts/home/home.php', $data);
+            $this->load->view('layouts/home/home.php', $data);
 	}
 }

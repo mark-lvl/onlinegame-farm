@@ -1,28 +1,24 @@
 <?php
 
-class Design extends Controller {
+class Design extends MainController {
 
 	function Design()
 	{
-		parent::Controller();
-
-		$this->load->language('titles', get_lang());
-		$this->load->language('labels', get_lang());
-		$this->load->language('errors', get_lang());
+		parent::MainController();
 	}
 	
 	function index($reason = "")
 	{
-	    $data['driver'] = $this->drivers_model->is_driver();
+	    $data['user'] = $this->user_model->is_authenticated();
 	    
-	    if(!$data['driver']) {
+	    if(!$data['user']) {
   			header("Location: " . base_url());
 		    die();
 	    }
 
 	    $data['title']		= $this->lang->language['design_title'];
 
-		$data['header']		= '<link href="' . base_url() . 'system/application/views/layouts/style/design/style.css" rel="stylesheet" type="text/css" />';
+	    $data['header']		= '<link href="' . base_url() . 'system/application/views/layouts/style/design/style.css" rel="stylesheet" type="text/css" />';
 		
 	    $data['lang']		= $this->lang->language;
 	    

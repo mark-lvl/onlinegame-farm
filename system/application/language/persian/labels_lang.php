@@ -176,7 +176,14 @@
 	$lang['add_requestbody']= "در صورت تمایل,
 	<a href='" . base_url() . "gateway/accept_friend/XXX/'>
 	تایید کن!
-	</a>";
+	</a>
+        در غیر اینصورت
+        <a href='" . base_url() . "gateway/ignore_friend/XXX'>
+        نادیده بگیر
+        </a>
+        ";
+        $lang['ignore_request'] = "رد تقاضای دوستی از طرف  __SUGGESTNAME__";
+        $lang['ignore_requestbody']  = "تقاضای دوستی شما از طرف __SUGGESTNAME__ رد شد";
 	$lang['delete_all']     = "پاک کردن همه";
 	
 	/*
@@ -192,6 +199,7 @@
 	$lang['score']			= "امتیاز";
 	$lang['delete_friend']	= "حذف از دوستان";
 	$lang['are_friends']	= "دوست هستید";
+	$lang['block_friend']	= "بلاک شده اید";
 	$lang['you_are']		= "خود تو!";
 	$lang['all_friends']	= "همه دوستان";
 	
@@ -373,6 +381,9 @@
 	صفحه ی ثبت نام
 	</a>
 	";
+
+        $lang['m_title18']      = "یه خطایی رخ داد!";
+	$lang['m_body18']	= "کاربر درخواست خود را پس گرفته و نمیتوانید تایید کنید";
 
 	/*
 	    Contact

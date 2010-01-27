@@ -1,14 +1,10 @@
 <?php
 
-class Registration extends Controller {
+class Registration extends MainController {
 
 	function Registration()
 	{
-		parent::Controller();
-
-		$this->load->language('titles', get_lang());
-		$this->load->language('labels', get_lang());
-		$this->load->language('errors', get_lang());
+		parent::MainController();
 		
 		$this->load->helper('captcha');
 	}
@@ -17,8 +13,9 @@ class Registration extends Controller {
 	{
 	    $data['title']		= $this->lang->language['registration_title'];
 
-		$data['header']		= '<script type="text/javascript" src="' . base_url() . 'system/application/views/scripts/jquery.hints.js"></script>';
-		$data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/registration/style.css" rel="stylesheet" type="text/css" />';
+            $data['header']		= '<script type="text/javascript" src="' . base_url() . 'system/application/views/scripts/jquery.hints.js"></script>';
+
+            $data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/registration/style.css" rel="stylesheet" type="text/css" />';
 		
 	    $data['lang']		= $this->lang->language;
 	    
@@ -26,16 +23,15 @@ class Registration extends Controller {
 	    
 	    $data['body']		= $this->load->view('layouts/controllers_body/registration.php', $data, TRUE);
 	    
-		$this->load->view('layouts/inside/inside.php', $data);
+            $this->load->view('layouts/inside/inside.php', $data);
 	}
 	
 	function register() {
-		if(!isset($_POST['ok'])) { //No direct access
-		    header("Location: " . base_url() . "registration/");
-		    die();
-		}
-		
+		if(!isset($_POST['ok']))
+                    redirect('registration/');
+
 		$_SESSION['rgkeep'] = $_POST;
+                
 		
 		if(!preg_match_all("([\\w-+]+(?:\\.[\\w-+]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7})", $_POST['email'], $tmp)) {
 		    header("Location: " . base_url() . "registration/index/email/");
@@ -72,16 +68,13 @@ class Registration extends Controller {
 		    die();
 		}
 		
-		if(!$this->drivers_model->is_email_unique(trim($_POST['email'], " "))) { //email already registered
+		if(!$this->user_model->is_email_unique(trim($_POST['email'], " "))) { //email already registered
 		    header("Location: " . base_url() . "registration/index/email_repeated/");
 		    die();
 		}
 
-		$user = new Driver($_POST);
+		$user = new User_entity($_POST);
 
-        if(isset($_POST['car_tt']) && trim($_POST['car_tt'], " ") != "") {
-            $user->car_t = $_POST['car_tt'];
-        }
 
 		if(isset($_FILES['photo']) && is_array($_FILES['photo']) && (strtolower(substr(basename($_FILES['photo']['name']), -4)) == ".jpg" || strtolower(substr(basename($_FILES['photo']['name']), -4)) == ".jpeg")) { //Set the address
 			$uploaddir = $this->config->item('upload_url');
@@ -98,10 +91,10 @@ class Registration extends Controller {
 			$user->photo = "";
 		}
 		
-		$dr = $this->drivers_model->register_user($user);
+		$dr = $this->user_model->register_user($user);
 		if($dr) {
 			$lang = $this->lang->language;
-			Drivers_model::send_message(1, $dr, $lang['welcome_title'], $lang['welcome_body']);
+			User_model::send_message(1, $dr, $lang['welcome_title'], $lang['welcome_body']);
 			$_SESSION['rgkeep'] = "";
 			session_destroy();
 		    header("Location: " . base_url() . "message/index/1/");

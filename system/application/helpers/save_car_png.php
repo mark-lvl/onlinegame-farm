@@ -19,6 +19,6 @@
 
     imagepng($image, "../views/layouts/images/cars/" . md5($_POST['user_id']) . ".png");
 
-    header("Location: http://192.168.1.3/renault/gateway/set_drivers_car/" . $_POST['user_id']);
+    header("Location: http://yammy/gateway/set_drivers_car/" . $_POST['user_id']);
     die();
 ?>

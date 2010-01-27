@@ -1,6 +1,6 @@
 <?php
 	$this->load->module('profile_information');
-	$this->profile_information->method(array("friends" => $friends, "rank" => $drivers_rank, "driver_profile" => $driver_profile, "driver" => $driver, "lang" => $lang));
+	$this->profile_information->method(array("friends" => $friends, "rank" => $users_rank, "user_profile" => $user_profile, "user" => $user, "lang" => $lang));
 ?>
 <div class="middle_box">
 	<div class="edition_list">
@@ -11,7 +11,7 @@
 			        	* <?= $lang['name'] ?>:
 			        </td>
 			        <td>
-			        	<input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= $driver->first_name ?>" name="first_name" id="first_name" />
+			        	<input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= $user->first_name ?>" name="first_name" id="first_name" />
 			        </td>
 			    </tr>
 			    <tr>
@@ -19,7 +19,7 @@
 			        	* <?= $lang['last_name'] ?>:
 			        </td>
 			        <td>
-			        	<input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= $driver->last_name ?>" name="last_name" id="last_name" />
+			        	<input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= $user->last_name ?>" name="last_name" id="last_name" />
 			        </td>
 			    </tr>
 			    <tr>
@@ -30,11 +30,11 @@
 			        	<label for="sex1" id="sex">
 			            	<?= $lang['male'] ?>
 						</label>
-						<input type="radio" value="0" name="sex" id="sex1" <?= ($driver->sex == "1") ?  NULL : 'checked="checked"'; ?> />
+						<input type="radio" value="0" name="sex" id="sex1" <?= ($user->sex == "1") ?  NULL : 'checked="checked"'; ?> />
 						<label for="sex2" id="sex">
 							<?= $lang['female'] ?>
 						</label>
-						<input type="radio" value="1" name="sex" id="sex2"  <?= ($driver->sex == "0") ?  NULL : 'checked="checked"'; ?> />
+						<input type="radio" value="1" name="sex" id="sex2"  <?= ($user->sex == "0") ?  NULL : 'checked="checked"'; ?> />
 			        </td>
 			    </tr>
 			    <tr>
@@ -42,9 +42,9 @@
 						<?= $lang['birthdate'] ?>:
 			        </td>
 			        <td>
-						<input type="text" title="<?= $lang['day'] ?>" maxlength="2" style="width:25px; text-align:center;" value="<?= substr($driver->jd_birthdate2, 0, 2) ?>" name="day" id="day" />
-						<input type="text" title="<?= $lang['month'] ?>" maxlength="2" style="width:25px; text-align:center;" value="<?= substr($driver->jd_birthdate2, 3, 2) ?>" name="month" id="month" />
-						<input type="text" title="<?= $lang['year'] ?>" maxlength="2" style="width:25px; text-align:center;" value="<?= substr($driver->jd_birthdate2, 8, 2) ?>" name="year" id="year" />
+						<input type="text" title="<?= $lang['day'] ?>" maxlength="2" style="width:25px; text-align:center;" value="<?= substr($user->jd_birthdate2, 0, 2) ?>" name="day" id="day" />
+						<input type="text" title="<?= $lang['month'] ?>" maxlength="2" style="width:25px; text-align:center;" value="<?= substr($user->jd_birthdate2, 3, 2) ?>" name="month" id="month" />
+						<input type="text" title="<?= $lang['year'] ?>" maxlength="2" style="width:25px; text-align:center;" value="<?= substr($user->jd_birthdate2, 8, 2) ?>" name="year" id="year" />
 						<?= $lang['pre_year'] ?>
 			        </td>
 			    </tr>
@@ -53,7 +53,7 @@
 						* <?= $lang['email'] ?>:
 			        </td>
 			        <td>
-						<input type="text" value="<?= $driver->email ?>" maxlength="50" style="direction:ltr;" name="email" id="email" />
+						<input type="text" value="<?= $user->email ?>" maxlength="50" style="direction:ltr;" name="email" id="email" />
 			        </td>
 			    </tr>
 			    <tr>
@@ -65,49 +65,7 @@
 						<input type="file" value="" name="photo" id="photo" />
 			        </td>
 			    </tr>
-			    <tr>
-			        <td>
-						<?= $lang['have_car'] ?>
-			        </td>
-			        <td>
-			            <?php
-			                $cars = car_array();
-			            ?>
-			            <select name="car_t" id="car_t" style="width:100px;">
-			                <option value="">
-							خودرو ندارم
-							</option>
-							<?php
-							    $crx = FALSE;
-							    foreach($cars as $x => $k) {
-							    	$tmz = "";
-									if($driver->car_t == $k) {
-									    $crx = TRUE;
-									    $tmz = "selected='selected'";
-									}
-									else if($driver->car_t != "" && $k == "سایر" && !$crx) {
-										$tmz = "selected='selected'";
-									}
-							    ?>
-							    	<option value="<?= $k ?>" <?= $tmz ?>>
-							    		<?= $k ?>
-							    	</option>
-							    <?php
-							    }
-							?>
-			            </select>
-			        </td>
-			    </tr>
-			    <tr>
-			        <td>
-			            <span id="car_tttitle" style="<?= ($crx || $tmz == "") ?  "display:none;" : ""; ?>">
-							<?= $lang['car'] ?>:
-						</span>
-			        </td>
-			        <td>
-						<input type="text" value="<?= $driver->car_t ?>" maxlength="50" style="direction:rtl; <?= ($crx || $tmz == "") ?  "display:none;" : ""; ?>" name="car_tt" id="car_tt" />
-			        </td>
-			    </tr>
+			    
 			    <tr>
 			        <td>
 						<?= $lang['province'] ?>
@@ -120,7 +78,7 @@
 							<?php
 							    foreach($city as $x => $k) {
 							    	$tmz = "";
-									if($driver->city == $k) {
+									if($user->city == $k) {
 									    $tmz = "selected='selected'";
 									}
 							    ?>
@@ -181,7 +139,7 @@
 </div>
 <?php
 	$this->load->module('profile_left_boxes');
-	$this->profile_left_boxes->method(array("friends" => $friends, "driver_profile" => $driver_profile, "drivers_ranks" => $drivers_ranks, "driver" => $driver, "lang" => $lang));
+	$this->profile_left_boxes->method(array("friends" => $friends, "user_profile" => $user_profile, "users_ranks" => $users_ranks, "user" => $user, "lang" => $lang));
 ?>
 <br style="clear:both" />
 <br /><br />

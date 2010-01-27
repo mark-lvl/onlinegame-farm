@@ -3,12 +3,12 @@
 	{	
 		function method($data)
 		{
-		    $driver_profile = $data['driver_profile'];
-		    $driver 		= $data['driver'];
-		    $lang 			= $data['lang'];
+		    $user_profile = $data['user_profile'];
+		    $user         = $data['user'];
+		    $lang 	  = $data['lang'];
 		    
-			include 'system/application/modules/profile_information/language/' . get_lang() . '_lang.php';
-			include 'system/application/modules/profile_information/views/profile_information.php';
+                    include 'system/application/modules/profile_information/language/' . get_lang() . '_lang.php';
+                    include 'system/application/modules/profile_information/views/profile_information.php';
 		}
 	}
 ?>

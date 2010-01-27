@@ -3,8 +3,8 @@
 	{	
 		function method($data)
 		{
-		    if($data['driver']) {
-		    	$data['messages'] = Drivers_model::get_messages($data['driver']);
+		    if($data['user']) {
+		    	$data['messages'] = User_model::get_messages($data['user']);
 				$data['unchecked'] = 0;
 				if(is_array($data['messages']) && count($data['messages']) > 0) {
 					foreach($data['messages'] as $x => $k) {

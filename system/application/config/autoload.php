@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('MY_cls', 'database', 'driver', 'race', 'checkpoint', 'question', 'alert');
+$autoload['libraries'] = array('MainController', 'database');
 
 
 /*
@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('drivers_model', 'races_model');
+$autoload['model'] = array('main_model', 'user_model', 'user_entity');
 
 
 
