@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('MainController', 'database');
+$autoload['libraries'] = array('MainController', 'database', 'datamapper');
 
 
 /*
