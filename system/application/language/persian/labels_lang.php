@@ -3,17 +3,7 @@
 	/*
 		Home
 	*/
-	$lang['best_alert']     = "یه مسیر رو انتخاب کن!";
-	$lang['home_desc']      = "رالی بزرگ رنو با جوایزی هیجان انگیز.
-	برای شرکت در قرعه کشی فقط کافیه توی رالی های رنو شرکت کنی و تا می تونی امتیاز بگیری! برای اطلاعات بیشتر به
-	<a href='" . base_url() . "prize/'>
-	صفحه ی جوایز
-	</a>
-	نگاهی بنداز!";
-	
-	$lang['renault_of']     = "رنوی";
 	$lang['laws'] 		    = "قوانین";
-	$lang['renault'] 	    = "سایت رنو";
 	$lang['contact'] 	    = "تماس با ما";
 	
 	/*
@@ -31,13 +21,11 @@
 	$lang['month']			= "ماه";
 	$lang['year']			= "سال";
 	$lang['email']			= "ایمیل";
-	$lang['have_car']		= "خودرو دارید؟";
-	$lang['car']			= "نوع خودرو";
 	$lang['yes']			= "بله";
 	$lang['no']				= "خیر";
 	$lang['password']		= "رمز";
 	$lang['photo']			= "عکس";
-	$lang['submit']			= "حرکت!";
+	$lang['submit']			= "ثبت";
 	$lang['province']		= "استان";
 	
 	$lang['key']			= "کلید";
@@ -77,7 +65,6 @@
 	$lang['m_title']		= "آقای";
 	$lang['f_title']		= "خانم";
 	$lang['register_date']	= "تاریخ عضویت";
-	$lang['rally_count']    = "تعداد رالی ها";
 	$lang['add_to_friend']  = "اضافه به دوستان";
 	$lang['report_abuse']	= "گزارش خلاف";
 	$lang['invitation']		= "دعوت دوستان";
@@ -89,16 +76,15 @@
 	$lang['message_nsent']	= "خطا در ارسال پیام! اول وارد سایت شو بعد پیام بده!";
 	$lang['new_messages']	= "پیام جدید داری!";
 	$lang['go_inbox']		= "صندوق پیامت رو ببین.";
-	$lang['join_newsletter']= "با عضویت در
-	<a href='" . base_url() . "gateway/newsletter/' target='_blank'>
-	خبرنامه ی رنو
-	</a>, صد امتیاز بگیر!";
-	$lang['next_objective1']= "به &#1778;&#1776;&#1776;&#1776; امتیاز برسی, قفل ردیف باز می شه!";
-	$lang['next_objective2']= "به &#1784;&#1776;&#1776;&#1776; امتیاز برسی تخت گاز باز می شه.";
-	$lang['next_objective3']= "&#1777;&#1781;&#1776;&#1776;&#1776; امتیاز بگیر و قفل مگان رو باز کن!";
-	$lang['next_objective100']= "همه ی قفل ها رو باز کردی! آفرین.";
-	
-	$lang['inbox']			= "پیام ها";
+
+        /*
+         * farm Farm
+         */
+
+        $lang['addFarm']        = "ثبت مزرعه";
+        $lang['addFarmName']        = "دوست داری اسن مزرعت چی باشه";
+
+        $lang['inbox']			= "پیام ها";
 	$lang['profile']        = "پروفایل";
 	$lang['logout']	        = "خروج";
 	$lang['kph']	        = "کیلومتر بر ساعت";
@@ -109,25 +95,6 @@
 	$lang['delete_vote']    = "رای قبلیت رو پاک کن";
 	$lang['redesign_car']   = "طراحی مجدد ماشین";
 	$lang['redesign_desc']  = "این یکی از بین می ره, ادامه؟";
-	
-	$lang['race_type']      = "نوع:";
-	$lang['votesx']			= "رای";
-	
-	$lang['type_11']        = "آزاد روکی";
-	$lang['type_12']        = "آزاد ردیف";
-	$lang['type_13']        = "آزاد تخت گاز";
-
-	$lang['type_21']        = "کوهستان روکی";
-	$lang['type_22']        = "کوهستان ردیف";
-	$lang['type_23']        = "کوهستان تخت گاز";
-
-	$lang['type_31']        = "جنگل روکی";
-	$lang['type_32']        = "جنگل ردیف";
-	$lang['type_33']        = "جنگل تخت گاز";
-
-	$lang['type_41']        = "صحرای روکی";
-	$lang['type_42']        = "صحرای ردیف";
-	$lang['type_43']        = "صحرای تخت گاز";
 	
 	$lang['no_rank']        = "هیچ مقام شایان ذکری نیست!";
 	

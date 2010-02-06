@@ -18,6 +18,8 @@ class MainController extends Controller {
         $this->load->language('titles', get_lang());
         $this->load->language('labels', get_lang());
         $this->load->language('errors', get_lang());
+
+	$this->load->helper('url');
     }
     
 

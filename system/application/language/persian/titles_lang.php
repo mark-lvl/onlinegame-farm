@@ -1,6 +1,6 @@
 <?php
 	$lang['registration_title']         = "ثبت نام";
-	$lang['profile_title']		        = "پروفایل راننده";
+	$lang['profile_title']		        = "پروفایل";
 	$lang['rally_title']		        = "رالی";
 	$lang['home_title']		    	    = "رنوی من ردیفه؟";
 	$lang['friends_title']		   	    = "دوستان";

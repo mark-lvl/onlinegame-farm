@@ -19,8 +19,6 @@ class Home extends MainController {
 	
             $data['user'] = $user;
             
-            $data['top_users'] = user_model::get_top_users(0, 3, $filter);;
-
             $data['body'] = '';
 
             $this->load->view('layouts/home/home.php', $data);
