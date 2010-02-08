@@ -10,8 +10,10 @@ class Farms extends MainController {
                                  'Type',
                                  'Typeresource',
                                  'Farmresource',
+				 'Farmaccessory',
                                  'Plant',
-                                 'Accessory'));
+                                 'Accessory',
+				 'Plantresource'));
     }
 
     function index($offset=0)
@@ -23,8 +25,8 @@ class Farms extends MainController {
         $farms = $farm->where('user_id',$userDetails->id)->where('disactive','0')->get();
         $this->output->enable_profiler(TRUE);
         //var_dump($userDetails);
-        var_dump($farms);
-        exit;
+        //var_dump($farms);
+        //exit;
 
         $this->load->view('farm/index', $data);
     }
@@ -34,14 +36,23 @@ class Farms extends MainController {
         $farm = new Farm();
             $userFarm = $farm->where('user_id',$user->id)->where('disactive','0')->get();
         if($userFarm->exists())
-                redirect('/');
+                redirect('farms/show');
         else
         {
-            $farm->name = $this->input->post('name');
-            $farm->user_id = $_SESSION['user']->id;
+            if($this->input->post('name'))
+	    {
+	    	$farm->name = $this->input->post('name');
+            	$farm->user_id = $_SESSION['user']->id;
 
-            if($farm->save())
-                redirect('/');
+            	if($farm->save())
+                	redirect('farms/show');
+	    }
+	    else
+	    {
+		$data['lang'] = $this->lang->language;
+
+		$this->load->view('farm/register',$data);
+	    }
         }
     }
 
@@ -64,7 +75,19 @@ class Farms extends MainController {
 		}
 
 		$pltModel = new Plant();
-		$userPlant = $pltModel->get_where(array('farm_id'=>$userFarm->id,'reap'=>0));
+		//$userPlant = $pltModel->get_where(array('farm_id'=>$userFarm->id,'reap'=>0));
+		$userPlant = $pltModel->plantSync($userFarm->id);
+		$farmAccModel = new Farmaccessory();
+		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
+	
+		$pltObj = $pltModel->get_where(array('id'=>$userPlant->id,'farm_id'=>$userFarm->id,'reap'=>0));
+		$typSrcMdl = new Typeresource();
+		$pltTypSrcs = $typSrcMdl->get_where(array('type_id'=>$pltObj->type_id))->all;
+		foreach($pltTypSrcs AS $pltTypSrc)
+		{
+			$srcHolder = $resource->get_by_id($pltTypSrc->resource_id);
+			$pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
+		}
 
 		$typeModel = new Type();
 		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
@@ -78,6 +101,8 @@ class Farms extends MainController {
 		$allTypes = $typeModel->get()->all;
 
 		$data['accessories'] = $accessories;
+		$data['plantSources'] = $pltTypSrcHolder;
+		$data['farmAcc'] = $usrFrmAcc;
 		$data['plant'] = $userPlant;
 		$data['farmResources'] = $resourceHolder;
 		$data['resources'] = $allResource;
@@ -101,8 +126,50 @@ class Farms extends MainController {
 
 	function addAccessoryToFarm($farm_id,$acc_id)
 	{
-		$accModel = new Accessory();
+		$accModel = new Farmaccessory();
 		$accModel->add($farm_id,$acc_id);
+	}
+
+	function addResourceToPlant($typeSrc_id,$plant_id)
+        {
+		//this section check for healthn of plant
+		$pltMdl = new Plant();
+		$pltObj = $pltMdl->get_by_id($plant_id);
+		if(!$pltObj->health)
+			return FALSE;
+
+                $pltScrMdl = new Plantresource();
+                $pltSrcObjs = $pltScrMdl->get_where(array('plant_id'=>$plant_id,
+                                                          'typeresource_id'=>$typeSrc_id))->all;
+
+                foreach($pltSrcObjs AS &$pltSrcObj)
+                        if($pltSrcObj->current)
+                                return FALSE;                   
+                        else
+                        {
+				$typSrcMdl = new Typeresource();
+				$typSrcObj = $typSrcMdl->get_by_id($typeSrc_id);
+				$frmSrcMdl = new Farmresource();
+				$frmSrcObj = $frmSrcMdl->get_where(array('resource_id'=>$typSrcObj->resource_id));
+				if($frmSrcObj->count > $typSrcObj->minNeed)
+				{
+					$frmSrcObj->count -= $typSrcObj->minNeed;
+					$pltSrcObj->current += $typSrcObj->minNeed;
+					
+					//let's go baby
+					$frmSrcObj->save();
+					$pltSrcObj->save();
+				}
+				else
+					return FALSE;
+				
+                        }
+        }
+
+	function reap($plant_id)
+	{
+		$pltMdl = new Plant();
+		$pltMdl->reap($plant_id);
 	}
 }
 ?>

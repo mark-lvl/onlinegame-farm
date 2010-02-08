@@ -7,11 +7,5 @@ class Accessory extends DataMapper {
         parent::__construct();
     }
 
-    	function add($farm_id,$acc_id)
-	{
-		$accModel = new Accessory();
-		
-	}
-
 }
 ?>
