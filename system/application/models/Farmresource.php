@@ -16,7 +16,7 @@ class Farmresource extends DataMapper {
 		
 		$farmModel = new Farm();
 		$farm = $farmModel->get_by_id($farm_id);
-		if($farm->money > $source->price)
+		if($farm->money >= $source->price)
 		{	
 			$farmResourceModel = new Farmresource();
 			$frObject = $farmResourceModel->where('farm_id',$farm->id)
@@ -41,7 +41,10 @@ class Farmresource extends DataMapper {
 			return TRUE;
 		}
 		else
-			return FALSE;
+			return array('return'=>'false',
+                                     'type'=>'money',
+                                     'params'=>array('money'=>$farm->money,
+                                                     'price'=>$source->price));
 		
 	}
 

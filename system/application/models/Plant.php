@@ -93,7 +93,7 @@ class Plant extends DataMapper {
                 return array_shift($plants);
         }
 
-
+        //TODO must remove this method
 	function getPlant($id,$data = null)
         {
                 $plantObj = new Plant();
@@ -153,26 +153,33 @@ class Plant extends DataMapper {
 
                 //if have a plant don't reap return false
 		if($pltModel->get_where(array('farm_id'=>$farm_id,'reap'=>0))->exists())
-			return FALSE;
+                        return array('return'=>'false',
+                                     'type'=>'public',
+                                     'params'=>array('message'=>'plantExists'));
 		else
 		{
 			$typeModel = new Type();
 			$frmScrModel = new Farmresource();
 			$typScrModel = new Typeresource();
 			$frmModel = new Farm();
+			$srcModel = new Resource();
 
 
                         $farmDetails = $frmModel->get_by_id($farm_id);
+                        $typeDetails = $typeModel->get_by_id($type_id);
 
 			//this section calculate number of section in farm
 			//multiple by plantType price and return total price
 			$totalPrice = $farmDetails->section * $typeDetails->price;
 
-			if($totalPrice > $farmDetails->money)
-				return FALSE;
+			if($totalPrice >= $farmDetails->money)
+				return array('return'=>'false',
+                                             'type'=>'money',
+                                             'params'=>array('money'=>$farmDetails->money,
+                                                             'price'=>$totalPrice));
 			else
 			{
-                                $typeDetails = $typeModel->get_by_id($type_id);
+                                
                                 $typeResources = $typScrModel->get_where(array('type_id'=>$type_id))->all;
 
                                 //check for min requirment resource for create this type of plant			
@@ -180,9 +187,16 @@ class Plant extends DataMapper {
                                 {
                                         $frmResources = $frmScrModel->get_where(array('farm_id'=>$farm_id,
                                                                                       'resource_id'=>$tr->resource_id));
-
+                                        //TODO add type name
                                         if($frmResources->count < $tr->minNeed)
-                                                return FALSE;
+                                        {
+                                                $srcDetails = $srcModel->get_by_id($tr->resource_id);
+                                                return array('return'=>'false',
+                                                             'type'=>'resource',
+                                                             'params'=>array('farm_resource'=>$frmResources->count,
+                                                                             'resource'=> $srcDetails->name,
+                                                                             'need'=>$tr->minNeed ));
+                                        }
                                 }
                                 
                                 reset($typeResources);

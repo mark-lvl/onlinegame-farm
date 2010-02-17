@@ -21,3 +21,18 @@
 	    Edit profile
 	*/
 	$lang['password_error']         = "رمزی که وارد کردی با رمز کنونی هماهنگ نبود یا رمز جدید با تکرارش یکی نبود!";
+
+
+        /*
+         *  FARM
+         */
+        $lang['public']['title'] = "کارت اشتباهه";
+
+        $lang['money']['title'] = "مقدار پول کافی نداری";
+        $lang['money']['body'] = "پول مورد نیاز : __PRICE__<br/>دارایی شما :  __MONEY__";
+        
+        $lang['resource']['title'] = "منابع مورد نیازو نداری";
+        $lang['resource']['body'] =  "میزان __RESOURCE__ مورد نیاز __NEED__ <br/>__RESOURCE__ موجود مزرعت __FARMRESOURCE__";
+        $lang['error']['plantExists'] = "مزرعت هنوز محصول درو نشده داره";
+        $lang['error']['plantDeath'] = "دیگه گیاهات موردن فایده نداره";
+        $lang['error']['plantResourceExists'] = "گیاهت از این منبع هنوز داره";
