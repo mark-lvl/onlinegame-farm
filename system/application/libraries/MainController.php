@@ -33,6 +33,7 @@ class MainController extends Controller {
         $this->data['title'] = 'Page Title';
         $this->data['lang'] = $this->lang->language;
 
+        $this->add_css('main');
         $this->loadJs('jquery');
 
         $this->controller_name = $this->router->fetch_directory() . $this->router->fetch_class();
@@ -69,6 +70,7 @@ class MainController extends Controller {
         
         $this->load->view("layouts/error/$template.tpl.php", $this->data);
     }
+    
 
     function refresh_page()
     {

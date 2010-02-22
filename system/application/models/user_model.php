@@ -7,9 +7,11 @@
 		}
 
 		function is_authenticated()
-                {//var_dump($_SESSION['user']);exit;
+                {
 		    if(!isset($_SESSION['user']))
-		        return FALSE;
+		        //TODO must be registration/login
+                        //redirect('registration/');
+                        return false;
                     else {
 		    	$user = new User_entity($_SESSION['user']);
 
@@ -27,6 +29,19 @@
                         }
 		    }
 		}
+
+                function has_farm($user_id)
+                {
+                    $sql = "SELECT id FROM `farms`
+                            WHERE user_id = $user_id
+                                AND disactive = 0";
+
+                    $result = $this->db->query($sql)->result_array();
+                        if(count($result) <= 0)
+                            return FALSE;
+                        else
+                            return TRUE;
+                }
 
 		function log_in($email, $pass) {
 		    $sql = "SELECT * FROM `users` WHERE email = " . $this->db->escape($email) . " AND password = " . $this->db->escape(md5($pass));

@@ -1,6 +1,11 @@
 <?php
 class Farms extends MainController {
 
+    //resource id's
+    const WATER_ID = 1;
+    const DUST_ID  = 2;
+    const MUCK_ID  = 3;
+
     public function __construct()
     {
         parent::__construct();
@@ -16,10 +21,12 @@ class Farms extends MainController {
 				 'Plantresource'));
         //load css files
         $this->add_css('jquery.countdown');
+        $this->add_css('farm');
 
         //load js files
         $this->loadJs('jquery.countdown/jquery.countdown.min');
         $this->loadJs('jquery.countdown/jquery.countdown-fa');
+        $this->loadJs('jquery.loading/jquery.loading');
     }
 
     function index($offset=0)
@@ -51,7 +58,23 @@ class Farms extends MainController {
             	$farm->user_id = $_SESSION['user']->id;
 
             	if($farm->save())
+		{
+			$farmId = $this->db->insert_id();
+		
+			$resource = array(self::WATER_ID => 10,
+					  self::DUST_ID => 10,
+					  self::MUCK_ID => 5);
+
+			foreach( $resource AS $res_id=>$count)
+			{
+				$frmSrcMdl = new Farmresource();
+				$frmSrcMdl->resource_id = $res_id;
+				$frmSrcMdl->count = $count;
+				$frmSrcMdl->farm_id = $farmId;
+				$frmSrcMdl->save();	
+			}
                 	redirect('farms/show');
+		}
 	    }
 	    else
 	    {
@@ -65,6 +88,12 @@ class Farms extends MainController {
 	function show()
 	{
 		$user = $this->user_model->is_authenticated();
+
+                if(!$this->user_model->has_farm($user->id))
+                        redirect('farms/register');
+
+                $this->add_css('popup');
+                $this->loadJs('popup');
 		
 		$farmModel = new Farm();
 		$userFarm = $farmModel->where('user_id',$user->id)->where('disactive','0')->get();
@@ -135,30 +164,40 @@ class Farms extends MainController {
                     $this->refresh_page();
 	}
 
-	function addAccessoryToFarm($farm_id,$acc_id)
+	function addAccessoryToFarm($farm_id = null,$acc_id = null)
 	{
 		$accModel = new Farmaccessory();
-		$accModel->add($farm_id,$acc_id);
+		$flag = $accModel->add($_POST['farm_id'],$_POST['accessory_id']);
+                if(is_array($flag))
+                    $this->error_reporter($flag['type'],$flag['params']);
+
+                $this->accessory_farm($_POST['farm_id'],true);
 	}
 
 	function addResourceToPlant($typeSrc_id = null, $plant_id = null)
         {
 		//this section check for healthn of plant
 		$pltMdl = new Plant();
+                
 		$pltObj = $pltMdl->get_by_id($_POST['plant_id']);
+
+                //first sync plant for add resoure to that
+                $pltMdl->plantSync($pltObj->farm_id);
+                
+                //exit;
 		if(!$pltObj->health)
                 {
                     $this->error_reporter('public',array('message'=>'plantDeath'));
                     return FALSE;
                 }
 
-                $pltScrMdl = new Plantresource();
+                $pltScrMdlHolder = new Plantresource();
                 $srcModel = new Resource();
-                $pltSrcObjs = $pltScrMdl->get_where(array('plant_id'=>$_POST['plant_id'],
+                $pltSrcObjsHolder = $pltScrMdlHolder->get_where(array('plant_id'=>$_POST['plant_id'],
                                                           'typeresource_id'=>$_POST['resource_id']))->all;
 
-                foreach($pltSrcObjs AS &$pltSrcObj)
-                        if($pltSrcObj->current)
+                foreach($pltSrcObjsHolder AS &$pltSrcObjHolder)
+                        if($pltSrcObjHolder->current)
                         {
                             $this->error_reporter('public',array('message'=>'plantResourceExists'));
                             return FALSE;
@@ -168,15 +207,17 @@ class Farms extends MainController {
 				$typSrcMdl = new Typeresource();
 				$typSrcObj = $typSrcMdl->get_by_id($_POST['resource_id']);
 				$frmSrcMdl = new Farmresource();
-				$frmSrcObj = $frmSrcMdl->get_where(array('resource_id'=>$typSrcObj->resource_id));
+				$frmSrcObj = $frmSrcMdl->get_where(array('resource_id'=>$typSrcObj->resource_id,'farm_id'=>$pltObj->farm_id));
 				if($frmSrcObj->count > $typSrcObj->minNeed)
 				{
 					$frmSrcObj->count -= $typSrcObj->minNeed;
-					$pltSrcObj->current += $typSrcObj->minNeed;
+					$pltSrcObjHolder->current += $typSrcObj->minNeed;
+                                        $pltScrMdlHolder->updated_field = 'modified_date';
 					
 					//let's go baby
 					$frmSrcObj->save();
-					$pltSrcObj->save();
+					$pltSrcObjHolder->save();
+                                        
 				}
 				else
                                 {
@@ -188,12 +229,14 @@ class Farms extends MainController {
                                 }
 				
                         }
+                        $this->refresh_page();
         }
 
 	function reap($plant_id)
 	{
 		$pltMdl = new Plant();
-		$pltMdl->reap($plant_id);
+		if($pltMdl->reap($plant_id))
+                     redirect('/farms/show');
 	}
 
 
@@ -215,6 +258,8 @@ class Farms extends MainController {
 			$resourceHolder[$resourceObject->name] = $sourceItem->count;
 		}
 
+	  if(is_null($resourceHolder))
+		$resourceHolder = array();
           $data['farmResources'] = $resourceHolder;
           if($output)
             $this->load->view('farms/addResourceToFarm',$data);
@@ -222,5 +267,65 @@ class Farms extends MainController {
             return $this->load->view('farms/addResourceToFarm',$data, TRUE);
 
 	}
+
+        /*
+         * this method return the resource of the specific farm by id
+         * params farm_id
+         * params output : determine the type of return object
+         * return : the view or the output string of view
+         */
+        function accessory_farm($farm_id = null,$output = null)
+	{
+          $frmAccModel = new Farmaccessory();
+          $accMdl = new Accessory();
+
+          $usrFrmAcc = $frmAccModel->get_where(array('farm_id'=>$farm_id))->all;
+		foreach($usrFrmAcc AS $accItem)
+		{
+			$accObject = $accMdl->get_by_id($accItem->resource_id);
+			$accHolder[$accObject->name] = $accItem->count;
+		}
+	
+	  if(is_null($accHolder))
+		$accHolder = array();
+          $data['farmAccessories'] = $accHolder;
+          if($output)
+            $this->load->view('farms/addAccessoryToFarm',$data);
+          else
+            return $this->load->view('farms/addAccessoryToFarm',$data, TRUE);
+
+	}
+
+        /*
+         * this function use for refresh farm money from ajax calling
+         * params int farm_id
+         * return int money
+         */
+        function moneyCalc()
+        {
+            $farmModel = new Farm();
+	    $userFarm = $farmModel->get_where(array('user_id'=>$_SESSION['user']->id,
+                                                    'disactive'=>'0'));
+            echo $userFarm->money;
+        }
+
+//        function plantResourceCalc()
+//        {
+//            $pltModel = new Plant();
+//            $farmModel = new Farm();
+//	    $userFarm = $farmModel->where('user_id',$_SESSION['user']->id)->where('disactive','0')->get();
+//
+//            $pltObj = $pltModel->get_where(array('id'=>$_SESSION['user']->id,'farm_id'=>$userFarm->id,'reap'=>0));
+//            $typSrcMdl = new Typeresource();
+//            $pltTypSrcs = $typSrcMdl->get_where(array('type_id'=>$pltObj->type_id))->all;
+//            foreach($pltTypSrcs AS $pltTypSrc)
+//            {
+//                    $srcHolder = $resource->get_by_id($pltTypSrc->resource_id);
+//                    $pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
+//            }
+//            var_dump($userFarm->id);
+//            $this->data['plantSources'] = $pltTypSrcHolder;
+//            $this->load->view('farms/plantResource',$data, TRUE);
+//        }
 }
 ?>

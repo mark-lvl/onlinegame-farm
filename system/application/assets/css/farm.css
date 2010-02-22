@@ -1,0 +1,113 @@
+/* 
+    Document   : farm
+    Created on : Feb 20, 2010, 12:00:26 PM
+    Author     : mark
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#farmWrapper
+{
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#farm
+{
+    width: 500px;
+    display: block;
+    float: right;
+    height: 1000px;
+    border: solid thin gray;
+    padding: 10px;
+
+}
+
+#farmOwner
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#farmResource
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#health
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#plantResource
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#farmAccessories
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#accessories
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#resources
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#plantTypes
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#resourcePlant
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+h4
+{
+    text-align: center;
+    border-bottom: solid thin black;
+    margin-bottom: 15px;
+}

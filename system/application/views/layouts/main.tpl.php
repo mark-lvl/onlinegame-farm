@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="page">
+    <div id="wrapper">
 
         <div id="header">
             <?php //$this->load->view('partials/menu.tpl.php'); ?>
@@ -19,6 +19,7 @@
         <div id="content">
             <h2><?php echo $heading; ?></h2>
             <?php echo $content; ?>
+            <p style="clear: both"/>
         </div>
 
         <div id="footer">

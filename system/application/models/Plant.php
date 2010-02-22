@@ -254,12 +254,14 @@ class Plant extends DataMapper {
 			$cost += ((self::BONUS / 100) * $typObj->sell_cost);
 
 		$frmMdl = new Farm();
-		$frmObj = $frmMdl->get_by_id($pltObj->farm_id);
-		$frmObj->money += $cost;
-		if($frmObj->save())
+                
+		if($frmMdl->addMoneyToFarm($pltObj->farm_id, $cost))
 		{
 			$pltObj->reap = 1;
-			$pltObj->save();
+			if($pltObj->save())
+                            return TRUE;
+                        else
+                            return FALSE;
 		}	 
 	}
 

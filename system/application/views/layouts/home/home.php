@@ -14,7 +14,7 @@
 <link href="<?= base_url() ?>system/application/views/layouts/style/home.css" rel="stylesheet" type="text/css" />
 <link href="<?= base_url() ?>system/application/views/scripts/boxy/stylesheets/boxy.css" rel="stylesheet" type="text/css" />
 
-<script src="<?= base_url() ?>system/application/views/scripts/jquery-1.3.2.min.js"></script>
+<script src="<?= base_url() ?>system/application/assets/js/jquery.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>system/application/views/scripts/boxy/javascripts/jquery.boxy.js"></script>
 <script type="text/javascript" src="<?= base_url() ?>system/application/views/scripts/generals.js"></script>
 

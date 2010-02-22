@@ -31,8 +31,12 @@
         $lang['money']['title'] = "مقدار پول کافی نداری";
         $lang['money']['body'] = "پول مورد نیاز : __PRICE__<br/>دارایی شما :  __MONEY__";
         
+        $lang['level']['title'] = "level کافی رو نداری";
+        $lang['level']['body'] = "برای خرید __ACCESSORY__ باید در مرحله__NEEDLEVEL__ باشی ولی الان مرحله __LEVEL__ هستی";
+        
         $lang['resource']['title'] = "منابع مورد نیازو نداری";
         $lang['resource']['body'] =  "میزان __RESOURCE__ مورد نیاز __NEED__ <br/>__RESOURCE__ موجود مزرعت __FARMRESOURCE__";
         $lang['error']['plantExists'] = "مزرعت هنوز محصول درو نشده داره";
         $lang['error']['plantDeath'] = "دیگه گیاهات موردن فایده نداره";
         $lang['error']['plantResourceExists'] = "گیاهت از این منبع هنوز داره";
+        $lang['error']['farmAccessoryExists'] = "مزرعت از این داره";
