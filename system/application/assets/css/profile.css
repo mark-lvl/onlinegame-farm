@@ -1,0 +1,57 @@
+* { padding: 0; margin: 0; }
+
+body {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ font-size: 13px;
+ direction: rtl;
+}
+a{
+    text-decoration: none;
+}
+
+#profileWrapper {
+ margin: 0 auto;
+ width: 800px;
+}
+
+#content {
+ float: right;
+ color: #333;
+ background: #FFFFFF;
+ height: 350px;
+ width: 400px;
+ display: inline;
+}
+
+#header {
+ color: #333;
+ width: 800px;
+ float: left;
+ height: 75px;
+ background: #6B6659;
+}
+
+#footer {
+ width: 800px;
+ height: 25px;
+ clear: both;
+ color: #333;
+ background: #6B6659;
+}
+
+#leftcolumn {
+ color: #333;
+ background: #EBE3CD;
+ height: 350px;
+ width: 200px;
+ float: right;
+}
+
+#rightcolumn {
+ color: #333;
+ background: #EBE3CD;
+ height: 350px;
+ width: 200px;
+ float: right;
+}
+

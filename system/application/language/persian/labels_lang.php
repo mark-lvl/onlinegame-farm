@@ -163,7 +163,7 @@
 	/*
 	    Friends
 	*/
-	$lang['score']			= "امتیاز";
+	$lang['level_label']			= "مرحله";
 	$lang['delete_friend']	= "حذف از دوستان";
 	$lang['are_friends']	= "دوست هستید";
 	$lang['block_friend']	= "بلاک شده اید";

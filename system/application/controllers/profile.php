@@ -37,6 +37,7 @@ class Profile extends MainController {
 	    
 	    //TODO ghange that when layout is available.
             $this->data['title']        = $this->lang->language['profile_title'];
+            $this->data['heading']        = '';
 	    $this->data['user']         = $user;
             $this->data['user_profile'] = $user_profile;
 	    $this->data['user_profile']->is_related = User_model::is_related($user_profile, $user->id);
@@ -50,13 +51,15 @@ class Profile extends MainController {
                 //$data['mainFarm'] = $this->load->view('farm/show.php', $data, TRUE);
             }
             else
-                $this->data['mainFarm'] = $this->load->view('farms/register.php', $data, TRUE);
+                $this->data['mainFarm'] = $this->load->view('farms/register.php', $this->data, TRUE);
 
 
             if(User_model::is_related($user_profile, $user->id))
                 $this->data['user_profile']->is_blocked = true;
 
 	    $this->data['friends']     = User_model::get_friends($user_profile);
-	    $this->render();
+
+            $this->add_css('profile');
+	    $this->render('profile');
 	}
 }

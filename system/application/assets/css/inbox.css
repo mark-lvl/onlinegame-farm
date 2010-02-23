@@ -1,0 +1,100 @@
+.title {
+	background:url("../../images/inside/inbox/title.png") no-repeat top left;
+	height:47px;
+	width:131px;
+}
+
+.middle_box {
+	background:url("../../images/inside/inner_box_bk.jpg") no-repeat top right;
+	direction:rtl;
+	float:right;
+	height:391px;
+	margin:15px 20px 0px 0px;
+	_margin:15px 12px 0px 0px;
+	position:relative;
+	text-align:right;
+	width:493px;
+}
+
+.message_show {
+	height:180px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	width:493px;
+}
+
+.message_box {
+	background:url("../../images/inside/inbox/quote.png") no-repeat top right;
+	height:auto;
+	padding:10px 25px 10px 10px;
+	margin:40px;
+	width:403px;
+}
+
+.eo_message_box {
+	border-top:1px solid #a4a4a4;
+	color:#555;
+	display:none;
+	font-size:10px;
+	height:20px;
+	margin-top:15px;
+	text-align:left;
+	width:80%;
+	.width:100%;
+}
+
+.message_list {
+	height:190px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	margin-top:5px;
+	width:493px;
+}
+
+.message_spacer {
+	border-bottom:1px dotted #a4a4a4;
+	height:6px;
+	margin-bottom:5px;
+	width:493px;
+}
+
+.message {
+	border-bottom:1px solid #dadfe2;
+	height:15px;
+	margin-top:5px;
+	overflow:hidden;
+ 	padding:0px 10px 0px 10px;
+	text-align:right;
+	width:473px;
+}
+
+.message_sender {
+	float:right;
+	font-weight:normal;
+	overflow:hidden;
+	width:100px;
+}
+
+.message_title {
+	float:right;
+	font-weight:normal;
+	overflow:hidden;
+	width:273px;
+}
+
+.message_date {
+	float:right;
+	font-weight:normal;
+	overflow:hidden;
+	width:72px;
+}
+
+.message_delete, .message_delete2 {
+	background:url("../../images/inside/inbox/bin.png") no-repeat center right;
+	cursor:pointer;
+	float:right;
+	font-weight:normal;
+	height:12px;
+	overflow:hidden;
+	width:28px;
+}

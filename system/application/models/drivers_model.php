@@ -586,18 +586,20 @@
 		    return FALSE;
 		}
 		
-		function get_top_drivers($page = 0, $count = 6, $filter = "") {
+		function get_top_users($page = 0, $count = 6, $filter = "") {
 		    if($filter != "") {
 		    	$filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
 		    }
-		    $sql = "SELECT * FROM `users` " . $filter . " ORDER BY score DESC LIMIT " . $page * $count . ", " . $count;
+		    $sql = "SELECT * FROM `users` LEFT JOIN `farms`  
+                            ON users.id = farms.user_id ".
+                            $filter ."ORDER BY farms.level DESC LIMIT " . $page * $count . ", " . $count;
 		    $result = $this->db->query($sql);
 		    $result = $result->result_array();
 
 		    if(is_array($result) && count($result) > 0) {
 		        $ret = array();
 		        foreach($result as $x => $k) {
-		        	$ret[] = new Driver($k);
+		        	$ret[] = new User_entity($k);
 		        }
 		        return $ret;
 		    }
