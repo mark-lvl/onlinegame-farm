@@ -18,13 +18,22 @@
     width: 500px;
     display: block;
     float: right;
-    height: 1000px;
+    height: 1200px;
     border: solid thin gray;
     padding: 10px;
 
 }
 
 #farmOwner
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#farmHints
 {
     float: left;
     width: 200px;

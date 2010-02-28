@@ -5,6 +5,7 @@ class Message extends MainController {
 	function Message()
 	{
 		parent::MainController();
+                $this->add_css('home');
 	}
 	
 	function index($which = "")
@@ -14,20 +15,16 @@ class Message extends MainController {
 	        die();
 	    }
 	    
-	    $data['user'] = $this->user_model->is_authenticated();
+	    $this->data['user'] = $this->user_model->is_authenticated();
 
-	    $data['title']		= $this->lang->language['message_title'];
+	    $this->data['title'] = $this->lang->language['message_title'];
 
-            $data['header']		= '<link href="' . base_url() . 'system/application/views/layouts/style/message/style.css" rel="stylesheet" type="text/css" />';
+            $this->data['heading'] = '';
 
-	    $data['lang']		= $this->lang->language;
+            $this->data['m_title'] = $this->data['lang']['m_title' . $which];
 
-            $data['m_title'] = $data['lang']['m_title' . $which];
+            $this->data['m_body'] = $this->data['lang']['m_body' . $which];
 
-            $data['m_body'] = $data['lang']['m_body' . $which];
-
-	    $data['body']  = $this->load->view('layouts/controllers_body/message.php', $data, TRUE);
-
-		$this->load->view('layouts/inside/inside.php', $data);
+            $this->render('home');
 	}
 }

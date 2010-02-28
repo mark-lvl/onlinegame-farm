@@ -1,10 +1,10 @@
-.title {
+/*.title {
 	background:url("../../images/inside/inbox/title.png") no-repeat top left;
 	height:47px;
 	width:131px;
-}
+}*/
 
-.middle_box {
+/*.middle_box {
 	background:url("../../images/inside/inner_box_bk.jpg") no-repeat top right;
 	direction:rtl;
 	float:right;
@@ -14,7 +14,7 @@
 	position:relative;
 	text-align:right;
 	width:493px;
-}
+}*/
 
 .message_show {
 	height:180px;
@@ -24,7 +24,7 @@
 }
 
 .message_box {
-	background:url("../../images/inside/inbox/quote.png") no-repeat top right;
+	background:url("../images/inbox/quote.png") no-repeat top right;
 	height:auto;
 	padding:10px 25px 10px 10px;
 	margin:40px;
@@ -90,7 +90,7 @@
 }
 
 .message_delete, .message_delete2 {
-	background:url("../../images/inside/inbox/bin.png") no-repeat center right;
+	background:url("../images/inbox/bin.png") no-repeat center right;
 	cursor:pointer;
 	float:right;
 	font-weight:normal;

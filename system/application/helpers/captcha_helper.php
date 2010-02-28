@@ -16,7 +16,7 @@ if ( ! function_exists('load_captcha')) {
 		    if(array_search($rnd, $chosen_nums) === FALSE) {
 		    	$chosen_nums[] = $rnd;
 		    	$chosen_images[] = $images[$rnd];
-		    	$output .= "<img class='captcha_img' title='" . $i . "' src='" . base_url() . "system/application/views/layouts/images/inside/registration/captcha/" . $images[$rnd] . ".png' />" . $enclosure;
+		    	$output .= "<img class='captcha_img' title='" . $i . "' src='" . base_url() . "system/application/assets/images/registration/captcha/" . $images[$rnd] . ".png' />" . $enclosure;
 		    }
 		    else {
 		        $i--;

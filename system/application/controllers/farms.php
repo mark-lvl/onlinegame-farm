@@ -6,11 +6,16 @@ class Farms extends MainController {
     const DUST_ID  = 2;
     const MUCK_ID  = 3;
 
+    //have mission
+    const MISSION = FALSE;
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model(array('User',
                                  'Farm',
+				 'Mission',
+				 'Farmmission',
                                  'Resource',
                                  'Type',
                                  'Typeresource',
@@ -94,15 +99,96 @@ class Farms extends MainController {
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
-		
+
 		$farmModel = new Farm();
 		$userFarm = $farmModel->where('user_id',$user->id)->where('disactive','0')->get();
 
 		$resource = new Resource();
 
 		$pltModel = new Plant();
+
+		$userPlant = $pltModel->plantSync($userFarm->id);
+
+		$frmMisMdl = new Farmmission();
+		$frmMisObj = $frmMisMdl->get_where(array('farm_id'=>$userFarm->id, 'status'=>0));
+
+		$hints = array();
+		if(!$frmMisObj->exists())
+		{
+			$misMdl = new Mission();
+			$misObj = $misMdl->get_by_level($userFarm->level);
+			$hints[] = $misObj->description;
+		}
+
+		$farmAccModel = new Farmaccessory();
+		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
+
+		$pltObj = $pltModel->get_where(array('id'=>$userPlant->id,'farm_id'=>$userFarm->id,'reap'=>0));
+		$typSrcMdl = new Typeresource();
+		$pltTypSrcs = $typSrcMdl->get_where(array('type_id'=>$pltObj->type_id))->all;
+		foreach($pltTypSrcs AS $pltTypSrc)
+		{
+			$srcHolder = $resource->get_by_id($pltTypSrc->resource_id);
+			$pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
+		}
+
+		$typeModel = new Type();
+		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
+
+		$acsModel = new Accessory();
+		$accessories = $acsModel->get()->all;
+
+		$allResource = $resource->get()->all;
+
+		$typeModel = new Type();
+		$allTypes = $typeModel->get()->all;
+		foreach($allTypes AS &$typ)
+			$typ->capacity = $typ->weight * $userFarm->section;
+
+		$this->data['accessories'] = $accessories;
+		$this->data['plantSources'] = $pltTypSrcHolder;
+		$this->data['farmAcc'] = $usrFrmAcc;
+		$this->data['plant'] = $userPlant;
+		$this->data['farmResources'] = $this->resource_farm($userFarm->id);
+		$this->data['resources'] = $allResource;
+		$this->data['types'] = $allTypes;
+		$this->data['farm'] = $userFarm;
+		$this->data['hints'] = $hints;
+
+                $this->data['heading'] = '';
+                $this->data['title'] = 'FARM';
+
+		$this->render();
+	}
+
+
+	function view($id)
+	{
+		$user = $this->user_model->is_authenticated();
+
+                $this->add_css('popup');
+                $this->loadJs('popup');
+		
+		$farmModel = new Farm();
+		$userFarm = $farmModel->where('user_id',$id)->where('disactive','0')->get();
+
+		$resource = new Resource();
+
+		$pltModel = new Plant();
 		
 		$userPlant = $pltModel->plantSync($userFarm->id);
+
+		$frmMisMdl = new Farmmission();
+		$frmMisObj = $frmMisMdl->get_where(array('farm_id'=>$userFarm->id, 'status'=>0));
+		
+		$hints = array();
+		if(!$frmMisObj->exists())
+		{
+			$misMdl = new Mission();
+			$misObj = $misMdl->get_by_level($userFarm->level);
+			$hints[] = $misObj->description;
+		}
+
 		$farmAccModel = new Farmaccessory();
 		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
 	
@@ -125,6 +211,8 @@ class Farms extends MainController {
 
 		$typeModel = new Type();
 		$allTypes = $typeModel->get()->all;
+		foreach($allTypes AS &$typ)
+			$typ->capacity = $typ->weight * $userFarm->section;
 
 		$this->data['accessories'] = $accessories;
 		$this->data['plantSources'] = $pltTypSrcHolder;
@@ -134,6 +222,7 @@ class Farms extends MainController {
 		$this->data['resources'] = $allResource;
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
+		$this->data['hints'] = $hints;
 
                 $this->data['heading'] = '';
                 $this->data['title'] = 'FARM';
@@ -232,11 +321,14 @@ class Farms extends MainController {
                         $this->refresh_page();
         }
 
-	function reap($plant_id)
+	function reap($plant_id = null)
 	{
 		$pltMdl = new Plant();
-		if($pltMdl->reap($plant_id))
-                     redirect('/farms/show');
+		$flag = $pltMdl->reap($_POST['plant_id']);
+                if(is_array($flag))
+                    $this->error_reporter($flag['type'],$flag['params']);
+
+                //redirect('/farms/show');
 	}
 
 

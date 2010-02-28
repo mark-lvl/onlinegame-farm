@@ -2,7 +2,7 @@
 	$lang['registration_title']         = "ثبت نام";
 	$lang['profile_title']		        = "پروفایل";
 	$lang['rally_title']		        = "رالی";
-	$lang['home_title']		    	    = "رنوی من ردیفه؟";
+	$lang['home_title']		    	    = "صفحه اصلی";
 	$lang['friends_title']		   	    = "دوستان";
 	$lang['messages_title']		   	    = "پیام ها";
 	$lang['edit_title']			   	    = "تنظیمات";

@@ -12,7 +12,10 @@
 <body>
     <div id="profileWrapper">
          <div id="header">
-		<p>This is the Header</p>
+                <?php
+                                $this->load->module('login');
+                                $this->login->method(array("user" => $user, "lang" => $lang));
+                ?>
 	 </div>
          <div id="leftcolumn">
 
@@ -162,16 +165,16 @@
                                 foreach($friends as $x => $k) {
                                     ?>
                                     <div class="friends_photo" title="<?= $k->first_name ?>">
-                                        <a href="<?= base_url() ?>profile/driver/<?= ltrim($k->id, '0') ?>">
+                                        <a href="<?= base_url() ?>profile/user/<?= ltrim($k->id, '0') ?>">
                                                     <?php
                                                     if($k->photo != "") {
                                                     ?>
-                                                        <img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=30&nh=30&source=../views/layouts/images/drivers/<?= $k->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
+                                                        <img src="<?= $base_img ?>system/application/helpers/fa_image_helper.php?nw=30&nh=30&source=../views/layouts/images/drivers/<?= $k->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
                                                     <?php
                                                     }
                                                     else {
                                                     ?>
-                                                        <img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=30&nh=30&source=../views/layouts/images/drivers/default.jpg&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
+                                                        <img src="<?= $base_img ?>default.png" width="32px" height="32px" border="0"/>
                                                     <?php
                                                     }
                                                     ?>

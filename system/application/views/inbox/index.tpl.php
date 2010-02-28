@@ -1,5 +1,4 @@
-
-<div class="middle_box">
+<div>
 	<div class="message_list">
 		<div class="message" style="height:20px;">
 		    <div class="message_sender" style="font-weight:normal;">
@@ -58,10 +57,7 @@
 	    </div>
 	</div>
 </div>
-<?php
-	$this->load->module('profile_left_boxes');
-	$this->profile_left_boxes->method(array("friends" => $friends, "user_profile" => $user_profile, "users_ranks" => $users_ranks, "user" => $user, "lang" => $lang));
-?>
+
 <br style="clear:both" />
 <br /><br />
 

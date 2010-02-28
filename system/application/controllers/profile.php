@@ -6,6 +6,7 @@ class Profile extends MainController {
 	{
 		parent::MainController();
                 $this->load->model(array('Farm'));
+                $this->add_css('login');
 	}
 	
 	function index()
@@ -22,12 +23,15 @@ class Profile extends MainController {
 	    }
 
 	    $user = $this->user_model->is_authenticated();
-	    if($id != $user->id) {
+	    if($id != $user->id)
+            {
+                //this variable shows that this profile not for login user
+                $this->data['partner'] = true;
+                
 	    	$user_profile = $this->user_model->get_user_by_id($id); //Fetch the owner of profile's information
-		}
-		else {
-			$user_profile = $user;
-		}
+            }
+            else
+                $user_profile = $user;
 	    
 	    if(!$user_profile) {
 	        header("Location: " . base_url() . "message/index/12/");
@@ -43,11 +47,11 @@ class Profile extends MainController {
 	    $this->data['user_profile']->is_related = User_model::is_related($user_profile, $user->id);
             
             $farm = new Farm();
-            $userFarm = $farm->where('user_id',$user->id)->where('disactive','0')->get();
-            if($userFarm->exists())
+            $this->data['userFarm'] = $farm->where('user_id',$user->id)->where('disactive','0')->get();
+            if($this->data['userFarm']->exists())
             {
                 //TODO change that to view screenshot from village
-                $this->data['mainFarm'] = "You have a farm";
+                $this->data['farmSnapshot'] = true ;
                 //$data['mainFarm'] = $this->load->view('farm/show.php', $data, TRUE);
             }
             else

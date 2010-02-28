@@ -86,10 +86,6 @@
             FarmMoney:<span id="moneyHolder"><?= $farm->money ?></span>$
     </div>
 
-    <div id="farmHints">
-        <h4>Hints</h4>
-        <?= $hints[0] ?>
-    </div>
 
     <div id="health">
         <h4>Plant Health</h4>
@@ -195,53 +191,5 @@
         </span>
     </div>
     
-    <div id="accessories">
-        <h4>Accessories</h4>
-        
-        <?php
-        foreach($accessories AS $acc)
-                echo anchor("farms/addResourceToFarm/$farm->id/$acc->id",
-                            "$acc->name",
-                             array('onclick'=>"addAccessoryToFarm(".$farm->id.",".$acc->id.");return false;"))."<br/>";
-        ?>
-    </div>
     
-    <div id="resources">
-        <h4>Resources</h4>
-        <?php
-        foreach($resources AS $resource)
-                echo anchor("farms/addResourceToFarm/$farm->id/$resource->id",
-                            "$resource->name",
-                             array('onclick'=>"addResourceToFarm(".$farm->id.",".$resource->id.");return false;"))."<br/>";
-        ?>
-    </div>
-
-
-    <div id="plantTypes">
-        <h4>Add Plant to Farm</h4>
-        <?php
-        foreach($types AS $type)
-        {
-                echo anchor("farms/addPlantToFarm/$farm->id/$type->id",
-                            "$type->name",
-                             array('onclick'=>"addPlantToFarm(".$farm->id.",".$type->id.");return false;"))."<br/>";
-                
-                echo "<hr/><span style='font-size:11px'>".str_replace('__CAPACITY__',$type->capacity,$lang['plantCapacity'])."</span>";
-                
-        }
-                ?>
-    </div>
-
-    <div id="resourcePlant">
-	<h4>Add Resource to Plant</h4>
-        <?php
-        if(isset($plantSources))
-        foreach($plantSources AS $pltSrcName=>$pltSrcItem)
-        {
-                echo anchor("farms/addResourceToPlant/$pltSrcItem[0]/$pltSrcItem[1]",
-                            "$pltSrcName",
-                             array('onclick'=>"addResourceToPlant(".$pltSrcItem[0].",".$pltSrcItem[1].");return false;"))."<br/>";
-        }
-        ?>
-    </div>
 </div>

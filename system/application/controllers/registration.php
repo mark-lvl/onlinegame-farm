@@ -7,23 +7,20 @@ class Registration extends MainController {
 		parent::MainController();
 		
 		$this->load->helper('captcha');
+                $this->loadJs('generals');
+                $this->loadJs('jquery.hints');
+                $this->loadJs('boxy');
+                $this->add_css('boxy');
+                $this->add_css('home');
 	}
 	
 	function index($reason = "")
 	{
-	    $data['title']		= $this->lang->language['registration_title'];
-
-            $data['header']		= '<script type="text/javascript" src="' . base_url() . 'system/application/views/scripts/jquery.hints.js"></script>';
-
-            $data['header']		.= '<link href="' . base_url() . 'system/application/views/layouts/style/registration/style.css" rel="stylesheet" type="text/css" />';
-		
-	    $data['lang']		= $this->lang->language;
+	    $this->data['title'] = $this->lang->language['registration_title'];
+	    $this->data['heading'] = '';
+	    $this->data['reason'] = $reason;
 	    
-	    $data['reason']		= $reason;
-	    
-	    $data['body']		= $this->load->view('layouts/controllers_body/registration.php', $data, TRUE);
-	    
-            $this->load->view('layouts/inside/inside.php', $data);
+            $this->render('home');
 	}
 	
 	function register() {
@@ -33,20 +30,21 @@ class Registration extends MainController {
 		$_SESSION['rgkeep'] = $_POST;
                 
 		
-		if(!preg_match_all("([\\w-+]+(?:\\.[\\w-+]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7})", $_POST['email'], $tmp)) {
-		    header("Location: " . base_url() . "registration/index/email/");
-		    die();
-		}
-		if(trim($_POST['first_name'], " ") == "" || trim($_POST['last_name'], " ") == "" || trim($_POST['password'], " ") == "") {
-		    header("Location: " . base_url() . "registration/index/fill/");
-		    die();
-		}
-		if($_POST['day'] > 31 || $_POST['month'] > 12 || $_POST['month'] < 1 || $_POST['day'] < 1 || $_POST['year'] > 88 || $_POST['year'] < 1) {
-		    header("Location: " . base_url() . "registration/index/date/");
-		    die();
-		}
+		if(!preg_match_all("([\\w-+]+(?:\\.[\\w-+]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7})", $_POST['email'], $tmp)) 
+                    redirect('registration/index/email/');
+
+                if(trim($_POST['first_name'], " ") == "" || trim($_POST['last_name'], " ") == "" || trim($_POST['password'], " ") == "")
+                    redirect('registration/index/fill/');
 		
-		if($_SESSION['captcha'] != $_POST['captcha_val']) { //Captcha error
+//		if( $_POST['day'] > 31   ||
+//                    $_POST['month'] > 12 ||
+//                    $_POST['month'] < 1  ||
+//                    $_POST['day'] < 1    ||
+//                    $_POST['year'] > 88  ||
+//                    $_POST['year'] < 1)die('12');
+//                    redirect('registration/index/date/');
+		
+		if($_SESSION['captcha'] != $_POST['captcha_val']) { 
 		    if(!isset($_SESSION['reg_error'])) {
 				$_SESSION['reg_error'] = 1;
 			}

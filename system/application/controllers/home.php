@@ -5,22 +5,21 @@ class Home extends MainController {
 	function Home()
 	{
 		parent::MainController();
+                $this->loadJs('generals');
+                $this->add_css('home');
+                $this->add_css('login');
 	}
 	
 	function index()
 	{
 	    $user = $this->user_model->is_authenticated();
 
-	    $data['title']  = $this->lang->language['home_title'];
+	    $this->data['title']  = $this->lang->language['home_title'];
 
-            $data['header'] = '';
-
-	    $data['lang']  = $this->lang->language;
-	
-            $data['user'] = $user;
+            $this->data['heading'] = '';
             
-            $data['body'] = '';
+            $this->data['user'] = $user;
 
-            $this->load->view('layouts/home/home.php', $data);
+	    $this->render('home');
 	}
 }
