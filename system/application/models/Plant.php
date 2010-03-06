@@ -3,6 +3,7 @@ class Plant extends DataMapper {
 
 	var $local_time = TRUE;
         var $unix_timestamp = TRUE;
+	var $updated_field = 'modified_date';
 
 	//this cinst hold maximum time in sec for die plant
 	const DIE_DURATION = 7200;
@@ -12,7 +13,10 @@ class Plant extends DataMapper {
     	{
         	// model constructor
         	parent::__construct();
-		$this->load->model('Plantresource');
+		$this->load->model(array('Plantresource',
+					 'Type',
+					 'Typeresource',
+				         'Resource'));
     	}
 
 	function plantSync($id,$data = null)
@@ -66,21 +70,38 @@ class Plant extends DataMapper {
 								}
 								else
 								{
-									$healthDecHolder =  (int)(($srcLifeTimeHolder/self::DIE_DURATION)*100);
+                                                                        $healthDecHolder =  (int)(($srcLifeTimeHolder/self::DIE_DURATION)*100);
 								
 									if($healthDecHolder < 0)
 										$healthDecHolder *= -1;
-									$planthealthHolder = 100 - $healthDecHolder;
+									$plant->health -= $healthDecHolder;
 							
 									//this section check for health value decreased by another lack resource
-									if($plant->health > $planthealthHolder)
-										$plant->health = $planthealthHolder;
+									//if($plant->health > $planthealthHolder)
+										//$plant->health = $planthealthHolder;
 									if($plant->health < 0)
 										$plant->health = 0;
 									$plant->save();
 								}
 							$pltSrcObj->usedTime = 0;
 						}
+                                                //this elseif used for plants that being but havn't resources until now
+                                                elseif($pltSrcObj->create_date == $pltSrcObj->modified_date)
+                                                {
+                                                        $createDateHolder = $plant->modified_date - time();
+
+                                                        $healthDecHolder =  (int)abs((($createDateHolder/self::DIE_DURATION)*100));
+
+                                                        $plant->health -= $healthDecHolder;
+
+                                                        //this section check for health value decreased by another lack resource
+                                                        //if($plant->health > $planthealthHolder)
+                                                        //        $plant->health = $planthealthHolder;
+                                                        if($plant->health < 0)
+                                                                $plant->health = 0;
+                                                        $plant->save();
+                                                        $pltSrcObj->usedTime = 0;
+                                                }
 						else
 						{
 							$pltSrcObj->usedTime = $srcLifeTimeHolder;
@@ -90,7 +111,10 @@ class Plant extends DataMapper {
                                 }
                         }
                 }
-                return array_shift($plants);
+		$returnPlant = array_shift($plants);
+		$frmTrnMdl = new Farmtransaction();
+		$frmTrnMdl->getFarmTransaction($id, &$returnPlant);
+                return $returnPlant;
         }
 
         //TODO must remove this method
@@ -158,107 +182,115 @@ class Plant extends DataMapper {
                                      'params'=>array('message'=>'plantExists'));
 		else
 		{
-			$typeModel = new Type();
-			$frmScrModel = new Farmresource();
-			$typScrModel = new Typeresource();
 			$frmModel = new Farm();
-			$srcModel = new Resource();
-			$misModel = new Mission();
-			$frmMisModel = new Farmmission();
-
-
-                        $farmDetails = $frmModel->get_by_id($farm_id);
-                        $typeDetails = $typeModel->get_by_id($type_id);
-
-			//this section calculate number of section in farm
-			//multiple by plantType price and return total price
-			$totalPrice = $farmDetails->section * $typeDetails->price;
-
-			if($totalPrice >= $farmDetails->money)
-				return array('return'=>'false',
-                                             'type'=>'money',
-                                             'params'=>array('money'=>$farmDetails->money,
-                                                             'price'=>$totalPrice));
+			$farmPlowed = $frmModel->isPlow($farm_id);
+                        
+			if(is_array($farmPlowed))
+				return $farmPlowed;
 			else
 			{
-                                $misObj = $misModel->get_where(array('level'=>$farmDetails->level));
-                                $frmMisObj = $frmMisModel->get_where(array('mission_id'=>$misObj->id,
-                                                                           'farm_id'=>$farmDetails->id,
-                                                                           'status'=> 0 ));
-                                
-                                //this section check for this farm haven't same mission
-                                if(!$frmMisObj->exists())
-                                {
-                                        $typeResources = $typScrModel->get_where(array('type_id'=>$type_id))->all;
+                            $typeModel = new Type();
+                            $frmScrModel = new Farmresource();
+                            $typScrModel = new Typeresource();
+                            $srcModel = new Resource();
+                            $misModel = new Mission();
+                            $frmMisModel = new Farmmission();
 
-                                        //check for min requirment resource for create this type of plant
-                                        foreach($typeResources AS $tr)
-                                        {
-                                                $frmResources = $frmScrModel->get_where(array('farm_id'=>$farm_id,
-                                                                                              'resource_id'=>$tr->resource_id));
-                                                //TODO add type name
-                                                if($frmResources->count < $tr->minNeed)
-                                                {
-                                                        $srcDetails = $srcModel->get_by_id($tr->resource_id);
-                                                        return array('return'=>'false',
-                                                                     'type'=>'resource',
-                                                                     'params'=>array('farm_resource'=>$frmResources->count,
-                                                                                     'resource'=> $srcDetails->name,
-                                                                                     'need'=>$tr->minNeed ));
-                                                }
-                                        }
 
-                                        reset($typeResources);
-                                        //now if all resource is available used that resource.
-                                        foreach($typeResources AS $tr)
-                                        {
-                                                $frmResources = $frmScrModel->get_where(array('farm_id'=>$farm_id,
-                                                                                              'resource_id'=>$tr->resource_id));
-                                                $frmResources->count -= $tr->minNeed;
-                                                $frmResources->save();
-                                        }
+                            $farmDetails = $frmModel->get_by_id($farm_id);
+                            $typeDetails = $typeModel->get_by_id($type_id);
 
-                                        //for calculate money based on Farm->section,Type->weight,Type->price
-                                        $farmDetails->money = $farmDetails->money - ($farmDetails->section * $typeDetails->weight * $typeDetails->price);
-                                        $farmDetails->save();
+                            //this section calculate number of section in farm
+                            //multiple by plantType price and return total price
+                            $totalPrice = $farmDetails->section * $typeDetails->price;
 
-                                        //finaly save the plant
-                                        $pltModel->farm_id = $farm_id;
-                                        $pltModel->type_id = $type_id;
-                                        $pltModel->health  = 100;
-                                        $pltModel->growth  = 0;
+                            if($totalPrice >= $farmDetails->money)
+                                    return array('return'=>'false',
+                                                 'type'=>'money',
+                                                 'params'=>array('money'=>$farmDetails->money,
+                                                                 'price'=>$totalPrice));
+                            else
+                            {
+                                    $misObj = $misModel->get_where(array('level'=>$farmDetails->level));
+                                    $frmMisObj = $frmMisModel->get_where(array('mission_id'=>$misObj->id,
+                                                                               'farm_id'=>$farmDetails->id,
+                                                                               'status'=> 0 ));
 
-                                        //let's go baby!
-                                        $pltModel->save();
-                                        $lastPlantId = $this->db->insert_id();
+                                    //this section check for this farm haven't same mission
+                                    if(!$frmMisObj->exists())
+                                    {
+                                            $typeResources = $typScrModel->get_where(array('type_id'=>$type_id))->all;
 
-                                        //this part set resource for plant
-                                        reset($typeResources);
-                                        foreach($typeResources AS $tr)
-                                        {
-                                                $pltSrcModel = new Plantresource();
-                                                $pltSrcModel->plant_id = $lastPlantId;
-                                                $pltSrcModel->typeresource_id = $tr->id;
-                                                $pltSrcModel->current = $tr->minNeed;
-                                                $pltSrcModel->save();
-                                        }
+                                            //check for min requirment resource for create this type of plant
+                                            foreach($typeResources AS $tr)
+                                            {
+                                                    $frmResources = $frmScrModel->get_where(array('farm_id'=>$farm_id,
+                                                                                                  'resource_id'=>$tr->resource_id));
+                                                    //TODO add type name
+                                                    if($frmResources->count < $tr->minNeed)
+                                                    {
+                                                            $srcDetails = $srcModel->get_by_id($tr->resource_id);
+                                                            return array('return'=>'false',
+                                                                         'type'=>'resource',
+                                                                         'params'=>array('farm_resource'=>$frmResources->count,
+                                                                                         'resource'=> $srcDetails->name,
+                                                                                         'need'=>$tr->minNeed ));
+                                                    }
+                                            }
 
-                                        //this section set mission for farm
-                                        $frmMisModel->farm_id    = $farm_id;
-                                        $frmMisModel->mission_id = $misObj->id;
-                                        $frmMisModel->plant_id   = $lastPlantId;
-                                        $frmMisModel->save();
+                                            //reset($typeResources);
+                                            //now if all resource is available used that resource.
+                                            //foreach($typeResources AS $tr)
+                                            //{
+                                            //        $frmResources = $frmScrModel->get_where(array('farm_id'=>$farm_id,
+                                            //                                                      'resource_id'=>$tr->resource_id));
+                                            //        $frmResources->count -= $tr->minNeed;
+                                            //        $frmResources->save();
+                                            //}
 
-                                        return TRUE;
-                                }
-                                else
-                                {
-                                        return array('return'=>'false',
-                                                     'type'=>'public',
-                                                     'params'=>array('message'=>'missionExists'));
-                                }
-			}
-		}
+                                            //for calculate money based on Farm->section,Type->weight,Type->price
+                                            $farmDetails->money = $farmDetails->money - ($farmDetails->section * $typeDetails->weight * $typeDetails->price);
+                                            $farmDetails->save();
+
+                                            //finaly save the plant
+                                            $pltModel->farm_id = $farm_id;
+                                            $pltModel->type_id = $type_id;
+                                            $pltModel->health  = 100;
+                                            $pltModel->growth  = 0;
+
+                                            //let's go baby!
+                                            $pltModel->save();
+                                            $lastPlantId = $this->db->insert_id();
+
+                                            //this part set resource for plant
+                                            reset($typeResources);
+                                            foreach($typeResources AS $tr)
+                                            {
+                                                    $pltSrcModel = new Plantresource();
+                                                    $pltSrcModel->plant_id = $lastPlantId;
+                                                    $pltSrcModel->typeresource_id = $tr->id;
+                                                    //$pltSrcModel->current = $tr->minNeed;
+						    //$pltSrcModel->updated_field = null;
+                                                    $pltSrcModel->save();
+                                            }
+
+                                            //this section set mission for farm
+                                            $frmMisModel->farm_id    = $farm_id;
+                                            $frmMisModel->mission_id = $misObj->id;
+                                            $frmMisModel->plant_id   = $lastPlantId;
+                                            $frmMisModel->save();
+
+                                            return TRUE;
+                                    }
+                                    else
+                                    {
+                                            return array('return'=>'false',
+                                                         'type'=>'public',
+                                                         'params'=>array('message'=>'missionExists'));
+                                    }
+                            }
+                    }
+            }
 		
 	}
 
@@ -274,8 +306,8 @@ class Plant extends DataMapper {
 		$typMdl = new Type();
 		$typObj = $typMdl->get_by_id($pltObj->type_id);
 		
-		$growthChecker = ($pltObj->create_date + ($typObj * 3600)) - time();
-		if($growthChecker > 0)
+		$growthChecker = ($pltObj->create_date + ($typObj->growth_time * 3600)) - time();
+		if($growthChecker > 0 && $pltObj->health > 0)
 			return array('return'=>  'false',
                                                  'type'=>'public',
                                                  'params'=>array('message'=>'notReadyForReap'));
@@ -346,6 +378,9 @@ class Plant extends DataMapper {
                                 $frmObj->level++;
 
                             $return['params']['level'] = $frmObj->level;
+
+                            //reset plow for new level
+                            $frmObj->plow = 0;
 
                             if($frmObj->save())
                             {

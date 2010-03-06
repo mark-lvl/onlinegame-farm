@@ -37,6 +37,10 @@
         $lang['reapConfirm']['title'] = "گزارش مزرعت در این مرحله";
         $lang['reapConfirm']['body'] = "<table><tr><td>            گنجایش مزرعه</td><td>__FARMCAPACITY__ کیلوگرم __TYPENAME__</td></tr><tr><td>            سلامت محصولات</td><td>__HEALTH__ %</td></tr><tr><td>           وزن کل محصولات قابل برداشت</td><td>__AMOUNTPRODUCT__ کیلوگرم</td></tr><tr><td>وزن مورد نیاز یامی در این مرحله</td><td>__MISAMOUNT__ کیلوگرم</td></tr><tr><td>زمان مورد نظر یامی</td><td>__MISDEADLINE__</td></tr><tr><td>زمان درو</td><td>__REAPTIME__</td></tr><tr><td>میزان دریافتی از فروش محصولات</td><td>__TOTALCOST__</td></tr><tr><td>میزان دریافتی ویژه</td><td>__BONUS__</td></tr><tr><td>مرحله شما</td><td>__LEVEL__</td></tr></table>";
 
+        $lang['farmNotNeedSpray']['title'] = "سمپاشی انجام شد";
+        $lang['farmNotNeedSpray']['body'] = "<table><tr><td>حشره ی موذی</td><td>__ACCESSORY__</td></tr><tr><td>زمان تاثیر بر روی مزرعه</td><td>__AFFECTTIME__ ثانیه</td></tr><tr><td>میزان کاهش سلامت محصولات</td><td>__DECHEALTH__</td></tr></table>";
+
+
         $lang['resource']['title'] = "منابع مورد نیازو نداری";
         $lang['resource']['body'] =  "میزان __RESOURCE__ مورد نیاز __NEED__ <br/>__RESOURCE__ موجود مزرعت __FARMRESOURCE__";
         $lang['error']['plantExists'] = "مزرعت هنوز محصول درو نشده داره";
@@ -45,4 +49,7 @@
         $lang['error']['farmAccessoryExists'] = "مزرعت از این داره";
         $lang['error']['missionExists'] = "الان در حال انجام این ماموریت هستی";
         $lang['error']['notReadyForReap'] = "هنوز زمان درو گیاهات نرسیده";
+        $lang['error']['farmNotPlowed'] = "باید اول مزرعتو شخم بزنی";
+        $lang['error']['farmPlowedBefore'] = "مزرعت قبلا شخم زده شده";
+        $lang['error']['farmNotNeedSpray'] = "الان مزرعت نیازی به سم پاشی نداره";
 

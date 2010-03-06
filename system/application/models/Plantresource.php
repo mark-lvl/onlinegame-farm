@@ -3,6 +3,7 @@ class Plantresource extends DataMapper {
 
     var $local_time = TRUE;
     var $unix_timestamp = TRUE;
+    var $updated_field = 'modified_date';
 
     public function __construct()
     {

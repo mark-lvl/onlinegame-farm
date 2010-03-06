@@ -65,6 +65,27 @@
 
         ajax_request('#plantHolder', '/farms/reap', params)
     }
+    function plow(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
+
+        ajax_request('#farmPlow', '/farms/plow', params)
+    }
+    function spraying(farm)
+    {
+        var params = {};
+        params['farm'] = farm;
+
+        ajax_request('#farmSpraying', '/farmtransactions/spraying', params)
+    }
+    function sync(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
+
+        ajax_request('#healthHolder', '/farms/sync', params)
+    }
 
     
 </script>
@@ -72,7 +93,22 @@
     <div id="farm">
         <h4>Farm Plants</h4>
         PlantType:<?= $plant->typeName ?><br/>
-        FarmSection:<?= $farm->section ?>
+        FarmSection:<?= $farm->section ?><br/>
+        Plow:<span id="farmPlow"><?= $farm->plow ?></span><br/>
+
+        <?=
+        anchor("farms/plow/$farm->id",
+                            "Plow Farm",
+                             array('onclick'=>"plow(".$farm->id.");return false;"))."<br/>";
+        ?>
+
+        Sprying:<span id="farmSpraying"></span><br/>
+
+        <?=
+        anchor("farmtransactions/spraying",
+                            "Spraying Farm",
+                             array('onclick'=>"spraying(".$farm->id.");return false;"))."<br/>";
+        ?>
         
         <div id="plantHolder"></div>
         
@@ -91,13 +127,30 @@
         <?= $hints[0] ?>
     </div>
 
+    <div id="farmNotification">
+        <h4>Notifications</h4>
+        <?php
+        foreach($notifications AS $not)
+            echo $not->description;
+        ?>
+    </div>
+
     <div id="health">
         <h4>Plant Health</h4>
+        <span id="healthHolder">
         PlantHealth:<?= $plant->health ?>
-
-        <?php if($plant->growth > 0): ?>
+        <span>
+        <?=
+            anchor("farms/sync/$farm->id",
+                   "<img src=\"".$base_img."sync.png\" />",
+                   array('onclick'=>"sync(".$farm->id.");return false;"))."<br/>";
+        ?>
+            </span>
+        <?php if($plant->growth > 0 && $plant->health > 0): ?>
                 PlantGrowth:
+        
         <div id="plantGrowthHolder" class="healthcounter"></div>
+        
         <script>
             $(function () {
                 var growthTime = <?= $plant->growth; ?>;
@@ -113,6 +166,7 @@
                              array('onclick'=>"reap(".$plant->id.");return false;"))."<br/>";
               endif;
         ?>
+        </span>
     </div>
     
     <div id="farmResource">

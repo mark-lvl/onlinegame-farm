@@ -41,6 +41,14 @@
     padding: 10px;
     margin-bottom: 15px;
 }
+#farmNotification
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
 
 #farmResource
 {

@@ -3,8 +3,7 @@ class Farms extends MainController {
 
     //resource id's
     const WATER_ID = 1;
-    const DUST_ID  = 2;
-    const MUCK_ID  = 3;
+    const MUCK_ID  = 2;
 
     //have mission
     const MISSION = FALSE;
@@ -21,6 +20,7 @@ class Farms extends MainController {
                                  'Typeresource',
                                  'Farmresource',
 				 'Farmaccessory',
+				 'Farmtransaction',
                                  'Plant',
                                  'Accessory',
 				 'Plantresource'));
@@ -67,7 +67,6 @@ class Farms extends MainController {
 			$farmId = $this->db->insert_id();
 		
 			$resource = array(self::WATER_ID => 10,
-					  self::DUST_ID => 10,
 					  self::MUCK_ID => 5);
 
 			foreach( $resource AS $res_id=>$count)
@@ -108,6 +107,9 @@ class Farms extends MainController {
 		$pltModel = new Plant();
 
 		$userPlant = $pltModel->plantSync($userFarm->id);
+		
+		//this set disasters for farm in this level by random method
+		$this->disasters($userFarm->id);
 
 		$frmMisMdl = new Farmmission();
 		$frmMisObj = $frmMisMdl->get_where(array('farm_id'=>$userFarm->id, 'status'=>0));
@@ -131,17 +133,36 @@ class Farms extends MainController {
 			$srcHolder = $resource->get_by_id($pltTypSrc->resource_id);
 			$pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
 		}
+                
+                $acsModel = new Accessory();
+
+                $frmTrnMdl = new Farmtransaction();
+                
+                $frmTrnObjs = $frmTrnMdl->get_where(array('goal_farm'=>$userFarm->id,
+                                                          'flag'=>0))->all;
+                foreach($frmTrnObjs AS &$frmTrnObj)
+                {
+                       $accDetails = $acsModel->get_by_id($frmTrnObj->accessory_id);
+                       $frmTrnObj->description = $accDetails->description;
+                }
+
 
 		$typeModel = new Type();
 		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
 
-		$acsModel = new Accessory();
+		
 		$accessories = $acsModel->get()->all;
 
 		$allResource = $resource->get()->all;
 
-		$typeModel = new Type();
-		$allTypes = $typeModel->get()->all;
+
+                $typeModel = new Type();
+
+                if($misObj->type)
+        		$allTypes = $typeModel->get()->all;
+                else
+                        $allTypes = $typeModel->get_where(array('id'=>$misObj->type_id))->all;
+
 		foreach($allTypes AS &$typ)
 			$typ->capacity = $typ->weight * $userFarm->section;
 
@@ -154,6 +175,7 @@ class Farms extends MainController {
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
 		$this->data['hints'] = $hints;
+		$this->data['notifications'] = $frmTrnObjs;
 
                 $this->data['heading'] = '';
                 $this->data['title'] = 'FARM';
@@ -297,7 +319,7 @@ class Farms extends MainController {
 				$typSrcObj = $typSrcMdl->get_by_id($_POST['resource_id']);
 				$frmSrcMdl = new Farmresource();
 				$frmSrcObj = $frmSrcMdl->get_where(array('resource_id'=>$typSrcObj->resource_id,'farm_id'=>$pltObj->farm_id));
-				if($frmSrcObj->count > $typSrcObj->minNeed)
+				if($frmSrcObj->count >= $typSrcObj->minNeed)
 				{
 					$frmSrcObj->count -= $typSrcObj->minNeed;
 					$pltSrcObjHolder->current += $typSrcObj->minNeed;
@@ -329,6 +351,28 @@ class Farms extends MainController {
                     $this->error_reporter($flag['type'],$flag['params']);
 
                 //redirect('/farms/show');
+	}
+
+        function plow()
+	{
+          $frmModel = new Farm();
+
+          $flag = $frmModel->plow($_POST['farm_id']);
+          if(is_array($flag))
+              $this->error_reporter($flag['type'],$flag['params']);
+          else
+              echo '1';
+	}
+
+        function sync()
+	{
+          $pltMdl = new Plant();
+
+          $data['plant'] = $pltMdl->plantSync($_POST['farm_id']);
+          $data['base_img'] = $this->data['base_img'];
+
+          echo $this->load->view('farms/sync',$data,TRUE);
+          
 	}
 
 
@@ -400,6 +444,55 @@ class Farms extends MainController {
                                                     'disactive'=>'0'));
             echo $userFarm->money;
         }
+
+        function disasters($farm_id)
+        {
+                //this array hold accessory_id for disasters in each level
+                // level=>array(acc_ids)
+                $levelDisasters = array(
+                                        1=>array(),
+                                        2=>array('1')
+                                        );
+                $frmMdl = new Farm();
+                $frmObj = $frmMdl->get_by_id($farm_id);
+
+
+                $random = rand(1,10);
+                if($random > 8)
+                {
+                        $accMdl = new Accessory();
+                        $accObj = $accMdl->get_where(array('level'=>$frmObj->level));
+                        if($accObj->exists())
+                        {
+                                $counter = count($levelDisasters[$frmObj->level]);
+                                $acc_id = $levelDisasters[$frmObj->level][rand(0,$count-1)];
+
+                                $frmTrnMdl = new Farmtransaction();
+                                //check if this farm have this disacters onWay
+                                $frmTrnObj = $frmTrnMdl->get_where(array('offset_farm'=>0,
+                                                                         'goal_farm'=>$frmObj->id,
+                                                                         'accessory_id'=>$acc_id,
+                                                                         'type'=>4,
+                                                                         'flag'=>0));
+                                if(!$frmTrnObj->exists())
+                                {
+
+                                        $accMdl = new Accessory();
+                                        $lifeTime = $accMdl->get_by_id($acc_id)->life_time;
+                                        $frmTrnMdl->efficacy_date = (time() + ($lifeTime * 3600));
+                                        $frmTrnMdl->goal_farm = $farm_id;
+                                        $frmTrnMdl->accessory_id = $acc_id;
+                                        $frmTrnMdl->type = 4;
+                                        $frmTrnMdl->goal_farm = $farm_id;
+
+                                        $frmTrnMdl->save();
+                                }
+                        }
+                }
+
+
+        }
+
 
 //        function plantResourceCalc()
 //        {
