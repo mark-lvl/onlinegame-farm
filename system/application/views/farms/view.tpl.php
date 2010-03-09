@@ -25,7 +25,7 @@
 
     function moneyCalculate()
     {
-       ajax_request('#moneyHolder', '/farms/moneyCalc');
+       ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc');
     }
 
     function addResourceToFarm(farm_id , resource_id){
@@ -66,9 +66,32 @@
         ajax_request('#plantHolder', '/farms/reap', params)
     }
 
+    function addtransaction(goal_farm,off_farm,acc_id,type)
+    {
+	var params = {};
+	params['goal_farm'] = goal_farm;
+	params['off_farm'] = off_farm;
+	params['acc_id'] = acc_id;
+	params['type'] = type;
+	ajax_request('#viewerAccessoryHolder','<?= base_url() ?>farmtransactions/add',params)
+    }
+
     
 </script>
 <div id="farmWrapper">
+
+    <div id="farmAccessories">
+        <h4>Viewer Accessories</h4>
+        <span id="viewerAccessoryHolder"></span>
+        <?php
+        foreach ($viewerAccessories AS $fAcc)
+		echo anchor("farmtransactions/add/",
+                            "$fAcc->name : $fAcc->count ",
+                             array('onclick'=>"addtransaction($farm->id,$fAcc->farm_id,$fAcc->accessory_id,$fAcc->type);return false;"))."<br/>";
+        ?>
+    </div>
+
+
     <div id="farm">
         <h4>Farm Plants</h4>
         PlantType:<?= $plant->typeName ?><br/>

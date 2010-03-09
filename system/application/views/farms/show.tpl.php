@@ -23,6 +23,10 @@
         alert($(this).parent().attr('class')+' Expired');
     }
 
+    function reapTime() {
+        location.reload();
+    }
+
     function moneyCalculate()
     {
        ajax_request('#moneyHolder', '/farms/moneyCalc');
@@ -41,7 +45,7 @@
      	params['farm_id'] = farm_id;
 	params['accessory_id'] = accessory_id;
 
-        ajax_request('#farmAccessoryHolder', '/farms/addAccessoryToFarm', params)
+        ajax_request('#farmAccessoryHolder', '/farms/addAccessoryToFarm', params ,moneyCalculate)
     }
 
     function addPlantToFarm(farm_id , type_id){
@@ -86,7 +90,17 @@
 
         ajax_request('#healthHolder', '/farms/sync', params)
     }
+    function disasters(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
 
+        ajax_request('#test', '/farms/disasters', params)
+    }
+    $(document).ready(function() {
+        var timeHolder = <?= rand(50000, 500000); ?>;
+        var t=setTimeout('disasters(<?= $farm->id ?>)',timeHolder);
+    });
     
 </script>
 <div id="farmWrapper">
@@ -128,10 +142,10 @@
     </div>
 
     <div id="farmNotification">
-        <h4>Notifications</h4>
+        <h4>Notifications</h4><span id="test"></span>
         <?php
         foreach($notifications AS $not)
-            echo $not->description;
+            echo $not->details;
         ?>
     </div>
 
@@ -155,7 +169,7 @@
             $(function () {
                 var growthTime = <?= $plant->growth; ?>;
                 $('#plantGrowthHolder').countdown({until: growthTime,
-                                                   onExpiry: liftOff
+                                                   onExpiry: reapTime
                                                  });
             });
         </script>
@@ -243,7 +257,7 @@
         <?php
         foreach ($farmAcc AS $fAcc)
         {
-                echo "Name: ".$fAcc->name." Type:".$fAcc->type."<br/>";
+                echo "Name: ".$fAcc->name." Typ:".$fAcc->type." Cnt:".$fAcc->count."<br/>";
         }
         ?>
         </span>
@@ -254,8 +268,8 @@
         
         <?php
         foreach($accessories AS $acc)
-                echo anchor("farms/addResourceToFarm/$farm->id/$acc->id",
-                            "$acc->name",
+                echo anchor("farms/addAccessoryToFarm/$farm->id/$acc->id",
+                            "<img src=\"".$base_img."farm/accessory/".strtolower($acc->name).".png\" height=\"48px\" weidth=\"48px\" title=\"$acc->name\"/>",
                              array('onclick'=>"addAccessoryToFarm(".$farm->id.",".$acc->id.");return false;"))."<br/>";
         ?>
     </div>
