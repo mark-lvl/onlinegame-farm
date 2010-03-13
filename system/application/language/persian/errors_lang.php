@@ -31,6 +31,9 @@
         $lang['money']['title'] = "مقدار پول کافی نداری";
         $lang['money']['body'] = "پول مورد نیاز : __PRICE__<br/>دارایی شما :  __MONEY__";
         
+        $lang['accessory']['title'] = "برای کاشتن این گیاه باید این لوازمو داشته باشی";
+        $lang['accessory']['body'] = "";
+        
         $lang['level']['title'] = "level کافی رو نداری";
         $lang['level']['body'] = "برای خرید __ACCESSORY__ باید در مرحله__NEEDLEVEL__ باشی ولی الان مرحله __LEVEL__ هستی";
 
@@ -52,4 +55,10 @@
         $lang['error']['farmNotPlowed'] = "باید اول مزرعتو شخم بزنی";
         $lang['error']['farmPlowedBefore'] = "مزرعت قبلا شخم زده شده";
         $lang['error']['farmNotNeedSpray'] = "الان مزرعت نیازی به سم پاشی نداره";
+        $lang['error']['cantAttack'] = "به این مزرعه الان نمیتونی حمله کنی";
+        $lang['error']['cantAttackToLevelBelow3'] = "به مزرعه با مرحله ی کمتر از ۳ نمیتونی حمله کنی";
+        $lang['error']['cantAttackWithHavntAnti'] = "این مزرعه الان تو مر حله ای نیست که بتونی با این آیتم بهش حمله کنی";
+        $lang['error']['cantAttackBeacuseHavntPlant'] = "تو این مزرعه هنوز گیاهی داشته نشده که بخوای اذیتش کنی";
+        $lang['error']['cantAttackAttackAlreadyExists'] = "تو الان داری این مزرعرو اذیت میکنی نمیتونی تا قبلی تموم نشده دوباره اینکارو بکنی";
+        $lang['error']['cantAttackTwiceInADay'] = "در روز فقط یکبار به این مزرعه میتونی حمله کنی";
 

@@ -18,7 +18,7 @@
     width: 500px;
     display: block;
     float: right;
-    height: 1200px;
+    height: 2000px;
     border: solid thin gray;
     padding: 10px;
 
@@ -87,6 +87,15 @@
 }
 
 #accessories
+{
+    float: left;
+    width: 200px;
+    border: solid thin gray;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#equipments
 {
     float: left;
     width: 200px;

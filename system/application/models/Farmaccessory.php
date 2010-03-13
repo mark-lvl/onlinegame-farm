@@ -26,19 +26,59 @@ class Farmaccessory extends DataMapper {
                                                  ->where('accessory_id',$acc_id)
                                                  ->get();
 
-                        if($faObject->exists())
+			if(($accessory->type == 1 && $accessory->group == 1) ||
+			   ($accessory->type == 1 && $accessory->group == 2))
+			{
+                            if($faObject->exists())
+                            {
+                                $faObject->count++;
+                                $faObject->save();
+                            }
+                            else
+                            {
+                                $faObject->accessory_id = $acc_id;
+                                $faObject->farm_id = $farm->id;
+                                $faObject->count = 1;
+                                $faObject->save();
+                            }
+				
+			}
+                        elseif(($accessory->type == 2 && $accessory->group == 1)  ||
+                               ($accessory->type == 4 && $accessory->group == 10) ||
+                               ($accessory->type == 4 && $accessory->group == 11) ||
+                               ($accessory->type == 4 && $accessory->group == 20))
                         {
-                                $this->error_reporter('public',array('message'=>'farmAccessoryExists'));
-                                return FALSE;
+                                if($faObject->exists())
+                                {
+                                    return array('return'=>'false',
+                                     'type'=>'public',
+                                     'params'=>array('message'=>'farmAccessoryExists'));
+                                }
+                                else
+                                {
+                                    $faObject->accessory_id = $acc_id;
+                                    $faObject->farm_id = $farm->id;
+                                    $faObject->count = 1;
+                                    $faObject->save();
+                                }
                         }
-                        else
+                        elseif(($accessory->type == 2 && $accessory->group == 2))
                         {
+                            if($faObject->exists())
+                            {
+                                return array('return'=>'false',
+                                     'type'=>'public',
+                                     'params'=>array('message'=>'farmAccessoryExists'));
+                            }
+                            else
+                            {
                                 $faObject->accessory_id = $acc_id;
                                 $faObject->farm_id = $farm->id;
                                 $faObject->count = 1;
                                 if($accessory->type == 2)
                                         $faObject->expire_date =  strtotime("+$accessory->life_time hours");
                                 $faObject->save();
+                            }
                         }
 
                         $farm->money -= $accessory->price;
@@ -53,7 +93,6 @@ class Farmaccessory extends DataMapper {
                                                  'params'=>array('yourLevel'=>$farm->level,
                                                                  'accessory'=> $accessory->name,
                                                                  'needLevel'=>$accessory->level ));
-                        //return FALSE;
                     }
                 }
                 else

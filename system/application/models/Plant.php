@@ -195,6 +195,8 @@ class Plant extends DataMapper {
                             $srcModel = new Resource();
                             $misModel = new Mission();
                             $frmMisModel = new Farmmission();
+                            $frmAccModel = new Farmaccessory();
+                            $accModel = new Accessory();
 
 
                             $farmDetails = $frmModel->get_by_id($farm_id);
@@ -219,6 +221,31 @@ class Plant extends DataMapper {
                                     //this section check for this farm haven't same mission
                                     if(!$frmMisObj->exists())
                                     {
+                                            if($misObj->needed_accessory)
+                                            {
+                                                $neededAccessories = unserialize($misObj->needed_accessory);
+
+                                                $lackAccessory = array();
+                                                
+                                                foreach($neededAccessories AS $nedAcc)
+                                                {
+                                                        $frmAccObj = $frmAccModel->get_where(array('farm_id'=>$farmDetails->id,
+                                                                                                   'accessory_id'=>$nedAcc));
+
+                                                        if(!$frmAccObj->exists())
+                                                        {
+                                                                $accObj = $accModel->get_by_id($nedAcc);
+                                                                $lackAccessory[] = $accObj->name;
+                                                        }
+                                                }
+
+                                                if(count($lackAccessory))
+                                                {
+                                                    return array('return'=>'false',
+                                                                 'type'=>'accessory',
+                                                                 'params'=>array('accessories'=>$lackAccessory));
+                                                }
+                                            }
                                             $typeResources = $typScrModel->get_where(array('type_id'=>$type_id))->all;
 
                                             //check for min requirment resource for create this type of plant
@@ -300,6 +327,7 @@ class Plant extends DataMapper {
                 $pltFrmId = $pltObj->farm_id;
                 unset($pltObj);
 
+
                 //first sync plant for reap that
                 $pltObj = $this->plantSync($pltFrmId);
 		
@@ -365,8 +393,7 @@ class Plant extends DataMapper {
                                     $frmMisObj->status = 1;
                             else
                             {
-                                $frmMisObj->status = 1;
-                                $return = 'time';
+                                $frmMisObj->status = 2;
                             }
                             $return['params']['misAmount'] = $misObj->amount;
 

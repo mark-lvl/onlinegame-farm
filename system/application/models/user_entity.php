@@ -22,6 +22,8 @@ class User_entity extends Main_model
 	function User_entity($instant = FALSE)
 	{
 		if($instant) {
+		    if(is_string($instant)){
+		        $instant = unserialize($instant);}
                     parent::instant_maker($instant);
                     $this->set_initial_birthdate();
                     $this->set_jd_birthdate();

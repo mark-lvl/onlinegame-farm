@@ -29,7 +29,7 @@
 
     function moneyCalculate()
     {
-       ajax_request('#moneyHolder', '/farms/moneyCalc');
+       ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc');
     }
 
     function addResourceToFarm(farm_id , resource_id){
@@ -37,7 +37,7 @@
      	params['farm_id'] = farm_id;
 	params['resource_id'] = resource_id;
 
-        ajax_request('#farmResourceHolder', '/farms/addResourceToFarm', params ,moneyCalculate)
+        ajax_request('#farmResourceHolder', '<?= base_url() ?>farms/addResourceToFarm', params ,moneyCalculate)
     }
     
     function addAccessoryToFarm(farm_id , accessory_id){
@@ -45,7 +45,7 @@
      	params['farm_id'] = farm_id;
 	params['accessory_id'] = accessory_id;
 
-        ajax_request('#farmAccessoryHolder', '/farms/addAccessoryToFarm', params ,moneyCalculate)
+        ajax_request('#farmAccessoryHolder', '<?= base_url() ?>farms/addAccessoryToFarm', params ,moneyCalculate)
     }
 
     function addPlantToFarm(farm_id , type_id){
@@ -53,61 +53,70 @@
      	params['farm_id'] = farm_id;
 	params['type_id'] = type_id;
 
-        ajax_request('#plantHolder', '/farms/addPlantToFarm', params)
+        ajax_request('#plantHolder', '<?= base_url() ?>farms/addPlantToFarm', params)
     }
     function addResourceToPlant(resource_id , plant_id){
 	var params = {};
      	params['plant_id'] = plant_id;
 	params['resource_id'] = resource_id;
 
-        ajax_request('#plantHolder', '/farms/addResourceToPlant', params)
+        ajax_request('#plantHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
     }
     function reap(plant_id)
     {
         var params = {};
         params['plant_id'] = plant_id;
 
-        ajax_request('#plantHolder', '/farms/reap', params)
+        ajax_request('#plantHolder', '<?= base_url() ?>farms/reap', params)
     }
     function plow(farm_id)
     {
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('#farmPlow', '/farms/plow', params)
+        ajax_request('#farmPlow', '<?= base_url() ?>farms/plow', params)
     }
     function spraying(farm)
     {
         var params = {};
         params['farm'] = farm;
 
-        ajax_request('#farmSpraying', '/farmtransactions/spraying', params)
+        ajax_request('#farmSpraying', '<?= base_url() ?>farmtransactions/spraying', params)
     }
     function sync(farm_id)
     {
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('#healthHolder', '/farms/sync', params)
+        ajax_request('#healthHolder', '<?= base_url() ?>farms/sync', params)
     }
     function disasters(farm_id)
     {
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('#test', '/farms/disasters', params)
+        ajax_request('#test', '<?= base_url() ?>farms/disasters', params)
+    }
+    function useEquipment(equipment, farm_id)
+    {
+        var params = {};
+        params['equipment'] = equipment;
+        params['farm_id'] = farm_id;
+
+        ajax_request('#farmSection', '<?= base_url() ?>farms/useEquipment', params, moneyCalculate)
     }
     $(document).ready(function() {
         var timeHolder = <?= rand(50000, 500000); ?>;
         var t=setTimeout('disasters(<?= $farm->id ?>)',timeHolder);
     });
     
+    
 </script>
 <div id="farmWrapper">
     <div id="farm">
         <h4>Farm Plants</h4>
         PlantType:<?= $plant->typeName ?><br/>
-        FarmSection:<?= $farm->section ?><br/>
+        FarmSection:<span id="farmSection"><?= $farm->section ?></span><br/>
         Plow:<span id="farmPlow"><?= $farm->plow ?></span><br/>
 
         <?=
@@ -262,15 +271,26 @@
         ?>
         </span>
     </div>
-    
+
     <div id="accessories">
         <h4>Accessories</h4>
-        
+
         <?php
         foreach($accessories AS $acc)
                 echo anchor("farms/addAccessoryToFarm/$farm->id/$acc->id",
                             "<img src=\"".$base_img."farm/accessory/".strtolower($acc->name).".png\" height=\"48px\" weidth=\"48px\" title=\"$acc->name\"/>",
                              array('onclick'=>"addAccessoryToFarm(".$farm->id.",".$acc->id.");return false;"))."<br/>";
+        ?>
+    </div>
+    
+    <div id="equipments">
+        <h4>Equipments</h4>
+        
+        <?php
+        foreach($equipments AS $equipment)
+                echo anchor("farms/useEquipment/$equipment/$farm->id",
+                            "<img src=\"".$base_img."farm/equipment/".strtolower($equipment).".png\" height=\"48px\" weidth=\"48px\" title=\"$equipment\"/>",
+                             array('onclick'=>"useEquipment('$equipment',$farm->id);return false;"))."<br/>";
         ?>
     </div>
     

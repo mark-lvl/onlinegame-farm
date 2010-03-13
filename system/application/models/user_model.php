@@ -24,7 +24,7 @@
                             return FALSE;
                         else {
                             $user = new User_entity($result[0]);
-                            $_SESSION['user'] = $user;
+                            $_SESSION['user'] = serialize($user);
                             return $user;
                         }
 		    }
