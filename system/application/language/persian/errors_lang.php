@@ -43,11 +43,14 @@
         $lang['farmNotNeedSpray']['title'] = "سمپاشی انجام شد";
         $lang['farmNotNeedSpray']['body'] = "<table><tr><td>حشره ی موذی</td><td>__ACCESSORY__</td></tr><tr><td>زمان تاثیر بر روی مزرعه</td><td>__AFFECTTIME__ ثانیه</td></tr><tr><td>میزان کاهش سلامت محصولات</td><td>__DECHEALTH__</td></tr></table>";
 
+        $lang['gunDeffence']['title'] = "با تفنگ فرارشون دادی";
+        $lang['gunDeffence']['body'] = "<table><tr><td>مهاجم فراری داده</td><td>__ACCESSORY__</td></tr><tr><td>زمان تاثیر بر روی مزرعه</td><td>__AFFECTTIME__ ثانیه</td></tr><tr><td>میزان کاهش وزن محصولات</td><td>__DECWEIGHT__</td></tr></table>";
 
         $lang['resource']['title'] = "منابع مورد نیازو نداری";
         $lang['resource']['body'] =  "میزان __RESOURCE__ مورد نیاز __NEED__ <br/>__RESOURCE__ موجود مزرعت __FARMRESOURCE__";
         $lang['error']['plantExists'] = "مزرعت هنوز محصول درو نشده داره";
         $lang['error']['plantDeath'] = "دیگه گیاهات موردن فایده نداره";
+        $lang['error']['lackAccessory'] = "دیگه از این تجهیزات نداری";
         $lang['error']['plantResourceExists'] = "گیاهت از این منبع هنوز داره";
         $lang['error']['farmAccessoryExists'] = "مزرعت از این داره";
         $lang['error']['missionExists'] = "الان در حال انجام این ماموریت هستی";
@@ -55,6 +58,7 @@
         $lang['error']['farmNotPlowed'] = "باید اول مزرعتو شخم بزنی";
         $lang['error']['farmPlowedBefore'] = "مزرعت قبلا شخم زده شده";
         $lang['error']['farmNotNeedSpray'] = "الان مزرعت نیازی به سم پاشی نداره";
+        $lang['error']['farmNotNeedDeffence'] = "الان نیازی به دفاع از مزرعت نیست";
         $lang['error']['cantAttack'] = "به این مزرعه الان نمیتونی حمله کنی";
         $lang['error']['cantAttackToLevelBelow3'] = "به مزرعه با مرحله ی کمتر از ۳ نمیتونی حمله کنی";
         $lang['error']['cantAttackWithHavntAnti'] = "این مزرعه الان تو مر حله ای نیست که بتونی با این آیتم بهش حمله کنی";

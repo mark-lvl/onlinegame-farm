@@ -1,5 +1,6 @@
 
-PlantHealth:<?= $plant->health ?>
+PlantHealth:<?= $plant->health ?><br/>
+PlantWeight:<?= $plant->weight ?>
 <span>
 <?=
     anchor("farms/sync/$plant->farm_id",

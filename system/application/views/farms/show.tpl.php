@@ -105,6 +105,13 @@
 
         ajax_request('#farmSection', '<?= base_url() ?>farms/useEquipment', params, moneyCalculate)
     }
+    function deffenceWithGun(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
+
+        ajax_request('#farmSection', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
+    }
     $(document).ready(function() {
         var timeHolder = <?= rand(50000, 500000); ?>;
         var t=setTimeout('disasters(<?= $farm->id ?>)',timeHolder);
@@ -159,9 +166,10 @@
     </div>
 
     <div id="health">
-        <h4>Plant Health</h4>
+        <h4>Plant Details</h4>
         <span id="healthHolder">
-        PlantHealth:<?= $plant->health ?>
+        PlantHealth:<?= $plant->health ?><br/>
+        PlantWeight:<?= $plant->weight ?>
         <span>
         <?=
             anchor("farms/sync/$farm->id",
@@ -266,7 +274,12 @@
         <?php
         foreach ($farmAcc AS $fAcc)
         {
-                echo "Name: ".$fAcc->name." Typ:".$fAcc->type." Cnt:".$fAcc->count."<br/>";
+                if($fAcc->accessory_id == 5)
+                        echo anchor("farmstransactions/deffenceWithGun/$farm->id",
+                            "<img src=\"".$base_img."farm/accessory/".strtolower($fAcc->name).".png\" height=\"48px\" weidth=\"48px\" title=\"$fAcc->name\"/>",
+                             array('onclick'=>"deffenceWithGun(".$farm->id.");return false;"))."<br/>";
+                else
+                        echo "Name: ".$fAcc->name." Typ:".$fAcc->type." Cnt:".$fAcc->count."<br/>";
         }
         ?>
         </span>
@@ -314,7 +327,7 @@
                             "$type->name",
                              array('onclick'=>"addPlantToFarm(".$farm->id.",".$type->id.");return false;"))."<br/>";
                 
-                echo "<hr/><span style='font-size:11px'>".str_replace('__CAPACITY__',$type->capacity,$lang['plantCapacity'])."</span>";
+                echo "<hr/><span style='font-size:11px'>".str_replace(array('__CAPACITY__','__GROWTHTIME__'),array($type->capacity,$type->growth_time),$lang['plantCapacity'])."</span>";
                 
         }
                 ?>

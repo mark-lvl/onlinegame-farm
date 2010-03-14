@@ -6,6 +6,8 @@ class Farmtransaction extends DataMapper {
 	var $updated_field = 'modified_date';
 	var $sprayingPrice = 100;
 	var $accMdl;
+        const  GUNACCID = 5;
+        const  SCARECROWACCID = 7;
 
     	public function __construct()
     	{
@@ -127,6 +129,12 @@ class Farmtransaction extends DataMapper {
                                 case 2:
                                         $this->type_1_effect($goal, $frmObj, &$pltObj);
                                         break;
+                                case 4:
+                                        $this->type_4_effect($goal, $frmObj, &$pltObj);
+                                        break;
+                                case 6:
+                                        $this->type_4_effect($goal, $frmObj, &$pltObj);
+                                        break;
 			}
 		}
 	}
@@ -154,6 +162,30 @@ class Farmtransaction extends DataMapper {
                         if($decHolder > 1 || (time() > $transaction->efficacy_date))
                         $transaction->save();
                 }
+	}
+        
+	function type_4_effect($transaction, $farm, $plant)
+	{
+                $accessory = $this->accMdl->get_by_id($transaction->accessory_id);
+                $consumeTime = ($accessory->life_time * 3600) / $accessory->effect;
+                $effectTime = time() - $transaction->modified_date;
+                $decHolder = (int)($effectTime / $consumeTime);
+
+                $decHolder = $this->deffenceWithScarecrow($farm, $decHolder);
+
+                $plant->weight -= $decHolder;
+                if($plant->weight < 0)
+                        $plant->weight = 0;
+                $plant->updated_field = null;
+                $plant->save();
+
+                if(time() > $transaction->efficacy_date)
+                        $transaction->flag = 1;
+                else
+                        $transaction->flag = 0;
+
+                if($decHolder > 1 || (time() > $transaction->efficacy_date))
+                        $transaction->save();
 	}
 
         function autoSpraying($transaction, $farm)
@@ -231,5 +263,71 @@ class Farmtransaction extends DataMapper {
                         }
 		}
 	}
+
+	function deffenceWithGun($farm_id)
+	{
+                $pltMdl = new Plant();
+                $pltMdl->plantSync($farm_id);
+
+                $attack = $this->where(array('goal_farm' => $farm_id,
+                                                 'flag' => 0))
+                                //TODO this can be hold others accessory affect by spraying
+                                ->where_in('accessory_id', array(4,6))
+                                ->where_in('type', array(1))
+                                ->order_by('create_date', 'asc')->get();
+
+                if($attack->exists())
+                {
+                    $frmAccMdl = new Farmaccessory();
+                    $frmAccObj = $frmAccMdl->get_where(array('farm_id'=>$farm_id,'accessory_id'=>self::GUNACCID));
+                    if($frmAccObj->count > 0 )
+                    {
+                            $frmAccObj->count--;
+                            $frmAccObj->save();
+                            $attack->flag = 2;
+                            $attack->save();
+
+                            $accessory = $this->accMdl->get_by_id($attack->accessory_id);
+                            $consumeTime = ($accessory->life_time * 3600) / $accessory->effect;
+                            $effectTime = time() - $attack->create_date;
+                            $decHolder = (int)($effectTime / $consumeTime);
+
+                            $return['params']['affectTime'] = time() - $attack->create_date;
+
+                            $return['params']['decWeight'] = $decHolder;
+                            $return['params']['accessory'] = $accessory->name;
+                            $return['type'] = 'gun';
+                            $return['return'] = 'true';
+                            return $return;
+                    }
+                    else
+                            return array('return'=>'false',
+                                         'type'=>'public',
+                                         'params'=>array('message'=>'lackAccessory'));
+                }
+                else
+                {
+                    return array('return'=>'false',
+                                 'type'=>'public',
+                                 'params'=>array('message'=>'farmNotNeedDeffence'));
+                }
+	}
+
+        function deffenceWithScarecrow($farm, $decHolder)
+        {
+                $frmAccMdl = new Farmaccessory();
+                $frmAccObj = $frmAccMdl->get_where(array('farm_id'=>$farm->id,'accessory_id'=>self::SCARECROWACCID));
+                if($frmAccObj->expire_date > time())
+                {
+                        $frmAccObj->delete();
+                        return $decHolder;
+                }
+                else
+                {
+                        $accMdl = new Accessory();
+                        $accObj = $accMdl->get_by_id(self::SCARECROWACCID);
+                        return (($accObj->effect/100)*$decHolder);
+                }
+        }
 }
 ?>

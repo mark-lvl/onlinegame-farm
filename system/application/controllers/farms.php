@@ -516,6 +516,10 @@ class Farms extends MainController {
                 	}
         }
 
+        /*
+         * this function used for apply equipment such as rock breaker to farm
+         */
+
         function useEquipment()
         {
                 if($_POST['equipment'] && $_POST['farm_id'])
@@ -537,24 +541,5 @@ class Farms extends MainController {
         	}	    
         }
 
-
-//        function plantResourceCalc()
-//        {
-//            $pltModel = new Plant();
-//            $farmModel = new Farm();
-//	    $userFarm = $farmModel->where('user_id',$_SESSION['user']->id)->where('disactive','0')->get();
-//
-//            $pltObj = $pltModel->get_where(array('id'=>$_SESSION['user']->id,'farm_id'=>$userFarm->id,'reap'=>0));
-//            $typSrcMdl = new Typeresource();
-//            $pltTypSrcs = $typSrcMdl->get_where(array('type_id'=>$pltObj->type_id))->all;
-//            foreach($pltTypSrcs AS $pltTypSrc)
-//            {
-//                    $srcHolder = $resource->get_by_id($pltTypSrc->resource_id);
-//                    $pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
-//            }
-//            var_dump($userFarm->id);
-//            $this->data['plantSources'] = $pltTypSrcHolder;
-//            $this->load->view('farms/plantResource',$data, TRUE);
-//        }
 }
 ?>

@@ -35,7 +35,9 @@ class Plant extends DataMapper {
                 {
 			$typMdl = new Type();
 			$typObj = $typMdl->get_by_id($plant->type_id);
-			$plant->growth = ($plant->create_date + ($typObj->growth_time * 3600)) - time();
+                        $frmAccMdl = new Farmaccessory();
+                        $plant->growth = $frmAccMdl->getGrowthDecreaser($id, $plant->create_date, $typObj->growth_time);
+                        
 
                         $pltSrcMdl = new Plantresource();
                         $pltSrcObjs = $pltSrcMdl->get_where(array('plant_id'=>$plant->id))->all;
@@ -265,21 +267,13 @@ class Plant extends DataMapper {
                                                     }
                                             }
 
-                                            //reset($typeResources);
-                                            //now if all resource is available used that resource.
-                                            //foreach($typeResources AS $tr)
-                                            //{
-                                            //        $frmResources = $frmScrModel->get_where(array('farm_id'=>$farm_id,
-                                            //                                                      'resource_id'=>$tr->resource_id));
-                                            //        $frmResources->count -= $tr->minNeed;
-                                            //        $frmResources->save();
-                                            //}
 
                                             //for calculate money based on Farm->section,Type->weight,Type->price
                                             $farmDetails->money = $farmDetails->money - ($farmDetails->section * $typeDetails->weight * $typeDetails->price);
                                             $farmDetails->save();
 
                                             //finaly save the plant
+                                            $pltModel->weight = ($farmDetails->section * $typeDetails->weight);
                                             $pltModel->farm_id = $farm_id;
                                             $pltModel->type_id = $type_id;
                                             $pltModel->health  = 100;
@@ -333,8 +327,8 @@ class Plant extends DataMapper {
 		
 		$typMdl = new Type();
 		$typObj = $typMdl->get_by_id($pltObj->type_id);
-		
-		$growthChecker = ($pltObj->create_date + ($typObj->growth_time * 3600)) - time();
+		$frmAccMdl = new Farmaccessory();
+                $growthChecker = $frmAccMdl->getGrowthDecreaser($pltObj->farm_id, $pltObj->create_date, $typObj->growth_time);
 		if($growthChecker > 0 && $pltObj->health > 0)
 			return array('return'=>  'false',
                                                  'type'=>'public',
@@ -344,7 +338,8 @@ class Plant extends DataMapper {
                 $frmObj = $frmMdl->get_by_id($pltFrmId);
 
 
-                $farmCapacity = $typObj->weight * $frmObj->section;
+                //$farmCapacity = $typObj->weight * $frmObj->section;
+                $farmCapacity = $pltObj->weight;
                 $amountProduct = ($pltObj->health / 100) * $farmCapacity;
                 $return['params']['amountProduct'] = $amountProduct;
                 $return['params']['health'] = $pltObj->health;
@@ -355,7 +350,7 @@ class Plant extends DataMapper {
                 $return['params']['totalCost'] = $cost;
 
 		//add bonus payment for full health product
-                if($pltObj->health == 100)
+                if($pltObj->health == 100 && ($farmCapacity == $typObj->weight * $frmObj->section))
                 {
                         $bonus = (self::BONUS / 100) * $cost;
 			$cost += $bonus;

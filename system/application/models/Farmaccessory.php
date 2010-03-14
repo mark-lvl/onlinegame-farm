@@ -124,6 +124,21 @@ class Farmaccessory extends DataMapper {
 		return $farmAcc;
 	}
 
-    
+        function getGrowthDecreaser($farm_id, $plantCreateDate, $growthTime)
+        {
+                $farmAcc = $this->get_where(array('farm_id'=>$farm_id))->all;
+		$accModel = new Accessory();
+                $decHolder = 0;
+		foreach($farmAcc AS &$item)
+		{
+                        if($item->accessory_id == 40)
+                        {
+                                $accObject = $accModel->get_where(array('id'=>$item->accessory_id));
+                                $decHolder += (($accObject->effect/100) * $growthTime);
+                        }
+		}
+                $return = ($plantCreateDate + (($growthTime-$decHolder) * 3600)) - time();
+		return $return;
+        }
 }
 ?>

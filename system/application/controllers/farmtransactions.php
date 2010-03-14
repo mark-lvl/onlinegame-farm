@@ -17,6 +17,15 @@ class Farmtransactions extends MainController {
                         $this->error_reporter($flag['type'],$flag['params']);
         }
 
+        function deffenceWithGun()
+        {
+                $frmTrnMdl = new Farmtransaction();
+                $flag = $frmTrnMdl->deffenceWithGun($_POST['farm_id']);
+
+                if(is_array($flag))
+                        $this->error_reporter($flag['type'],$flag['params']);
+        }
+
 	function add()
 	{
 		$farmTrnMdl = new Farmtransaction();
