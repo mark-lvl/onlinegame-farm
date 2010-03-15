@@ -198,7 +198,12 @@
 		}
 		
 		function get_friends($user) {
-		    $sql = "SELECT * FROM `relations` A, `users` B WHERE (A.`inviter` = " . $this->db->escape($user->id) ." OR A.`guest` = " . $this->db->escape($user->id) . ") AND A.status = 1 AND B.id != " . $this->db->escape($user->id) ." AND (B.id = A.`inviter` OR B.id = A.`guest`) ORDER BY B.last_login_date DESC";
+                    if(is_object($user))
+                        $user_id = $user->id;
+                    else
+                        $user_id = $user;
+                    
+		    $sql = "SELECT * FROM `relations` A, `users` B WHERE (A.`inviter` = " . $this->db->escape($user_id) ." OR A.`guest` = " . $this->db->escape($user_id) . ") AND A.status = 1 AND B.id != " . $this->db->escape($user_id) ." AND (B.id = A.`inviter` OR B.id = A.`guest`) ORDER BY B.last_login_date DESC";
 		    $result = $this->db->query($sql);
 		    $result = $result->result_array();
 		    

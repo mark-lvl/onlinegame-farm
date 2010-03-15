@@ -170,6 +170,8 @@ class Farms extends MainController {
                 //control farm machine items
                 if($userFarm->level > 4 && $userFarm->section == 1 && !$userPlant->id)
                         $equipments[] = 'rockBreaker';
+                if($userFarm->level > 6 && $userFarm->section == 2 && !$userPlant->id)
+                        $equipments[] = 'waterpump';
 
 		$this->data['accessories'] = $accessories;
 		$this->data['plantSources'] = $pltTypSrcHolder;
@@ -533,6 +535,14 @@ class Farms extends MainController {
 					{
 						$frmObj->money -= 100;
 						$frmObj->section = 2;
+						$frmObj->save();
+					}
+					break;
+				case 'waterpump':
+					if($frmObj->level > 6 && $frmObj->section == 2)
+					{
+						$frmObj->money -= 200;
+						$frmObj->section = 3;
 						$frmObj->save();
 					}
 					break;

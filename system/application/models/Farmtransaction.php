@@ -8,15 +8,15 @@ class Farmtransaction extends DataMapper {
 	var $accMdl;
         const  GUNACCID = 5;
         const  SCARECROWACCID = 7;
+        const  DOGACCID = 8;
 
     	public function __construct()
     	{
         	// model constructor
         	parent::__construct();
-		$this->load->model(array('Accessory','Plant','Farmaccessory'));
+		$this->load->model(array('Accessory','Plant','Farmaccessory','User_model'));
 		$this->accMdl = new Accessory();
-                $this->load->language('labels', get_lang());
-                
+                $this->lang->load('labels', 'persian');
     	}
 
 	function add($off_farm,
@@ -172,6 +172,8 @@ class Farmtransaction extends DataMapper {
                 $decHolder = (int)($effectTime / $consumeTime);
 
                 $decHolder = $this->deffenceWithScarecrow($farm, $decHolder);
+                $dogFuncHolder = $this->deffenceWithDog($farm, $decHolder,&$transaction);
+                $decHolder = $dogFuncHolder['decHolder'];
 
                 $plant->weight -= $decHolder;
                 if($plant->weight < 0)
@@ -184,7 +186,7 @@ class Farmtransaction extends DataMapper {
                 else
                         $transaction->flag = 0;
 
-                if($decHolder > 1 || (time() > $transaction->efficacy_date))
+                if($decHolder > 1 || (time() > $transaction->efficacy_date) || $transaction->alert_flag)
                         $transaction->save();
 	}
 
@@ -327,6 +329,57 @@ class Farmtransaction extends DataMapper {
                         $accMdl = new Accessory();
                         $accObj = $accMdl->get_by_id(self::SCARECROWACCID);
                         return (($accObj->effect/100)*$decHolder);
+                }
+        }
+
+        function deffenceWithDog($farm, $decHolder, $transaction)
+        {
+                $frmAccMdl = new Farmaccessory();
+                $frmAccObj = $frmAccMdl->get_where(array('farm_id'=>$farm->id,'accessory_id'=>self::DOGACCID));
+                if($frmAccObj->exists())
+                    if($frmAccObj->expire_date < time())
+                    {
+                            $frmAccObj->delete();
+                            return $decHolder;
+                    }
+                    else
+                    {
+                            $accMdl = new Accessory();
+                            $accObj = $accMdl->get_by_id(self::DOGACCID);
+
+                            if($transaction->alert_flag == 0)
+                            {
+                                    $usrMdl = new User_model();
+                                    $friends = $usrMdl->get_friends($farm->user_id);
+
+                                    $friendNumber = count($friends);
+
+                                    if($friendNumber > 10)
+                                            for($i=0; $i < 10; $i++)
+                                                    $friendsList[] = $friends[rand(0, $friendNumber)];
+                                    else
+                                            $friendsList = $friends;
+
+
+
+                                    array_unique(&$friendsList);
+
+                                    foreach($friendsList AS $friend)
+                                            //TODO must change sender message form 1 to admin id
+                                            $usrMdl->send_message(1, $friend->id, $this->lang->language['m_title10'], str_replace(__FARM__, $farm->id, $this->lang->language['m_body10']));
+
+                                    $transaction->alert_flag = 1;
+                            }
+
+                            $return['decHolder'] = (($accObj->effect/100)*$decHolder);
+                            $return['transaction'] = $transaction;
+
+                            return $return;
+                    }
+                else
+                {
+                        $return['decHolder'] = $decHolder;
+                        $return['transaction'] = $transaction;
                 }
         }
 }
