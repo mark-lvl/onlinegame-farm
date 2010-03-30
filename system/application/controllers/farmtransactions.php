@@ -6,6 +6,8 @@ class Farmtransactions extends MainController {
             parent::__construct();
             $this->load->model(array('Farmtransaction',
                                      'Farm','Accessory'));
+
+            $this->loadJs('jquery.loading/jquery.loading');
         }
 
         function spraying($farm = null)

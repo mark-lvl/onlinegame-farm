@@ -4,9 +4,9 @@ class Plant extends DataMapper {
 	var $local_time = TRUE;
         var $unix_timestamp = TRUE;
 	var $updated_field = 'modified_date';
+        //this property hold maximum time in sec for die plant
+        var $die_duration;
 
-	//this cinst hold maximum time in sec for die plant
-	const DIE_DURATION = 7200;
 	const BONUS = 30;
 
     	public function __construct()
@@ -16,7 +16,10 @@ class Plant extends DataMapper {
 		$this->load->model(array('Plantresource',
 					 'Type',
 					 'Typeresource',
-				         'Resource'));
+				         'Resource',
+                                         'User_model'));
+
+                $this->lang->load('labels', 'persian');
     	}
 
 	function plantSync($id,$data = null)
@@ -37,7 +40,13 @@ class Plant extends DataMapper {
 			$typObj = $typMdl->get_by_id($plant->type_id);
                         $frmAccMdl = new Farmaccessory();
                         $plant->growth = $frmAccMdl->getGrowthDecreaser($id, $plant->create_date, $typObj->growth_time);
-                        
+
+                        //this section calculate dieDuration of palnt based on growth time
+                        if($typObj->growth_time < 3)
+                                $this->die_duration = ($typObj->growth_time * 3600);
+                        else
+                                $this->die_duration = 7200;
+
 
                         $pltSrcMdl = new Plantresource();
                         $pltSrcObjs = $pltSrcMdl->get_where(array('plant_id'=>$plant->id))->all;
@@ -62,6 +71,8 @@ class Plant extends DataMapper {
 							$currentDecreaser *= -1;
                                                 if($srcLifeTimeHolder < 0)
 						{
+                                                        $usrMdl = new User_model();
+                                                        $usrMdl->add_notification($id,str_replace(__RESOURCE__, $this->lang->language['RESOURCE-'.$typSrcObj->resource_id], $this->lang->language['lackResource']),3,$pltSrcObj->modified_date);
                                                         for ($i = 0; $i <= $currentDecreaser; $i++)
 								if($pltSrcObj->current)
 								{
@@ -72,7 +83,7 @@ class Plant extends DataMapper {
 								}
 								else
 								{
-                                                                        $healthDecHolder =  (int)(($srcLifeTimeHolder/self::DIE_DURATION)*100);
+                                                                        $healthDecHolder =  (int)(($srcLifeTimeHolder/$this->die_duration)*100);
 								
 									if($healthDecHolder < 0)
 										$healthDecHolder *= -1;
@@ -89,10 +100,11 @@ class Plant extends DataMapper {
 						}
                                                 //this elseif used for plants that being but havn't resources until now
                                                 elseif($pltSrcObj->create_date == $pltSrcObj->modified_date)
-                                                {
+                                                {       $usrMdl = new User_model();
+                                                        $usrMdl->add_notification($id,str_replace(__RESOURCE__, $this->lang->language['RESOURCE-'.$typSrcObj->resource_id], $this->lang->language['lackResource']),3,$pltSrcObj->modified_date);
                                                         $createDateHolder = $plant->modified_date - time();
 
-                                                        $healthDecHolder =  (int)abs((($createDateHolder/self::DIE_DURATION)*100));
+                                                        $healthDecHolder =  (int)abs((($createDateHolder/$this->die_duration)*100));
 
                                                         $plant->health -= $healthDecHolder;
 

@@ -98,8 +98,9 @@ class Farmtransaction extends DataMapper {
 				$accMdl = new Accessory();
 				$accObj = $accMdl->get_by_id($accessory_id);
                                 $frmTrnObj->efficacy_date = (time() + ($accObj->life_time * 3600));
-				$frmTrnObj->details = $details;
 				$frmTrnObj->save();
+                                $usrMdl = new User_model();
+                                $usrMdl->add_notification($goal_farm, $details, 0);
 				return $frmAccObj->count;
 			}
 			else
@@ -155,7 +156,8 @@ class Farmtransaction extends DataMapper {
                         $plant->save();
 
                         if(time() > $transaction->efficacy_date)
-                                $transaction->flag = 1;
+                                //$transaction->flag = 1;
+                                $this->changeTransactionFlag(&$transaction, 1);
                         else
                                 $transaction->flag = 0;
 
@@ -182,7 +184,8 @@ class Farmtransaction extends DataMapper {
                 $plant->save();
 
                 if(time() > $transaction->efficacy_date)
-                        $transaction->flag = 1;
+                        //$transaction->flag = 1;
+                        $this->changeTransactionFlag(&$transaction, 1);
                 else
                         $transaction->flag = 0;
 
@@ -201,7 +204,8 @@ class Farmtransaction extends DataMapper {
                         {
                                 $farm->money -= $this->sprayingPrice;
                                 $farm->save();
-                                $transaction->flag = 2;
+                                //$transaction->flag = 2;
+                                $this->changeTransactionFlag(&$transaction, 2);
                                 if($transaction->save())
                                     return TRUE;
                                 else
@@ -238,7 +242,7 @@ class Farmtransaction extends DataMapper {
 
                         if($attack->exists())
                         {
-                            $attack->flag = 1;
+                            $this->changeTransactionFlag(&$attack, 2);
                             $attack->save();
                             $farmObj->money -= $this->sprayingPrice;
                             $farmObj->save();
@@ -286,7 +290,8 @@ class Farmtransaction extends DataMapper {
                     {
                             $frmAccObj->count--;
                             $frmAccObj->save();
-                            $attack->flag = 2;
+                            //$attack->flag = 2;
+                            $this->changeTransactionFlag(&$attack, 2);
                             $attack->save();
 
                             $accessory = $this->accMdl->get_by_id($attack->accessory_id);
@@ -380,6 +385,26 @@ class Farmtransaction extends DataMapper {
                 {
                         $return['decHolder'] = $decHolder;
                         $return['transaction'] = $transaction;
+                }
+        }
+
+        public function changeTransactionFlag($transaction,$flag)
+        {
+                $usrMdl = new User_model();
+
+                if($flag == 1)
+                {
+                        $transaction->flag = 1;
+                        $usrMdl->add_notification($transaction->goal_farm,
+                                                  $this->lang->language["farmTransactionDone-$transaction->accessory_id"],
+                                                  1);
+                }
+                elseif ($flag == 2)
+                {
+                        $transaction->flag = 2;
+                        $usrMdl->add_notification($transaction->goal_farm,
+                                                  $this->lang->language["farmTransactionReject-$transaction->accessory_id"],
+                                                  2);
                 }
         }
 }

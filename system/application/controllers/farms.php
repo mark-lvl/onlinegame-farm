@@ -80,16 +80,16 @@ class Farms extends MainController {
 				$frmSrcMdl->resource_id = $res_id;
 				$frmSrcMdl->count = $count;
 				$frmSrcMdl->farm_id = $farmId;
-				$frmSrcMdl->save();	
+				$frmSrcMdl->save();
+                                
 			}
+                        $this->user_model->add_notification($farmId, $this->lang->language['welcomeToFarm'], 4);
                 	redirect('farms/show');
 		}
 	    }
 	    else
 	    {
-		$data['lang'] = $this->lang->language;
-
-		$this->load->view('farms/register',$data);
+                redirect("profile/user/$user->id");
 	    }
         }
     }
@@ -99,7 +99,7 @@ class Farms extends MainController {
 		$user = $this->user_model->is_authenticated();
 
                 if(!$this->user_model->has_farm($user->id))
-                        redirect('farms/register');
+                        redirect("profile/user/$user->id");
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
@@ -141,12 +141,10 @@ class Farms extends MainController {
                 
                 $acsModel = new Accessory();
 
+                $notification = $this->user_model->get_notifications($userFarm->id);
+
                 $frmTrnMdl = new Farmtransaction();
                 
-                $frmTrnObjs = $frmTrnMdl->get_where(array('goal_farm'=>$userFarm->id,
-                                                          'flag'=>0))->all;
-
-
 		$typeModel = new Type();
 		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
 
@@ -182,7 +180,7 @@ class Farms extends MainController {
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
 		$this->data['hints'] = $hints;
-		$this->data['notifications'] = $frmTrnObjs;
+		$this->data['notifications'] = $notification;
 		$this->data['equipments'] = $equipments;
 
                 $this->data['heading'] = '';
@@ -316,7 +314,6 @@ class Farms extends MainController {
                 //first sync plant for add resoure to that
                 $pltMdl->plantSync($pltObj->farm_id);
                 
-                //exit;
 		if(!$pltObj->health)
                 {
                     $this->error_reporter('public',array('message'=>'plantDeath'));
@@ -326,7 +323,7 @@ class Farms extends MainController {
                 $pltScrMdlHolder = new Plantresource();
                 $srcModel = new Resource();
                 $pltSrcObjsHolder = $pltScrMdlHolder->get_where(array('plant_id'=>$_POST['plant_id'],
-                                                          'typeresource_id'=>$_POST['resource_id']))->all;
+                                                                      'typeresource_id'=>$_POST['resource_id']))->all;
 
                 foreach($pltSrcObjsHolder AS &$pltSrcObjHolder)
                         if($pltSrcObjHolder->current)
@@ -492,27 +489,24 @@ class Farms extends MainController {
 	                        if($acc_id)
         	                {
                 	                $frmTrnMdl = new Farmtransaction();
-                        	        //check if this farm have this disacters onWay
+                        	        //check if this farm have this disasters onWay
                                 	$frmTrnObj = $frmTrnMdl->get_where(array('offset_farm'=>0,
                                         	                                 'goal_farm'=>$frmObj->id,
                                                 	                         'accessory_id'=>$acc_id,
-                                                        	                 'type'=>4,
+                                                        	                 'type'=>1,
                                                                 	         'flag'=>0));
 	                                if(!$frmTrnObj->exists())
         	                        {
-	
         	                                $accMdl = new Accessory();
                 	                        $accObj = $accMdl->get_by_id($acc_id);
-                        	                $frmTrnMdl->efficacy_date = (time() + ($accObj->life_Time * 3600));
-                                	        $frmTrnMdl->details = $this->data['lang']['farmTransaction'][$accObj->name];
+                        	                $frmTrnMdl->efficacy_date = (time() + ($accObj->life_time * 3600));
 	                                        $frmTrnMdl->goal_farm = $farm_id;
         	                                $frmTrnMdl->accessory_id = $acc_id;
-                	                        $frmTrnMdl->type = 4;
+                	                        $frmTrnMdl->type = 1;
                         	                $frmTrnMdl->goal_farm = $farm_id;
 
                                 	        $frmTrnMdl->save();
-
-                                                echo $this->data['lang']['farmTransaction'][$accObj->name];
+                                                $this->user_model->add_notification($farm_id, $this->data['lang']['farmTransaction'][$accObj->name], 4);
 	                                }
                         	}
                 	}
@@ -549,6 +543,28 @@ class Farms extends MainController {
 			}
 			echo $frmObj->section;
         	}	    
+        }
+
+        function deleteNotification()
+        {
+                if($_POST['not_id'])
+                {
+                        $this->user_model->deleteNotification($_POST['not_id']);
+                }
+        }
+        function syncNotification()
+        {
+                if($_POST['farm_id'])
+                {
+                        $notifications = $this->user_model->get_notifications($_POST['farm_id']);
+
+                        if($notifications)
+                        foreach($notifications AS $not)
+                            echo "<li  id=\"notification-$not[id]\">".anchor("farms/deleteNotification/$not[id]",
+                                                                             "DEL",
+                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."<p>$not[body]<br/>".fa_strftime("%d %B %Y", date("l", $not[create_date]))."</p></li>";
+
+                }
         }
 
 }
