@@ -1,3 +1,4 @@
+<!-- TODO deffence with gun by freind must be attached to this tpl -->
 <style>
 .smallcounter{height:25px;width:100px;padding:2px;color:#60ABD2}
 .healthcounter{height:50px;width:200px}
@@ -33,37 +34,43 @@
      	params['farm_id'] = farm_id;
 	params['resource_id'] = resource_id;
 
-        ajax_request('#farmResourceHolder', '/farms/addResourceToFarm', params ,moneyCalculate)
-    }
-    
-    function addAccessoryToFarm(farm_id , accessory_id){
-	var params = {};
-     	params['farm_id'] = farm_id;
-	params['accessory_id'] = accessory_id;
-
-        ajax_request('#farmAccessoryHolder', '/farms/addAccessoryToFarm', params)
+        ajax_request('#farmResourceHolder', '<?= base_url() ?>farms/addResourceToFarm', params ,moneyCalculate)
     }
 
-    function addPlantToFarm(farm_id , type_id){
-	var params = {};
-     	params['farm_id'] = farm_id;
-	params['type_id'] = type_id;
 
-        ajax_request('#plantHolder', '/farms/addPlantToFarm', params)
-    }
     function addResourceToPlant(resource_id , plant_id){
 	var params = {};
      	params['plant_id'] = plant_id;
 	params['resource_id'] = resource_id;
+	params['viewer_id'] = <?= $viewer->id ?>;
+	params['viewer_name'] = "<?= $viewer->first_name ?>";
 
-        ajax_request('#plantHolder', '/farms/addResourceToPlant', params)
+        ajax_request('#plantHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
+    }
+    function spraying(farm)
+    {
+        var params = {};
+        params['farm'] = farm;
+        params['viewer_id'] = <?= $viewer->id ?>;
+	params['viewer_name'] = "<?= $viewer->first_name ?>";
+
+        ajax_request('#farmSpraying', '<?= base_url() ?>farmtransactions/spraying', params);
+    }
+    function deffenceWithGun(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
+        params['viewer_id'] = <?= $viewer->id ?>;
+	params['viewer_name'] = "<?= $viewer->first_name ?>";
+
+        ajax_request('#farmSection', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
     }
     function reap(plant_id)
     {
         var params = {};
         params['plant_id'] = plant_id;
 
-        ajax_request('#plantHolder', '/farms/reap', params)
+        ajax_request('#plantHolder', '<?= base_url() ?>farms/reap', params)
     }
 
     function addtransaction(goal_farm,off_farm,acc_id,type)
@@ -98,8 +105,15 @@
         FarmSection:<?= $farm->section ?>
         
         <div id="plantHolder"></div>
-        
-        
+        <?php if($related): ?>
+        Sprying:<span id="farmSpraying"></span><br/>
+
+        <?=
+        anchor("farmtransactions/spraying/$farm->id",
+                            "Spraying Farm",
+                             array('onclick'=>"spraying(".$farm->id.");return false;"))."<br/>";
+        ?>
+        <?php endif; ?>
     </div>
 
     <div id="farmOwner">
@@ -133,7 +147,7 @@
               endif;
         ?>
     </div>
-    
+
     <div id="farmResource">
         <h4>Farm Resources</h4>
         <span id="farmResourceHolder">
@@ -213,6 +227,21 @@
         ?>
         </span>
     </div>
+
+    <?php if($related): ?>
+        <div id="resourcePlant">
+                <h4>Add Resource to Plant</h4>
+                <?php
+                if(isset($plantSources))
+                foreach($plantSources AS $pltSrcName=>$pltSrcItem)
+                {
+                        echo anchor("farms/addResourceToPlant/$pltSrcItem[0]/$pltSrcItem[1]/$viewer->id",
+                                    "$pltSrcName",
+                                     array('onclick'=>"addResourceToPlant(".$pltSrcItem[0].",".$pltSrcItem[1].");return false;"))."<br/>";
+                }
+                ?>
+        </div>
+    <?php endif; ?>
     
     
 </div>

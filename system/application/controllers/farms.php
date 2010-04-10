@@ -25,7 +25,8 @@ class Farms extends MainController {
 				 'Farmtransaction',
                                  'Plant',
                                  'Accessory',
-				 'Plantresource'));
+				 'Plantresource',
+                                 'Userrank'));
         //load css files
         $this->add_css('jquery.countdown');
         $this->add_css('farm');
@@ -97,12 +98,16 @@ class Farms extends MainController {
 	function show()
 	{
 		$user = $this->user_model->is_authenticated();
+                if(!$user)
+                        redirect("/");
 
                 if(!$this->user_model->has_farm($user->id))
                         redirect("profile/user/$user->id");
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
+                $this->loadJs('boxy');
+                $this->add_css('boxy');
 
 		$farmModel = new Farm();
 		$userFarm = $farmModel->where('user_id',$user->id)->where('disactive','0')->get();
@@ -112,6 +117,9 @@ class Farms extends MainController {
 		$pltModel = new Plant();
 
 		$userPlant = $pltModel->plantSync($userFarm->id);
+
+                $typeModel = new Type();
+		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
 		
 		//this set disasters for farm in this level by random method
 		$this->disasters($userFarm->id);
@@ -126,6 +134,15 @@ class Farms extends MainController {
 			$misObj = $misMdl->get_by_level($userFarm->level);
 			$hints[] = $misObj->description;
 		}
+                else
+                {
+                        $frmMisMdl = new Farmmission();
+                        $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
+                        $hints[] = str_replace(array('__AMOUNT__','__TYPENAME__'),
+                                               array($frmMisObj->stack,$userPlant->typeName),
+                                               $this->data['lang']['mission']['stack']);
+                        
+                }
 
 		$farmAccModel = new Farmaccessory();
 		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
@@ -145,8 +162,7 @@ class Farms extends MainController {
 
                 $frmTrnMdl = new Farmtransaction();
                 
-		$typeModel = new Type();
-		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
+		
 
 		//accessory available for user in this level
 		$accessories = $acsModel->get_where(array('level <='=>$userFarm->level))->all;
@@ -193,6 +209,11 @@ class Farms extends MainController {
 	function view($id)
 	{
 		$user = $this->user_model->is_authenticated();
+                
+                //if view id same with userLogin id
+                if($id == $user->id)
+                        redirect('farms/show');
+
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
@@ -264,6 +285,9 @@ class Farms extends MainController {
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
 		$this->data['hints'] = $hints;
+                //this flag handel that this farm for his friend
+                $this->data['viewer'] = $user;
+                $this->data['related'] = User_model::is_related($user, $id);
 
                 $this->data['heading'] = '';
                 $this->data['title'] = 'FARM';
@@ -346,6 +370,9 @@ class Farms extends MainController {
 					//let's go baby
 					$frmSrcObj->save();
 					$pltSrcObjHolder->save();
+
+                                        if($_POST['viewer_id'])
+                                            $this->user_model->add_notification($pltObj->farm_id, str_replace(array(__VIEWERID__,__VIEWERNAME__), array($_POST['viewer_id'],$_POST['viewer_name']), $this->lang->language['helpFriend']), 4);
                                         
 				}
 				else
@@ -552,6 +579,7 @@ class Farms extends MainController {
                         $this->user_model->deleteNotification($_POST['not_id']);
                 }
         }
+
         function syncNotification()
         {
                 if($_POST['farm_id'])
@@ -562,9 +590,52 @@ class Farms extends MainController {
                         foreach($notifications AS $not)
                             echo "<li  id=\"notification-$not[id]\">".anchor("farms/deleteNotification/$not[id]",
                                                                              "DEL",
-                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."<p>$not[body]<br/>".fa_strftime("%d %B %Y", date("l", $not[create_date]))."</p></li>";
+                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."<p>$not[body]<br/>".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</p></li>";
 
                 }
+        }
+
+        function resetFarm($farm_id = null)
+        {
+                if($_POST['farm_id'])
+                        $farm_id = $_POST['farm_id'];
+                
+                $frmMdl = new Farm();
+
+                $frmObj = $frmMdl->get_by_id($farm_id);
+
+                $pltMdl = new Plant();
+
+
+                $pltObj = $pltMdl->get_where(array('farm_id'=>$farm_id,'reap'=>0));
+                if($pltObj->exists())
+                {
+                        $this->error_reporter('public',array('message'=>'cantResetWhenHavePlant'));
+                        return FALSE;
+                }
+                $usrrkMdl = new Userrank();
+                $usrrnkObj = $usrrkMdl->get_where(array('type'=>0,'user_id'=>$frmObj->user_id));
+                if($usrrnkObj->exists())
+                {
+                        if($usrrnkObj->rank < $frmObj->level)
+                        {
+                                $usrrnkObj->rank = $frmObj->level;
+                                $usrrnkObj->save();
+                        }
+                }
+                else
+                {
+                        $usrrkMdl->type = 0;
+                        $usrrkMdl->rank = $frmMdl->level;
+                        $usrrkMdl->user_id = $frmObj->user_id;
+                        $usrrkMdl->save();
+                }
+                $frmObj->disactive = 1;
+                if($frmObj->save())
+                        {
+                        $this->js_redirect("profile/user/".$frmObj->user_id);
+                        return FALSE;
+                        }
         }
 
 }

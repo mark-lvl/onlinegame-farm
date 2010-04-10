@@ -29,7 +29,7 @@ class MainController extends Controller {
         $this->data['heading'] = 'Page Heading';
         $this->data['content'] = '';
         $this->data['css'] = '';
-        $this->data['base_img'] = base_url()."system/application/assets/images/";
+        $this->data['base_img'] = css_url()."system/application/assets/images/";
         $this->data['title'] = 'Page Title';
         $this->data['lang'] = $this->lang->language;
 
@@ -75,6 +75,11 @@ class MainController extends Controller {
     function refresh_page()
     {
         $this->load->view("partials/refresh.tpl.php");
+    }
+
+    function js_redirect($path)
+    {
+        $this->load->view("partials/redirect.tpl.php", array('path' => $path));
     }
     
 

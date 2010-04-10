@@ -64,6 +64,24 @@ if ( ! function_exists('base_url'))
 		return $CI->config->slash_item('base_url');
 	}
 }
+// ------------------------------------------------------------------------
+
+/**
+ * Css URL
+ *
+ * Returns the "base_url" item from your config file
+ *
+ * @access	public
+ * @return	string
+ */
+if ( ! function_exists('css_url'))
+{
+	function css_url()
+	{
+		$CI =& get_instance();
+		return $CI->config->slash_item('css_url');
+	}
+}
 
 // ------------------------------------------------------------------------
 

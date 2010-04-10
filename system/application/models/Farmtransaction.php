@@ -27,6 +27,7 @@ class Farmtransaction extends DataMapper {
 	{
 		$frmMdl = new Farm();
 		$frmObjOff = $frmMdl->get_by_id($off_farm);
+                $frmMdl = new Farm();
 		$frmObjGol = $frmMdl->get_by_id($goal_farm);
 
 
@@ -100,6 +101,8 @@ class Farmtransaction extends DataMapper {
                                 $frmTrnObj->efficacy_date = (time() + ($accObj->life_time * 3600));
 				$frmTrnObj->save();
                                 $usrMdl = new User_model();
+                                if($frmObjOff->id)
+                                        $details .= "<br/>".str_replace(array(__FARMID__,__FARMNAME__), array($frmObjOff->user_id,$frmObjOff->name), $this->lang->language['farmTransaction']['attacker']);
                                 $usrMdl->add_notification($goal_farm, $details, 0);
 				return $frmAccObj->count;
 			}
@@ -150,8 +153,8 @@ class Farmtransaction extends DataMapper {
                         $decHolder = (int)($effectTime / $consumeTime);//echo $transaction->modified_date;exit;
 
                         $plant->health -= $decHolder;
-                        if($plant->health < 0)
-                                $plant->health = 0;
+                        if($plant->health < 20)
+                                $plant->health = 20;
                         $plant->updated_field = null;
                         $plant->save();
 

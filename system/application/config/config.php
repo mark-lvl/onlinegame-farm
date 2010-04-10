@@ -11,7 +11,8 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://yammy";
+$config['base_url']	= "http://192.168.1.199/yammy/index.php";
+$config['css_url']	= "http://192.168.1.199/yammy/";
 $config['upload_url'] = "/var/www/yammy/system/application/views/layouts/images/users/";
 $config['security_code'] = "rntx";
 

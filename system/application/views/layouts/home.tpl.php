@@ -6,39 +6,51 @@
 
 <?php echo $css; ?>
 <?php echo $js; ?>
-
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/iehacks.css" />
+<![endif]-->
 </head>
 
 <body>
 	<div id="wrapper">
-         <div id="header">
-		       <p>YAMMY</p>
-	 </div>
-         <div id="navigation">
-		       <div>
-				    <a class="little_link" href="<?= base_url() ?>">
-				        <?= $lang['home'] ?>
-				    </a>
-					:
-				    <a class="little_link" href="<?= base_url() ?>policy/">
-				        <?= $lang['laws'] ?>
-				    </a>
-					:
-				    <a class="little_link" href="<?= base_url() ?>contact/">
-				        <?= $lang['contact'] ?>
-				    </a>
-                      </div>
-	 </div>
-         <div id="content">
-                  <h2><?php echo $heading; ?></h2>
-                    <?php echo $content; ?>
-                  
-                    <p style="clear: both"/>
-         </div>
-         <div id="footer">
-                     <p style="text-align: center">YAMMY-LAND</p>
-         </div>
-        </div>
+                <div id="header">
+                        <div class="main">
+                                <div id="navigation">
+                                        <ul>
+                                            <li>
+                                                <a class="little_link" href="<?= base_url() ?>">
+                                                    <?= $lang['home'] ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="little_link" href="<?= base_url() ?>policy/">
+                                                    <?= $lang['laws'] ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="little_link" href="<?= base_url() ?>contact/">
+                                                    <?= $lang['contact'] ?>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                </div>
 
+                        </div>
+                </div>
+         
+                <div id="content">
+                        <div class="main">
+                                <?php echo $heading; ?>
+                                <?php echo $content; ?>
+                        </div>
+                </div>
+                <div id="footer">
+                        <div id="footer-up">
+                        </div>
+                        <div id="footer-bottom">
+                            <p style="text-align: center">Copyright &copy; 2010 Yummy,Nik Pars.All Right Reserved</p>
+                        </div>
+                </div>
+        </div>
 </body>
 </html>

@@ -39,8 +39,11 @@
 	$lang['cut']			= "قیچی";
 	$lang['calculator']		= "ماشین حساب";
 	$lang['calendar']		= "تقویم";
-	
-	$lang['must_be_filled']	= "ستاره دارها باید پر شوند.";
+
+	$lang['must_be_filled']	= "فیلدهای ستاره دار باید حتما پر شوند";
+	$lang['nameRule']	= "تعداد حروف نام و نام خانوادگی باید بیش از ۲ کاراکتر باشند";
+	$lang['passwordRule']	= "تعداد کاراکتر رمز عبور باید بین ۶ تا ۱۲ کاراکتر باشد";
+	$lang['emailRule']	= "آدرس ایمیل باید صحیح و معتبر باشد";
 	$lang['java_enables']	= "جاوا اسکریپت مرورگر حتما فعال باشد.";
 	$lang['captcha_choose'] = " را انتخاب کنید!";
 	
@@ -73,6 +76,11 @@
         $lang['addFarmName']        = "دوست داری اسم مزرعت چی باشه";
         $lang['welcomeToFarm']        = "خوب تو حالا صاحب یک مزرعه شدی شروع کن به کاشتن محصولاتت و دوستاتو هم پیدا کن";
         $lang['plantCapacity']  = "اگه الان تو مزرعت از این گیاه بکاری و موقع درو سلامتش کامل باشه میتونی __CAPACITY__ کیلوگرم در طی __GROWTHTIME__ ساعت برداشت کنی";
+
+        $lang['resetFarmConfirm-1'] = "از کاری که میخوای بکنی اطمینان داری؟ مزرعه داریتو از اول شروع کنی؟";
+        $lang['resetFarmConfirm-2'] = "اگه این کارو انجام بدی مزرعه فعلیتو از دست میدی.انجام شود؟";
+        $lang['resetFarmConfirm-3'] = "من واسه خودت میگم از اول؟؟؟";
+        $lang['resetFarm'] = "بزن بریم.روز از نو";
 
         $lang['inbox']			= "پیام ها";
 	$lang['profile']        = "پروفایل";
@@ -256,5 +264,16 @@
         $lang['farmTransactionReject-2'] = "ملخ ها رو از مزرعت فراری دادی";
         $lang['farmTransactionReject-4'] = "موش ها رو از مزرعت فراری دادی";
         $lang['farmTransactionReject-6'] = "کلاغ ها رو از مزرعت فراری دادی";
+
+        $lang['farmTransaction']['attacker'] = "مزرعه ی حمله کننده <a href=\"" . base_url() . "farms/view/__FARMID__\">__FARMNAME__</a>";
+        $lang['helpFriend'] = "دوستت <a href=\"".base_url()."farms/view/__VIEWERID__\">__VIEWERNAME__</a> از مزرعت مراقبت کرد";
+
+        /*
+         * MISSION
+         */
+
+        $lang['mission']['stack'] = "تا حالا تونستی __AMOUNT__ کیلوگرم __TYPENAME__ برای مزرعت جمع کنی";
+
+
 
 

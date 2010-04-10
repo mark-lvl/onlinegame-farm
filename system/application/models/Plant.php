@@ -92,8 +92,8 @@ class Plant extends DataMapper {
 									//this section check for health value decreased by another lack resource
 									//if($plant->health > $planthealthHolder)
 										//$plant->health = $planthealthHolder;
-									if($plant->health < 0)
-										$plant->health = 0;
+									if($plant->health < 20)
+										$plant->health = 20;
 									$plant->save();
 								}
 							$pltSrcObj->usedTime = 0;
@@ -111,8 +111,8 @@ class Plant extends DataMapper {
                                                         //this section check for health value decreased by another lack resource
                                                         //if($plant->health > $planthealthHolder)
                                                         //        $plant->health = $planthealthHolder;
-                                                        if($plant->health < 0)
-                                                                $plant->health = 0;
+                                                        if($plant->health < 20)
+                                                                $plant->health = 20;
                                                         $plant->save();
                                                         $pltSrcObj->usedTime = 0;
                                                 }
@@ -308,6 +308,10 @@ class Plant extends DataMapper {
                                             }
 
                                             //this section set mission for farm
+                                            $stackHolder = $frmMisModel->order_by("create_date", "desc")->get_where(array('farm_id'=>$farm_id,'mission_id'=>$misObj->id,'status'=>'2'), 1);
+                                            unset ($frmMisModel);
+                                            $frmMisModel = new Farmmission();
+                                            $frmMisModel->stack    = $stackHolder->stack;
                                             $frmMisModel->farm_id    = $farm_id;
                                             $frmMisModel->mission_id = $misObj->id;
                                             $frmMisModel->plant_id   = $lastPlantId;
@@ -387,21 +391,19 @@ class Plant extends DataMapper {
                         //TODO think for upper level process
                         if($misObj->amount)
                         {
-                            $frmMisDeadline = $frmMisObj->create_date + ($misObj->deadline * 3600);
-                            $return['params']['misDeadline'] = $frmMisDeadline;
+                            //$frmMisDeadline = $frmMisObj->create_date + ($misObj->deadline * 3600);
+                            //$return['params']['misDeadline'] = $frmMisDeadline;
 
                             $now = mktime();
                             $return['params']['reapTime'] = $now;
                             
-                            if($now < $frmMisDeadline)
-                                if($misObj->amount > $amountProduct)
-                                    $frmMisObj->status = 2;
-                                else
-                                    $frmMisObj->status = 1;
-                            else
-                            {
+                            if($misObj->amount > ($amountProduct + $frmMisObj->stack))
                                 $frmMisObj->status = 2;
-                            }
+                            else
+                                $frmMisObj->status = 1;
+
+                            $frmMisObj->stack = $amountProduct + $frmMisObj->stack;
+                            
                             $return['params']['misAmount'] = $misObj->amount;
 
                             $frmMisStatusHolder = $frmMisObj->status;

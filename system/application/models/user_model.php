@@ -9,8 +9,6 @@
 		function is_authenticated()
                 {
 		    if(!isset($_SESSION['user']))
-		        //TODO must be registration/login
-                        //redirect('registration/');
                         return false;
                     else {
 		    	$user = new User_entity($_SESSION['user']);

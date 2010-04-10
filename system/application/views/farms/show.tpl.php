@@ -83,7 +83,6 @@
         params['farm'] = farm;
 
         ajax_request('#farmSpraying', '<?= base_url() ?>farmtransactions/spraying', params);
-        //$.post('<?= base_url() ?>farmtransactions/spraying', params, function(data) { $('#farmSpraying').html(data); })
     }
     function sync(farm_id)
     {
@@ -129,6 +128,24 @@
         params['farm_id'] = <?= $farm->id ?>;
         ajax_request('#notification','<?= base_url() ?>farms/syncNotification',params);
     }
+    function resetConfirm1()
+    {
+        Boxy.confirm('<?= $lang['resetFarmConfirm-1'] ?>', resetConfirm2);
+    }
+    function resetConfirm2()
+    {
+        Boxy.confirm('<?= $lang['resetFarmConfirm-2'] ?>', resetConfirm3);
+    }
+    function resetConfirm3()
+    {
+        Boxy.confirm('<?= $lang['resetFarmConfirm-3'] ?>', resetFarm);
+    }
+    function resetFarm()
+    {
+        var params = {};
+        params['farm_id'] = <?= $farm->id ?>;
+        ajax_request('#reset', '<?= base_url() ?>farms/resetFarm', params);
+    }
     $(document).ready(function() {
         var timeHolder = <?= rand(50000, 500000); ?>;
         var t=setTimeout('disasters(<?= $farm->id ?>)',timeHolder);
@@ -154,8 +171,15 @@
         <?=
         anchor("farmtransactions/spraying/$farm->id",
                             "Spraying Farm",
-                             array('onclick'=>"spraying(".$farm->id.");return false;"))."<br/>";
+                             array('onclick'=>"reset(".$farm->id.");return false;"))."<br/>";
         ?>
+        ResetFarm:<span id="reset"></span><br/>
+        <?=
+            anchor("farms/resetFarm/$farm->id",
+                            "Reset Farm",
+                             array('onclick'=>"resetConfirm1(".$farm->id.");return false;"))."<br/>";
+        ?>
+
         <div id="plantHolder"></div>
 
 
@@ -395,7 +419,6 @@ $(document).ready(function(){
 	};
 
 	//Execute function on load
-	$("#chatpanel").adjustPanel(); 
 	$("#alertpanel").adjustPanel();
 
 	//Each time the viewport is adjusted/resized, execute the function

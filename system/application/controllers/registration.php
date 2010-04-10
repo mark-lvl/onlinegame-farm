@@ -9,9 +9,12 @@ class Registration extends MainController {
 		$this->load->helper('captcha');
                 $this->loadJs('generals');
                 $this->loadJs('jquery.hints');
+                $this->loadJs('jquery.validationEngine-fa');
+                $this->loadJs('jquery.validationEngine');
                 $this->loadJs('boxy');
                 $this->add_css('boxy');
                 $this->add_css('home');
+                $this->add_css('validation');
 	}
 	
 	function index($reason = "")

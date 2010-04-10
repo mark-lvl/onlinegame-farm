@@ -11,19 +11,21 @@ if ( ! function_exists('load_captcha')) {
 	    if($captcha_images_number >= $cnt) {
 	        return FALSE;
 	    }
+                $output = "<span style=\"margin-right:15px;\">";
 		for($i = 0; $i < $captcha_images_number; $i++) {
 		    $rnd = mt_rand(0, $cnt - 1);
 		    if(array_search($rnd, $chosen_nums) === FALSE) {
 		    	$chosen_nums[] = $rnd;
 		    	$chosen_images[] = $images[$rnd];
-		    	$output .= "<img class='captcha_img' title='" . $i . "' src='" . base_url() . "system/application/assets/images/registration/captcha/" . $images[$rnd] . ".png' />" . $enclosure;
+		    	$output .= "<img class='captcha_img' title='" . $i . "' src='" . css_url() . "system/application/assets/images/registration/captcha/" . $images[$rnd] . ".png' />" . $enclosure;
 		    }
 		    else {
 		        $i--;
 		    }
 		}
+                $output .= "</span>";
 		$rnd = mt_rand(0, $captcha_images_number - 1);
-		$title = "<B>" . $images_name[$chosen_nums[$rnd]] . "</B>" .  $lang['captcha_choose'];
+		$title = "<span class=\"captchaLabel\"><B>" . $images_name[$chosen_nums[$rnd]]. $lang['captcha_choose']."</B></span>";
 		
 		$_SESSION['captcha'] = $rnd;
 		
