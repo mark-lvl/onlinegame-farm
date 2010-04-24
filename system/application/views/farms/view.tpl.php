@@ -44,6 +44,7 @@
 	params['resource_id'] = resource_id;
 	params['viewer_id'] = <?= $viewer->id ?>;
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
+	params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
         ajax_request('#plantHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
     }
@@ -53,6 +54,7 @@
         params['farm'] = farm;
         params['viewer_id'] = <?= $viewer->id ?>;
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
+        params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
         ajax_request('#farmSpraying', '<?= base_url() ?>farmtransactions/spraying', params);
     }
@@ -62,6 +64,7 @@
         params['farm_id'] = farm_id;
         params['viewer_id'] = <?= $viewer->id ?>;
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
+        params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
         ajax_request('#farmSection', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
     }

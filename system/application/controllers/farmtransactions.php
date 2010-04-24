@@ -15,8 +15,8 @@ class Farmtransactions extends MainController {
             $frmTrnMdl = new Farmtransaction();
             $flag = $frmTrnMdl->spraying($_POST['farm']);
 
-            if($_POST['viewer_id'])
-                    $this->user_model->add_notification($_POST['farm'], str_replace(array(__VIEWERID__,__VIEWERNAME__), array($_POST['viewer_id'],$_POST['viewer_name']), $this->lang->language['helpFriend']), 4);
+            //if($_POST['viewer_id'])
+                    //$this->user_model->add_notification($_POST['farm'], str_replace(array(__VIEWERID__,__VIEWERNAME__), array($_POST['viewer_id'],$_POST['viewer_name']), $this->lang->language['helpFriend']), 4);
 
             if(is_array($flag))
                     $this->error_reporter($flag['type'],$flag['params']);
@@ -27,8 +27,6 @@ class Farmtransactions extends MainController {
                 $frmTrnMdl = new Farmtransaction();
                 $flag = $frmTrnMdl->deffenceWithGun($_POST['farm_id']);
 
-                if($_POST['viewer_id'])
-                    $this->user_model->add_notification($_POST['farm_id'], str_replace(array(__VIEWERID__,__VIEWERNAME__), array($_POST['viewer_id'],$_POST['viewer_name']), $this->lang->language['helpFriend']), 4);
 
                 if(is_array($flag))
                         $this->error_reporter($flag['type'],$flag['params']);

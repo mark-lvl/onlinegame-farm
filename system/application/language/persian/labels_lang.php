@@ -53,9 +53,12 @@
 	/*
 	    Profile
 	*/
-	$lang['m_title']		= "آقای";
-	$lang['f_title']		= "خانم";
+	$lang['fromCity']	= "از شهرستان";
+	$lang['m_title']	= "آقای";
+	$lang['f_title']	= "خانم";
 	$lang['register_date']	= "تاریخ عضویت";
+        $lang['becareful']      = "حواست باشه که....";
+        $lang['sendMessage']      = "ارسال پیام";
 	$lang['add_to_friend']  = "اضافه به دوستان";
 	$lang['report_abuse']	= "گزارش خلاف";
 	$lang['invitation']		= "دعوت دوستان";
@@ -67,15 +70,37 @@
 	$lang['message_nsent']	= "خطا در ارسال پیام! اول وارد سایت شو بعد پیام بده!";
 	$lang['new_messages']	= "پیام جدید داری!";
 	$lang['go_inbox']		= "صندوق پیامت رو ببین.";
+        $lang['allFriends'] = "همه دوستان";
+        $lang['listAllFriends'] = "لیست همه دوستان";
+        $lang['friends'] = " دوستان";
+        $lang['addFriendsToYummy'] = "با دعوت دوستانت به بازی یامی بعد از ثبت نام دوستت ۱۰۰یامی میگیری";
+        $lang['message_title'] = "پیغام از طرف __USERNAME__";
+        $lang['send_message_successfull'] = "ارسال پیغام با موفقیت انجام شد";
+        $lang['send_message_faild'] = "پیغام ارسال نشد";
+
+        $lang['farmDangerous'] = "میزان خطرناک بودن";
+        $lang['farmSecurity'] = "میزان امنیت مزرعه";
+        $lang['farmHelp'] = "میزان کمک به دیگران";
+
+        $lang['farmArea'] = "مساحت مزرعه";
+        $lang['hectare'] = "هکتار";
+        $lang['farmMoney'] = "دارایی مزرعه";
+        $lang['farmLevel'] = "مرحله";
+        $lang['plant'] = "گیاه در حال پرورش";
+        $lang['health'] = "سلامت";
+
+        $lang['close'] = "بستن";
 
         /*
          * farm Farm
          */
 
+        $lang['yummy'] = "یامی";
         $lang['addFarm']        = "ثبت مزرعه";
         $lang['addFarmName']        = "دوست داری اسم مزرعت چی باشه";
         $lang['welcomeToFarm']        = "خوب تو حالا صاحب یک مزرعه شدی شروع کن به کاشتن محصولاتت و دوستاتو هم پیدا کن";
         $lang['plantCapacity']  = "اگه الان تو مزرعت از این گیاه بکاری و موقع درو سلامتش کامل باشه میتونی __CAPACITY__ کیلوگرم در طی __GROWTHTIME__ ساعت برداشت کنی";
+        $lang['farmTransactions'] = "اتفاقات مزرعه";
 
         $lang['resetFarmConfirm-1'] = "از کاری که میخوای بکنی اطمینان داری؟ مزرعه داریتو از اول شروع کنی؟";
         $lang['resetFarmConfirm-2'] = "اگه این کارو انجام بدی مزرعه فعلیتو از دست میدی.انجام شود؟";
@@ -97,33 +122,34 @@
 	$lang['no_rank']        = "هیچ مقام شایان ذکری نیست!";
 	
 	$lang['times']          = "بار مقام";
-	$lang['f1']		        = "اول";
-	$lang['f2']		        = "دوم";
-	$lang['f3']		        = "سوم";
-	$lang['f4']		        = "چهارم";
-	$lang['f5']		        = "پنجم";
-	$lang['f6']		        = "ششم";
-	$lang['f7']		        = "هفتم";
-	$lang['f8']		        = "هشتم";
-	$lang['f9']		        = "نهم";
-	$lang['f10']	        = "دهم";
-	$lang['f11']	        = "یازدهم";
-	$lang['f12']	        = "دوازدهم";
-	$lang['f13']	        = "سیزدهم";
-	$lang['f14']	        = "چهاردهم";
-	$lang['f15']	        = "پانزدهم";
-	$lang['f16']	        = "شانزدهم";
-	$lang['f17']	        = "هفدهم";
-	$lang['f18']	        = "هجدهم";
-	$lang['f19']	        = "نوزده";
-	$lang['f20']	        = "بیستم";
+        $lang['levelLabel']     = "مرحله";
+	$lang['level1']		= "اول";
+	$lang['level2']		= "دوم";
+	$lang['level3']		= "سوم";
+	$lang['level4']		= "چهارم";
+	$lang['level5']		= "پنجم";
+	$lang['level6']		= "ششم";
+	$lang['level7']		= "هفتم";
+	$lang['level8']		= "هشتم";
+	$lang['level9']		= "نهم";
+	$lang['level10']	= "دهم";
+
+        
 	$lang['voters']	        = "از XXX رای";
 	$lang['profile_desc']	= "رای ها میانگین رای راننده ها به ماشین های این راننده است.";
 	$lang['invite']	        = "دعوت دوست";
-	$lang['search']	        = "جستجوی دوست";
+	$lang['invitation-complete'] = "دعوت دوستت با موفقیت انجام شد";
+	$lang['invitation-isUser'] = "این دوستت خودش عضو سایت شده";
+	$lang['invitation-beforeInvited'] = "این دوستت قبلا دعوت شده";
+	$lang['invitation-notComplete'] = "خطا در ارسال دعوت نامه برای دوستت";
+	$lang['search']	        = "جستجو";
 	$lang['friends_name']   = "نام دوست";
 	
 	$lang['report_body']    = "در صورتی که این راننده از قوانین سایت تخطی کرده و مطمئن هستی دکمه ی تایید رو بزن.<BR />در صورتی که این راننده خلافکار نباشه, یک امتیاز منفی در سابقه ی خودت ثبت خواهد شد!";
+
+        $lang['inviteMailBody'] = "سلام <br/>دوستت تو رو دعوت به بازی سرزمین یامی کرده<br/>برای ثبت نام و شروع بازی روی لینک زیر کلیک کن<__br/><a href=\"__BASEPATH__\registration\invite\__HASH\">ثبت نام</a>";
+        $lang['inviteMailTitle'] = "دعوت نامه بازی سرزمین یامی از طرف دوستت";
+        $lang['inviteBonus'] = "دوستی که دعوت کرده بودی به سایت اومد و به همین خاطر مزرعت ۵۰ یامی گرفت";
 
 	/*
 	    Inbox
@@ -154,6 +180,7 @@
 	/*
 		Edit profile
 	*/
+	$lang['edit_profile']	= "تنظیم مجدد";
 	$lang['new_password']	= "رمز جدید";
 	$lang['repassword']		= "تکرار رمز";
 	$lang['no_pass_change'] = "اگر مایل به تغییر رمز نیستی, فیلدهای رمز را خالی بگذار.";
@@ -255,6 +282,18 @@
         $lang['farmTransaction']['mouse'] = "تو مزرعت موش اومده سریع دورشون کن وگرنه تو سه ساعت ۱۰کیلوگرم از محصولاتتو میخوره";
         $lang['farmTransaction']['crow'] = "کلاغ ها به مزرعت حمله کردن سریع با تفنگ دورشون کن اگه مزرعت مترسک داشته باشه کمتر بهت آسیب میزنن";
 
+        $lang['farmTransaction-1'] = "مزرعت شته زده اگه سمپاشی نکنی در یک ساعت ۳۰٪ از سلامت گیاهات کم میشه";
+        $lang['farmTransaction-2'] = "به مزرعت ملخ ها حمله کردند سریع سمپاشی کن وگرنه در یک ساعت ۵۰٪ از سلامت گیاهات کم میشه";
+        $lang['farmTransaction-4'] = "تو مزرعت موش اومده سریع دورشون کن وگرنه تو سه ساعت ۱۰کیلوگرم از محصولاتتو میخوره";
+        $lang['farmTransaction-6'] = "کلاغ ها به مزرعت حمله کردن سریع با تفنگ دورشون کن اگه مزرعت مترسک داشته باشه کمتر بهت آسیب میزنن";
+
+        $lang['farmTransactionHelpToFriend'] = "به مزرعه دوستات کمک کردی";
+
+        $lang['farmTransactionAttack-1'] = "با شته به مزرعه های دیگه حمله کردی";
+        $lang['farmTransactionAttack-2'] = "با ملخ به مزرعه های دیگران حمله کردی";
+        $lang['farmTransactionAttack-4'] = "با موش به مزرعه های دیگران حمله کردی";
+        $lang['farmTransactionAttack-6'] = "با کلاغ به مزرعه های دیگران حمله کردی";
+
         $lang['farmTransactionDone-1'] = "شته ها سر فرصت مزرعتو خراب کردند و ۳۰٪ از سلامت گیاهات کم شد";
         $lang['farmTransactionDone-2'] = "ملخ ها سر فرصت مزرعتو خراب کردند و ۵۰٪ از سلامت گیاهات کم شد";
         $lang['farmTransactionDone-4'] = "موش ها سر فرصت مزرعتو خراب کردند و ۱۰کیلوگرم از محصولاتتو خوردن";
@@ -264,6 +303,11 @@
         $lang['farmTransactionReject-2'] = "ملخ ها رو از مزرعت فراری دادی";
         $lang['farmTransactionReject-4'] = "موش ها رو از مزرعت فراری دادی";
         $lang['farmTransactionReject-6'] = "کلاغ ها رو از مزرعت فراری دادی";
+
+        $lang['farmTransactionRejectByFreind-1'] = "دوستت <a href=\"".base_url()."profile/user/__VIEWERID__\">__VIEWERNAME__</a> شته ها رو از مزرعت فراری داد";
+        $lang['farmTransactionRejectByFreind-2'] = "دوستت <a href=\"".base_url()."profile/user/__VIEWERID__\">__VIEWERNAME__</a> ملخ ها رو از مزرعت فراری داد";
+        $lang['farmTransactionRejectByFreind-4'] = "دوستت <a href=\"".base_url()."profile/user/__VIEWERID__\">__VIEWERNAME__</a> موش ها رو از مزرعت فراری داد";
+        $lang['farmTransactionRejectByFreind-6'] = "دوستت <a href=\"".base_url()."profile/user/__VIEWERID__\">__VIEWERNAME__</a> کلاغ ها رو از مزرعت فراری داد";
 
         $lang['farmTransaction']['attacker'] = "مزرعه ی حمله کننده <a href=\"" . base_url() . "farms/view/__FARMID__\">__FARMNAME__</a>";
         $lang['helpFriend'] = "دوستت <a href=\"".base_url()."farms/view/__VIEWERID__\">__VIEWERNAME__</a> از مزرعت مراقبت کرد";

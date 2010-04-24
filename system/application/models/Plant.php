@@ -17,7 +17,8 @@ class Plant extends DataMapper {
 					 'Type',
 					 'Typeresource',
 				         'Resource',
-                                         'User_model'));
+                                         'User_model',
+                                         'Userrank'));
 
                 $this->lang->load('labels', 'persian');
     	}
@@ -78,7 +79,7 @@ class Plant extends DataMapper {
 								{
                                                                 	$pltSrcObj->current -= $typSrcObj->minNeed;
 									//disable the autoTimestamp for pltSrcMdl when decrease current count
-									$pltSrcMdl->updated_field = null;
+									$pltSrcObj->updated_field = null;
 									$pltSrcObj->save();
 								}
 								else
@@ -414,6 +415,21 @@ class Plant extends DataMapper {
                                 $frmObj->level++;
 
                             $return['params']['level'] = $frmObj->level;
+
+                            //this section add product amount to userRank amount
+                            $usrRnkMdl = new Userrank();
+                            $usrRnkObj = $usrRnkMdl->get_where(array('user_id'=>$frmObj->user_id,'type'=>3));
+                            if($usrRnkObj->exists())
+                            {
+                                    $usrRnkObj->rank += $amountProduct;
+                                    $usrRnkObj->save();
+                            }
+                            else
+                            {
+                                    $usrRnkMdl->user_id = $frmObj->user_id;
+                                    $usrRnkMdl->type = 3;
+                                    $usrRnkMdl->save();
+                            }
 
                             //reset plow for new level
                             $frmObj->plow = 0;

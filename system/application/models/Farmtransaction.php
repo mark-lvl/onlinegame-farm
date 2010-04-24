@@ -52,13 +52,16 @@ class Farmtransaction extends DataMapper {
 
 
                 //cant attack to farm havn't anti this accessory level
-                $accMdl = new Accessory();
-                $accObj = $accMdl->get_by_id($accessory_id);
-                if($frmObjGol->level < $accObj->level)
-                        return array('return'=>'false',
-                                     'type'=>'public',
-                                     'params'=>array('message'=>'cantAttackWithHavntAnti'));
-                unset ($accObj);
+		if($accessory_id)
+		{
+                	$accMdl = new Accessory();
+	                $accObj = $accMdl->get_by_id($accessory_id);
+        	        if($frmObjGol->level < $accObj->level)
+                	        return array('return'=>'false',
+                        	             'type'=>'public',
+                                	     'params'=>array('message'=>'cantAttackWithHavntAnti'));
+	                unset ($accObj);
+		}
 
                 //farm with no plant rejected new attack
                 $pltMdl = new Plant();
@@ -68,49 +71,64 @@ class Farmtransaction extends DataMapper {
                                      'type'=>'public',
                                      'params'=>array('message'=>'cantAttackBeacuseHavntPlant'));
 
-		//each time only attack to goal_farm once
-                $frmTrnObj = new Farmtransaction();
-                $attackedFarmByOffset = $frmTrnObj->get_where(array('goal_farm'=>$goal_farm, 'offset_farm'=>$off_farm, 'type'=>1,'flag'=>0));
-                if($attackedFarmByOffset->exists())
-                        return array('return'=>'false',
-                                     'type'=>'public',
-                                     'params'=>array('message'=>'cantAttackAttackAlreadyExists'));
+		if($type == 1)
+		{
+			//each time only attack to goal_farm once
+        	        $frmTrnObj = new Farmtransaction();
+                	$attackedFarmByOffset = $frmTrnObj->get_where(array('goal_farm'=>$goal_farm, 'offset_farm'=>$off_farm, 'type'=>1,'flag'=>0));
+	                if($attackedFarmByOffset->exists())
+        	                return array('return'=>'false',
+                	                     'type'=>'public',
+                        	             'params'=>array('message'=>'cantAttackAttackAlreadyExists'));
                 
-                //farm with have 5 attack rejected new attack
-                $frmTrnObj = new Farmtransaction();
-		$attackedFarm = $frmTrnObj->get_where(array('goal_farm'=>$goal_farm,'type'=>1,'flag'=>0));
-		if($attackedFarm->count() > 5)
-			return array('return'=>'false',
-                                     'type'=>'public',
-                                     'params'=>array('message'=>'cantAttack'));
+	                //farm with have 5 attack rejected new attack
+        	        $frmTrnObj = new Farmtransaction();
+			$attackedFarm = $frmTrnObj->get_where(array('goal_farm'=>$goal_farm,'type'=>1,'flag'=>0));
+			if($attackedFarm->count() > 5)
+				return array('return'=>'false',
+                	                     'type'=>'public',
+                        	             'params'=>array('message'=>'cantAttack'));
+			else
+			{
+				$frmAccMdl = new Farmaccessory();
+				$frmAccObj = $frmAccMdl->get_where(array('farm_id'=>$off_farm, 'accessory_id'=>$accessory_id));
+				if($frmAccObj->count > 0)
+				{
+					$frmAccObj->count--;
+					$frmAccObj->save();
+                	                $frmTrnObj = new Farmtransaction();
+					$frmTrnObj->offset_farm = $off_farm;
+					$frmTrnObj->goal_farm = $goal_farm;
+					$frmTrnObj->type = $type;
+					$frmTrnObj->accessory_id = $accessory_id;
+					$accMdl = new Accessory();
+					$accObj = $accMdl->get_by_id($accessory_id);
+                        	        $frmTrnObj->efficacy_date = (time() + ($accObj->life_time * 3600));
+					$frmTrnObj->save();
+                	                $usrMdl = new User_model();
+                        	        if($frmObjOff->id)
+               		                         $details .= "<br/>".str_replace(array(__FARMID__,__FARMNAME__), array($frmObjOff->user_id,$frmObjOff->name), $this->lang->language['farmTransaction']['attacker']);
+                        	        $usrMdl->add_notification($goal_farm, $details, 0);
+					return $frmAccObj->count;
+				}
+				else
+				return array('return'=>'false',
+                                	     'type'=>'public',
+	                                     'params'=>array('message'=>'cantAttack'));
+
+			}
+		}
 		else
 		{
-			$frmAccMdl = new Farmaccessory();
-			$frmAccObj = $frmAccMdl->get_where(array('farm_id'=>$off_farm, 'accessory_id'=>$accessory_id));
-			if($frmAccObj->count > 0)
-			{
-				$frmAccObj->count--;
-				$frmAccObj->save();
-                                $frmTrnObj = new Farmtransaction();
-				$frmTrnObj->offset_farm = $off_farm;
-				$frmTrnObj->goal_farm = $goal_farm;
-				$frmTrnObj->type = $type;
-				$frmTrnObj->accessory_id = $accessory_id;
-				$accMdl = new Accessory();
-				$accObj = $accMdl->get_by_id($accessory_id);
-                                $frmTrnObj->efficacy_date = (time() + ($accObj->life_time * 3600));
-				$frmTrnObj->save();
-                                $usrMdl = new User_model();
-                                if($frmObjOff->id)
-                                        $details .= "<br/>".str_replace(array(__FARMID__,__FARMNAME__), array($frmObjOff->user_id,$frmObjOff->name), $this->lang->language['farmTransaction']['attacker']);
-                                $usrMdl->add_notification($goal_farm, $details, 0);
-				return $frmAccObj->count;
-			}
-			else
-			return array('return'=>'false',
-                                     'type'=>'public',
-                                     'params'=>array('message'=>'cantAttack'));
+			//this section for adding help transaction
 
+			$frmTrnObj = new Farmtransaction();
+			$frmTrnObj->offset_farm = $off_farm;
+			$frmTrnObj->goal_farm = $goal_farm;
+			$frmTrnObj->type = $type;
+			$frmTrnObj->details = $details;
+			$frmTrnObj->save();
+			return TRUE;
 		}
 	}
 
@@ -245,7 +263,7 @@ class Farmtransaction extends DataMapper {
 
                         if($attack->exists())
                         {
-                            $this->changeTransactionFlag(&$attack, 2);
+                            $this->changeTransactionFlag(&$attack, 2 , $_POST);
                             $attack->save();
                             $farmObj->money -= $this->sprayingPrice;
                             $farmObj->save();
@@ -294,7 +312,7 @@ class Farmtransaction extends DataMapper {
                             $frmAccObj->count--;
                             $frmAccObj->save();
                             //$attack->flag = 2;
-                            $this->changeTransactionFlag(&$attack, 2);
+                            $this->changeTransactionFlag(&$attack, 2, $_POST);
                             $attack->save();
 
                             $accessory = $this->accMdl->get_by_id($attack->accessory_id);
@@ -391,7 +409,7 @@ class Farmtransaction extends DataMapper {
                 }
         }
 
-        public function changeTransactionFlag($transaction,$flag)
+        public function changeTransactionFlag($transaction,$flag, $details = null)
         {
                 $usrMdl = new User_model();
 
@@ -405,9 +423,24 @@ class Farmtransaction extends DataMapper {
                 elseif ($flag == 2)
                 {
                         $transaction->flag = 2;
-                        $usrMdl->add_notification($transaction->goal_farm,
-                                                  $this->lang->language["farmTransactionReject-$transaction->accessory_id"],
-                                                  2);
+                        if($details['viewer_farm_id'])
+                        {
+                                $usrMdl->add_notification($transaction->goal_farm,
+                                                                    str_replace(array(__VIEWERID__,__VIEWERNAME__),
+                                                                                array($details['viewer_id'],$details['viewer_name']),
+                                                                                $this->lang->language["farmTransactionRejectByFreind-$transaction->accessory_id"]),
+                                                                    4);
+                                $frmTrnObj = new Farmtransaction();
+                                $frmTrnObj->offset_farm = $details['viewer_farm_id'];
+                                $frmTrnObj->goal_farm = $transaction->goal_farm;
+                                $frmTrnObj->type = 3;
+                                $frmTrnObj->details = "2".$transaction->accessory_id;
+                                $frmTrnObj->save();
+			}
+                        else
+                            $usrMdl->add_notification($transaction->goal_farm,
+                                                      $this->lang->language["farmTransactionReject-$transaction->accessory_id"],
+                                                      2);
                 }
         }
 }

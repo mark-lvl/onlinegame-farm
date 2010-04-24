@@ -287,6 +287,7 @@ class Farms extends MainController {
 		$this->data['hints'] = $hints;
                 //this flag handel that this farm for his friend
                 $this->data['viewer'] = $user;
+                $this->data['viewerFarm'] = $viewerFarm;
                 $this->data['related'] = User_model::is_related($user, $id);
 
                 $this->data['heading'] = '';
@@ -372,7 +373,16 @@ class Farms extends MainController {
 					$pltSrcObjHolder->save();
 
                                         if($_POST['viewer_id'])
-                                            $this->user_model->add_notification($pltObj->farm_id, str_replace(array(__VIEWERID__,__VIEWERNAME__), array($_POST['viewer_id'],$_POST['viewer_name']), $this->lang->language['helpFriend']), 4);
+                                        {
+                                            $this->user_model->add_notification($pltObj->farm_id,
+                                                                                str_replace(array(__VIEWERID__,__VIEWERNAME__),
+                                                                                            array($_POST['viewer_id'],$_POST['viewer_name']),
+                                                                                            $this->lang->language['helpFriend']),
+                                                                                4);
+                                            $frmTrnMdl = new Farmtransaction();
+                                            if($_POST['viewer_farm_id'])
+                                                $frmTrnMdl->add($_POST['viewer_farm_id'], $pltObj->farm_id, 0, 3, 1);
+                                        }
                                         
 				}
 				else

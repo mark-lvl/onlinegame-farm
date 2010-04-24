@@ -38,6 +38,6 @@ class Inbox extends MainController {
 			}
 		}
 	    
-	    $this->render('profile');
+	    $this->render('home');
 	}
 }

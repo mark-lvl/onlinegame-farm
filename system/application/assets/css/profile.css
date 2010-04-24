@@ -1,57 +1,379 @@
-* { padding: 0; margin: 0; }
-
-body {
- font-family: Verdana, Arial, Helvetica, sans-serif;
- font-size: 13px;
- direction: rtl;
+#profile
+{
+    width: 920px;
+    height: 432px;
+    float: left;
 }
-a{
+#rightColumn {
+    height: 397px;
+    width: 238px;
+    float: right;
+}
+#centerColumn {
+    
+    float: right;
+    position: relative;
+    margin-bottom: 11px;
+}
+#centerContainer
+{
+    background: #930044 url(../images/profile/profile_center.gif) no-repeat  center;
+    height: 397px;
+    width: 464px;
+    display: block;
+}
+#leftColumn
+{
+    height: 397px;
+    width: 218px;
+    float: right;
+}
+#bottomBar
+{
+    width: 920px;
+    height: 24px;
+    display: block;
+    clear: both;
+    position: relative;
+}
+#inboxCounter
+{
+    width: 43px;
+    height: 22px;
+    display: block;
+    background: #91b33f url(../images/profile/inbox_counter.gif) no-repeat  center;
+    position: absolute;
+    top: 1px;
+    right: 17px;
+    color: #FFFFFF;
+    font-weight: bold;
     text-decoration: none;
+    position: relative;
+}
+#inboxCounter:hover
+{
+    background: #91b33f url(../images/profile/inbox_counter_hover.gif) no-repeat  center;
+}
+#inboxCounter span
+{
+    position: absolute;
+    top: 3px;
+    right: 27px;
+}
+#userThumb
+{
+    background: #930044 url(../images/profile/right-up.gif) no-repeat  center;
+    height: 148px;
+    position: relative;
+}
+#userPicture
+{
+    position: absolute;
+    top: 40px;
+    right:5px;
+}
+#userPicture img
+{
+    width: 88px;
+    height: 88px;
+    margin-top: 2px;
+    background: #FFFFFF;
+}
+#userName
+{
+    color:#93B14B;
+    font-size:14px;
+    font-weight:bold;
+    position:absolute;
+    right:107px;
+    top:39px;
+}
+#userCity
+{
+    position:absolute;
+    right:107px;
+    top:59px;
+    font-size: 10px;
+}
+#userRegisterDate
+{
+    position:absolute;
+    right:107px;
+    top:76px;
+    font-size: 10px;
+}
+#changeProfile
+{
+    position:absolute;
+    right:126px;
+    top:113px;
+}
+#changeProfile a
+{
+    text-decoration: none;
+    color: #FFF;
+}
+#changeProfile a:hover
+{
+    color: #93B14B;
+}
+#userRanks
+{
+    height: 85px;
+}
+#profileHint
+{
+    width: 220px;
+    height: 164px;
+    background: #72873b url(../images/profile/profile_hints.gif) no-repeat  center;
+    display: block;
+    float: left;
+    position: relative;
+}
+#profileHint .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    clear: both;
+    top: 45px;
+    right:11px;
+}
+#profileHint .body
+{
+    position: absolute;
+    top: 70px;
+    right:11px;
+    width: 194px;
+}
+#profileHint .messAjaxHolder
+{
+    background:#EEEEEE;
+    color:#666666;
+    display:none;
+    height:15px;
+    padding:20px;
+    position:absolute;
+    right:13px;
+    top:73px;
+    width:149px;
+}
+#farmCharts
+{
+    display:block;
+    height:120px;
+    position:absolute;
+    right:188px;
+    top:30px;
+    width:175px;
+}
+.barContainer
+{
+    display: block;
+    width: 175px;
+    height:38px;
+}
+.barContainer .title
+{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    height:15px;
+    padding-bottom:5px;
+    width:175px;
+}
+.barContainer .bar
+{
+    display: block;
+    height: 18px;
+    width: 181px;
 }
 
-#profileWrapper {
- margin: 0 auto;
- width: 800px;
+#profileFarmDetails
+{
+    position: absolute;
+    top:160px;
+    right: 190px;
+    width: 146px;
+    height: 86px;
+    display: block;
+}
+#profileFarmDetails .title
+{
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffe784;
+    padding-left: 9px;
+}
+#profileFarmTransactions
+{
+    position: absolute;
+    top:287px;
+    right: 131px;
+    width: 257px;
+    height: 100px;
+    display: block;    
+}
+#profileFarmTransactions .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 15px;
+    clear: both;
+}
+#profileFarmTransactions .body
+{
+    
+}
+#friendBox
+{
+    width: 162px;
+    height: 224px;
+    display: block;
+    margin: 10px 20px 0 0;
+}
+#friendBox .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+}
+#friendBox .allFriendsLink
+{
+    float: left;
+    margin: 4px 0 0 20px;
+}
+.allFriendsLink a
+{
+    text-decoration: none;
+    font-size: 13px;
+    color: #FFFFFF;
+}
+#friendAvatars
+{
+    height: 190px;
+    width: 162px;
+    padding-top: 10px;
+    clear: both;
+}
+.friendAvatarItem
+{
+    width: 66px;
+    height: 88px;
+    display: block;
+    margin: 0 0 5px 10px;
+    float: right;
+}
+.friendAvatarItem img
+{
+    width: 62px;
+    height: 62px;
+    border: 1px solid #333333;
+    padding: 1px;
+    display: block;
+    background: #EEEEEE;
+}
+.friendAvatarItem span
+{
+    width: 66px;
+    height: 10px;
+    display: block;
+    text-align: center;
+    padding-top: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+#inviteFriends
+{
+    width: 212px;
+    height: 163px;
+    display: block;
+    background: url(../images/profile/invite_friend.gif) no-repeat  center;
+    position: relative;
+}
+#inviteFriends .body
+{
+    width: 130px;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+}
+#inviteFriends .form
+{
+    position: absolute;
+    top: 124px;
+    right: 21px;
+}
+.form input
+{
+    border: 0;
+    width: 117px;
+    float: right;
+}
+.form textarea
+{
+    width: 194px;
+    height: 58px;
+    background: url(../images/profile/send_message.gif) no-repeat top right !important;
+    border: 0;
+    padding: 7px;
+}
+.form .submit
+{
+    background: url(../images/profile/submit.gif) no-repeat center !important;
+    display: block;
+    border: 0 !important;
+    width: 52px;
+    height: 19px;
+    margin: 0 10px 0 0 !important;
+    cursor: pointer;
+    float: left;
+}
+.form .submit:hover
+{
+    background: url(../images/profile/submit-hover.gif) no-repeat center !important;
 }
 
-#content {
- float: right;
- color: #333;
- background: #FFFFFF;
- height: 350px;
- width: 400px;
- display: inline;
+#hints{
+height:70px;
+width:180px;
+overflow:hidden;
+padding:6px 10px 14px 10px;;
 }
 
-#header {
- color: #333;
- width: 800px;
- float: left;
- height: 75px;
- background: #6B6659;
+#hints li{
+height:80px;
+padding:5px;
+list-style:none;
+}
+#hints a{
+color:#000000;
+text-decoration:none;
+}
+#hints .del
+{
+float:left; font-weight:bold; color:#666666
+}
+#hints .date
+{
+    font-size: 9px;
+    
+}
+#hints .del a
+{
+color:#06762A;
+margin-right: 30px;
+}
+#hints .del a:hover
+{
+background-color:#36538D;
+padding-left:1px;
+padding-right:1px;
+color:#ffffff;
 }
 
-#footer {
- width: 800px;
- height: 25px;
- clear: both;
- color: #333;
- background: #6B6659;
-}
 
-#leftcolumn {
- color: #333;
- background: #EBE3CD;
- height: 350px;
- width: 200px;
- float: right;
-}
-
-#rightcolumn {
- color: #333;
- background: #EBE3CD;
- height: 350px;
- width: 200px;
- float: right;
-}
 

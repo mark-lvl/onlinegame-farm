@@ -4,6 +4,7 @@
 	{
 		function User_model() {
 			parent::Model();
+                        $this->lang->load('labels', 'persian');
 		}
 
 		function is_authenticated()
@@ -217,27 +218,86 @@
 		    }
 		}
 		
-		function invite_friend($user, $email) {
+		function invite_friend($user_id, $email) {
 		    $sql = "SELECT * FROM `users` WHERE email = " . $this->db->escape($email);
 		    $result = $this->db->query($sql);
 		    $result = $result->result_array();
 		    if(count($result) > 0) {
-		        return $result[0]['id'];
+		        return 1;
 		    }
 
 			$sql = "SELECT * FROM `invitations` WHERE friend_email = " . $this->db->escape($email);
 		    $result = $this->db->query($sql);
 		    $result = $result->result_array();
 			if(count($result) > 0) {
-		        return FALSE;
+		        return 2;
 		    }
 
-			$sql = "INSERT INTO `invitations` (`user`, `friend_email`, `hash`, `date_invited`) VALUES ('" . $user->id . "', " . $this->db->escape($email) . ", '" . md5($email) . "', '" . date("Y-m-d H:i:s") . "')";
+			$sql = "INSERT INTO `invitations` (`user_id`, `friend_email`, `hash`, `date_invited`) VALUES ('" . $user_id . "', " . $this->db->escape($email) . ", '" . md5($email) . "', '" . date("Y-m-d H:i:s") . "')";
 			$result = $this->db->query($sql);
-			if($result) {
-			    return TRUE;
+			if($result) 
+                        {
+                            $this->load->helper('email');
+
+                            $message = str_replace(array('__BASEPATH__',
+                                             '__HASH__'),
+                                        array(base_url(),
+                                              md5($email)),
+                                        $this->lang->language['inviteMailBody']);
+
+                            send_email($user['email'], $this->lang->language['inviteMailTitle'], $message);
+
+			    return 0;
 			}
-			return FALSE;
+			return 3;
+		}
+                
+                function forgot_password($data) {
+                    $fetchUser = $this->db->get_where('users', array('email' => $data))->result_array();
+
+                    $user = $fetchUser[0];
+
+                    if(empty ($user))
+                        return FALSE;
+                    else
+                    {
+                        $this->load->helper('email');
+
+                        $message  = "$user[first_name] $user[last_name], ";
+                        $message .= " password:";
+                        $message .= $user['plain_password'];
+
+                        send_email($user['email'], 'Forgotten Password From Renault', $message);
+
+                        return TRUE;
+
+                        }
+
+                }
+
+		function accept_invitation($hash)
+                {
+                    $sqlFinder = "SELECT hash,friend_email,user_id FROM `invitations` WHERE hash = ".$this->db->escape($hash).";";
+
+                    $query = $this->db->query($sqlFinder);
+                    $invitation = $query->row();
+
+                    if($invitation->hash == $hash)
+                    {
+                            $sqlUpdate = "UPDATE `invitations` SET `status` = 1,
+                                                             `date_answered` = '" . date("Y-m-d H:i:s") . "'
+                                                         WHERE status = 0
+                                                            AND user_id = " . $invitation->user_id . "
+                                                            AND friend_email = '" . $invitation->friend_email ."';";
+                            if($this->db->query($sqlUpdate))
+                                return $invitation->user_id;
+                            else
+                                return FALSE;
+                    }
+                    else
+                        return FALSE;
+		    
+			
 		}
 
 		function send_message($from_id, $to_id, $title, $body, $real_mail = FALSE) {
@@ -274,6 +334,7 @@
                         $query = "SELECT id FROM `notifications` WHERE `details` = ".$this->db->escape($details).";";
                         $result = $this->db->query($query);
                         $result = $result->result_array();
+                        //this section controll not sending multiple notification for the same lack resource
                         if(count($result) < 2)
                             $addNotQry = "INSERT INTO `notifications` (`farm_id`, `details`, `body`, `type`, `create_date`)
                                                 VALUES (" . $this->db->escape($farm_id) .", " .
@@ -358,45 +419,6 @@
 		}
 		
 		
-		
-		function get_users_ranks($user) {
-		    //$sql = "SELECT * FROM `final_standing` WHERE `user` = " . $this->db->escape($user->id) . " AND rank <= 20 AND rank > 0 ORDER BY rank";
-		    //$result = $this->db->query($sql);
-		    //$result = $result->result_array();
-
-		    if(is_array($result) && count($result) > 0) {
-		        return $result;
-		    }
-		    return FALSE;
-		}
-		
-		
-		
-		
-		
-		function get_top_users($page = 0, $count = 6, $filter = "") {
-		    if($filter != "") {
-		    	$filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
-		    }
-		    $sql = "SELECT u.*, d.score
-                            FROM users AS u
-                            LEFT JOIN user_detail
-                            AS d ON u.id = d.user_id"
-                            . $filter .
-                            " ORDER BY score DESC LIMIT " . $page * $count . ", " . $count;
-
-		    $result = $this->db->query($sql)->result_array();
-
-		    if(is_array($result) && count($result) > 0) {
-		        $ret = array();
-		        foreach($result as $x => $k) {
-		        	$ret[] = new User_entity($k);
-		        }
-		        return $ret;
-		    }
-		    return FALSE;
-		}
-		
 		function get_count_users($filter = "") {
 		    if($filter != "") {
 		    	$filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
@@ -421,8 +443,7 @@
 		    return FALSE;
 		}
 		
-		function challenge($from_user, $to_user) {
-		}
+		
 
                 function get_mutual_freinds($firstUser ,$secondUser)
                 {

@@ -106,6 +106,20 @@ class Registration extends MainController {
 		    die();
 		}
 	}
+
+        function invite($hash)
+        {
+            $user_id = $this->user_model->accept_invitation($hash);
+            if($user_id)
+            {
+                $this->load->model(array('Farm'));
+                $frmMdl = new Farm();
+                $farm_id = $frmMdl->invite_successfull($user_id);
+                if($farm_id)
+                        $this->user_model->add_notification($farm_id,$this->lang->language['inviteBonus'], 4);
+            }
+            redirect('registration/');
+        }
 }
 
 /* End of file welcome.php */

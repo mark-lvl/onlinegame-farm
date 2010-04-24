@@ -6,13 +6,14 @@ body {
  font-size: 12px;
  direction: rtl;
  color: #FFFFFF;
+ text-decoration: none;
 }
 
 p {
  padding: 10px;
 }
 
-#wrapper { 
+#wrapper {
  margin: 0 auto;
 }
 
@@ -27,7 +28,7 @@ p {
 #header {
  height: 157px;
  background: #930044 url(../images/home/wrapper-header.png) repeat-x  center;
- 
+
 }
 
 #header .main
@@ -44,6 +45,105 @@ p {
     position: absolute;
     top: 54px;
     right: 270px;
+}
+#search
+{
+    width: 290px;
+    height: 20px;
+    position: absolute;
+    top: 54px;
+    left: 10px;
+}
+#search .label
+{
+    font-size: 14px;
+    font-weight: bold;
+    float: right;
+    width: 45px;
+}
+#search .searchInput
+{
+    float: right;
+    width: 193px;
+    height: 16px;
+    background: url(../images/profile/search.gif) no-repeat center;
+}
+#search .searchInput input
+{
+    border: 0;
+    height: 15px;
+    width: 100px;
+    margin-right:3px;
+}
+#search .searchInput select
+{
+    border: 0;
+    height: 15px;
+    width: 70px;
+    margin-right:12px;
+}
+#search .searchSubmit
+{
+    background: url(../images/profile/search_submit.gif) no-repeat center !important;
+    display: block;
+    border: 0 !important;
+    width: 44px;
+    height: 16px;
+    float: left;
+    font-size: 11px;
+    cursor: pointer;
+}
+#search .searchSubmit:hover
+{
+    background: url(../images/profile/search_submit_hover.gif) no-repeat center !important;
+}
+#userConsole
+{
+    height: 59px;
+    width: 218px;
+    display: block;
+    position: absolute;
+    top: 86px;
+    right:715px;
+    background: url(../images/profile/user_console.gif) no-repeat center;
+}
+#userConsole span
+{
+    position: relative;
+}
+#userConsole img
+{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 8px;
+    right:7px;
+    background: #FFFFFF;
+}
+#userConsole span.name
+{
+    position: absolute;
+    width: 130px;
+    font-size: 14px;
+    font-weight:bold;
+    top: 10px;
+    right:67px;
+    
+}
+#userConsole span.name a
+{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#userConsole span.date
+{
+    position: absolute;
+    width: 130px;
+    font-size: 8px;
+    font-weight:bold;
+    top: 30px;
+    right:67px;
 }
 #navigation ul
 {
@@ -66,20 +166,21 @@ p {
 #content
 {
  background: #526329;
+ overflow: auto;
 }
 
-#footer { 
+#footer {
 }
 #footer-up
 {
     background: #d1a000 url(../images/home/footer-up.png) no-repeat bottom;
-    height: 160px;
+    height: 140px;
     display: block;
 }
 #footer-bottom
 {
     background: #930044;
-    height: 62px;
+    height: 35px;
     display: block;
 }
 #footer-bottom p

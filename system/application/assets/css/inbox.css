@@ -16,11 +16,17 @@
 	width:493px;
 }*/
 
+#inboxHolder
+{
+    width: 430px;
+    margin: 0 auto;
+}
+
 .message_show {
-	height:180px;
+	height:150px;
 	overflow-y:scroll;
 	overflow-x:hidden;
-	width:493px;
+	width:425px;
 }
 
 .message_box {
@@ -48,14 +54,15 @@
 	overflow-y:scroll;
 	overflow-x:hidden;
 	margin-top:5px;
-	width:493px;
+	width:425px;
+        background: #6E833F;
 }
 
 .message_spacer {
 	border-bottom:1px dotted #a4a4a4;
 	height:6px;
 	margin-bottom:5px;
-	width:493px;
+	width:440px;
 }
 
 .message {
@@ -65,7 +72,7 @@
 	overflow:hidden;
  	padding:0px 10px 0px 10px;
 	text-align:right;
-	width:473px;
+	width:425px;
 }
 
 .message_sender {
@@ -79,14 +86,14 @@
 	float:right;
 	font-weight:normal;
 	overflow:hidden;
-	width:273px;
+	width:190px;
 }
 
 .message_date {
 	float:right;
 	font-weight:normal;
 	overflow:hidden;
-	width:72px;
+	width:65px;
 }
 
 .message_delete, .message_delete2 {
@@ -96,5 +103,5 @@
 	font-weight:normal;
 	height:12px;
 	overflow:hidden;
-	width:28px;
+	width:13px;
 }

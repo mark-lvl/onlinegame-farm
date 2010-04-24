@@ -1,6 +1,7 @@
 <?php
 class Farm extends DataMapper {
 
+        const INVITE_BONUS = 50;
 
     	public function __construct()
     	{
@@ -38,6 +39,21 @@ class Farm extends DataMapper {
 		}
 
 	}
+
+        function invite_successfull($user_id)
+        {
+                $frmObj = $this->get_where(array('user_id'=>$user_id,'disactive'=>0));
+
+                if($frmObj->exists())
+                {
+                        $frmObj->money += self::INVITE_BONUS;
+                        $frmObj->save();
+
+                        return $frmObj->id;
+                }
+                else
+                    return FALSE;
+        }
 
 }
 ?>

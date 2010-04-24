@@ -9,6 +9,7 @@
 <!--[if IE]>
 <link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/iehacks.css" />
 <![endif]-->
+
 </head>
 
 <body>
@@ -34,7 +35,37 @@
                                             </li>
                                         </ul>
                                 </div>
-
+                                
+                                <?php if($user_profile): ?>
+                                <div id="search">
+                                    <span class="label"><?= $lang['search'] ?></span>
+                                    <form id="searchForm">
+                                        <span class="searchInput">
+                                            <input type="text" name="search" id="searchUserByName"/>
+                                            <select>
+                                                <option><?= $lang['friends'] ?></option>
+                                            </select>
+                                        </span>
+                                        <span><input type="submit" value="" class="searchSubmit"/></span>
+                                    </form>
+                                </div>
+                                
+                                <div id="userConsole">
+                                    <span>
+                                            <a href="<?= $base_uri."profile/user/".$user_profile->id ?>">
+                                                <img src="<?= $base_img ?>default.png"/>
+                                            </a>
+                                            <span class="name">
+                                                <a href="<?= $base_uri."profile/user/".$user_profile->id ?>">
+                                                    <?= $user_profile->first_name." ".$user_profile->last_name ?>
+                                                </a>
+                                            </span>
+                                            <span class="date">
+                                                <?= $lang['register_date'].": ".convert_number(fa_strftime("%d %B %Y", $user_profile->registration_date . "")) ?>
+                                            </span>
+                                    </span>
+                                </div>
+                                <?php endif; ?>
                         </div>
                 </div>
          

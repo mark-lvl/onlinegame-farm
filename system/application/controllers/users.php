@@ -32,10 +32,12 @@ class Users extends MainController {
 		    die();
 		}
 
-		$this->data['tops']		= Drivers_model::get_top_users($data['page'],  6, $filter);
+		//$this->data['tops']		= Drivers_model::get_top_users($data['page'],  6, $filter);
 		
-                $this->add_css('profile');
-                $this->render('profile');
+                $this->load->view("profile/search.tpl.php", $this->data);
+                
+                //$this->add_css('profile');
+                //$this->render('profile');
 	}
 	
 	function race($page = 0, $race = 0)
