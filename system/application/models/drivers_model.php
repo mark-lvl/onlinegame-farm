@@ -586,36 +586,6 @@
 		    return FALSE;
 		}
 
-		function get_top_users($page = 0, $count = 6, $filter = "") {
-		    if($filter != "") {
-		    	$filter = " WHERE CONCAT(u.first_name, ' ', u.last_name) LIKE '%" . $filter . "%'";
-		    }
-		    $sql = "SELECT u.*,f.user_id,f.level FROM `users` AS u LEFT JOIN `farms` AS f
-                            ON u.id = f.user_id ".
-                            $filter ."ORDER BY f.level DESC LIMIT " . $page * $count . ", " . $count;
-		    $result = $this->db->query($sql);
-		    $result = $result->result_array();
-
-		    if(is_array($result) && count($result) > 0) {
-		        $ret = array();
-		        foreach($result as $x => $k) {
-		        	$ret[] = new User_entity($k);
-		        }
-		        return $ret;
-		    }
-		    return FALSE;
-		}
-
-		function get_count_drivers($filter = "") {
-		    if($filter != "") {
-		    	$filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
-		    }
-		    $sql = "SELECT COUNT(*) cnt FROM `users`" . $filter;
-		    $result = $this->db->query($sql);
-		    $result = $result->result_array();
-
-		    return $result[0]['cnt'];
-		}
 
 		function get_count_renaults() {
 		    $sql = "SELECT COUNT(*) cnt FROM `votes` A GROUP BY car_id HAVING COUNT(*) > 1";

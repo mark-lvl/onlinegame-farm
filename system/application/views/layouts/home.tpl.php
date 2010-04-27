@@ -36,14 +36,15 @@
                                         </ul>
                                 </div>
                                 
-                                <?php if($user_profile): ?>
+                                <?php if($user): ?>
                                 <div id="search">
                                     <span class="label"><?= $lang['search'] ?></span>
                                     <form id="searchForm">
                                         <span class="searchInput">
                                             <input type="text" name="search" id="searchUserByName"/>
-                                            <select>
-                                                <option><?= $lang['friends'] ?></option>
+                                            <select id="searchByType">
+                                                <option value="1"><?= $lang['users'] ?></option>
+                                                <option value="2"><?= $lang['farms'] ?></option>
                                             </select>
                                         </span>
                                         <span><input type="submit" value="" class="searchSubmit"/></span>
@@ -52,18 +53,31 @@
                                 
                                 <div id="userConsole">
                                     <span>
-                                            <a href="<?= $base_uri."profile/user/".$user_profile->id ?>">
+                                            <a href="<?= base_url()."profile/user/".$user->id ?>">
                                                 <img src="<?= $base_img ?>default.png"/>
                                             </a>
                                             <span class="name">
-                                                <a href="<?= $base_uri."profile/user/".$user_profile->id ?>">
-                                                    <?= $user_profile->first_name." ".$user_profile->last_name ?>
+                                                <a href="<?= base_url()."profile/user/".$user->id ?>">
+                                                    <?= $user->first_name." ".$user->last_name ?>
                                                 </a>
                                             </span>
                                             <span class="date">
-                                                <?= $lang['register_date'].": ".convert_number(fa_strftime("%d %B %Y", $user_profile->registration_date . "")) ?>
+                                                <?= $lang['register_date'].": ".convert_number(fa_strftime("%d %B %Y", $user->registration_date . "")) ?>
                                             </span>
                                     </span>
+                                </div>
+                                <?php endif; ?>
+                                <?php if($user_profile == $user && $userFarm->id): ?>
+                                <div id="farmNameHolder">
+                                    <?= 
+                                    anchor(base_url()."farms/show", $lang['farm']." ".$userFarm->name);
+                                    ?>
+                                </div>
+                                <?php elseif($userFarm->id): ?>
+                                <div id="farmNameHolder">
+                                    <?=
+                                    anchor(base_url()."farms/view/$userFarm->id", $lang['farm']." ".$userFarm->name);
+                                    ?>
                                 </div>
                                 <?php endif; ?>
                         </div>

@@ -418,19 +418,6 @@
 		    }
 		}
 		
-		
-		function get_count_users($filter = "") {
-		    if($filter != "") {
-		    	$filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
-		    }
-		    $sql = "SELECT COUNT(*) cnt FROM `users`" . $filter;
-		    $result = $this->db->query($sql)->result_array();
-		    
-		    return $result[0]['cnt'];
-		}
-		
-		
-		
 		function get_next_user($user) {
 			$sql = "SELECT * FROM `users` WHERE current_race = " . $this->db->escape($user->current_race) . " AND current_position > " . $this->db->escape($user->current_position) . " AND challenged = 0 ORDER BY current_position DESC LIMIT 1";
 
@@ -442,6 +429,43 @@
 		    }
 		    return FALSE;
 		}
+
+                function get_top_users($page = 0, $count = 8, $filter = "")
+                {
+                    if($filter != "") {
+                        $filter = " WHERE CONCAT(u.first_name, ' ', u.last_name) LIKE '%" . $filter . "%'";
+                    }
+
+                    $offset = 0;
+                    if($page)
+                        $offset = ($page-1)* $count;
+
+                    $sql = "SELECT u.*,f.user_id,f.level FROM `users` AS u LEFT JOIN `farms` AS f
+                            ON u.id = f.user_id ".
+                            $filter ."ORDER BY f.level DESC LIMIT " . $offset . ", " . $count;
+                    $result = $this->db->query($sql);
+                    $result = $result->result_array();
+
+                    if(is_array($result) && count($result) > 0) {
+                        $ret = array();
+                        foreach($result as $x => $k) {
+                                $ret[] = new User_entity($k);
+                        }
+                        return $ret;
+                    }
+                    return FALSE;
+                }
+
+                function get_count_users($filter = "") {
+                    if($filter != "") {
+                        $filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
+                    }
+                    $sql = "SELECT COUNT(*) cnt FROM `users`" . $filter;
+                    $result = $this->db->query($sql);
+                    $result = $result->result_array();
+
+                    return $result[0]['cnt'];
+                }
 		
 		
 

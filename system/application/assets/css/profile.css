@@ -147,18 +147,50 @@
     right:11px;
     width: 194px;
 }
-#profileHint .messAjaxHolder
+#profileHint .userActivity
 {
-    background:#EEEEEE;
-    color:#666666;
-    display:none;
-    height:15px;
-    padding:20px;
-    position:absolute;
-    right:13px;
-    top:73px;
-    width:149px;
+    background: url(../images/profile/activity_bg.gif) no-repeat right center;
+    width: 220px;
+    height:121px;
+    display: block;
+    position: absolute;
+    top: 43px;
+    right: 0;
 }
+span .addToFriend
+{
+    background: url(../images/profile/add_to_friend.gif) no-repeat right center;
+    width: 110px;
+    height:30px;
+    display: block;
+    margin-right: 18px;
+}
+.addToFriend a,.removeFromFriend a,.abuseReport a
+{
+    color:#FFFFFF;
+    font-size:14px;
+    margin-right:25px;
+    text-decoration:none;
+    height: 30px;
+    display: block;
+}
+span .removeFromFriend
+{
+    background: url(../images/profile/remove_from_friend.gif) no-repeat right center;
+    width: 100px;
+    height:30px;
+    display: block;
+    margin-right: 18px;
+}
+span .abuseReport
+{
+    background: url(../images/profile/abuse_report.gif) no-repeat right center;
+    width: 100px;
+    height:30px;
+    display: block;
+    margin-right: 18px;
+}
+
 #farmCharts
 {
     display:block;
@@ -285,6 +317,7 @@
     padding-top: 5px;
     color: #FFFFFF;
     font-weight: bold;
+    text-decoration: none;
 }
 #inviteFriends
 {
@@ -306,6 +339,7 @@
     position: absolute;
     top: 124px;
     right: 21px;
+    width: 182px;
 }
 .form input
 {
@@ -335,6 +369,44 @@
 .form .submit:hover
 {
     background: url(../images/profile/submit-hover.gif) no-repeat center !important;
+}
+#privateMessageArea
+{
+    width: 220px;
+    height: 120px;
+    display: block;
+    background: #72873b;
+    margin-top: 43px;
+    position: relative;
+}
+#privateMessageArea .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    clear: both;
+    top: 6px;
+    right:11px;
+}
+#privateMessageArea .body
+{
+    position: absolute;
+    top: 28px;
+    right:11px;
+    width: 194px;
+}
+#privateMessageArea .messAjaxHolder
+{
+    background:#EEEEEE;
+    color:#666666;
+    display:none;
+    height:17px;
+    padding:20px;
+    position:absolute;
+    right:13px;
+    top:28px;
+    width:149px;
 }
 
 #hints{
@@ -374,6 +446,106 @@ padding-left:1px;
 padding-right:1px;
 color:#ffffff;
 }
+#searchContainer
+{
+    display:block;
+    height:386px;
+    padding:8px 14px 0 14px;
+    width:445px;
+}
+#searchItems
+{
+    height:360px;
+    width:445px;
+    display:block;
+}
+#searchContainer .item
+{
+    width: 180px;
+    height:50px;
+    display: block;
+    float: right;
+    margin-bottom: 21px;
+    margin-right: 15px;
+}
+.item .searchAvatar
+{
+    float: right;
+    width: 52px;
+    height: 52px;
+    display: block;
+    margin-left: 10px;
+}
+.item .searchField
+{
+    float: right;
+    width: 118px;
+    height: 15px;
+    display: block;
+}
+.searchField a
+{
+    color:#bce568;
+    font-weight:bold;
+    text-decoration: none;
+}
+#searchHeader .title
+{
+    color:#C3D59D;
+    float:right;
+    font-size:18px;
+    font-weight:bold;
+    margin-right:12px;
+    margin-top:10px;
+    width:400px;
+}
+#searchHeader .body
+{
+    color:#FFFFFF;
+    float:right;
+    margin-bottom:12px;
+    margin-right:12px;
+    width:400px;
+}
+#searchPager
+{
+    display:block;
+    height:26px;
+    padding-right: 10px;
+    width:200px;
+    margin: 0 auto;
+    padding-top: 4px;
+}
+.pagerItem
+{
+    width: 40px;
+    display: block;
+    height: 18px;
+    float: right;
+}
+.pagerItem a
+{
+    background:#D49C00;
+    color:#FFFFFF;
+    padding:2px 8px;
+    text-decoration:none;
+}
+.pagerItem input
+{
+    width: 36px;
+    height: 16px;
+    border: 0;
+}
+.pagerItem a:hover
+{
+    background: #3F96B3;
+}
+#searchAjaxHolder
+{
+    height:386px;
+    width:438px;    
+}
+
 
 
 

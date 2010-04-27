@@ -8,6 +8,8 @@ class Farms extends MainController {
     //have mission
     const MISSION = FALSE;
 
+    const ITEMPERPAGE = 8;
+
     var $userSessionHolder;
 
     public function __construct()
@@ -40,25 +42,50 @@ class Farms extends MainController {
                   $this->userSessionHolder = unserialize($_SESSION['user']);}
     }
 
-    function index($offset=0)
+    function find($page = 0, $filter = "")
     {
-        $user = new User();
-        $userDetails = $user->where('id','32')->get();
+		$this->data['controllerName'] = 'farms';
+                
+                $page = (int) $_POST['page'];
+                if($page <= 0)
+                    $page = 1;
 
-        $farm = new Farm();
-        $farms = $farm->where('user_id',$userDetails->id)->where('disactive','0')->get();
-        $this->output->enable_profiler(TRUE);
-        //var_dump($userDetails);
-        //var_dump($farms);
-        //exit;
+		if(!$_POST['pagination'])
+                {
+                    $this->data['page']  = 1;
+                    $frmMdl = new Farm();
+                    $this->data['cnt'] = $frmMdl->get_count_farms_by_name($_POST['filter']);
+                    unset($frmMdl);
+                    
+                    $this->data['parse'] = $_POST['filter'];
 
-        $this->load->view('farm/index', $data);
+                    $frmMdl = new Farm();
+                    $this->data['items'] = $frmMdl->get_farms_by_name($this->data['page'],  self::ITEMPERPAGE, $_POST['filter']);
+
+                    $this->load->view("partials/search.tpl.php", $this->data);
+                }
+                else
+                {
+                    $lastPage = ceil($_POST['cnt']/self::ITEMPERPAGE);
+                    if($page > $lastPage)
+                        $page = $lastPage;
+
+                    $this->data['page']  = $page;
+
+                    $this->data['cnt'] = $_POST['cnt'];
+
+                    $frmMdl = new Farm();
+                    $this->data['items'] = $frmMdl->get_farms_by_name($this->data['page'],  self::ITEMPERPAGE, $_POST['filter']);
+
+                    $this->load->view("farms/search-inner.tpl.php", $this->data);
+                }
     }
 
     function register()
     {
+        $user_id = $this->userSessionHolder->id;
         $farm = new Farm();
-            $userFarm = $farm->where('user_id',$user->id)->where('disactive','0')->get();
+            $userFarm = $farm->where('user_id',$user_id)->where('disactive','0')->get();
         if($userFarm->exists())
                 redirect('farm/show');
         else
@@ -66,7 +93,7 @@ class Farms extends MainController {
             if($this->input->post('name'))
 	    {
 	    	$farm->name = $this->input->post('name');
-            	$farm->user_id = $this->userSessionHolder->id;
+            	$farm->user_id = $user_id;
 
             	if($farm->save())
 		{
@@ -85,12 +112,12 @@ class Farms extends MainController {
                                 
 			}
                         $this->user_model->add_notification($farmId, $this->lang->language['welcomeToFarm'], 4);
-                	redirect('farms/show');
+                	redirect("profile/user/$user_id");
 		}
 	    }
 	    else
 	    {
-                redirect("profile/user/$user->id");
+                redirect("profile/user/$user_id");
 	    }
         }
     }

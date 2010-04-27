@@ -46,6 +46,24 @@ p {
     top: 54px;
     right: 270px;
 }
+#farmNameHolder
+{
+    height: 36px;
+    width: 250px;
+    display: block;
+    position: absolute;
+    top: 95px;
+    right: 270px;
+    padding-top: 4px;
+}
+#farmNameHolder a
+{
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 #search
 {
     width: 290px;
@@ -81,6 +99,7 @@ p {
     height: 15px;
     width: 70px;
     margin-right:12px;
+    font-size: 10px;
 }
 #search .searchSubmit
 {
@@ -110,6 +129,7 @@ p {
 #userConsole span
 {
     position: relative;
+    width: 218px;
 }
 #userConsole img
 {

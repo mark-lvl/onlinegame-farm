@@ -18,68 +18,116 @@
 
 #inboxHolder
 {
-    width: 430px;
+    width: 450px;
     margin: 0 auto;
+    position: relative;
 }
 
 .message_show {
-	height:150px;
-	overflow-y:scroll;
-	overflow-x:hidden;
+	height:160px;
 	width:425px;
+}
+.messageIcon
+{
+    width: 90px;
+    float: right;
+    overflow: auto;
+}
+.messageIcon span
+{
+    background: url("../images/profile/mailIcon.gif") no-repeat center;
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 10px 20px 0 0;
 }
 
 .message_box {
-	background:url("../images/inbox/quote.png") no-repeat top right;
-	height:auto;
-	padding:10px 25px 10px 10px;
-	margin:40px;
-	width:403px;
+        float: right;
+	padding-left:20px;
+	width:300px;
+        padding-top: 12px;
+}
+.messageDate
+{
+    width: 290px;
+    font-size: 10px;
+    height: 12px;
+    display: block;
+}
+.messageSender
+{
+    display:block;
+    height:25px;
+    width:290px;
+}
+.messageSender .name
+{
+    color:#7EFF74;
+    font-size:14px;
+    font-weight:bold;
+}
+.messageShowBox
+{
+    border-right: 1px solid #6f852e;
+    padding-right: 12px;
+    display: block;
+    height: 95px;
+    overflow: auto;
 }
 
 .eo_message_box {
-	border-top:1px solid #a4a4a4;
-	color:#555;
+	border-top:1px solid #FFFFFF;
+	color:#FFFFFF;
 	display:none;
 	font-size:10px;
 	height:20px;
 	margin-top:15px;
 	text-align:left;
-	width:80%;
+	width:100%;
 	.width:100%;
 }
 
 .message_list {
 	height:190px;
-	overflow-y:scroll;
-	overflow-x:hidden;
 	margin-top:5px;
 	width:425px;
-        background: #6E833F;
+        padding-right:3px;
+        padding-top:30px;
 }
-
-.message_spacer {
-	border-bottom:1px dotted #a4a4a4;
-	height:6px;
-	margin-bottom:5px;
-	width:440px;
+.message_list #messageListContainer
+{
+    height: 161px;
+    width:440px;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .message {
-	border-bottom:1px solid #dadfe2;
+	border-bottom:1px solid #75922b;
 	height:15px;
-	margin-top:5px;
+	margin-top:3px;
 	overflow:hidden;
- 	padding:0px 10px 0px 10px;
+ 	padding-bottom:4px;
+ 	padding-right:12px;
 	text-align:right;
-	width:425px;
+	width:417px;
+        margin-right: 4px
 }
+
 
 .message_sender {
 	float:right;
 	font-weight:normal;
 	overflow:hidden;
 	width:100px;
+}
+.message_sender a
+{
+    color:#7EFF74;
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
 }
 
 .message_title {
@@ -88,20 +136,36 @@
 	overflow:hidden;
 	width:190px;
 }
+.message_title a
+{
+    color:#FFFFFF;
+    font-size:14px;
+    text-decoration:none;    
+}
+
 
 .message_date {
 	float:right;
 	font-weight:normal;
 	overflow:hidden;
-	width:65px;
+	width:95px;
 }
 
 .message_delete, .message_delete2 {
-	background:url("../images/inbox/bin.png") no-repeat center right;
+	background:url("../images/profile/delete_message.gif") no-repeat center right;
 	cursor:pointer;
 	float:right;
 	font-weight:normal;
-	height:12px;
+	height:14px;
 	overflow:hidden;
-	width:13px;
+	width:14px;
+}
+#delete_all
+{
+    cursor:pointer;
+    height:16px;
+    left:12px;
+    position:absolute;
+    top:10px;
+    width:16px;
 }

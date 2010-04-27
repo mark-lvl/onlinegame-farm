@@ -22,14 +22,10 @@ class Gateway extends MainController {
 	        $user = $this->user_model->log_in($_POST['email_login'], $_POST['password_login']);
 	        if($user) {
 	            $_SESSION['user'] = $user;
-      	      	    header("Location: " . base_url());
-		    die();
-	        }
+                        redirect('profile/user/'.$user->id);
+                    }
 		else
-		{
-		    header("Location: " . base_url() . "message/index/0/");
-		    die();
-		}
+                    redirect('message/index/0/');
 	    }
 	}
 	
@@ -104,50 +100,8 @@ class Gateway extends MainController {
 	    }
 	}
 
-	function add_friend($id = "") {
-		$user = $this->user_model->is_authenticated();
-		if(!$user) {
-			header("Location: " . base_url() . "message/index/17/");
-		    die("");
-		}
-	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches)) {
-			header("Location: " . base_url());
-		    die();
-	    }
-
-		$lang = $this->lang->language;
-	    
-	    if($this->user_model->relate_users($user, $id)) {
-	    	user_model::send_message($user->id, $id, str_replace("XXX", $user->first_name, $lang['add_request']), str_replace("XXX", $user->id, $lang['add_requestbody']));
-			header("Location: " . base_url() . "message/index/5/");
-		    die();
-	    }
-	    else {
-			header("Location: " . base_url() . "message/index/6/");
-		    die();
-	    }
-	}
 	
-	function delete_friend($id = "") {
-		$user = $this->user_model->is_authenticated();
-		if(!$user) {
-			header("Location: " . base_url() . "message/index/17/");
-		    die("");
-		}
-	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches)) {
-			header("Location: " . base_url());
-		    die();
-	    }
-
-	    if($this->user_model->delete_relation($user, $id)) {
-			header("Location: " . base_url() . "message/index/7/");
-		    die();
-	    }
-	    else {
-			header("Location: " . base_url() . "message/index/8/");
-		    die();
-	    }
-	}
+	
 	
 	function invite_friend($friend) {
 		$user = $this->user_model->is_authenticated();
@@ -585,33 +539,7 @@ class Gateway extends MainController {
 	    }
 	}
 	
-	function report_abuse($id) {
-	    $user = $this->user_model->is_authenticated();
-		if(!$user) {
-			header("Location: " . base_url() . "message/index/17/");
-			die("false");
-		}
-		
-		$id = (int)$id;
-		if(!$id) {
-		    die("");
-		}
-		
-		$sql = "SELECT * FROM `abuse` WHERE user = " . $this->db->escape($id) . " AND sender = " . $this->db->escape($user->id);
-	    $result = $this->db->query($sql);
-	    $result = $result->result_array();
-	    if(is_array($result) && count($result) > 0) {
-			header("Location: " . base_url() . "message/index/13/");
-		    die();
-	    }
-	    else {
-		    $sql = "INSERT INTO `abuse` (user, sender, `date`) VALUES (" . $this->db->escape($id) . ", " . $this->db->escape($user->id) . ", '" . date("Y-m-d H:i:s") . "')";
-		    $this->db->query($sql);
-		    
-			header("Location: " . base_url() . "message/index/14/");
-		    die();
-	    }
-	}
+	
 	
 	function set_users_car($id) {
 	    $sql = "UPDATE `users` SET car = " . $this->db->escape($id) . " WHERE id = " . $this->db->escape($id);

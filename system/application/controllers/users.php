@@ -2,81 +2,44 @@
 
 class Users extends MainController {
 
+        const ITEMPERPAGE = 8;
+
+        public function __construct()
+        {
+            parent::__construct();
+        }
+
 	function find($page = 0, $filter = "")
 	{
-            //TODO this method must be cleanup
-		if($page < 0) 
+                $this->data['controllerName'] = 'users';
+                
+		$page = (int) $_POST['page'];
+                if($page <= 0)
+                    $page = 1;
+
+		if(!$_POST['pagination'])
                 {
-                        redirect("users/find/0/" . $filter);
-		}
-                
-                //TODO must edit this section for check user_profile==user
-                $user = $this->user_model->is_authenticated();
-                $this->data['user_profile'] = $user;
-                $this->data['user']         = $user;
+                    $this->data['page']  = 1;
+                    $this->data['cnt'] = $this->user_model->get_count_users($_POST['filter']);
+                    $this->data['parse'] = $_POST['filter'];
 
-		if($filter == "") 
-                    $this->data['title'] = $this->lang->language['drivers_list_title'];
-		else 
-                    $data['title'] = $this->lang->language['search_title'];
-		
-		if($filter != "")
-                    $this->add_css('style_search');
+                    $this->data['items'] = $this->user_model->get_top_users($data['page'],  self::ITEMPERPAGE, $_POST['filter']);
 
-		$this->data['filter'] = $filter;
-		$this->data['page']  = (int)$page;
-		$this->data['cnt'] = Drivers_model::get_count_drivers($filter);
+                    $this->load->view("partials/search.tpl.php", $this->data);
+                }
+                else
+                {
+                    $lastPage = ceil($_POST['cnt']/self::ITEMPERPAGE);
+                    if($page > $lastPage)
+                        $page = $lastPage;
 
-		if($data['page'] > floor($data['cnt'] / 6)) {
-  			header("Location: " . base_url() . "users_list/index/" . floor($data['cnt'] / 6) . "/" . $filter);
-		    die();
-		}
+                    $this->data['page']  = $page;
 
-		//$this->data['tops']		= Drivers_model::get_top_users($data['page'],  6, $filter);
-		
-                $this->load->view("profile/search.tpl.php", $this->data);
-                
-                //$this->add_css('profile');
-                //$this->render('profile');
-	}
-	
-	function race($page = 0, $race = 0)
-	{
-		if($page < 0) {
-  			header("Location: " . base_url() . "drivers_list/race/0/" . $filter);
-		    die();
-		}
+                    $this->data['cnt'] = $_POST['cnt'];
+                    
+                    $this->data['items'] = $this->user_model->get_top_users($page,  self::ITEMPERPAGE, $_POST['filter']);
 
-		$race = Races_model::get_race((int)$race);
-
-		if(!$race) {
-  			header("Location: " . base_url());
-		    die();
-		}
-		
-	    $data['driver'] = $this->drivers_model->is_driver();
-
-    	$data['title']		= $this->lang->language['drivers_list_title'];
-
-    	$data['header']		= '<link href="' . base_url() . 'system/application/views/layouts/style/drivers_list/style.css" rel="stylesheet" type="text/css" />';
-
-		$data['race']		= $race;
-
-	    $data['lang']		= $this->lang->language;
-
-		$data['page']       = (int)$page;
-
-		$data['cnt']		= Drivers_model::get_total_race_drivers($race->id);
-
-		if($data['page'] > floor($data['cnt'] / 6)) {
-  			header("Location: " . base_url() . "drivers_list/race/" . floor($data['cnt'] / 6) . "/" . $race->id);
-		    die();
-		}
-
-		$data['tops']		= Races_model::get_top_drivers_race($race->id, $data['page'], 6);
-		
-	    $data['body']		= $this->load->view('layouts/controllers_body/drivers_list_race.php', $data, TRUE);
-
-		$this->load->view('layouts/inside/inside.php', $data);
+                    $this->load->view("users/search-inner.tpl.php", $this->data);
+                }
 	}
 }

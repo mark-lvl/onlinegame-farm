@@ -30,6 +30,7 @@
         });
     });
 </script>
+<?php if($userFarm->id): ?>
 <script>
 $(document).ready(function() {
     $("#dangerBar").progressBar(<?= $bars['attackBar'] ?>,{
@@ -58,6 +59,7 @@ $(document).ready(function() {
     });
 });
 </script>
+<?php endif; ?>
 <script>
 function ajax_request(handler, url, params ,callback) {
     $(handler).loading({
@@ -87,6 +89,24 @@ function editProfile()
     var params = {};
     params['user_id'] = <?= $user_profile->id ?>;
     ajax_request('#centerContainer','<?= base_url() ?>profile/edit',params);
+}
+function addToFriend(id)
+{
+    var params = {};
+    params['id'] = id;
+    ajax_request('#ajaxHolder','<?= base_url() ?>profile/addToFriend',params);
+}
+function deleteFriend(id)
+{
+    var params = {};
+    params['id'] = id;
+    ajax_request('#ajaxHolder','<?= base_url() ?>profile/deleteFriend',params);
+}
+function abuseReport(id)
+{
+    var params = {};
+    params['id'] = id;
+    ajax_request('#ajaxHolder','<?= base_url() ?>profile/abuseReport',params);
 }
 </script>
 <script type="text/javascript">
@@ -132,10 +152,25 @@ $("#sendMessage").submit(function(){
 
 $("#searchForm").submit(function(){
 
-    var params = {};
-    params['message'] = $("#searchUserByName").val();
+    var searchHasError = false;
+    $("#searchUserByName").css("color","");
 
-    ajax_request('#centerContainer', '<?= base_url() ?>users/find/0/', params)
+    var params = {};
+    params['filter'] = $("#searchUserByName").val();
+    params['page'] = 0;
+    type = $("#searchByType").val();
+
+    if(params['filter'] == "")
+    {
+        $('#searchUserByName').css("color","red");
+        $('#searchUserByName').val('<?= $lang['must_be_filled'] ?>');
+        searchHasError = true;
+    }
+    if(!searchHasError)
+        if(type == 1)
+            ajax_request('#centerContainer', '<?= base_url() ?>users/find/', params)
+        else if(type == 2)
+            ajax_request('#centerContainer', '<?= base_url() ?>farms/find/', params)
 
     return false;
     });
@@ -286,25 +321,38 @@ $("#searchForm").submit(function(){
                                 </ul>
                             </span>
                         <?php else: ?>
-                            <span class="title"><?= $lang['sendMessage'] ?></span>
-                            <span class="body">
-                                <div class="form">
-                                    <form id="sendMessage">
-                                        <textarea id="privateMess"></textarea>
-                                        <input type="submit" class="submit" value="" style="margin-top:-5px !important"/>
-                                    </form>
-                                </div>
-
+                            <span class="userActivity">
+                                <br/>
+                                <?php if(!$user_profile->is_related && !$user_profile->is_blocked): ?>
+                                    <span class="addToFriend">
+                                        <?= anchor("gateway/addToFriend/".ltrim($user_profile->id, '0'),
+                                            $lang['add_to_friend'],
+                                            array('onclick'=>"addToFriend(".ltrim($user_profile->id, '0').");return false;"));
+                                        ?>
+                                    </span>
+                                <?php elseif($user_profile->is_related): ?>
+                                    <span class="removeFromFriend">
+                                        <?= anchor("profile/deleteFriend/".ltrim($user_profile->id, '0'),
+                                            $lang['delete_friend'],
+                                            array('onclick'=>"deleteFriend(".ltrim($user_profile->id, '0').");return false;"));
+                                        ?>
+                                    </span>
+                                <?php endif; ?>
+                                <span class="abuseReport">
+                                    <?= anchor("profile/abuseReport/".ltrim($user_profile->id, '0'),
+                                            $lang['report_abuse'],
+                                            array('onclick'=>"abuseReport(".ltrim($user_profile->id, '0').");return false;"));
+                                    ?>
+                                </span>
                             </span>
-                            <span class="messAjaxHolder"></span>
                         <?php endif; ?>
                 </div>
         </div>
         <div id="centerColumn">
+            <div id="ajaxHolder"></div>
             <div id="centerContainer">
                 <!-- this div just used for ajax loader position -->
-                <div id="ajaxHolder"></div>
-
+                <?php if($userFarm->id): ?>
                 <div id="farmCharts">
                         <div class="barContainer">
                             <span class="title">
@@ -388,20 +436,26 @@ $("#searchForm").submit(function(){
                             <?php endforeach; ?>
                         </div>
                 </div>
+                <?php else: ?>
+                <?= $mainFarm ?>
+                <?php endif; ?>
             </div>
         </div>
         <div id="leftColumn">
                 <div id="friendBox">
                         <span class="title"><?= $lang['friends'] ?></span>
+                        <?php if(!empty ($friends)): ?>
                         <span class="allFriendsLink">
                             <?= anchor("profile/seeAllFriends/$user_profile->id",
                             $lang['allFriends'],
                              array('onclick'=>"seeAllFriends(".$user_profile->id.");return false;"))."<br/>";
                             ?>
-                            </span>
+                        </span>
+                        <?php endif; ?>
                         <div id="friendAvatars">
                             <?php
                             $i= 0;
+                            if(!empty ($friends))
                             foreach($friends as $friend):
                             if($i > 3){break;}else{
                                 ?>
@@ -420,9 +474,13 @@ $("#searchForm").submit(function(){
                             <?php
                             $i++;
                             }
-                            endforeach; ?>
+                            endforeach;
+                            else
+                                echo $lang['havingAnyFriend'];
+                            ?>
                         </div>
                 </div>
+                <?php if(!$partner): ?>
                 <div id="inviteFriends">
                     <div class="body" id="inviteRequestHolder"><?= $lang['addFriendsToYummy'] ?></div>
                     <div class="form">
@@ -432,13 +490,28 @@ $("#searchForm").submit(function(){
                         </form>
                     </div>
                 </div>
+                <?php else: ?>
+                <div id="privateMessageArea">
+                    <span class="title"><?= $lang['sendMessage'] ?></span>
+                    <span class="body">
+                        <div class="form">
+                            <form id="sendMessage">
+                                <textarea id="privateMess"></textarea>
+                                <input type="submit" class="submit" value="" style="margin-top:-5px !important"/>
+                            </form>
+                        </div>
+
+                    </span>
+                    <span class="messAjaxHolder"></span>
+                </div>
+                <?php endif; ?>
         </div>
+        <?php if(!$partner): ?>
         <div id="bottomBar">
             <?= anchor("profile/inbox",
                        "<span>$userFarm->unreadMess</span>",
                        array('onclick'=>"inbox();return false;",'id'=>"inboxCounter"));
             ?>
         </div>
-
+        <?php endif; ?>
 </div>
-

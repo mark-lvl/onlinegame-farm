@@ -53,6 +53,7 @@
 	/*
 	    Profile
 	*/
+	$lang['notice']	= "حواست باشه";
 	$lang['fromCity']	= "از شهرستان";
 	$lang['m_title']	= "آقای";
 	$lang['f_title']	= "خانم";
@@ -77,6 +78,8 @@
         $lang['message_title'] = "پیغام از طرف __USERNAME__";
         $lang['send_message_successfull'] = "ارسال پیغام با موفقیت انجام شد";
         $lang['send_message_faild'] = "پیغام ارسال نشد";
+        $lang['searchResult'] = "__COUNT__ مورد برای <b>__PARSE__</b> یافت شد";
+        $lang['must_be_filled'] = "پر شود";
 
         $lang['farmDangerous'] = "میزان خطرناک بودن";
         $lang['farmSecurity'] = "میزان امنیت مزرعه";
@@ -90,6 +93,8 @@
         $lang['health'] = "سلامت";
 
         $lang['close'] = "بستن";
+        $lang['farm'] = "مزرعه";
+        $lang['havingAnyFriend'] = "هنوز دوستی نداری";
 
         /*
          * farm Farm
@@ -143,6 +148,12 @@
 	$lang['invitation-beforeInvited'] = "این دوستت قبلا دعوت شده";
 	$lang['invitation-notComplete'] = "خطا در ارسال دعوت نامه برای دوستت";
 	$lang['search']	        = "جستجو";
+	$lang['users']	        = "کاربران";
+	$lang['farms']	        = "مزرعه ها";
+	$lang['last']	        = "انتها";
+	$lang['first']	        = "ابتدا";
+	$lang['next']	        = "بعدی";
+	$lang['previuos']	= "قبلی";
 	$lang['friends_name']   = "نام دوست";
 	
 	$lang['report_body']    = "در صورتی که این راننده از قوانین سایت تخطی کرده و مطمئن هستی دکمه ی تایید رو بزن.<BR />در صورتی که این راننده خلافکار نباشه, یک امتیاز منفی در سابقه ی خودت ثبت خواهد شد!";
@@ -157,6 +168,7 @@
 	$lang['from']	        = "از طرف";
 	$lang['date']	        = "تاریخ";
 	$lang['title']	        = "عنوان";
+	$lang['wrote']	        = "نوشته";
 	$lang['message_here']   = "روی عنوان هر پیام کلیک کن و متن را در این جا ببین!";
 	$lang['endof_message']  = "انتهای پیام";
 	

@@ -6,5 +6,7 @@ class User extends DataMapper {
         // model constructor
         parent::__construct();
     }
+
+    
 }
 ?>

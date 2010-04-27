@@ -1,77 +1,64 @@
 <style>
   #centerContainer {
-    background: #2b3b09 url(<?= $base_img ?>profile/inbox_bg.gif) no-repeat top center;
+    background: #2b3b09 url(<?= $base_img ?>profile/inbox_bg.gif) no-repeat center;
     height: 395px;
     width: 464px;
     display: block;
-    margin-top: 2px;
+}
+ #centerColumn
+ {
+     margin-bottom: 8px !important;
 }
 </style>
 
 <div id="centerContainer">
-    <br/>
     <div id="inboxHolder">
+        <div id="delete_all"></div>
         <div class="message_list">
-                <div class="message" style="height:20px;">
-                    <div class="message_sender" style="font-weight:normal;">
-                        <span class="text_h6">
-                                        <?= $lang['from'] ?>
-                                </span>
-                    </div>
-                    <div class="message_title">
-                        <span class="text_h6">
-                                        <?= $lang['title'] ?>
-                                </span>
-                    </div>
-                    <div class="message_date">
-                        <span class="text_h6">
-                                <?= $lang['date'] ?>
-                        </span>
-                    </div>
-                    <div class="message_delete2" title="<?= $lang['delete_all'] ?>" id="delete_all">
-                    </div>
-                </div>
-                <?php
-                        if(is_array($messages) && count($messages) > 0) {
-                            foreach($messages as $x => $k) {
-                        ?>
-                                        <div class="message" id="msg<?= $k['id'] ?>">
-                                            <div class="message_sender" id="msgx<?= $k['id'] ?>" <?= ($k['checked'] == 0) ? 'style="font-weight:bold"' : NULL ?>>
-                                                <a href="<?= base_url() ?>profile/user/<?= $k['from'] ?>" style="color:#444;">
-                                                                <?= $k['first_name'] ?>
-                                                        </a>
-                                            </div>
-                                            <div class="message_title" id="msgxx<?= $k['id'] ?>" <?= ($k['checked'] == 0) ? 'style="font-weight:bold"' : NULL ?>>
-                                                <a href="javascript:show_message(<?= $k['id'] ?>)" style="color:#444;">
-                                                                <?= $k['title'] ?>
-                                                        </a>
-                                            </div>
-                                            <div class="message_date">
-                                                <?= convert_number(fa_strftime("%d %B %Y", $k['date'] . "")) ?>
-                                            </div>
-                                                <div class="message_delete" id="<?= $k['id'] ?>">
-
-                                            </div>
+            <div id="messageListContainer" >
+            <?php
+                    if(is_array($messages) && count($messages) > 0) {
+                        foreach($messages as $x => $k) {
+                    ?>
+                                    <div class="message" id="msg<?= $k['id'] ?>">
+                                        <div class="message_sender" id="msgx<?= $k['id'] ?>" <?= ($k['checked'] == 0) ? 'style="font-weight:bold"' : NULL ?>>
+                                            <a href="<?= base_url() ?>profile/user/<?= $k['from'] ?>" >
+                                                            <?= $k['first_name'] ?>
+                                                    </a>
                                         </div>
-                        <?php
-                            }
+                                        <div class="message_title" id="msgxx<?= $k['id'] ?>" <?= ($k['checked'] == 0) ? 'style="font-weight:bold"' : NULL ?>>
+                                            <a href="javascript:show_message(<?= $k['id'].",'".$k['first_name']."','".convert_number(fa_strftime("%d %B %Y", $k['date'] . "")) ."'" ?>)" >
+                                                            <?= $k['title'] ?>
+                                                    </a>
+                                        </div>
+                                        <div class="message_date">
+                                            <?= convert_number(fa_strftime("%d %B %Y", $k['date'] . "")) ?>
+                                        </div>
+                                            <div class="message_delete" id="<?= $k['id'] ?>">
+
+                                        </div>
+                                    </div>
+                    <?php
                         }
-                ?>
+                    }
+            ?>
+            </div>
         </div>
-	<div class="message_spacer">
-	</div>
+	
 	<div class="message_show">
+            <div class="messageIcon">
+                <span></span>
+            </div>
 	    <div class="message_box">
-	        <?= $lang['message_here'] ?>
-		    <div class="eo_message_box">
-		    	<?= $lang['endof_message'] ?>
-		    </div>
+                <span class="messageDate"></span>
+                <span class="messageSender"></span>
+                <span class="messageShowBox">
+                    <?= $lang['message_here'] ?>
+                </span>
+                
 	    </div>
 	</div>
 </div>
-
-<br style="clear:both" />
-<br /><br />
 
 <script>
 	$(function(){
@@ -127,7 +114,7 @@
 		});
 	});
 
-	function show_message(id) {
+	function show_message(id,name,date) {
 		$.post("<?= base_url() ?>gateway/get_message/", { id: id },
 			function(data){
 				switch(data) {
@@ -137,7 +124,9 @@
 					default:
          				$("#msgx" + id).css("font-weight", "normal");
          				$("#msgxx" + id).css("font-weight", "normal");
-				    	$(".message_box").html(data + '<div class="eo_message_box"><?= $lang['endof_message'] ?></div>');
+                                        $(".messageDate").html(date);
+                                        $(".messageSender").html("<span class=\"name\" >"+name+"</span><?= " ".$lang['wrote'].":" ?>");
+				    	$(".messageShowBox").html(data + '<div class="eo_message_box"><?= $lang['endof_message'] ?></div>');
 				    	$(".eo_message_box").fadeIn('fast');
 					    break;
 				}

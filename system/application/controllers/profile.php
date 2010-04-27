@@ -64,12 +64,22 @@ class Profile extends MainController
                         LEFT JOIN `plants` AS p ON (f.id = p.farm_id AND p.reap = 0)
                         LEFT JOIN `types` AS t ON (p.type_id = t.id)
                         LEFT JOIN `messages` AS m ON (f.user_id = m.to AND m.checked = 0)
-                        WHERE f.user_id = ".$user->id.";";
+                        WHERE f.user_id = ".$user_profile->id.";";
 
             $farmQuery = $this->db->query($farmSql);
             $this->data['userFarm'] = $farmQuery->row();
 
-            if(!empty($this->data['userFarm']))
+            //this if only for handle unreadMessages for user not having farm yet.
+            if(!$this->data['userFarm']->id)
+            {
+                $unreadMesSql = "SELECT count(m.id) AS unreadMess FROM `messages` AS m WHERE m.to = $user_profile->id AND m.checked = 0";
+                $messQuery = $this->db->query($unreadMesSql);
+                $this->data['userFarm'] = $messQuery->row();
+            }
+
+            $friends = $this->user_model->get_friends($user_profile);
+
+            if($this->data['userFarm']->id)
             {
                 $notMdl = new Notification();
                 $notObjs = $notMdl->where(array('farm_id'=>$this->data['userFarm']->id))->where_in('type',array(0,3))->get()->all;
@@ -105,6 +115,7 @@ class Profile extends MainController
                     elseif($usrRnkObj->type == 2)
                             $farmSign['grasshoppers']['accept'] = TRUE;
                 }
+
 
                 $sql = "SELECT fa.count , a.type FROM `farmaccessories` AS fa
                                                  LEFT JOIN `accessories` AS a
@@ -173,7 +184,6 @@ class Profile extends MainController
 
                 $this->data['transactions'] = $frmTrnObjs;
 
-                $friends = $this->user_model->get_friends($user);
                 $num_friends = count($friends);
 
                 //freinds count can improve user deffence bar
@@ -390,4 +400,79 @@ class Profile extends MainController
                 echo $this->lang->language['send_message_faild'];
 
         }
+        function addToFriend($id = "")
+        {
+            $user = $this->user_model->is_authenticated();
+            if(!$user) {
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_title17'],'height'=>40));
+                return FALSE;
+            }
+	    if($_POST['id'] == "" || !preg_match_all ("/(\\d+)/is", $_POST['id'], $matches))
+            {
+                $this->error_reporter('public',array('message'=>$this->lang->language['m_title8']));
+                return FALSE;
+            }
+
+	    if($this->user_model->relate_users($user, $_POST['id']))
+            {
+	    	user_model::send_message($user->id, $_POST['id'], str_replace("XXX", $user->first_name, $this->lang->language['add_request']), str_replace("XXX", $user->id, $this->lang->language['add_requestbody']));
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_title5'],'height'=>40));
+                return FALSE;
+	    }
+	    else {
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_body6'],'height'=>50));
+                return FALSE;
+	    }
+	}
+        function deleteFriend($id = "")
+        {
+            $user = $this->user_model->is_authenticated();
+            if(!$user) {
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_title17'],'height'=>40));
+                return FALSE;
+            }
+	    if($_POST['id'] == "" || !preg_match_all ("/(\\d+)/is", $_POST['id'], $matches)) {
+		$this->error_reporter('public',array('message'=>$this->lang->language['m_title8']));
+                return FALSE;
+	    }
+
+	    if($this->user_model->delete_relation($user, $id)) {
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_title7'],'height'=>40));
+                return FALSE;
+	    }
+	    else {
+		$this->error_reporter('alert',array('message'=>$this->lang->language['m_body8'],'height'=>40));
+                return FALSE;
+	    }
+	}
+        function abuseReport($id = "")
+        {
+	    $user = $this->user_model->is_authenticated();
+            if(!$user)
+            {
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_title17'],'height'=>40));
+                return FALSE;
+            }
+
+            $_POST['id'] = (int)$_POST['id'];
+            if(!$_POST['id']) {
+                $this->error_reporter('public',array('message'=>$this->lang->language['m_title8']));
+                return FALSE;
+            }
+
+            $sql = "SELECT * FROM `abuse` WHERE user_id = " . $this->db->escape($_POST['id']) . " AND sender = " . $this->db->escape($user->id);
+	    $result = $this->db->query($sql);
+	    $result = $result->result_array();
+	    if(is_array($result) && count($result) > 0) {
+		$this->error_reporter('alert',array('message'=>$this->lang->language['m_title13'],'height'=>40));
+                return FALSE;
+	    }
+	    else {
+		    $sql = "INSERT INTO `abuse` (user_id, sender, `date`) VALUES (" . $this->db->escape($_POST['id']) . ", " . $this->db->escape($user->id) . ", '" . date("Y-m-d H:i:s") . "')";
+		    $this->db->query($sql);
+
+		$this->error_reporter('alert',array('message'=>$this->lang->language['m_body14'],'height'=>40));
+                return FALSE;
+	    }
+	}
 }

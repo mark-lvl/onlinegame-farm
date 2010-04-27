@@ -55,5 +55,20 @@ class Farm extends DataMapper {
                     return FALSE;
         }
 
+        function get_count_farms_by_name($filter = "")
+        {
+            return $this->like('name', $filter)->count();
+        }
+        function get_farms_by_name($page = 0, $count = 8, $filter = "")
+        {
+            $offset = 0;
+            if($page)
+                $offset = ($page-1)* $count;
+
+            $frmObjs = $this->like('name',$filter)->order_by("level", "desc")->limit($count,$offset)->get()->all;
+
+            return $frmObjs;
+        }
+
 }
 ?>
