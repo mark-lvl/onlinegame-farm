@@ -152,11 +152,12 @@
 		    }
 		}
 		
-		function delete_relation($user, $guest_id) {
-		    if($user->id == $guest_id) {
+		function delete_relation($user_id, $guest_id) {
+		    if($user_id == $guest_id) {
 		        return FALSE;
 		    }
-		    $sql = "DELETE FROM `relations` WHERE (`inviter` = " . $this->db->escape($user->id) . " AND `guest` = " . $this->db->escape($guest_id) . ") OR (`inviter` = " . $this->db->escape($guest_id) . " AND `guest` = " . $this->db->escape($user->id) . ")";
+		    $sql = "DELETE FROM `relations` WHERE (`inviter` = " . $this->db->escape($user_id) . " AND `guest` = " . $this->db->escape($guest_id) . ") OR (`inviter` = " . $this->db->escape($guest_id) . " AND `guest` = " . $this->db->escape($user_id) . ")";
+                    
 		    $result = $this->db->query($sql);
 
 		    if($result) {

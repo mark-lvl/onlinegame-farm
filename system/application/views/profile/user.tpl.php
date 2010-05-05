@@ -17,6 +17,12 @@
     animation: 1000,
     scroll:2
     });
+    
+    jQuery('#transactionHolder').jcarousel({
+    vertical :true,
+    animation: 'slow',
+    scroll:2
+    });
     });
 </script>
 <script type="text/javascript" >
@@ -84,6 +90,10 @@ function inbox()
 {
     ajax_request('#centerContainer','<?= base_url() ?>profile/inbox');
 }
+function history()
+{
+    ajax_request('#centerContainer','<?= base_url() ?>profile/history');
+}
 function editProfile()
 {
     var params = {};
@@ -96,10 +106,11 @@ function addToFriend(id)
     params['id'] = id;
     ajax_request('#ajaxHolder','<?= base_url() ?>profile/addToFriend',params);
 }
-function deleteFriend(id)
+function deleteFriend(id,user_id)
 {
     var params = {};
     params['id'] = id;
+    params['user_id'] = user_id;
     ajax_request('#ajaxHolder','<?= base_url() ?>profile/deleteFriend',params);
 }
 function abuseReport(id)
@@ -107,6 +118,10 @@ function abuseReport(id)
     var params = {};
     params['id'] = id;
     ajax_request('#ajaxHolder','<?= base_url() ?>profile/abuseReport',params);
+}
+function registerNewFarm()
+{
+    ajax_request('#centerContainer','<?= base_url() ?>farms/register');
 }
 </script>
 <script type="text/javascript">
@@ -332,9 +347,9 @@ $("#searchForm").submit(function(){
                                     </span>
                                 <?php elseif($user_profile->is_related): ?>
                                     <span class="removeFromFriend">
-                                        <?= anchor("profile/deleteFriend/".ltrim($user_profile->id, '0'),
+                                        <?= anchor("profile/deleteFriend/".ltrim($user_profile->id, '0')."/".$user->id,
                                             $lang['delete_friend'],
-                                            array('onclick'=>"deleteFriend(".ltrim($user_profile->id, '0').");return false;"));
+                                            array('onclick'=>"deleteFriend(".ltrim($user_profile->id, '0').",$user->id);return false;"));
                                         ?>
                                     </span>
                                 <?php endif; ?>
@@ -380,6 +395,19 @@ $("#searchForm").submit(function(){
                         </div>
                 </div>
 
+                
+                <div id="farmSnapshot">
+                    <?php if($userFarm->disactive == 0): ?>
+                    <?php if(!$partner)
+                                echo anchor(base_url()."farms/show", " ",array('title'=>$lang['goToFarm']));
+                          else
+                                echo anchor(base_url()."farms/view/$user_profile->id", " ",array('title'=>$lang['goToFarm']));
+                    ?>
+                    <?php else: ?>
+                    <acronym class="endGame" title="<?= $lang['endGame'] ?>" ></acronym>
+                    <?php endif; ?>
+                </div>
+
                 <div id="profileFarmDetails">
                         <table>
                                 <tr>
@@ -390,6 +418,7 @@ $("#searchForm").submit(function(){
                                         <td class="title"><?= $lang['farmMoney'] ?></td>
                                         <td><?= $userFarm->money." ".$lang['yummy'] ?></td>
                                 </tr>
+                                <?php if($userFarm->disactive == 0): ?>
                                 <tr>
                                         <td class="title"><?= $lang['farmLevel'] ?></td>
                                         <td><?= $lang["level$userFarm->level"] ?></td>
@@ -402,39 +431,54 @@ $("#searchForm").submit(function(){
                                         <td class="title"><?= $lang['health'] ?></td>
                                         <td><?= $userFarm->health ?> %</td>
                                 </tr>
+                                <?php else: ?>
+                                <tr>
+                                    <td colspan="2" style="text-align: center">
+                                        <br/>
+                                        <?= anchor("",$lang['registerNewFarm'],
+                                            array('onclick'=>"registerNewFarm();return false;",'class'=>'solidLink'));
+                                        ?>
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
                         </table>
                 </div>
                 <div id="profileFarmTransactions">
-                        <div class="title"><?= $lang['farmTransactions'] ?></div>
-                        <div class="body">
-                            <?php
-                            foreach ($transactions as $transaction) : ?>
-                                <div class=<?= $transaction->messageStyle ?>>
-                                        <span class="container">
-                                                <?php
-                                                if($transaction->type != 3)
-                                                {
-                                                    if($transaction->flag == 0)
-                                                            $ns = "";
-                                                    elseif($transaction->flag == 1)
-                                                            $ns = "Done";
-                                                    elseif($transaction->flag == 2)
-                                                            $ns = "Reject";
+                            <div class="jcarousel-skin-vertical">
+                              <div class="jcarousel-container">
+                                  <div class="jcarousel-clip">
+                                      <ul  id="transactionHolder" class="jcarousel-list">
+                                        <?php foreach ($transactions as $transaction) : ?>
+                                            <li class=<?= $transaction->messageStyle ?>>
+                                                    <span class="container">
+                                                            <?php
+                                                            if($transaction->type != 3)
+                                                            {
+                                                                if($transaction->flag == 0)
+                                                                        $ns = "";
+                                                                elseif($transaction->flag == 1)
+                                                                        $ns = "Done";
+                                                                elseif($transaction->flag == 2)
+                                                                        $ns = "Reject";
 
-                                                    if($transaction->offset_farm == $userFarm->id)
-                                                            $ns = "Attack";
+                                                                if($transaction->offset_farm == $userFarm->id)
+                                                                        $ns = "Attack";
 
-                                                    echo $lang['farmTransaction'.$ns.'-'.$transaction->accessory_id];
-                                                }
-                                                else
-                                                    echo $lang['farmTransactionHelpToFriend'];
+                                                                echo $lang['farmTransaction'.$ns.'-'.$transaction->accessory_id];
+                                                            }
+                                                            else
+                                                                echo $lang['farmTransactionHelpToFriend'];
 
-                                                echo fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""));
-                                                ?>
-                                        </span>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
+                                                            echo fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""));
+                                                            ?>
+                                                    </span>
+                                            </li>
+                                        <?php endforeach; ?>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                            </div>
                 </div>
                 <?php else: ?>
                 <?= $mainFarm ?>
@@ -511,6 +555,10 @@ $("#searchForm").submit(function(){
             <?= anchor("profile/inbox",
                        "<span>$userFarm->unreadMess</span>",
                        array('onclick'=>"inbox();return false;",'id'=>"inboxCounter"));
+            ?>
+            <?= anchor("profile/history",
+                       " ",
+                       array('onclick'=>"history();return false;",'id'=>"history"));
             ?>
         </div>
         <?php endif; ?>

@@ -9,6 +9,7 @@ class Farmtransaction extends DataMapper {
         const  GUNACCID = 5;
         const  SCARECROWACCID = 7;
         const  DOGACCID = 8;
+        const  HELP_AMOUNT = 500;
 
     	public function __construct()
     	{
@@ -40,13 +41,28 @@ class Farmtransaction extends DataMapper {
 
                 //offset farm only attack goal farm once a day
                 $frmTrnMdl = new Farmtransaction();
-                $frmTrnObj = $frmTrnMdl->get_where(array('offset_farm'=>$off_farm,
-                                                         'goal_farm'=>$goal_farm,
-                                                         'type'=>1));
-                if($frmTrnObj->create_date > strtotime('-1 day'))
-                       return array('return'=>'false',
+//                $frmTrnObj = $frmTrnMdl->get_where(array('offset_farm'=>$off_farm,
+//                                                         'goal_farm'=>$goal_farm,
+//                                                         'type'=>1));
+
+                $frmTrnObjs = $frmTrnMdl->where(array('offset_farm'=>$off_farm,'goal_farm'=>$goal_farm))
+                                        ->where_in('type',array(1,3))
+                                        ->get()->all;
+
+                foreach($frmTrnObjs AS $frmTrnObj)
+                {
+                    if($frmTrnObj->type == 1 && ($frmTrnObj->create_date > strtotime('-1 day')))
+                            return array('return'=>'false',
                                      'type'=>'public',
                                      'params'=>array('message'=>'cantAttackTwiceInADay'));
+                    elseif($frmTrnObj->type == 3 && 
+                           ($frmTrnObj->create_date > strtotime('-1 day')) &&
+                           $frmTrnObj->details == 3)
+                            return array('return'=>'false',
+                                     'type'=>'public',
+                                     'params'=>array('message'=>'cantHelpTwiceInADay'));
+                }
+
                 unset($frmTrnMdl);
                 unset($frmTrnObj);
 
@@ -66,12 +82,14 @@ class Farmtransaction extends DataMapper {
                 //farm with no plant rejected new attack
                 $pltMdl = new Plant();
                 $pltObj = $pltMdl->get_where(array('farm_id'=>$goal_farm, 'reap'=>0));
-                if(!$pltObj->exists())
+                if(!$pltObj->exists() && $details != 3)
                         return array('return'=>'false',
                                      'type'=>'public',
                                      'params'=>array('message'=>'cantAttackBeacuseHavntPlant'));
 
-		if($type == 1)
+		$usrMdl = new User_model();
+
+                if($type == 1)
 		{
 			//each time only attack to goal_farm once
         	        $frmTrnObj = new Farmtransaction();
@@ -105,7 +123,7 @@ class Farmtransaction extends DataMapper {
 					$accObj = $accMdl->get_by_id($accessory_id);
                         	        $frmTrnObj->efficacy_date = (time() + ($accObj->life_time * 3600));
 					$frmTrnObj->save();
-                	                $usrMdl = new User_model();
+                	                
                         	        if($frmObjOff->id)
                		                         $details .= "<br/>".str_replace(array(__FARMID__,__FARMNAME__), array($frmObjOff->user_id,$frmObjOff->name), $this->lang->language['farmTransaction']['attacker']);
                         	        $usrMdl->add_notification($goal_farm, $details, 0);
@@ -118,16 +136,31 @@ class Farmtransaction extends DataMapper {
 
 			}
 		}
-		else
+		elseif($type == 3)
 		{
-			//this section for adding help transaction
+			if($details == 3)
+                        {
+                            $frmObjOff->money -= self::HELP_AMOUNT;
+                            $frmObjGol->money += self::HELP_AMOUNT;
+                        
+                            $frmObjOff->save();
+                            $frmObjGol->save();
 
-			$frmTrnObj = new Farmtransaction();
+                            $usrMdl->add_notification($goal_farm,
+                                                      str_replace(array(__FARMID__,__FARMNAME__),
+                                                                  array($frmObjOff->user_id,$frmObjOff->name),
+                                                                  $this->lang->language['farmTransaction']['helpMoney']),
+                                                      4);
+                        }
+                        
+                        $frmTrnObj = new Farmtransaction();
 			$frmTrnObj->offset_farm = $off_farm;
 			$frmTrnObj->goal_farm = $goal_farm;
 			$frmTrnObj->type = $type;
-			$frmTrnObj->details = $details;
+			$frmTrnObj->details = 3;
 			$frmTrnObj->save();
+                        
+
 			return TRUE;
 		}
 	}
@@ -146,6 +179,7 @@ class Farmtransaction extends DataMapper {
 			switch($goal->accessory_id)
 			{
 				case 1:
+                                        //type_ACCESSORYID_effect
 					$this->type_1_effect($goal, $frmObj, &$pltObj);
 					break;
                                 case 2:
@@ -160,7 +194,7 @@ class Farmtransaction extends DataMapper {
 			}
 		}
 	}
-	
+	//type_ACCESSORYID_effect
 	function type_1_effect($transaction, $farm, $plant)
 	{
                 if(!$this->autoSpraying($transaction, $farm))

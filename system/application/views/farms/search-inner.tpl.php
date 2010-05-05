@@ -6,11 +6,7 @@
             <div class="item">
                 <span class="searchAvatar">
                     <a href="<?= base_url() ?>profile/user/<?= $k->id ?>">
-                            <?php if($k->photo != ""): ?>
-                                <img src="<?= $base_img ?> />
-                            <?php else: ?>
-                                <img src="<?= $base_img ?>farm-default.png" border="0" width="52px" height="52px"/>
-                            <?php endif; ?>
+                                <img src="<?= $base_img ?>farm_default.gif" border="0" width="53px" height="62px"/>
                     </a>
                 </span>
                 <span class="searchField">

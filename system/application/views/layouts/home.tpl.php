@@ -69,15 +69,11 @@
                                 <?php endif; ?>
                                 <?php if($user_profile == $user && $userFarm->id): ?>
                                 <div id="farmNameHolder">
-                                    <?= 
-                                    anchor(base_url()."farms/show", $lang['farm']." ".$userFarm->name);
-                                    ?>
+                                    <?= anchor(base_url()."farms/show", $lang['farm']." ".$userFarm->name);?>
                                 </div>
                                 <?php elseif($userFarm->id): ?>
                                 <div id="farmNameHolder">
-                                    <?=
-                                    anchor(base_url()."farms/view/$userFarm->id", $lang['farm']." ".$userFarm->name);
-                                    ?>
+                                    <?= anchor(base_url()."farms/view/$user_profile->id", $lang['farm']." ".$userFarm->name);?>
                                 </div>
                                 <?php endif; ?>
                         </div>

@@ -35,14 +35,21 @@ class Farmtransactions extends MainController {
 	function add()
 	{
 		$farmTrnMdl = new Farmtransaction();
-                $accMdl = new Accessory();
-                $accObj = $accMdl->get_by_id($_POST['acc_id']);
+
+                if($_POST['acc_id'])
+                {
+                    $accMdl = new Accessory();
+                    $accObj = $accMdl->get_by_id($_POST['acc_id']);
+                    $details = $this->data['lang']['farmTransaction'][$accObj->name];
+                }
+                else
+                    $details = $_POST['details'];
 
                 $flag = $farmTrnMdl->add($_POST['off_farm'],
 					 $_POST['goal_farm'],
 					 $_POST['acc_id'],
 					 $_POST['type'],
-                                         $this->data['lang']['farmTransaction'][$accObj->name]
+                                         $details
                                         );
 		if(is_array($flag))
 			$this->error_reporter($flag['type'],$flag['params']);

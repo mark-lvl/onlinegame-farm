@@ -29,10 +29,8 @@ class Profile extends MainController
 
 	function user($id = "")
         {
-	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches)) {
-			header("Location: " . base_url());
-		    die();
-	    }
+	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches)) 
+                    redirect("/");
 
 	    $user = $this->user_model->is_authenticated();
 
@@ -49,33 +47,31 @@ class Profile extends MainController
             else
                 $user_profile = $user;
 
-	    if(!$user_profile) {
-	        header("Location: " . base_url() . "message/index/12/");
-	    }
+	    if(!$user_profile) 
+                    redirect("message/index/12");
 
-            $this->data['title']        = $this->lang->language['profile_title'];
+            $this->data['title']        = $this->lang->language['profile_title'] . " " . $user_profile->first_name;
             $this->data['heading']        = '';
 	    $this->data['user']         = $user;
             $this->data['user_profile'] = $user_profile;
 	    $this->data['user_profile']->is_related = User_model::is_related($user_profile, $user->id);
 
-            $farmSql = "SELECT f.id,f.user_id,f.name,f.money,f.section,f.level,p.health,t.name AS plantName,count(m.id) AS unreadMess
+            $farmSql = "SELECT f.id,f.user_id,f.name,f.money,f.section,f.level,f.disactive,p.health,t.name AS plantName
                         FROM `farms` AS f 
                         LEFT JOIN `plants` AS p ON (f.id = p.farm_id AND p.reap = 0)
                         LEFT JOIN `types` AS t ON (p.type_id = t.id)
-                        LEFT JOIN `messages` AS m ON (f.user_id = m.to AND m.checked = 0)
-                        WHERE f.user_id = ".$user_profile->id.";";
+                        WHERE f.user_id = ".$user_profile->id." ORDER BY f.create_date DESC LIMIT 1;";
 
             $farmQuery = $this->db->query($farmSql);
             $this->data['userFarm'] = $farmQuery->row();
 
-            //this if only for handle unreadMessages for user not having farm yet.
+            $unreadMesSql = "SELECT count(m.id) AS unreadMess FROM `messages` AS m WHERE m.to = $user_profile->id AND m.checked = 0";
+            $farmMessQuery = $this->db->query($unreadMesSql);
+            
             if(!$this->data['userFarm']->id)
-            {
-                $unreadMesSql = "SELECT count(m.id) AS unreadMess FROM `messages` AS m WHERE m.to = $user_profile->id AND m.checked = 0";
-                $messQuery = $this->db->query($unreadMesSql);
-                $this->data['userFarm'] = $messQuery->row();
-            }
+                $this->data['userFarm'] = new stdClass();
+
+            $this->data['userFarm']->unreadMess = $farmMessQuery->row()->unreadMess;
 
             $friends = $this->user_model->get_friends($user_profile);
 
@@ -277,15 +273,12 @@ class Profile extends MainController
 
 	    $this->add_css('jquery.jcarousel');
             $this->add_css('skin');
-            $this->add_css('inbox');
-            //$this->add_css('popup');
             $this->add_css('boxy');
             $this->add_css('validation');
             $this->loadJs('jquery.jcarousel');
             $this->loadJs('jquery.validationEngine-fa');
             $this->loadJs('jquery.validationEngine');
 	    $this->loadJs('jquery.progressbar');
-            //$this->loadJs('jquery.simpletip');
             $this->loadJs('boxy');
             $this->loadJs('generals');
             $this->loadJs('jquery.hints');
@@ -327,7 +320,7 @@ class Profile extends MainController
                     redirect("profile/user/$user->id");
 
             if(!$user)
-                    redirect("/");
+                    $this->js_redirect('/');
 
             $this->data['heading']        = '';
             $this->data['user_profile'] = $user;
@@ -340,7 +333,7 @@ class Profile extends MainController
 	    $user = $this->user_model->is_authenticated();
 
             if(!$user)
-                    redirect("/");
+                    $this->js_redirect('/');
 
 	    //TODO ghange that when layout is available.
             $this->data['title']        = $this->lang->language['inbox'];
@@ -361,6 +354,32 @@ class Profile extends MainController
             
             $this->load->view("profile/inbox.tpl.php", $this->data);
 	}
+        function history()
+        {
+            $user = $this->user_model->is_authenticated();
+
+            if(!$user)
+                    $this->js_redirect('/');
+
+	    //TODO ghange that when layout is available.
+            $this->data['title']        = $this->lang->language['inbox'];
+            $this->data['heading']        = '';
+            $this->data['user_profile'] = $user;
+
+            $this->data['messages'] = user_model::get_messages($user);
+
+		$this->data['unchecked'] = 0;
+		if(is_array($this->data['messages']) && count($this->data['messages']) > 0) {
+			foreach($this->data['messages'] as $x => $k) {
+			    if($k['checked'] == 0) {
+	                $this->data['unchecked']++;
+			    }
+			}
+		}
+
+
+            $this->load->view("profile/history.tpl.php", $this->data);
+        }
 
         
 
@@ -436,7 +455,7 @@ class Profile extends MainController
                 return FALSE;
 	    }
 
-	    if($this->user_model->delete_relation($user, $id)) {
+	    if($this->user_model->delete_relation($_POST['id'], $_POST['user_id'])) {
                 $this->error_reporter('alert',array('message'=>$this->lang->language['m_title7'],'height'=>40));
                 return FALSE;
 	    }

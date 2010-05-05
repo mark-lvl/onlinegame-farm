@@ -10,6 +10,8 @@ class Farms extends MainController {
 
     const ITEMPERPAGE = 8;
 
+    const SECTION_INCREASE_PRICE = 500;
+
     var $userSessionHolder;
 
     public function __construct()
@@ -83,11 +85,12 @@ class Farms extends MainController {
 
     function register()
     {
+        
         $user_id = $this->userSessionHolder->id;
         $farm = new Farm();
             $userFarm = $farm->where('user_id',$user_id)->where('disactive','0')->get();
         if($userFarm->exists())
-                redirect('farm/show');
+                redirect('farms/show');
         else
         {
             if($this->input->post('name'))
@@ -117,7 +120,7 @@ class Farms extends MainController {
 	    }
 	    else
 	    {
-                redirect("profile/user/$user_id");
+                $this->load->view("farms/register.php", $this->data);
 	    }
         }
     }
@@ -213,6 +216,9 @@ class Farms extends MainController {
                         $equipments[] = 'rockBreaker';
                 if($userFarm->level > 6 && $userFarm->section == 2 && !$userPlant->id)
                         $equipments[] = 'waterpump';
+                if($userFarm->level > 8 && $userFarm->section == 3 && !$userPlant->id)
+                        $equipments[] = 'grassCutter';
+
 
 		$this->data['accessories'] = $accessories;
 		$this->data['plantSources'] = $pltTypSrcHolder;
@@ -586,12 +592,13 @@ class Farms extends MainController {
 		{
 	                $frmMdl = new Farm();
 			$frmObj = $frmMdl->get_by_id($_POST['farm_id']);
+                        if($frmObj->money > self::SECTION_INCREASE_PRICE)
 			switch($_POST['equipment'])
 			{
 				case 'rockBreaker':
 					if($frmObj->level > 4 && $frmObj->section == 1)
 					{
-						$frmObj->money -= 100;
+						$frmObj->money -= self::SECTION_INCREASE_PRICE;
 						$frmObj->section = 2;
 						$frmObj->save();
 					}
@@ -599,12 +606,28 @@ class Farms extends MainController {
 				case 'waterpump':
 					if($frmObj->level > 6 && $frmObj->section == 2)
 					{
-						$frmObj->money -= 200;
+						$frmObj->money -= self::SECTION_INCREASE_PRICE;
 						$frmObj->section = 3;
 						$frmObj->save();
 					}
 					break;
+				case 'grassCutter':
+					if($frmObj->level > 8 && $frmObj->section == 3)
+					{
+						$frmObj->money -= self::SECTION_INCREASE_PRICE;
+						$frmObj->section = 4;
+						$frmObj->save();
+					}
+					break;
 			}
+                        else
+                        {
+                            $params = array('money'=>$frmObj->money,'price'=>self::SECTION_INCREASE_PRICE);
+                            $this->error_reporter('money',$params);
+                            return FALSE;
+                        }
+
+
 			echo $frmObj->section;
         	}	    
         }

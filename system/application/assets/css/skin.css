@@ -108,3 +108,78 @@
     cursor: default;
     background-position: -96px 0;
 }
+.jcarousel-skin-vertical
+{
+    width:  310px;
+    height: 95px;
+}
+
+.jcarousel-skin-vertical .jcarousel-item {
+    width: 250px;
+    height: 20px;
+    position: relative;
+}
+.jcarousel-skin-vertical .jcarousel-container-vertical {
+    width: 310px;
+    height: 95px;
+}
+.jcarousel-skin-vertical .jcarousel-clip-vertical {
+    width:  250px;
+    height: 95px;
+    direction: ltr;
+}
+.jcarousel-skin-vertical .jcarousel-item-vertical {
+    direction: rtl;
+}
+
+
+.jcarousel-skin-vertical .jcarousel-next-vertical {
+    position: absolute;
+    bottom: 5px;
+    left: 275px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background: transparent url(../images/profile/next-vertical.png) no-repeat 0 0;
+}
+
+.jcarousel-skin-vertical .jcarousel-next-vertical:hover {
+    background-position: 0 -32px;
+}
+
+.jcarousel-skin-vertical .jcarousel-next-vertical:active {
+    background-position: 0 -64px;
+}
+
+.jcarousel-skin-vertical .jcarousel-next-disabled-vertical,
+.jcarousel-skin-vertical .jcarousel-next-disabled-vertical:hover,
+.jcarousel-skin-vertical .jcarousel-next-disabled-vertical:active {
+    cursor: default;
+    background-position: 0 -96px;
+}
+
+.jcarousel-skin-vertical .jcarousel-prev-vertical {
+    position: absolute;
+    top: 5px;
+    left: 275px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background: transparent url(../images/profile/prev-vertical.png) no-repeat 0 0;
+}
+
+.jcarousel-skin-vertical .jcarousel-prev-vertical:hover {
+    background-position: 0 -32px;
+}
+
+.jcarousel-skin-vertical .jcarousel-prev-vertical:active {
+    background-position: 0 -64px;
+}
+
+.jcarousel-skin-vertical .jcarousel-prev-disabled-vertical,
+.jcarousel-skin-vertical .jcarousel-prev-disabled-vertical:hover,
+.jcarousel-skin-vertical .jcarousel-prev-disabled-vertical:active {
+    cursor: default;
+    background-position: 0 -96px;
+}
+

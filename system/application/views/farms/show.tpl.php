@@ -75,7 +75,7 @@
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('#farmPlow', '<?= base_url() ?>farms/plow', params)
+        ajax_request('#farmPlow', '<?= base_url() ?>farms/plow', params ,moneyCalculate)
     }
     function spraying(farm)
     {

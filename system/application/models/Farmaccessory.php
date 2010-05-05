@@ -136,6 +136,11 @@ class Farmaccessory extends DataMapper {
                                 $accObject = $accModel->get_where(array('id'=>$item->accessory_id));
                                 $decHolder += (($accObject->effect/100) * $growthTime);
                         }
+                        elseif($item->accessory_id == 44)
+                        {
+                                $accObject = $accModel->get_where(array('id'=>$item->accessory_id));
+                                $decHolder += (($accObject->effect/100) * $growthTime);
+                        }
 		}
                 $return = ($plantCreateDate + (($growthTime-$decHolder) * 3600)) - time();
 		return $return;

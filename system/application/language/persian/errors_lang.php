@@ -65,5 +65,6 @@
         $lang['error']['cantAttackBeacuseHavntPlant'] = "تو این مزرعه هنوز گیاهی داشته نشده که بخوای اذیتش کنی";
         $lang['error']['cantAttackAttackAlreadyExists'] = "تو الان داری این مزرعرو اذیت میکنی نمیتونی تا قبلی تموم نشده دوباره اینکارو بکنی";
         $lang['error']['cantAttackTwiceInADay'] = "در روز فقط یکبار به این مزرعه میتونی حمله کنی";
+        $lang['error']['cantHelpTwiceInADay'] = "در روز فقط یکبار به این مزرعه میتونی کمک کنی";
         $lang['error']['cantResetWhenHavePlant'] = "هنوز تو مزرعت گیاه درو نشده داری فعلا نمیتونی از اول شروع کنی";
 

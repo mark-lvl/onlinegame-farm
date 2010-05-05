@@ -103,7 +103,8 @@ p {
 }
 #search .searchSubmit
 {
-    background: url(../images/profile/search_submit.gif) no-repeat center !important;
+    background: url(../images/profile/search_submit.gif) no-repeat center;
+    background-position: 0 0;
     display: block;
     border: 0 !important;
     width: 44px;
@@ -114,7 +115,7 @@ p {
 }
 #search .searchSubmit:hover
 {
-    background: url(../images/profile/search_submit_hover.gif) no-repeat center !important;
+    background-position: 0px -16px;
 }
 #userConsole
 {
@@ -185,7 +186,7 @@ p {
 
 #content
 {
- background: #526329;
+ background: #526329  url(../images/profile/content.gif) repeat-x  center;
  overflow: auto;
 }
 

@@ -2,6 +2,8 @@
 class Farm extends DataMapper {
 
         const INVITE_BONUS = 50;
+        const PLOW_PRICE = 100;
+        const TRACTOR_ACC_ID = 42;
 
     	public function __construct()
     	{
@@ -12,9 +14,6 @@ class Farm extends DataMapper {
 	function isPlow($farm_id)
 	{
 		$farm = $this->get_by_id($farm_id);
-
-		//TODO fetch are accessories for this farm and if have a auto plower return true
-
 
 		if($farm->plow)
 			return TRUE;
@@ -34,6 +33,12 @@ class Farm extends DataMapper {
 		else
 		{
 			$farm->plow = 1;
+
+                        $frmAccMdl = new Farmaccessory();
+                        $frmAccObj = $frmAccMdl->get_where(array('farm_id'=>$farm_id,'accessory_id'=>self::TRACTOR_ACC_ID));
+                        if(!$frmAccObj->exists())
+                            $farm->money -= self::PLOW_PRICE;
+                        
 			$farm->save();
 			return TRUE;
 		}

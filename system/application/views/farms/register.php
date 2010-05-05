@@ -1,3 +1,17 @@
+<style>
+  #centerContainer {
+    background: #2b3b09 url(<?= $base_img ?>profile/edit_background.gif) no-repeat center;
+    height: 395px;
+    width: 464px;
+    display: block;
+}
+ #centerColumn
+ {
+     margin-bottom: 8px !important;
+}
+</style>
+
+<div id="centerContainer">
 <fieldset>
     <legend>
         <?= $lang['addFarm'] ?>
@@ -21,3 +35,4 @@
         </table>
     </form>
 </fieldset>
+</div>

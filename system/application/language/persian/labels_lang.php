@@ -94,6 +94,7 @@
 
         $lang['close'] = "بستن";
         $lang['farm'] = "مزرعه";
+        $lang['goToFarm'] = "برو به مزرعه";
         $lang['havingAnyFriend'] = "هنوز دوستی نداری";
 
         /*
@@ -138,6 +139,8 @@
 	$lang['level8']		= "هشتم";
 	$lang['level9']		= "نهم";
 	$lang['level10']	= "دهم";
+	$lang['endGame']	= "پایان بازی";
+	$lang['registerNewFarm'] = "ثبت مزرعه جدید";
 
         
 	$lang['voters']	        = "از XXX رای";
@@ -322,6 +325,7 @@
         $lang['farmTransactionRejectByFreind-6'] = "دوستت <a href=\"".base_url()."profile/user/__VIEWERID__\">__VIEWERNAME__</a> کلاغ ها رو از مزرعت فراری داد";
 
         $lang['farmTransaction']['attacker'] = "مزرعه ی حمله کننده <a href=\"" . base_url() . "farms/view/__FARMID__\">__FARMNAME__</a>";
+        $lang['farmTransaction']['helpMoney'] = "مزرعه دوستت <a href=\"" . base_url() . "farms/view/__FARMID__\">__FARMNAME__</a> بهت ۵۰۰ یامی کمک کرد";
         $lang['helpFriend'] = "دوستت <a href=\"".base_url()."farms/view/__VIEWERID__\">__VIEWERNAME__</a> از مزرعت مراقبت کرد";
 
         /*

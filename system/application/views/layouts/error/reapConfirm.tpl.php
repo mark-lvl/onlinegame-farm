@@ -24,7 +24,11 @@
                                        $lang['reapConfirm']['body'])  ?>",
                null,
                {title : "<?= $lang['reapConfirm']['title'] ?>",afterHide: function() {
-          location.reload();
-        }
+                                                                          <?php if(!$params['endGame']): ?>
+                                                                                location.reload();
+                                                                          <?php else: ?>
+                                                                                window.location.replace("<?php echo base_url().$params['path']; ?>");
+                                                                          <?php endif; ?>
+                                                                        }
 });
 </script>

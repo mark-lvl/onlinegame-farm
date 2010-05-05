@@ -1,4 +1,3 @@
-<!-- TODO deffence with gun by freind must be attached to this tpl -->
 <style>
 .smallcounter{height:25px;width:100px;padding:2px;color:#60ABD2}
 .healthcounter{height:50px;width:200px}
@@ -76,15 +75,17 @@
         ajax_request('#plantHolder', '<?= base_url() ?>farms/reap', params)
     }
 
-    function addtransaction(goal_farm,off_farm,acc_id,type)
+    function addtransaction(goal_farm,off_farm,acc_id,type,details)
     {
 	var params = {};
 	params['goal_farm'] = goal_farm;
 	params['off_farm'] = off_farm;
 	params['acc_id'] = acc_id;
 	params['type'] = type;
+	params['details'] = details;
 	ajax_request('#viewerAccessoryHolder','<?= base_url() ?>farmtransactions/add',params)
     }
+
 
     
 </script>
@@ -97,7 +98,12 @@
         foreach ($viewerAccessories AS $fAcc)
 		echo anchor("farmtransactions/add/",
                             "$fAcc->name : $fAcc->count ",
-                             array('onclick'=>"addtransaction($farm->id,$fAcc->farm_id,$fAcc->accessory_id,$fAcc->type);return false;"))."<br/>";
+                             array('onclick'=>"addtransaction($farm->id,$fAcc->farm_id,$fAcc->accessory_id,$fAcc->type,0);return false;"))."<br/>";
+        ?>
+        <hr>
+        <?= anchor("farmtransactions/add/",
+                   "HELP TO THIS FARM",
+                   array('onclick'=>"addtransaction($farm->id,$viewerFarm->id,0,3,3);return false;"));
         ?>
     </div>
 

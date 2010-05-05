@@ -219,7 +219,7 @@ class Plant extends DataMapper {
 
                             //this section calculate number of section in farm
                             //multiple by plantType price and return total price
-                            $totalPrice = $farmDetails->section * $typeDetails->price;
+                            $totalPrice = $farmDetails->section * $typeDetails->price * $typeDetails->weight;
 
                             if($totalPrice >= $farmDetails->money)
                                     return array('return'=>'false',
@@ -412,9 +412,34 @@ class Plant extends DataMapper {
                             $frmMisObj->save();
 
                             if($frmMisStatusHolder == 1)
+                            {
                                 $frmObj->level++;
-
-                            $return['params']['level'] = $frmObj->level;
+                                if($frmObj->level == 11)
+                                {
+                                    $gameComplete = new Userrank();
+                                    $gameCompleteObj = $gameComplete->get_where(array('user_id'=>$frmObj->user_id,'type'=>1));
+                                    if($gameCompleteObj->exists())
+                                    {
+                                            $gameCompleteObj->rank++;
+                                            $gameCompleteObj->save();
+                                    }
+                                    else
+                                    {
+                                            $gameCompleteObj->user_id = $frmObj->user_id;
+                                            $gameCompleteObj->type = 1;
+                                            $gameCompleteObj->rank = 1;
+                                            $gameCompleteObj->save();
+                                    }
+                                $frmObj->disactive = 1;
+                                $return['params']['endGame'] = TRUE;
+                                $return['params']['path'] = "profile/user/$frmObj->user_id";
+                                }
+                            }
+                            
+                            if($frmObj->level != 11)
+                                $return['params']['level'] = $frmObj->level;
+                            else
+                                $return['params']['level'] = $this->lang->language['endGame'];
 
                             //this section add product amount to userRank amount
                             $usrRnkMdl = new Userrank();
