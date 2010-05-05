@@ -57,11 +57,14 @@
 	$lang['fromCity']	= "از شهرستان";
 	$lang['m_title']	= "آقای";
 	$lang['f_title']	= "خانم";
-	$lang['register_date']	= "تاریخ عضویت";
+	$lang['register_date']	= "عضویت";
         $lang['becareful']      = "حواست باشه که....";
         $lang['sendMessage']      = "ارسال پیام";
 	$lang['add_to_friend']  = "اضافه به دوستان";
 	$lang['report_abuse']	= "گزارش خلاف";
+	$lang['abuseName']      = "نام گذاری نامناسب";
+	$lang['abuseMessage']   = "پیغام نامناسب";
+	$lang['abuseOthers']    = "دیگر موارد";
 	$lang['invitation']		= "دعوت دوستان";
 	$lang['friends_email']	= "ایمیل دوست";
 	$lang['profile_set']	= "تنظیم پروفایل";
@@ -76,7 +79,7 @@
         $lang['friends'] = " دوستان";
         $lang['addFriendsToYummy'] = "با دعوت دوستانت به بازی یامی بعد از ثبت نام دوستت ۱۰۰یامی میگیری";
         $lang['message_title'] = "پیغام از طرف __USERNAME__";
-        $lang['send_message_successfull'] = "ارسال پیغام با موفقیت انجام شد";
+        $lang['send_message_successfull'] = "پیغام ارسال شد";
         $lang['send_message_faild'] = "پیغام ارسال نشد";
         $lang['searchResult'] = "__COUNT__ مورد برای <b>__PARSE__</b> یافت شد";
         $lang['must_be_filled'] = "پر شود";
@@ -96,6 +99,7 @@
         $lang['farm'] = "مزرعه";
         $lang['goToFarm'] = "برو به مزرعه";
         $lang['havingAnyFriend'] = "هنوز دوستی نداری";
+        $lang['havingAnyFarm'] = "مزرعه ندارد";
 
         /*
          * farm Farm
@@ -177,6 +181,8 @@
 	
 	$lang['message_all_delete'] = "مطمئنی می خوای همه ی پیام ها رو پاک کنی؟<BR />این کار قابل بازگشت نیست.";
 	$lang['message_all_deletet']= "همه ی پیام ها پاک بشه؟!";
+	$lang['areYouSureDeleteFriend']= "از لیست دوستات حذف شود؟";
+	
 	
 	$lang['add_request']    = "تقاضای دوستی از طرف XXX";
 	$lang['add_requestbody']= "در صورت تمایل,

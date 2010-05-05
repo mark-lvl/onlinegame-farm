@@ -1,5 +1,4 @@
 <?php
-
 class Profile extends MainController
 {
         const SIGN_DEFFENSE_AMOUNT = 20;
@@ -271,14 +270,14 @@ class Profile extends MainController
 	    
             $this->data['farmSign'] = $farmSign;
 
-	    $this->add_css('jquery.jcarousel');
+	        $this->add_css('jquery.jcarousel');
             $this->add_css('skin');
             $this->add_css('boxy');
             $this->add_css('validation');
             $this->loadJs('jquery.jcarousel');
             $this->loadJs('jquery.validationEngine-fa');
             $this->loadJs('jquery.validationEngine');
-	    $this->loadJs('jquery.progressbar');
+	        $this->loadJs('jquery.progressbar');
             $this->loadJs('boxy');
             $this->loadJs('generals');
             $this->loadJs('jquery.hints');
@@ -298,7 +297,6 @@ class Profile extends MainController
 
                     $user->first_name = $userHolder->first_name;
                     $user->last_name = $userHolder->last_name;
-                    $user->email = $userHolder->email;
                     $user->sex = $userHolder->sex;
                     $user->birthdate = $userHolder->birthdate;
                     $user->city	= $userHolder->city;
@@ -466,32 +464,35 @@ class Profile extends MainController
 	}
         function abuseReport($id = "")
         {
-	    $user = $this->user_model->is_authenticated();
+	    	$user = $this->user_model->is_authenticated();
+	    	
             if(!$user)
             {
                 $this->error_reporter('alert',array('message'=>$this->lang->language['m_title17'],'height'=>40));
                 return FALSE;
             }
+			if($_POST['id'])
+			{
+				$this->data['id'] = $_POST['id'];
+				$this->load->view("profile/abuse.tpl.php", $this->data);	
+			}
+			else
+			{
+				$_POST['user_id'] = (int)$_POST['user_id'];
+            	if(!$_POST['user_id']) 
+					echo $this->lang->language['m_title8'];
 
-            $_POST['id'] = (int)$_POST['id'];
-            if(!$_POST['id']) {
-                $this->error_reporter('public',array('message'=>$this->lang->language['m_title8']));
-                return FALSE;
-            }
+				$sql = "SELECT * FROM `abuse` WHERE user_id = " . $this->db->escape($_POST['user_id']) . " AND sender = " . $this->db->escape($user->id). " AND type = " . $_POST['abuseType'];
+	    		$result = $this->db->query($sql);
+	    		$result = $result->result_array();
+	    		if(is_array($result) && count($result) > 0) 
+					echo $this->lang->language['m_title13'];
+			    else {
+		    		$sql = "INSERT INTO `abuse` (user_id, sender, type, `date`) VALUES (" . $this->db->escape($_POST['user_id']) . ", " . $this->db->escape($user->id). ", " . $this->db->escape($_POST['abuseType']) . ", '" . date("Y-m-d H:i:s") . "')";
+		    		$this->db->query($sql);
 
-            $sql = "SELECT * FROM `abuse` WHERE user_id = " . $this->db->escape($_POST['id']) . " AND sender = " . $this->db->escape($user->id);
-	    $result = $this->db->query($sql);
-	    $result = $result->result_array();
-	    if(is_array($result) && count($result) > 0) {
-		$this->error_reporter('alert',array('message'=>$this->lang->language['m_title13'],'height'=>40));
-                return FALSE;
-	    }
-	    else {
-		    $sql = "INSERT INTO `abuse` (user_id, sender, `date`) VALUES (" . $this->db->escape($_POST['id']) . ", " . $this->db->escape($user->id) . ", '" . date("Y-m-d H:i:s") . "')";
-		    $this->db->query($sql);
-
-		$this->error_reporter('alert',array('message'=>$this->lang->language['m_body14'],'height'=>40));
-                return FALSE;
-	    }
+					echo $this->lang->language['m_body14'];
+	            }
+			}
 	}
 }

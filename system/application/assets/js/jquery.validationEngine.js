@@ -127,6 +127,9 @@ $.validationEngine = {
 			case "length":
 				 _length(caller,rules,i);
 			break;
+			case "funcCall":
+			    _funcCall(caller,rules,i);
+			break;
 			case "maxCheckbox":
 				_maxCheckbox(caller,rules,i);
 			 	groupname = $(caller).attr("name");
@@ -201,6 +204,15 @@ $.validationEngine = {
 				promptText += $.validationEngine.settings.allrules[customRule].alertText+"<br />";
 			}
 		}
+		function _funcCall(caller,rules,position){       // VALIDATE REGEX RULES
+         customCall = rules[position+1];
+         fname = $.validationEngine.settings.allrules[customCall].nname;
+         
+         if(eval(fname+'()')){
+            $.validationEngine.isError = true;
+            promptText += $.validationEngine.settings.allrules[customCall].alertText+"<br />";
+         }
+        }
 		function _ajax(caller,rules,position){				 // VALIDATE AJAX RULES
 
 			customAjaxRule = rules[position+1];
@@ -280,6 +292,7 @@ $.validationEngine = {
 				});
 			}
 		}
+		
 		function _confirm(caller,rules,position){		 // VALIDATE FIELD MATCH
 			confirmField = rules[position+1];
 

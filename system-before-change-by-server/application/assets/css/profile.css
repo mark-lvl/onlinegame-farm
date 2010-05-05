@@ -1,0 +1,778 @@
+#profile
+{
+    width: 920px;
+    height: 432px;
+    float: left;
+}
+#rightColumn {
+    height: 397px;
+    width: 238px;
+    float: right;
+}
+#centerColumn {
+    
+    float: right;
+    position: relative;
+    margin-bottom: 11px;
+}
+#centerContainer
+{
+    background: #930044 url(../images/profile/profile_center.gif) no-repeat  center;
+    height: 397px;
+    width: 464px;
+    display: block;
+}
+#leftColumn
+{
+    height: 397px;
+    width: 218px;
+    float: right;
+}
+#bottomBar
+{
+    width: 920px;
+    height: 24px;
+    display: block;
+    clear: both;
+    position: relative;
+}
+#inboxCounter
+{
+    width: 43px;
+    height: 22px;
+    display: block;
+    background: #91b33f url(../images/profile/inbox_counter.gif) no-repeat  center;
+    background-position: 0 0;
+    position: absolute;
+    top: 1px;
+    right: 17px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    float: right;
+}
+#inboxCounter:hover
+{
+    background-position: 0 -22px;
+}
+
+#inboxCounter span
+{
+    position: absolute;
+    top: 3px;
+    right: 27px;
+}
+#history
+{
+    width: 43px;
+    height: 22px;
+    display: block;
+    background: #91b33f url(../images/profile/inbox_counter.gif) no-repeat  center;
+    background-position: 0 0;
+    top: 1px;
+    right: 24px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    float: right;
+}
+#history:hover
+{
+    background-position: 0 -22px;
+}
+#userThumb
+{
+    background: #930044 url(../images/profile/right-up.gif) no-repeat  center;
+    height: 148px;
+    position: relative;
+}
+#userPicture
+{
+    position: absolute;
+    top: 40px;
+    right:5px;
+}
+#userPicture img
+{
+    width: 88px;
+    height: 88px;
+    margin-top: 2px;
+    background: #FFFFFF;
+}
+#userName
+{
+    color:#93B14B;
+    font-size:14px;
+    font-weight:bold;
+    position:absolute;
+    right:107px;
+    top:39px;
+}
+#userCity
+{
+    position:absolute;
+    right:107px;
+    top:59px;
+    font-size: 10px;
+}
+#userRegisterDate
+{
+    position:absolute;
+    right:107px;
+    top:76px;
+    font-size: 10px;
+}
+#changeProfile
+{
+    position:absolute;
+    right:126px;
+    top:113px;
+}
+#changeProfile a
+{
+    text-decoration: none;
+    color: #FFF;
+}
+#changeProfile a:hover
+{
+    color: #93B14B;
+}
+#userRanks
+{
+    height: 85px;
+}
+#profileHint
+{
+    width: 220px;
+    height: 164px;
+    background: #72873b url(../images/profile/profile_hints.gif) no-repeat  center;
+    display: block;
+    float: left;
+    position: relative;
+}
+#profileHint .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    clear: both;
+    top: 45px;
+    right:11px;
+}
+#profileHint .body
+{
+    position: absolute;
+    top: 70px;
+    right:11px;
+    width: 194px;
+}
+#profileHint .userActivity
+{
+    background: url(../images/profile/activity_bg.gif) no-repeat right center;
+    width: 220px;
+    height:121px;
+    display: block;
+    position: absolute;
+    top: 43px;
+    right: 0;
+}
+span .addToFriend
+{
+    background: url(../images/profile/add_to_friend.gif) no-repeat right center;
+    width: 110px;
+    height:30px;
+    display: block;
+    margin-right: 18px;
+}
+.addToFriend a,.removeFromFriend a,.abuseReport a
+{
+    color:#FFFFFF;
+    font-size:14px;
+    margin-right:25px;
+    text-decoration:none;
+    height: 30px;
+    display: block;
+}
+span .removeFromFriend
+{
+    background: url(../images/profile/remove_from_friend.gif) no-repeat right center;
+    width: 100px;
+    height:30px;
+    display: block;
+    margin-right: 18px;
+}
+span .abuseReport
+{
+    background: url(../images/profile/abuse_report.gif) no-repeat right center;
+    width: 100px;
+    height:30px;
+    display: block;
+    margin-right: 18px;
+}
+
+#farmCharts
+{
+    display:block;
+    height:120px;
+    position:absolute;
+    right:188px;
+    top:30px;
+    width:175px;
+}
+.barContainer
+{
+    display: block;
+    width: 175px;
+    height:38px;
+}
+.barContainer .title
+{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    height:15px;
+    padding-bottom:5px;
+    width:175px;
+}
+.barContainer .bar
+{
+    display: block;
+    height: 18px;
+    width: 181px;
+}
+#farmSnapshot
+{
+    position: absolute;
+    top: 27px;
+    right: 33px;
+}
+#farmSnapshot a
+{
+    height: 140px;
+    width: 135px;
+    display: block;
+}
+#farmSnapshot .endGame
+{
+    height: 140px;
+    width: 135px;
+    display: block;
+    border: 0;
+    background: url(../images/profile/farm_disactive.gif) no-repeat center;
+}
+
+
+#profileFarmDetails
+{
+    position: absolute;
+    top:160px;
+    right: 190px;
+    width: 146px;
+    height: 86px;
+    display: block;
+}
+#profileFarmDetails .title
+{
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffe784;
+    padding-left: 9px;
+}
+#profileFarmTransactions
+{
+    position: absolute;
+    top:287px;
+    right: 80px;
+    width: 310px;
+    height: 100px;
+    display: block;    
+}
+#profileFarmTransactions .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 15px;
+    clear: both;
+}
+#profileFarmTransactions .body
+{
+    
+}
+#friendBox
+{
+    width: 162px;
+    height: 224px;
+    display: block;
+    margin: 10px 20px 0 0;
+}
+#friendBox .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+}
+#friendBox .allFriendsLink
+{
+    float: left;
+    margin: 4px 0 0 20px;
+}
+.allFriendsLink a
+{
+    text-decoration: none;
+    font-size: 13px;
+    color: #FFFFFF;
+}
+#friendAvatars
+{
+    height: 190px;
+    width: 162px;
+    padding-top: 10px;
+    clear: both;
+}
+.friendAvatarItem
+{
+    width: 66px;
+    height: 88px;
+    display: block;
+    margin: 0 0 5px 10px;
+    float: right;
+}
+.friendAvatarItem img
+{
+    width: 62px;
+    height: 62px;
+    border: 1px solid #333333;
+    padding: 1px;
+    display: block;
+    background: #EEEEEE;
+}
+.friendAvatarItem span
+{
+    width: 66px;
+    height: 10px;
+    display: block;
+    text-align: center;
+    padding-top: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    
+}
+.friendAvatarItem a
+{
+   text-decoration: none;
+}
+#inviteFriends
+{
+    width: 212px;
+    height: 163px;
+    display: block;
+    background: url(../images/profile/invite_friend.gif) no-repeat  center;
+    position: relative;
+}
+#inviteFriends .body
+{
+    width: 130px;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+}
+#inviteFriends .form
+{
+    position: absolute;
+    top: 124px;
+    right: 21px;
+    width: 182px;
+}
+.form input
+{
+    border: 0;
+    width: 117px;
+    float: right;
+}
+.form textarea
+{
+    width: 194px;
+    height: 58px;
+    background: url(../images/profile/send_message.gif) no-repeat top right !important;
+    border: 0;
+    padding: 7px;
+}
+.form .submit
+{
+    background: url(../images/profile/submit.gif) no-repeat top center !important;
+    background-position: 0 0;
+    display: block;
+    border: 0 !important;
+    width: 52px;
+    height: 19px;
+    margin: 0 10px 0 0 !important;
+    cursor: pointer;
+    float: left;
+}
+.form .submit:hover
+{
+    background-position: 0 -19px !important;
+}
+#privateMessageArea
+{
+    width: 220px;
+    height: 120px;
+    display: block;
+    background: #72873b;
+    margin-top: 43px;
+    position: relative;
+}
+#privateMessageArea .title
+{
+    color: #3cff81;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    clear: both;
+    top: 6px;
+    right:11px;
+}
+#privateMessageArea .body
+{
+    position: absolute;
+    top: 28px;
+    right:11px;
+    width: 194px;
+}
+#privateMessageArea .messAjaxHolder
+{
+    background:#EEEEEE;
+    color:#666666;
+    display:none;
+    height:17px;
+    padding:20px;
+    position:absolute;
+    right:13px;
+    top:28px;
+    width:149px;
+}
+
+#hints{
+height:70px;
+width:180px;
+overflow:hidden;
+padding:6px 10px 14px 10px;;
+}
+
+#hints li{
+height:80px;
+padding:5px;
+list-style:none;
+}
+#hints a{
+color:#000000;
+text-decoration:none;
+}
+#hints .del
+{
+float:left; font-weight:bold; color:#666666
+}
+#hints .date
+{
+    font-size: 9px;
+    color: #2B3B09;
+    
+}
+#hints .del a
+{
+color:#06762A;
+margin-right: 30px;
+}
+#hints .del a:hover
+{
+background-color:#36538D;
+padding-left:1px;
+padding-right:1px;
+color:#ffffff;
+}
+#searchContainer
+{
+    display:block;
+    height:386px;
+    padding:8px 14px 0 14px;
+    width:445px;
+}
+#searchItems
+{
+    height:360px;
+    width:445px;
+    display:block;
+}
+#searchContainer .item
+{
+    width: 180px;
+    height:50px;
+    display: block;
+    float: right;
+    margin-bottom: 21px;
+    margin-right: 15px;
+}
+.item .searchAvatar
+{
+    float: right;
+    width: 52px;
+    height: 52px;
+    display: block;
+    margin-left: 10px;
+}
+.item .searchField
+{
+    float: right;
+    width: 118px;
+    height: 15px;
+    display: block;
+}
+.searchField a
+{
+    color:#bce568;
+    font-weight:bold;
+    text-decoration: none;
+}
+#searchHeader .title
+{
+    color:#C3D59D;
+    float:right;
+    font-size:18px;
+    font-weight:bold;
+    margin-right:12px;
+    margin-top:10px;
+    width:400px;
+}
+#searchHeader .body
+{
+    color:#FFFFFF;
+    float:right;
+    margin-bottom:12px;
+    margin-right:12px;
+    width:400px;
+}
+#searchPager
+{
+    display:block;
+    height:26px;
+    padding-right: 10px;
+    width:200px;
+    margin: 0 auto;
+    padding-top: 4px;
+}
+.pagerItem
+{
+    width: 40px;
+    display: block;
+    height: 18px;
+    float: right;
+}
+.pagerItem a
+{
+    background:#D49C00;
+    color:#FFFFFF;
+    padding:2px 8px;
+    text-decoration:none;
+}
+.pagerItem input
+{
+    width: 36px;
+    height: 16px;
+    border: 0;
+}
+.pagerItem a:hover
+{
+    background: #3F96B3;
+}
+#searchAjaxHolder
+{
+    height:386px;
+    width:438px;    
+}
+
+.solidLink
+{
+    background:#293B08;
+    color:#EEEEEE;
+    font-size:14px;
+    font-weight:bold;
+    padding:5px;
+    text-decoration:none;
+}
+.solidLink:hover
+{
+    background:#EEEEEE;
+    color:#293B08;
+}
+
+/* ================Inbox===================*/
+
+#inboxHolder
+{
+    width: 450px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.message_show {
+	height:160px;
+	width:425px;
+}
+.messageIcon
+{
+    width: 90px;
+    float: right;
+    overflow: auto;
+}
+.messageIcon span
+{
+    background: url("../images/profile/mailIcon.gif") no-repeat center;
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 10px 20px 0 0;
+}
+
+.message_box {
+        float: right;
+	padding-left:20px;
+	width:300px;
+        padding-top: 12px;
+}
+.messageDate
+{
+    width: 290px;
+    font-size: 10px;
+    height: 12px;
+    display: block;
+}
+.messageSender
+{
+    display:block;
+    height:25px;
+    width:290px;
+}
+.messageSender .name
+{
+    color:#7EFF74;
+    font-size:14px;
+    font-weight:bold;
+}
+.messageShowBox
+{
+    border-right: 1px solid #6f852e;
+    padding-right: 12px;
+    display: block;
+    height: 95px;
+    overflow: auto;
+}
+
+.eo_message_box {
+	border-top:1px solid #FFFFFF;
+	color:#FFFFFF;
+	display:none;
+	font-size:10px;
+	height:20px;
+	margin-top:15px;
+	text-align:left;
+	width:100%;
+	.width:100%;
+}
+
+.message_list {
+	height:190px;
+	margin-top:5px;
+	width:425px;
+        padding-right:3px;
+        padding-top:30px;
+}
+.message_list #messageListContainer
+{
+    height: 161px;
+    width:440px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+.message {
+	border-bottom:1px solid #75922b;
+	height:15px;
+	margin-top:3px;
+	overflow:hidden;
+ 	padding-bottom:4px;
+ 	padding-right:12px;
+	text-align:right;
+	width:417px;
+        margin-right: 4px
+}
+
+
+.message_sender {
+	float:right;
+	font-weight:normal;
+	overflow:hidden;
+	width:100px;
+}
+.message_sender a
+{
+    color:#7EFF74;
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.message_title {
+	float:right;
+	font-weight:normal;
+	overflow:hidden;
+	width:190px;
+}
+.message_title a
+{
+    color:#FFFFFF;
+    font-size:14px;
+    text-decoration:none;
+}
+
+
+.message_date {
+	float:right;
+	font-weight:normal;
+	overflow:hidden;
+	width:95px;
+}
+
+.message_delete, .message_delete2 {
+	background:url("../images/profile/delete_message.gif") no-repeat center;
+        background-position: 0 -14px;
+	cursor:pointer;
+	float:right;
+	font-weight:normal;
+	height:14px;
+	overflow:hidden;
+	width:14px;
+}
+.message_delete:hover, .message_delete2:hover
+{
+    background-position: 0 0;
+}
+#delete_all
+{
+    cursor:pointer;
+    height:16px;
+    left:12px;
+    position:absolute;
+    top:10px;
+    width:16px;
+}
+
+/* =================== end Inbox ==========================*/
+
+
+
+

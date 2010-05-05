@@ -7,10 +7,10 @@
 <div id="registration">
     <div id="registerRules">
             <ul>
-                <li><?= $lang['must_be_filled'] ?></li>
-                <li><?= $lang['nameRule'] ?></li>
-                <li><?= $lang['passwordRule'] ?></li>
-                <li><?= $lang['emailRule'] ?></li>
+                <li><img src="<?= $base_img ?>registration/bullet.png" /><?= $lang['must_be_filled'] ?></li>
+                <li><img src="<?= $base_img ?>registration/bullet.png" /><?= $lang['nameRule'] ?></li>
+                <li><img src="<?= $base_img ?>registration/bullet.png" /><?= $lang['passwordRule'] ?></li>
+                <li><img src="<?= $base_img ?>registration/bullet.png" /><?= $lang['emailRule'] ?></li>
             </ul>
     </div>
     <div id="registerForm">
@@ -21,7 +21,7 @@
                                          <?= $lang['name'] ?>:
                                 </td>
                                 <td class="registerFormInput">
-                                        <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['first_name'] : NULL; ?>" name="first_name" id="first_name" class="validate[required] registerElement"/>
+                                        <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['first_name'] : NULL; ?>" name="first_name" id="first_name" class="validate[required,funcCall[firstnameLength]] registerElement"/>
                                         
                                 </td>
                                 <td>
@@ -33,7 +33,7 @@
                                          <?= $lang['last_name'] ?>:
                                 </td>
                                 <td class="registerFormInput">
-                                        <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['last_name'] : NULL; ?>" name="last_name" id="last_name" class="validate[required] registerElement"/>
+                                        <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['last_name'] : NULL; ?>" name="last_name" id="last_name" class="validate[required,funcCall[lastnameLength]] registerElement"/>
                                 </td>
                                 <td>
                                         <img src="<?= $base_img?>registration/star.png" />
@@ -61,9 +61,9 @@
                                                 <?= $lang['birthdate'] ?>:
                                 </td>
                                 <td class="registerFormInput">
-                                                <input type="text" title="<?= $lang['day'] ?>" maxlength="2" class="registerDateElement" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['day'] : NULL; ?>" name="day" id="day" />
-                                                <input type="text" title="<?= $lang['month'] ?>" maxlength="2" class="registerDateElement" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['month'] : NULL; ?>" name="month" id="month" />
-                                                <input type="text" title="<?= $lang['year'] ?>" maxlength="2" class="registerDateElement" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['year'] : NULL; ?>" name="year" id="year" />
+                                                <input type="text" title="<?= $lang['day'] ?>" maxlength="2" class="validate[funcCall[validateDay]] registerDateElement" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['day'] : NULL; ?>" name="day" id="day" />
+                                                <input type="text" title="<?= $lang['month'] ?>" maxlength="2" class="validate[funcCall[validateMonth]] registerDateElement" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['month'] : NULL; ?>" name="month" id="month" />
+                                                <input type="text" title="<?= $lang['year'] ?>" maxlength="2" class="validate[funcCall[validateYear]] registerDateElement" value="<?= isset($_SESSION['rgkeep']) ?  $_SESSION['rgkeep']['year'] : NULL; ?>" name="year" id="year" />
                                                 <?= $lang['pre_year'] ?>
                                 </td>
                                 <td></td>
@@ -108,7 +108,7 @@
                                     <?php
                                         $city = get_province();
                                     ?>
-                                    <select name="city" id="city" class="registerElement">
+                                    <select name="city" id="city" class="validate[funcCall[city]] registerElement">
                                                         <?php
                                                             foreach($city as $x => $k) {
                                                             ?>
@@ -148,6 +148,59 @@
         </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+  function validateDay()
+  {
+  	if($("#day").val() > 0)
+  	if($("#day").val() > 31 || $("#day").val() < 1 )
+		return true;
+    else
+		return false;
+  }
+  function validateMonth()
+  {
+  	if($("#month").val() > 0)
+  	if($("#month").val() > 12 || $("#month").val() < 1 )
+		return true;
+    else
+		return false;
+  }
+  function validateYear()
+  {
+  	if($("#year").val() > 0)
+  	if($("#year").val() > 89 || $("#year").val() < 1 )
+		return true;
+    else
+		return false;
+  }
+  function passwordLength()
+  {
+  	  if($("#password").val().length > 0)
+  	  	  if(($("#password").val().length < 6) || ($("#password").val().length > 12))
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
+  function firstnameLength()
+  {
+  	  if($("#first_name").val().length > 10)
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
+  function lastnameLength()
+  {
+  	  if($("#last_name").val().length > 18)
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
+  function city()
+  {
+  	  if($("#city").val() == "------")
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
   $(document).ready(function() {
    $("#register-form").validationEngine()
   })

@@ -74,7 +74,7 @@ p {
 }
 #search .label
 {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: bold;
     float: right;
     width: 45px;
@@ -100,6 +100,7 @@ p {
     width: 70px;
     margin-right:12px;
     font-size: 10px;
+    font:tahoma;
 }
 #search .searchSubmit
 {
@@ -145,9 +146,9 @@ p {
 {
     position: absolute;
     width: 130px;
-    font-size: 14px;
+    font-size: 11px;
     font-weight:bold;
-    top: 10px;
+    top: 12px;
     right:67px;
     
 }
@@ -159,16 +160,19 @@ p {
 
 #userConsole span.date
 {
-    position: absolute;
-    width: 130px;
-    font-size: 8px;
-    font-weight:bold;
-    top: 30px;
-    right:67px;
+    font-size:10px;
+	position:absolute;
+	right:67px;
+	top:27px;
+	width:130px;
+}
+#navigation 
+{
+width:300px;
 }
 #navigation ul
 {
-    display: inline;
+    display: inline;	
 }
 #navigation ul li
 {
@@ -230,11 +234,18 @@ p {
 }
 #registerRules ul li
 {
-    list-style:  url(../images/registration/bullet.png);
+    list-style:  none;
     color: #FFFFFF;
     margin-right: 35px;
+	margin-bottom: 11px;
     font-size: 11px;
 }
+#registerRules ul li img
+{
+	vertical-align:middle;
+	margin-left:5px;
+}
+
 #registerForm
 {
     position: absolute;
@@ -278,14 +289,18 @@ p {
 }
 .captcha
 {
-    text-align: center;
-    padding: 5px 0 10px 0;
+    text-align: left;
+    padding: 15px 0 10px 0;
 }
 .captcha_img
 {
     background: #FFFFFF;
     padding: 3px;
     border:2px solid #699500;
+}
+.captchaText
+{
+	margin-left:80px;
 }
 .submit
 {
@@ -294,7 +309,7 @@ p {
     border: 0 !important;
     width: 63px;
     height: 22px;
-    margin-right: 114px;
+    margin-right: 120px;
     cursor: pointer;
 }
 

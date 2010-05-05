@@ -1,0 +1,72 @@
+/* 
+    Document   : popup
+    Created on : Feb 17, 2010, 11:37:41 AM
+    Author     : mark
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+/* Bubble pop-up */
+
+        .popup {
+                position: absolute;
+                display: none;
+                z-index: 500;
+                border-collapse: collapse;
+                
+        }
+
+        .popup td.corner {
+                height: 15px;
+                width: 19px;
+        }
+
+        .popup td#topleft { background-image: url(../images/popup/bubble-1.png); }
+        .popup td.top { background-image: url(../images/popup/bubble-2.png); }
+        .popup td#topright { background-image: url(../images/popup/bubble-3.png); }
+        .popup td.left { background-image: url(../images/popup/bubble-4.png); }
+        .popup td.right { background-image: url(../images/popup/bubble-5.png); }
+        .popup td#bottomleft { background-image: url(../images/popup/bubble-6.png); }
+        .popup td.bottom { background-image: url(../images/popup/bubble-7.png); text-align: center;}
+        .popup td.bottom img { display: block; margin: 0 auto; }
+        .popup td#bottomright { background-image: url(../images/popup/bubble-8.png); }
+
+        .popup table.popup-contents {
+                font-size: 12px;
+                line-height: 1.2em;
+                background-color: #fff;
+                color: #666;
+                font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+                }
+
+        table.popup-contents th {
+                text-align: right;
+                text-transform: lowercase;
+                }
+
+        table.popup-contents td {
+                text-align: left;
+                }
+
+        tr#release-notes th {
+                text-align: left;
+                text-indent: -9999px;
+                background: url(http://jqueryfordesigners.com/demo/images/coda/starburst.gif) no-repeat top right;
+                height: 17px;
+                }
+
+        tr#release-notes td a {
+                color: #333;
+        }
+        .bubbleInfo {
+            position: relative;
+            float: left;
+            width: 100px;
+        }
+        .trigger {
+            position: relative;
+        }
+        
+
+         

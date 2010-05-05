@@ -1,0 +1,303 @@
+
+* { padding: 0; margin: 0; }
+
+body {
+ font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+ font-size: 12px;
+ direction: rtl;
+ color: #FFFFFF;
+ text-decoration: none;
+}
+
+p {
+ padding: 10px;
+}
+
+#wrapper {
+ margin: 0 auto;
+}
+
+.main
+{
+    width: 955px;
+    margin : 0 auto;
+}
+
+
+
+#header {
+ height: 157px;
+ background: #930044 url(../images/home/wrapper-header.png) repeat-x  center;
+
+}
+
+#header .main
+{
+ background:  url(../images/home/header-main.png) no-repeat right;
+ display: block;
+ height: 157px;
+ position: relative;
+}
+#navigation
+{
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 54px;
+    right: 270px;
+}
+#farmNameHolder
+{
+    height: 36px;
+    width: 250px;
+    display: block;
+    position: absolute;
+    top: 95px;
+    right: 270px;
+    padding-top: 4px;
+}
+#farmNameHolder a
+{
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#search
+{
+    width: 290px;
+    height: 20px;
+    position: absolute;
+    top: 54px;
+    left: 10px;
+}
+#search .label
+{
+    font-size: 14px;
+    font-weight: bold;
+    float: right;
+    width: 45px;
+}
+#search .searchInput
+{
+    float: right;
+    width: 193px;
+    height: 16px;
+    background: url(../images/profile/search.gif) no-repeat center;
+}
+#search .searchInput input
+{
+    border: 0;
+    height: 15px;
+    width: 100px;
+    margin-right:3px;
+}
+#search .searchInput select
+{
+    border: 0;
+    height: 15px;
+    width: 70px;
+    margin-right:12px;
+    font-size: 10px;
+}
+#search .searchSubmit
+{
+    background: url(../images/profile/search_submit.gif) no-repeat center;
+    background-position: 0 0;
+    display: block;
+    border: 0 !important;
+    width: 44px;
+    height: 16px;
+    float: left;
+    font-size: 11px;
+    cursor: pointer;
+}
+#search .searchSubmit:hover
+{
+    background-position: 0px -16px;
+}
+#userConsole
+{
+    height: 59px;
+    width: 218px;
+    display: block;
+    position: absolute;
+    top: 86px;
+    right:715px;
+    background: url(../images/profile/user_console.gif) no-repeat center;
+}
+#userConsole span
+{
+    position: relative;
+    width: 218px;
+}
+#userConsole img
+{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 8px;
+    right:7px;
+    background: #FFFFFF;
+}
+#userConsole span.name
+{
+    position: absolute;
+    width: 130px;
+    font-size: 14px;
+    font-weight:bold;
+    top: 10px;
+    right:67px;
+    
+}
+#userConsole span.name a
+{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#userConsole span.date
+{
+    position: absolute;
+    width: 130px;
+    font-size: 8px;
+    font-weight:bold;
+    top: 30px;
+    right:67px;
+}
+#navigation ul
+{
+    display: inline;
+}
+#navigation ul li
+{
+    list-style:  url(../images/home/nav-bullet.png);
+    color: #FFFFFF;
+    margin-right: 35px;
+    font-weight: bold;
+    float: right;
+}
+#navigation ul li a
+{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+#content
+{
+ background: #526329  url(../images/profile/content.gif) repeat-x  center;
+ overflow: auto;
+}
+
+#footer {
+}
+#footer-up
+{
+    background: #d1a000 url(../images/home/footer-up.png) no-repeat bottom;
+    height: 140px;
+    display: block;
+}
+#footer-bottom
+{
+    background: #930044;
+    height: 35px;
+    display: block;
+}
+#footer-bottom p
+{
+    color: #d0bbc5;
+    font-size: 10px;
+    font-style: italic;
+}
+#registration
+{
+    background: url(../images/registration/main.png) no-repeat center;
+    height: 429px;
+    width: 869px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+#registerRules
+{
+    display: block;
+    width: 250px;
+    height: 300px;
+    position: absolute;
+    top: 55px;
+    overflow: auto;
+}
+#registerRules ul li
+{
+    list-style:  url(../images/registration/bullet.png);
+    color: #FFFFFF;
+    margin-right: 35px;
+    font-size: 11px;
+}
+#registerForm
+{
+    position: absolute;
+    top: 30px;
+    right: 290px;
+    color: #FFFFFF;
+}
+
+.registerFormLable
+{
+    color:#FFFFFF;
+    font-weight:bold;
+    padding:5px 0 5px 10px;
+    text-align:left;
+}
+.registerFormInput
+{
+    width: 182px;
+
+}
+
+.registerElement
+{
+    background:#699500;
+    border:1px solid #32490D;
+    color:#FFFFFF;
+    height: 20px;
+    width: 177px;
+    font-weight: lighter;
+    font-family: Tahoma;
+}
+.registerDateElement
+{
+    width:45px;
+    text-align:center;
+    background:#699500;
+    border:1px solid #32490D;
+    color: #FFFFFF;
+    font-weight: lighter;
+    font-family: Tahoma;
+}
+.captcha
+{
+    text-align: center;
+    padding: 5px 0 10px 0;
+}
+.captcha_img
+{
+    background: #FFFFFF;
+    padding: 3px;
+    border:2px solid #699500;
+}
+.submit
+{
+    background: url(../images/registration/submit.png) no-repeat center !important;
+    display: block;
+    border: 0 !important;
+    width: 63px;
+    height: 22px;
+    margin-right: 114px;
+    cursor: pointer;
+}
+
+
+
+

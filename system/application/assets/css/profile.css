@@ -104,7 +104,7 @@
 #userName
 {
     color:#93B14B;
-    font-size:14px;
+    font-size:12px;
     font-weight:bold;
     position:absolute;
     right:107px;
@@ -155,11 +155,11 @@
 #profileHint .title
 {
     color: #3cff81;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: bold;
     position: absolute;
     clear: both;
-    top: 45px;
+    top: 51px;
     right:11px;
 }
 #profileHint .body
@@ -195,6 +195,8 @@ span .addToFriend
     text-decoration:none;
     height: 30px;
     display: block;
+	width:120px;
+	padding-top:3px;
 }
 span .removeFromFriend
 {
@@ -269,10 +271,11 @@ span .abuseReport
 {
     position: absolute;
     top:160px;
-    right: 190px;
-    width: 146px;
+    right: 182px;
+    width: 190px;
     height: 86px;
     display: block;
+	font-size:11px;
 }
 #profileFarmDetails .title
 {
@@ -319,12 +322,13 @@ span .abuseReport
 #friendBox .allFriendsLink
 {
     float: left;
-    margin: 4px 0 0 20px;
+    margin-left: 20px;
+	margin-top:2px;
 }
 .allFriendsLink a
 {
     text-decoration: none;
-    font-size: 13px;
+    font-size: 11px;
     color: #FFFFFF;
 }
 #friendAvatars
@@ -378,7 +382,7 @@ span .abuseReport
 {
     width: 130px;
     position: absolute;
-    top: 60px;
+    top: 67px;
     right: 20px;
 }
 #inviteFriends .form
@@ -393,6 +397,7 @@ span .abuseReport
     border: 0;
     width: 117px;
     float: right;
+	direction: ltr;
 }
 .form textarea
 {
@@ -401,6 +406,8 @@ span .abuseReport
     background: url(../images/profile/send_message.gif) no-repeat top right !important;
     border: 0;
     padding: 7px;
+    font: tahoma;
+    overflow:auto;
 }
 .form .submit
 {
@@ -542,7 +549,7 @@ color:#ffffff;
 {
     color:#C3D59D;
     float:right;
-    font-size:18px;
+    font-size:16px;
     font-weight:bold;
     margin-right:12px;
     margin-top:10px;
@@ -552,8 +559,9 @@ color:#ffffff;
 {
     color:#FFFFFF;
     float:right;
-    margin-bottom:12px;
     margin-right:12px;
+	margin-top:5px;
+    margin-bottom:12px;
     width:400px;
 }
 #searchPager
@@ -576,7 +584,7 @@ color:#ffffff;
 {
     background:#D49C00;
     color:#FFFFFF;
-    padding:2px 8px;
+    padding:2px 5px;
     text-decoration:none;
 }
 .pagerItem input
@@ -609,6 +617,7 @@ color:#ffffff;
     background:#EEEEEE;
     color:#293B08;
 }
+
 
 /* ================Inbox===================*/
 
@@ -721,7 +730,7 @@ color:#ffffff;
 .message_sender a
 {
     color:#7EFF74;
-    font-size:14px;
+    font-size:12px;
     font-weight:bold;
     text-decoration:none;
 }
@@ -735,7 +744,7 @@ color:#ffffff;
 .message_title a
 {
     color:#FFFFFF;
-    font-size:14px;
+    font-size:12px;
     text-decoration:none;
 }
 
@@ -745,6 +754,7 @@ color:#ffffff;
 	font-weight:normal;
 	overflow:hidden;
 	width:95px;
+	font-size:10px;
 }
 
 .message_delete, .message_delete2 {

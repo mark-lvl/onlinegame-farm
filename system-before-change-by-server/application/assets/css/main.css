@@ -1,0 +1,18 @@
+/* 
+    Document   : main
+    Created on : Feb 20, 2010, 11:58:47 AM
+    Author     : mark
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+*
+{
+    padding: 0;
+    margin: 0;
+}
+img
+{
+    border: 0;
+}
+

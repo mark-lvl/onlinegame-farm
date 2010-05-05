@@ -50,6 +50,12 @@
 		        return FALSE;
 		    }
 		    else {
+		    	$sqlUpdate = "UPDATE `users` SET `last_login_ip` = '". $_SERVER['REMOTE_ADDR'] ."',
+                                                 `last_login_date` = '" . date("Y-m-d H:i:s") . "',
+                    							 `logins` = ". ++$result[0]['logins'] ."
+                                             WHERE email = " . $this->db->escape($email) ."
+                                             AND password = " . $this->db->escape(md5($pass)) . ";";
+                $this->db->query($sqlUpdate);
 		        $user = new User_entity($result[0]);
 		        return $user;
 		    }

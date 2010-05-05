@@ -98,6 +98,7 @@ function editProfile()
 {
     var params = {};
     params['user_id'] = <?= $user_profile->id ?>;
+    $("#changeProfile").html("<?= $lang['profile_set'] ?>");
     ajax_request('#centerContainer','<?= base_url() ?>profile/edit',params);
 }
 function addToFriend(id)
@@ -106,11 +107,16 @@ function addToFriend(id)
     params['id'] = id;
     ajax_request('#ajaxHolder','<?= base_url() ?>profile/addToFriend',params);
 }
-function deleteFriend(id,user_id)
+function deleteFriendConfirm(id,user_id)
+    {
+        Boxy.confirm('<?= $lang['areYouSureDeleteFriend'] ?>', deleteFriend,{title:'<?= $lang['becareful'] ?>'});
+    }
+function deleteFriend()
 {
     var params = {};
-    params['id'] = id;
-    params['user_id'] = user_id;
+    params['id'] = <?= $user_profile->id ?>;;
+    params['user_id'] = <?= $user->id ?>;
+	$('.removeFromFriend').fadeOut();
     ajax_request('#ajaxHolder','<?= base_url() ?>profile/deleteFriend',params);
 }
 function abuseReport(id)
@@ -126,6 +132,7 @@ function registerNewFarm()
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
+$("#inviteEmail").click(function(){$(this).val('');$(this).css("color","black");$(this).css("border","0");});
 $("#addFriend").submit(function(){
     $("#inviteEmail").css("border","");
     $("#inviteEmail").css("color","");
@@ -152,18 +159,25 @@ $("#addFriend").submit(function(){
     });
 
 $("#sendMessage").submit(function(){
-
-    $('.messAjaxHolder').fadeIn('slow');
     var params = {};
     params['message'] = $("#privateMess").val();
     params['from'] = <?= $user->id ?>;
     params['to'] = <?= $user_profile->id ?>;
     params['senderName'] = '<?= $user->first_name ?>';
-
-    ajax_request('.messAjaxHolder', '<?= base_url() ?>profile/sendMessage', params)
-    
-    return false;
+    if(params['message'] == "")
+	{
+    	$('#privateMess').css("color","red");
+        $('#privateMess').val('<?= $lang['must_be_filled'] ?>');
+    }
+    else
+	{
+		$('.messAjaxHolder').fadeIn('slow');
+		$("#sendMessage input:submit").hide()
+    	ajax_request('.messAjaxHolder', '<?= base_url() ?>profile/sendMessage', params)
+	}
+	return false;
     });
+    $('#privateMess').click(function(){$(this).val('');$(this).css("color","black");});
 
 $("#searchForm").submit(function(){
 
@@ -190,6 +204,7 @@ $("#searchForm").submit(function(){
     return false;
     });
 });
+$('#searchUserByName').click(function(){$(this).val('');$(this).css("color","black");});
 
 </script>
 <style>
@@ -225,12 +240,14 @@ $("#searchForm").submit(function(){
                         <span id="userRegisterDate">
                                 <?= $lang['register_date'].": ".convert_number(fa_strftime("%d %B %Y", $user_profile->registration_date . "")) ?>
                         </span>
-                        <span id="changeProfile">
+                        <?php if(!$partner): ?>
+		                <span id="changeProfile">
                                 <?= anchor("profile/edit/$user_profile->id",
                                            $lang['profile_set'],
                                            array('onclick'=>"editProfile();return false;"));
                                 ?>
                         </span>
+                        <?php endif; ?>
                 </div>
                 <div id="userRanks">
                     <div class="jcarousel-skin-tango">
@@ -331,7 +348,7 @@ $("#searchForm").submit(function(){
                                     ?>
                                     <span class="del"><a href="#" class="delete" id="<?= $hint->id ?>">X</a></span>
                                     <?php
-                                    echo $hint->body."<br/><span class=\"date\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $hint->create_date . ""))."</span></li>";
+                                    echo $hint->body."<br/><br/><span class=\"date\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $hint->create_date . ""))."</span></li>";
                                     }?>
                                 </ul>
                             </span>
@@ -349,7 +366,7 @@ $("#searchForm").submit(function(){
                                     <span class="removeFromFriend">
                                         <?= anchor("profile/deleteFriend/".ltrim($user_profile->id, '0')."/".$user->id,
                                             $lang['delete_friend'],
-                                            array('onclick'=>"deleteFriend(".ltrim($user_profile->id, '0').",$user->id);return false;"));
+                                            array('onclick'=>"deleteFriendConfirm();return false;"));
                                         ?>
                                     </span>
                                 <?php endif; ?>
@@ -423,6 +440,7 @@ $("#searchForm").submit(function(){
                                         <td class="title"><?= $lang['farmLevel'] ?></td>
                                         <td><?= $lang["level$userFarm->level"] ?></td>
                                 </tr>
+                                <?php if($userFarm->plantName) : ?>
                                 <tr>
                                         <td class="title"><?= $lang['plant'] ?></td>
                                         <td><?= $userFarm->plantName ?></td>
@@ -431,6 +449,7 @@ $("#searchForm").submit(function(){
                                         <td class="title"><?= $lang['health'] ?></td>
                                         <td><?= $userFarm->health ?> %</td>
                                 </tr>
+                    			<?php endif; ?>
                                 <?php else: ?>
                                 <tr>
                                     <td colspan="2" style="text-align: center">
@@ -526,7 +545,7 @@ $("#searchForm").submit(function(){
                 </div>
                 <?php if(!$partner): ?>
                 <div id="inviteFriends">
-                    <div class="body" id="inviteRequestHolder"><?= $lang['addFriendsToYummy'] ?></div>
+                    <div class="body" ><span id="inviteRequestHolder"><?= $lang['addFriendsToYummy'] ?></span></div>
                     <div class="form">
                         <form id="addFriend">
                             <input type="text" name="inviteEmail" id="inviteEmail"/>

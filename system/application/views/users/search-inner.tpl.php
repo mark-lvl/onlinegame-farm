@@ -21,7 +21,11 @@
 
                 <span class="searchField">
                     <span><?= $lang['level_label'] ?>:</span>
-                    <B><?= convert_number($k->level . "") ?></B>
+                    <B><?php if($k->level)
+                                 echo convert_number($k->level . "");
+                    		 else
+                    			 echo $lang['havingAnyFarm']; ?>
+                    </B>
                 </span>
             </div>
             <?php endforeach; ?>

@@ -14,8 +14,18 @@
         right: 75px;
         top: 30px;
     }
+    .closeButton
+    {
+    	position: absolute;
+    	top:11px;
+    	right:18px;
+    	width:26px;
+    	height:26px;
+    	display:block;
+    }
 </style>
 <div id="centerContainer">
+	<span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img/popup/boxy/close.png\"") ?></span>
     <div id="registerForm">
                 <form action="<?= base_url() ?>profile/edit/" id="register-form" class="registerForm" method="post">
                                 <table>
@@ -24,7 +34,7 @@
                                                  <?= $lang['name'] ?>:
                                         </td>
                                         <td class="registerFormInput">
-                                                <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" name="first_name" id="first_name" class="validate[required] registerElement" value="<?= $user_profile->first_name ?>"/>
+                                                <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" name="first_name" id="first_name" class="validate[required,funcCall[firstnameLength]] registerElement" value="<?= $user_profile->first_name ?>"/>
 
                                         </td>
                                         <td>
@@ -36,7 +46,7 @@
                                                  <?= $lang['last_name'] ?>:
                                         </td>
                                         <td class="registerFormInput">
-                                                <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" name="last_name" id="last_name" class="validate[required] registerElement" value="<?= $user_profile->last_name ?>"/>
+                                                <input onkeypress="return FarsiType(this,event)" maxlength="50" type="text" name="last_name" id="last_name" class="validate[required,funcCall[lastnameLength]] registerElement" value="<?= $user_profile->last_name ?>"/>
                                         </td>
                                         <td>
                                                 <img src="<?= $base_img?>registration/star.png" />
@@ -64,30 +74,19 @@
                                                         <?= $lang['birthdate'] ?>:
                                         </td>
                                         <td class="registerFormInput">
-                                                        <input type="text" title="<?= $lang['day'] ?>" maxlength="2" class="registerDateElement" value="<?= substr($user_profile->jd_birthdate2, 0, 2) ?>" name="day" id="day" />
-                                                        <input type="text" title="<?= $lang['month'] ?>" maxlength="2" class="registerDateElement" value="<?= substr($user_profile->jd_birthdate2, 3, 2) ?>" name="month" id="month" />
-                                                        <input type="text" title="<?= $lang['year'] ?>" maxlength="2" class="registerDateElement" value="<?= substr($user_profile->jd_birthdate2, 8, 2) ?>" name="year" id="year" />
+                                                        <input type="text" title="<?= $lang['day'] ?>" maxlength="2" class="validate[funcCall[validateDay]] registerDateElement" value="<?= substr($user_profile->jd_birthdate2, 0, 2) ?>" name="day" id="day" />
+                                                        <input type="text" title="<?= $lang['month'] ?>" maxlength="2" class="validate[funcCall[validateMonth]] registerDateElement" value="<?= substr($user_profile->jd_birthdate2, 3, 2) ?>" name="month" id="month" />
+                                                        <input type="text" title="<?= $lang['year'] ?>" maxlength="2" class="validate[funcCall[validateYear]] registerDateElement" value="<?= substr($user_profile->jd_birthdate2, 8, 2) ?>" name="year" id="year" />
                                                         <?= $lang['pre_year'] ?>
                                         </td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td class="registerFormLable">
-                                                        <?= $lang['email'] ?>:
-                                        </td>
-                                        <td class="registerFormInput">
-                                                        <input type="text" value="<?= $user_profile->email ?>" maxlength="50" style="direction:ltr;" name="email" id="email" class="validate[custom[email]] registerElement"/>
-                                        </td>
-                                        <td>
-                                                <img src="<?= $base_img?>registration/star.png" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="registerFormLable">
                                                         <?= $lang['new_password'] ?>:
                                         </td>
                                         <td class="registerFormInput">
-                                                        <input type="password" id="password" value="" maxlength="50" style="direction:ltr;" name="password"  class=" registerElement"/>
+                                                        <input type="password" id="password" value="" maxlength="50" style="direction:ltr;" name="password"  class="validate[funcCall[passwordLength]] registerElement"/>
                                         </td>
                                         <td>
                                                 <img src="<?= $base_img?>registration/star.png" />
@@ -111,7 +110,7 @@
                                             <?php
                                                 $city = get_province();
                                             ?>
-                                            <select name="city" id="city" class="registerElement">
+                                            <select name="city" id="city" class="validate[funcCall[city]] registerElement">
                                                                 <?php
                                                                     foreach($city as $x => $k) {
                                                                     ?>
@@ -140,7 +139,57 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
+  function validateDay()
+  {
+  	if($("#day").val() > 31 || $("#day").val() < 1 )
+		return true;
+    else
+		return false;
+  }
+  function validateMonth()
+  {
+  	if($("#month").val() > 12 || $("#month").val() < 1 )
+		return true;
+    else
+		return false;
+  }
+  function validateYear()
+  {
+  	if($("#year").val() > 89 || $("#year").val() < 1 )
+		return true;
+    else
+		return false;
+  }
+  function passwordLength()
+  {
+  	  if($("#password").val().length > 0)
+  	  	  if(($("#password").val().length < 6) || ($("#password").val().length > 12))
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
+  function firstnameLength()
+  {
+  	  if($("#first_name").val().length > 10)
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
+  function lastnameLength()
+  {
+  	  if($("#last_name").val().length > 18)
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
+  function city()
+  {
+  	  if($("#city").val() == "------")
+  	  	  	return true;
+  	  	  else
+  	  	  	return false;
+  }
   $(document).ready(function() {
-   $("#register-form").validationEngine()
+  $("#register-form").validationEngine()
   })
 </script>
