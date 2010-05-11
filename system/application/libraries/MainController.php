@@ -60,10 +60,12 @@ class MainController extends Controller {
         $this->data['js'] .= $this->load->view("partials/js.tpl.php", array('filename' => $filename), true);
     }
 
-    function error_reporter($type, $params = null , $template='main')
+    function error_reporter($type, $params = null , $template='main',$specialCss = null)
     {
         $this->loadJs('boxy');
-        $this->add_css('boxy');
+        
+        if(!$specialCss)
+            $this->add_css('boxy');
 
         $this->data['params'] = $params;
         $this->data['content'] = $this->load->view("layouts/error/$type.tpl.php", $this->data, TRUE);

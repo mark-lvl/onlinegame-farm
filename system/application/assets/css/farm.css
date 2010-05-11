@@ -8,135 +8,615 @@
 
 #farmWrapper
 {
-    width: 800px;
-    margin: 0 auto;
-    padding: 10px;
+    width: 955px;
+    height: 672px;
 }
-
+#base
+{
+    width: 955px;
+    height: 503px;
+    display: block;
+    background: #526329;
+}
+#panel
+{
+    width: 955px;
+    height: 109px;
+    margin-top: 22px;
+    margin-right: 17px;
+    display: block;
+    background: #526329;
+    padding-bottom: 4px;
+}
+#bar
+{
+    margin-top: 10px;
+    width: 955px;
+    height: 24px;
+    display: block;
+    background: #6f8833;
+}
 #farm
 {
-    width: 500px;
+    width: 721px;
+    height: 503px;
     display: block;
     float: right;
-    height: 2000px;
-    border: solid thin gray;
-    padding: 10px;
-
+    background: url(../images/farm/farm.png) no-repeat  center;
+    position: relative;
 }
-
-#farmOwner
+#section-1
 {
+    display:block;
+    height:225px;
+    position:absolute;
+    right:255px;
+    top:31px;
+    width:223px;
+}
+#section-2
+{
+    
+    display:block;
+    height:225px;
+    position:absolute;
+    right:486px;
+    top:78px;
+    width:223px;
+}
+#section-3
+{
+    display:block;
+    height:225px;
+    position:absolute;
+    right:24px;
+    top:169px;
+    width:223px;
+}
+#section-4
+{
+    display:block;
+    height:225px;
+    position:absolute;
+    right:255px;
+    top:263px;
+    width:223px;
+}
+.unPlow
+{
+    background:url(../images/farm/unPlowGround.jpg);
+}
+.plow
+{
+    background:url(../images/farm/plowGround.jpg);
+    display:block;
+    height:225px;
+    width:223px;
+}
+.plantGround
+{
+    background:url(../images/farm/plantGround.jpg);
+    display:block;
+    height:225px;
+    width:223px;
+}
+.section-2-off
+{
+    background:url(../images/farm/section-2-locker.png) no-repeat;
+    width: 191px;
+    height: 224px;
+    display: block;
+    padding-right: 15px;
+}
+.section-3-off
+{
+    background:url(../images/farm/section-3-locker.png) no-repeat;
+    width: 191px;
+    height: 166px;
+    display: block;
+    margin-top: 60px;
+}
+.section-4-off
+{
+    background:url(../images/farm/section-4-locker.png) no-repeat;
+    width: 191px;
+    height: 224px;
+    display: block;
+    margin-top: 15px;
+}
+#farmAction
+{
+    width: 211px;
+    height: 80px;
+    display: block;
+    position: absolute;
+    top: 414px;
+    right: 17px;
+}
+#farmAction a
+{
+    width: 58px;
+    height: 58px;
+    display: block;
+    margin-right: 13px;
+    margin-top: 10px;
     float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
+}
+.plow-botton-on
+{
+    background: url(../images/farm/farm-action-on.png) no-repeat;
+    background-position: 0 0;
+}
+.plow-botton-off
+{
+    background: url(../images/farm/farm-action-off.png) no-repeat;
+    background-position: 0 0;
+}
+.spray-botton-on
+{
+    background: url(../images/farm/farm-action-on.png) no-repeat;
+    background-position: -58px 0;
+}
+.spray-botton-off
+{
+    background: url(../images/farm/farm-action-off.png) no-repeat;
+    background-position: -58px 0;
+}
+.reap-botton-on
+{
+    background: url(../images/farm/farm-action-on.png) no-repeat;
+    background-position: -116px 0;
+    margin-right: 0 !important;
+}
+.reap-botton-off
+{
+    background: url(../images/farm/farm-action-off.png) no-repeat;
+    background-position: -116px 0;
+    margin-right: 0 !important;
 }
 
-#farmHints
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-#farmNotification
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
 
+#sidebar
+{
+    width: 221px;
+    height: 503px;
+    display: block;
+    float: left;
+    margin-right: 7px;
+}
+#farmInformation
+{
+    width: 221px;
+    height: 137px;
+    display: block;
+    background: url(../images/farm/info.png) no-repeat  center;
+    margin-top: 50px;
+    position: relative;
+}
+#farmInformationDetails
+{
+    display:block;
+    height:67px;
+    position:absolute;
+    right:50px;
+    top:60px;
+    width:160px;
+}
+.farmInfoItem
+{
+    width: 160px;
+    float: right;
+    height:21px;
+}
+.infoValue
+{
+    color: #ffde00;
+    margin-right: 7px;
+}
+#farmStatistic
+{
+    margin-top: 6px;
+    background: url(../images/farm/statistic-on.png) no-repeat  center;
+    width: 221px;
+    height: 103px;
+    display: block;
+}
+#farmStatisticOff
+{
+    margin-top: 6px;
+    background: url(../images/farm/statistic-off.png) no-repeat  center;
+    width: 221px;
+    height: 103px;
+    display: block;
+    position: relative;
+}
+#farmStatisticOff span
+{
+    position: absolute;
+    top: 38px;
+    right:103px;
+}
+#lessStatistic
+{
+    width: 221px;
+    height: 103px;
+    display: block;
+    position: relative;
+}
+.statisticIcon
+{
+    display: block;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 12px;
+    right:10px;
+    border-left:1px solid white;
+    padding-left: 5px;
+}
+.healthGood
+{
+    background: url(../images/farm/healthGood.png) no-repeat  center right;
+    display: block;
+    width: 76px;
+    height: 76px;
+}
+.healthMiddle
+{
+    background: url(../images/farm/healthMiddle.png) no-repeat  center right;
+    display: block;
+    width: 76px;
+    height: 76px;
+}
+.healthBad
+{
+    background: url(../images/farm/healthBad.png) no-repeat  center right;
+    display: block;
+    width: 76px;
+    height: 76px;
+}
+.healthVeryBad
+{
+    background: url(../images/farm/healthVeryBad.png) no-repeat  center right;
+    display: block;
+    width: 76px;
+    height: 76px;
+}
+.statisticText
+{
+    display:block;
+    height:80px;
+    position:absolute;
+    right:100px;
+    top:14px;
+    width:110px;
+}
+.statisticTextHeader
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.expandStatistic
+{
+    position: absolute;
+    top:66px;
+    right: 99px;
+    cursor: pointer;
+    background:  url(../images/farm/addMinus.png);
+    background-position: 0 18px;
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+.collapseStatistic
+{
+    position: absolute;
+    top:81px;
+    right: 199px;
+    cursor: pointer;
+    background:  url(../images/farm/addMinus.png);
+    background-position: 0 0;
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+#moreStatistic
+{
+    display: none;
+    width: 221px;
+    height: 103px;
+    position: relative;
+}
+#moreStatistic div.moreDivation
+{
+    width: 185px;
+    height: 40px;
+    display: block;
+    float: right;
+    margin: 13px 22px 0 0;
+}
+#moreStatistic div span.label
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+#moreStatistic div span.value
+{
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffde00;
+}
+#farmTime
+{
+    width: 221px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/time.png) no-repeat  center;
+    margin-top: 6px;
+    position: relative;
+}
+#farmTimeOff
+{
+    width: 221px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/timeOff.png) no-repeat  center;
+    margin-top: 6px;
+    position: relative;
+}
+#farmTimeHolder
+{
+    position: absolute;
+    top: 38px;
+    right: 14px;
+}
+#plantGrowthHolder div { float: left; width: 10px; height: 21px;
+    background: url(../images/farm/clock-big.png) no-repeat 0px 0px; }
+#plantGrowthHolder div.image0 { background-position: -99px 0px; }
+#plantGrowthHolder div.image1 { background-position: -0px 0px; }
+#plantGrowthHolder div.image2 { background-position: -11px 0px; }
+#plantGrowthHolder div.image3 { background-position: -22px 0px; }
+#plantGrowthHolder div.image4 { background-position: -33px 0px; }
+#plantGrowthHolder div.image5 { background-position: -44px 0px; }
+#plantGrowthHolder div.image6 { background-position: -55px 0px; }
+#plantGrowthHolder div.image7 { background-position: -66px 0px; }
+#plantGrowthHolder div.image8 { background-position: -77px 0px; }
+#plantGrowthHolder div.image9 { background-position: -88px 0px; }
+#plantGrowthHolder div.imageDay { background-position: -120px 0px; }
+#plantGrowthHolder div.imageSep { background-position: -110px 0px; }
+#plantGrowthHolder div.imageSpace { background-position: -130px 0px; }
+
+
+.resourceCounter div { float: left; width: 10px; height: 21px;
+    background: url(../images/farm/clock-small.png) no-repeat 0px 0px; }
+.resourceCounter div.image0 { background-position: -81px 0px; }
+.resourceCounter div.image1 { background-position: -0px 0px; }
+.resourceCounter div.image2 { background-position: -9px 0px; }
+.resourceCounter div.image3 { background-position: -18px 0px; }
+.resourceCounter div.image4 { background-position: -27px 0px; }
+.resourceCounter div.image5 { background-position: -36px 0px; }
+.resourceCounter div.image6 { background-position: -45px 0px; }
+.resourceCounter div.image7 { background-position: -54px 0px; }
+.resourceCounter div.image8 { background-position: -63px 0px; }
+.resourceCounter div.image9 { background-position: -72px 0px; }
+.resourceCounter div.imageDay { background-position: -99px 0px; }
+.resourceCounter div.imageSep { background-position: -90px 0px; }
+.resourceCounter div.imageSpace { background-position: -108px 0px; }
+
+.reapTimeHolder
+{
+    height: 20px;
+    width: 200px;
+    display: block;
+    margin-bottom: 3px;
+}
+.reapTimeHolder .label
+{
+    font-size: 14px;
+    font-weight: bold;
+    width: 22px;
+    float: right;
+}
+.reapTimeHolder .time
+{
+    float: right;
+}
+.reapCounter{height:16px;width:125px;}
+.resourceTimeHolder
+{
+    height: 15px;
+    width: 200px;
+    display: block;
+    margin-bottom: 3px;
+}
+.resourceTimeHolder .label
+{
+    width: 22px;
+    float: right;
+}
+.resourceTimeHolder .time
+{
+    float: right;
+}
+.resourceCounter{height:13px;width:125px;float: right}
+
+#farmStatus
+{
+    width: 221px;
+    height: 77px;
+    display: block;
+    background: url(../images/farm/status.png) no-repeat  center;
+    margin-top: 6px;
+}
+#farmInventory
+{
+    width: 107px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/inventory.png) no-repeat  center;
+    float: right;
+}
+#farmAccessory
+{
+    width: 108px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/accessory.png) no-repeat  center;
+    margin-right: 8px;
+    float: right;
+}
 #farmResource
 {
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
+    width: 243px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/resource.png) no-repeat  center;
+    margin-right: 8px;
+    float: right;
+    position: relative;
+}
+.waterResource
+{
+    display:block;
+    height:77px;
+    position:absolute;
+    right:138px;
+    top:14px;
+    width:37px;
+}
+#waterAmount
+{
+    color:#FFFFFF;
+    display:block;
+    font-weight:bold;
+    height:16px;
+    position:absolute;
+    right:2px;
+    text-align:center;
+    top:24px;
+    width:32px;
+}
+.muckResource
+{
+    display:block;
+    height:77px;
+    position:absolute;
+    right:13px;
+    top:14px;
+    width:37px;
+}
+#muckAmount
+{
+    color:#FFFFFF;
+    display:block;
+    font-weight:bold;
+    height:16px;
+    position:absolute;
+    right:2px;
+    text-align:center;
+    top:24px;
+    width:32px;
+}
+.muckBuy
+{
+    display: block;
+    background: url(../images/farm/buy.png) no-repeat;
+    background-position: -37px 0;
+    height:15px;
+    position:absolute;
+    top:61px;
+    width:37px;
+}
+.muckBuy:hover
+{
+   background-position: -37px -15px;
+}
+.muckSpread
+{
+    background: url(../images/farm/addResourceToPlant.png) no-repeat;
+    background-position: -23px 0;
+    display:block;
+    height:11px;
+    position:absolute;
+    right:5px;
+    top:3px;
+    width:24px;
+}
+.muckSpread:hover
+{
+   background-position: -23px -11px;
+}
+.waterBuy
+{
+    display: block;
+    background: url(../images/farm/buy.png) no-repeat;
+    background-position: 0 0;
+    height:15px;
+    position:absolute;
+    top:61px;
+    width:37px;
+}
+.waterBuy:hover
+{
+   background-position: 0 -15px;
+}
+.waterSpread
+{
+    background: url(../images/farm/addResourceToPlant.png) no-repeat;
+    background-position: 0 0;
+    display:block;
+    height:11px;
+    position:absolute;
+    right:5px;
+    top:3px;
+    width:23px;
+}
+.waterSpread:hover
+{
+   background-position: 0 -11px;
+}
+#farmMission
+{
+    margin-right: 11px;
+    float: right;
+}
+#farmMission div
+{
+    width: 221px;
+    height: 108px;
+    display: block;
+    position: relative;
+}
+#farmMission div span
+{
+    height:68px;
+    right:92px;
+    top:33px;
+    width:120px;
+    display: block;
+    position: absolute;
+}
+#farmMission .active
+{
+    background: url(../images/farm/mission-on.png) no-repeat  center;
+}
+#farmMission .inactive
+{
+    background: url(../images/farm/mission-off.png) no-repeat  center;
 }
 
-#health
+
+#farmEquipment
 {
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
+    width: 221px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/equipment.png) no-repeat  center;
+    margin-right: 11px;
+    float: right;
 }
 
-#plantResource
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#farmAccessories
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#accessories
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#equipments
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#resources
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#plantTypes
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-#resourcePlant
-{
-    float: left;
-    width: 200px;
-    border: solid thin gray;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-h4
-{
-    text-align: center;
-    border-bottom: solid thin black;
-    margin-bottom: 15px;
-}
 
 /*******footerPanel*******/
 #footpanel {

@@ -1,0 +1,114 @@
+.boxy_input
+{
+	border:1px solid #666;
+	color:#666;
+	direction:rtl;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+}
+
+.boxy-wrapper { position: absolute; width:503px; }
+.boxy-wrapper.fixed { position: fixed; }
+
+  /* Modal */
+  
+  .boxy-modal-blackout { position: absolute; background-color: black; left: 0; top: 0; z-index:1002; }
+  
+  /* Border */
+
+  .boxy-wrapper { empty-cells: show; }
+	.boxy-wrapper .top-left,
+	.boxy-wrapper .top-right,
+	.boxy-wrapper .bottom-right,
+	.boxy-wrapper .bottom-left {  }
+	
+	.boxy-wrapper .top-right { }
+	.boxy-wrapper .top-left { }
+	.boxy-wrapper .bottom-left{}
+	.boxy-wrapper .bottom-right {}
+
+	/* IE6+7 hacks for the border. IE7 should support this natively but fails in conjuction with modal blackout bg. */
+	/* NB: these must be absolute paths or URLs to your images */
+
+
+	.boxy-wrapper .top,
+	.boxy-wrapper .bottom {}
+
+	.boxy-wrapper .left,
+	.boxy-wrapper .right {}
+
+	/* Title bar */
+	
+	.boxy-wrapper .title-bar { background: url("../images/popup/boxy/farmBoxy/header.png") no-repeat center; padding: 6px; position: relative; border:0px; color:#4f4f4f;height: 10px}
+	.boxy-wrapper .title-bar.dragging { cursor: move; }
+	.boxy-wrapper .title-bar h2
+        {
+            color:#c1c1c1;
+            font-family:Tahoma,Arial;
+            font-size:11px;
+            font-weight:bold;
+            line-height:1;
+            margin:0;
+            padding:0;
+            position:absolute;
+            right:46px;
+            top:6px;
+        }
+	    .boxy-wrapper .title-bar .close { color:#4f4f4f;
+	font-family:Tahoma, Arial;
+	font-size:11px; position: absolute; top: 0px; right: 465px; font-size: 90%; line-height: 1; }
+		
+	/* Content Region */
+	
+	.boxy-header{background: url("../images/popup/boxy/farmBoxy/header.png") no-repeat center;height: 10px;width: 503px}
+        .boxy-inner{color:#000000;
+                    line-height:16px;
+                    font-family:Tahoma, Arial;
+                    text-align: right;
+                    font-size:11px;
+                    padding: 0;
+                    border:0px;
+                    background: url("../images/popup/boxy/farmBoxy/content.png") repeat-y center top;
+                    width: 503px;
+                    height:224px !important;
+                    display: block;
+                    overflow: none !important;
+        }
+        .boxy-footer{background: url("../images/popup/boxy/farmBoxy/footer.png") no-repeat center;width: 503px;height:4px;display: block}
+	.boxy-content {color:#ffffff;
+                       font-family:Tahoma, Arial;
+                       font-size:11px;
+                       padding: 15px;
+                       border:0px;
+        }
+        .main-content
+        {
+            height: 224px;
+            overflow: auto;
+            margin-right: 4px;
+            
+        }
+	
+	/* Question Boxes */
+
+    .boxy-wrapper .question 
+    {   width: 350px;
+        min-height: 80px;
+        direction:rtl;
+        color:#000000;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+    }
+    .boxy-wrapper .answers 
+    {   text-align: left;
+        color:#666;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+    }
+	
+    .boxy-button { direction:rtl;
+		color:#666;
+	font-family:Tahoma, Arial;
+	font-size:11px;
+	border:1px solid #000;
+	background:#DDD; }

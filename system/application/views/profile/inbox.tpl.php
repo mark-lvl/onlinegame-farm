@@ -10,6 +10,13 @@
      margin-bottom: 8px !important;
 }
 </style>
+<!--[if IE]>
+<style>
+  #bottomBar {
+    margin-top:4px;
+}
+</style>
+<![endif]-->
 
 <div id="centerContainer">
     <div id="inboxHolder">

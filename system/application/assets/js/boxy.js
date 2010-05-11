@@ -1,4 +1,3 @@
-
 jQuery.fn.boxy = function(options) {
     options = options || {};
     return this.each(function() {

@@ -270,14 +270,14 @@ class Profile extends MainController
 	    
             $this->data['farmSign'] = $farmSign;
 
-	        $this->add_css('jquery.jcarousel');
+	    $this->add_css('jquery.jcarousel');
             $this->add_css('skin');
             $this->add_css('boxy');
             $this->add_css('validation');
             $this->loadJs('jquery.jcarousel');
             $this->loadJs('jquery.validationEngine-fa');
             $this->loadJs('jquery.validationEngine');
-	        $this->loadJs('jquery.progressbar');
+	    $this->loadJs('jquery.progressbar');
             $this->loadJs('boxy');
             $this->loadJs('generals');
             $this->loadJs('jquery.hints');

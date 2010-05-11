@@ -34,11 +34,13 @@ class Farms extends MainController {
         //load css files
         $this->add_css('jquery.countdown');
         $this->add_css('farm');
+        $this->add_css('home');
 
         //load js files
         $this->loadJs('jquery.countdown/jquery.countdown.min');
         $this->loadJs('jquery.countdown/jquery.countdown-fa');
         $this->loadJs('jquery.loading/jquery.loading');
+        $this->loadJs('jquery.progressbar');
 
         if($_SESSION['user']){
                   $this->userSessionHolder = unserialize($_SESSION['user']);}
@@ -134,11 +136,6 @@ class Farms extends MainController {
                 if(!$this->user_model->has_farm($user->id))
                         redirect("profile/user/$user->id");
 
-                $this->add_css('popup');
-                $this->loadJs('popup');
-                $this->loadJs('boxy');
-                $this->add_css('boxy');
-
 		$farmModel = new Farm();
 		$userFarm = $farmModel->where('user_id',$user->id)->where('disactive','0')->get();
 
@@ -157,18 +154,17 @@ class Farms extends MainController {
 		$frmMisMdl = new Farmmission();
 		$frmMisObj = $frmMisMdl->get_where(array('farm_id'=>$userFarm->id, 'status'=>0));
 
-		$hints = array();
 		if(!$frmMisObj->exists())
 		{
 			$misMdl = new Mission();
 			$misObj = $misMdl->get_by_level($userFarm->level);
-			$hints[] = $misObj->description;
+			$missionBox = $misObj;
 		}
                 else
                 {
                         $frmMisMdl = new Farmmission();
                         $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
-                        $hints[] = str_replace(array('__AMOUNT__','__TYPENAME__'),
+                        $missionBox[] = str_replace(array('__AMOUNT__','__TYPENAME__'),
                                                array($frmMisObj->stack,$userPlant->typeName),
                                                $this->data['lang']['mission']['stack']);
                         
@@ -228,14 +224,20 @@ class Farms extends MainController {
 		$this->data['resources'] = $allResource;
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
-		$this->data['hints'] = $hints;
+		$this->data['missionBox'] = $missionBox;
 		$this->data['notifications'] = $notification;
 		$this->data['equipments'] = $equipments;
 
                 $this->data['heading'] = '';
                 $this->data['title'] = 'FARM';
 
-		$this->render();
+                $this->add_css('popup');
+                $this->loadJs('popup');
+                $this->loadJs('boxy');
+                
+                $this->add_css('boxyFarm');
+
+		$this->render('home');
 	}
 
 
@@ -337,7 +339,7 @@ class Farms extends MainController {
           if(is_array($flag))
               $this->error_reporter($flag['type'],$flag['params']);
           
-          $this->resource_farm($_POST['farm_id'],true);
+          $this->resource_farm($_POST['farm_id'],$_POST['resource_id']);
 		
 	}
 
@@ -386,7 +388,7 @@ class Farms extends MainController {
                 foreach($pltSrcObjsHolder AS &$pltSrcObjHolder)
                         if($pltSrcObjHolder->current)
                         {
-                            $this->error_reporter('public',array('message'=>'plantResourceExists'));
+                            $this->error_reporter('public',array('message'=>'plantResourceExists','height'=>80));
                             return FALSE;
                         }
                         else
@@ -449,7 +451,7 @@ class Farms extends MainController {
           if(is_array($flag))
               $this->error_reporter($flag['type'],$flag['params']);
           else
-              echo '1';
+              echo "<div class=\"plow\"></div>";
 	}
 
         function sync()
@@ -470,7 +472,7 @@ class Farms extends MainController {
          * params output : determine the type of return object
          * return : the view or the output string of view
          */
-        function resource_farm($farm_id = null,$output = null)
+        function resource_farm($farm_id = null,$resourceParam = null)
 	{
           $frmSrcModel = new Farmresource();
           $resource = new Resource();
@@ -484,12 +486,16 @@ class Farms extends MainController {
 
 	  if(is_null($resourceHolder))
 		$resourceHolder = array();
-          $data['farmResources'] = $resourceHolder;
-          if($output)
-            $this->load->view('farms/addResourceToFarm',$data);
+          
+          if(!$resourceParam)
+            return $resourceHolder;
           else
-            return $this->load->view('farms/addResourceToFarm',$data, TRUE);
-
+          {
+              if($resourceParam == 1)
+                  echo $resourceHolder['Water'];
+              elseif($resourceParam == 2)
+                  echo $resourceHolder['Muck'];
+          }
 	}
 
         /*
@@ -698,5 +704,68 @@ class Farms extends MainController {
                         }
         }
 
+        function mission()
+        {
+            $misMdl = new Mission();
+            $misObj = $misMdl->get_by_id($_POST['mission']);
+            $mission = array();
+            $mission['farm_id'] = $_POST['farm_id'];
+            $mission['farm_plow'] = $_POST['farm_plow'];
+            $mission['level'] = $misMdl->level;
+            $mission['description'] = $misMdl->description;
+
+            if($misMdl->needed_accessory)
+            {
+                $accs = unserialize($misMdl->needed_accessory);
+                foreach ($accs as $acc)
+                {
+                    $accMdl = new Accessory();
+                    $accObj = $accMdl->get_by_id($acc);
+                    $mission['accessories'][] = $accObj->name;
+                }
+            }
+            $mission['plant'] = array();
+            if($misObj->type_id)
+            {
+                $typMdl = new Type();
+                $typObj = $typMdl->get_by_id($misObj->type_id);
+                $mission['plant'][0]['id'] = $typObj->id;
+                $mission['plant'][0]['name'] = $typObj->name;
+                $mission['plant'][0]['price'] = $typObj->price;
+                $mission['plant'][0]['sellPrice'] = $typObj->sell_cost;
+                $mission['plant'][0]['weight'] = $typObj->weight;
+                $mission['plant'][0]['growthTime'] = $typObj->growth_time;
+
+                $typResMdl = new Typeresource();
+                $typResObjs = $typResMdl->get_where(array('type_id'=>$misObj->type_id))->all;
+                foreach($typResObjs AS $typResObj)
+                    $mission['plant'][0]['resource'][$typResObj->resource_id] = $typResObj->consumeTime;
+            }
+            else
+            {
+                $typMdl = new Type();
+                $typObjs = $typMdl->get()->all;
+                $index = 0;
+                foreach($typObjs AS $typObj)
+                {
+                    $mission['plant'][$index]['id'] = $typObj->id;
+                    $mission['plant'][$index]['name'] = $typObj->name;
+                    $mission['plant'][$index]['price'] = $typObj->price;
+                    $mission['plant'][$index]['sellPrice'] = $typObj->sell_cost;
+                    $mission['plant'][$index]['weight'] = $typObj->weight;
+                    $mission['plant'][$index]['growthTime'] = $typObj->growth_time;
+
+                    $typResMdl = new Typeresource();
+                    $typResObjs = $typResMdl->get_where(array('type_id'=>$typObj->id))->all;
+                    foreach($typResObjs AS $typResObj)
+                        $mission['plant'][$index]['resource'][$typResObj->resource_id] = $typResObj->consumeTime;
+
+                    $index++;
+                }
+            }
+            $params['mission'] = $mission;
+            $params['action'] = 'mission';
+            $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
+        }
 }
 ?>

@@ -1,3 +1,8 @@
+#content
+{
+ background: #526329  url(../images/profile/content.gif) repeat-x  center;
+ overflow: auto;
+}
 #profile
 {
     width: 920px;

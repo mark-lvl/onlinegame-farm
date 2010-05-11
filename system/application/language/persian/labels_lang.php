@@ -169,6 +169,33 @@
         $lang['inviteMailTitle'] = "دعوت نامه بازی سرزمین یامی از طرف دوستت";
         $lang['inviteBonus'] = "دوستی که دعوت کرده بودی به سایت اومد و به همین خاطر مزرعت ۵۰ یامی گرفت";
 
+        $lang['haventMission'] = "الان درخواستی از یامی نداری";
+        $lang['haventPlant'] = "هنوز گیاهی نکاشتی";
+        $lang['gotoMission'] = "شروع کن";
+
+        $lang['plant'] = "گیاه";
+        $lang['growthTime'] = "زمان رشد";
+        $lang['firstPrice'] = "قیمت هر کیلو بذر";
+        $lang['lastPrice'] = "قیمت هر کیلو موقع فروش";
+        $lang['totalPrice'] = "قیمت کل";
+        $lang['weightInSection'] = "وزن قابل کشت در هر هکتار";
+        $lang['waterConsume'] = "مصرف آب";
+        $lang['muckConsume'] = "مصرف کود";
+        $lang['implant'] = "کاشت گیاه";
+        $lang['farmNotPlowed'] = "اول مزرعت رو شخم بزن";
+        $lang['farmStatisticsText'] = "اوضاع مزرعت <b>__HEALTH__</b>";
+        $lang['Good'] = "خوبه";
+        $lang['Middle'] = "بد نیست";
+        $lang['Bad'] = "بده";
+        $lang['VeryBad'] = "خیلی بده";
+        $lang['syncText'] = "بروزرسانی";
+        $lang['weightInFarm'] = "وزن گیاهان مزرعه";
+        $lang['kilogram'] = "کیلوگرم";
+        $lang['healthFarm'] = "سلامت مزرعه";
+        $lang['reap'] = "شخم";
+        $lang['water'] = "آب";
+        $lang['muck'] = "کود";
+
 	/*
 	    Inbox
 	*/

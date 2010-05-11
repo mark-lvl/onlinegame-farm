@@ -68,7 +68,8 @@
                     font-size:11px;
                     padding: 0;
                     border:0px;
-                    background: url("../images/popup/boxy/content.gif") no-repeat center;
+                    background: url("../images/popup/boxy/content.gif") no-repeat;
+                    background-position: center top;
                     width: 494px;
                     height:224px !important;
                     display: block;

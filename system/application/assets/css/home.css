@@ -188,11 +188,12 @@ width:300px;
     color: #FFFFFF;
 }
 
+/*TODO must be change in home page
 #content
 {
  background: #526329  url(../images/profile/content.gif) repeat-x  center;
  overflow: auto;
-}
+}*/
 
 #footer {
 }
