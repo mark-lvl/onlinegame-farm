@@ -6,6 +6,12 @@
         Purpose of the stylesheet follows.
 */
 
+#content
+{
+ background: #526329  url(../images/farm/content.gif) repeat-x  center;
+ overflow: auto;
+}
+
 #farmWrapper
 {
     width: 955px;
@@ -213,24 +219,24 @@
     color: #ffde00;
     margin-right: 7px;
 }
-#farmStatistic
+#farmStatistic div
 {
     margin-top: 6px;
-    background: url(../images/farm/statistic-on.png) no-repeat  center;
     width: 221px;
     height: 103px;
     display: block;
 }
-#farmStatisticOff
+.farmStatisticOn
 {
-    margin-top: 6px;
     background: url(../images/farm/statistic-off.png) no-repeat  center;
-    width: 221px;
-    height: 103px;
-    display: block;
     position: relative;
 }
-#farmStatisticOff span
+.farmStatisticOff
+{
+    background: url(../images/farm/statistic-off.png) no-repeat  center;
+    position: relative;
+}
+.farmStatisticOff span
 {
     position: absolute;
     top: 38px;
