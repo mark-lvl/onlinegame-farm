@@ -182,6 +182,7 @@ class Farms extends MainController {
 			$pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
 		}
                 
+                
                 $acsModel = new Accessory();
 
                 $notification = $this->user_model->get_notifications($userFarm->id);

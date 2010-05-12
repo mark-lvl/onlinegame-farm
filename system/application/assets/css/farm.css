@@ -219,7 +219,7 @@
     color: #ffde00;
     margin-right: 7px;
 }
-#farmStatistic div
+#farmStatistic div.innerStatistic
 {
     margin-top: 6px;
     width: 221px;
@@ -228,7 +228,7 @@
 }
 .farmStatisticOn
 {
-    background: url(../images/farm/statistic-off.png) no-repeat  center;
+    background: url(../images/farm/statistic-on.png) no-repeat  center;
     position: relative;
 }
 .farmStatisticOff
@@ -302,6 +302,8 @@
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 6px;
+    width: 100px;
+    display: block;
 }
 .expandStatistic
 {
@@ -336,11 +338,12 @@
 }
 #moreStatistic div.moreDivation
 {
-    width: 185px;
-    height: 40px;
+    width: 191px;
+    height: 35px;
     display: block;
     float: right;
     margin: 13px 22px 0 0;
+    position: relative;
 }
 #moreStatistic div span.label
 {
@@ -355,21 +358,22 @@
 }
 #farmTime
 {
-    width: 221px;
-    height: 108px;
-    display: block;
-    background: url(../images/farm/time.png) no-repeat  center;
     margin-top: 6px;
     position: relative;
 }
-#farmTimeOff
+#farmTime div.on
 {
     width: 221px;
     height: 108px;
     display: block;
-    background: url(../images/farm/timeOff.png) no-repeat  center;
-    margin-top: 6px;
-    position: relative;
+    background: url(../images/farm/time.png) no-repeat  center;
+}
+#farmTime div.off
+{
+    width: 221px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/time-off.png) no-repeat  center;
 }
 #farmTimeHolder
 {
@@ -428,7 +432,7 @@
 {
     float: right;
 }
-.reapCounter{height:16px;width:125px;}
+.reapCounter{height:16px;width:125px;display: block;}
 .resourceTimeHolder
 {
     height: 15px;
