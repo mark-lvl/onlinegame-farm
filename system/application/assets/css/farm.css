@@ -432,7 +432,7 @@
 {
     float: right;
 }
-.reapCounter{height:16px;width:125px;display: block;}
+.reapCounter{height:16px;width:126px;display: block;}
 .resourceTimeHolder
 {
     height: 15px;
@@ -453,11 +453,31 @@
 
 #farmStatus
 {
+    margin-top: 6px;
+    position: relative;
+}
+#farmStatus div.on
+{
+    background: url(../images/farm/status-on.png) no-repeat  center;
     width: 221px;
     height: 77px;
     display: block;
-    background: url(../images/farm/status.png) no-repeat  center;
-    margin-top: 6px;
+}
+.statusText
+{
+    display:block;
+    height:42px;
+    position:absolute;
+    right:69px;
+    top:27px;
+    width:140px;
+}
+#farmStatus div.off
+{
+    background: url(../images/farm/status-off.png) no-repeat  center;
+    width: 221px;
+    height: 78px;
+    display: block;
 }
 #farmInventory
 {
@@ -598,7 +618,18 @@
     display: block;
     position: relative;
 }
-#farmMission div span
+#farmMission div span.title
+{
+    height:20px;
+    right:91px;
+    top:6px;
+    width:120px;
+    display: block;
+    position: absolute;
+    font-weight: bold;
+    font-size: 18px;
+}
+#farmMission div span.text
 {
     height:68px;
     right:92px;
@@ -607,11 +638,11 @@
     display: block;
     position: absolute;
 }
-#farmMission .active
+#farmMission .on
 {
     background: url(../images/farm/mission-on.png) no-repeat  center;
 }
-#farmMission .inactive
+#farmMission .off
 {
     background: url(../images/farm/mission-off.png) no-repeat  center;
 }
@@ -619,12 +650,52 @@
 
 #farmEquipment
 {
+    margin-right: 11px;
+    float: right;
+    position: relative;
+}
+#farmEquipment div.on
+{
     width: 221px;
     height: 108px;
     display: block;
-    background: url(../images/farm/equipment.png) no-repeat  center;
-    margin-right: 11px;
-    float: right;
+    background: url(../images/farm/mission-on.png) no-repeat  center;
+}
+#farmEquipment div.off
+{
+    width: 221px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/mission-off.png) no-repeat  center;
+}
+#farmEquipment div span.title
+{
+    height:20px;
+    right:91px;
+    top:6px;
+    width:120px;
+    display: block;
+    position: absolute;
+    font-weight: bold;
+    font-size: 18px;
+}
+#farmEquipment div span.text
+{
+    height:68px;
+    right:92px;
+    top:33px;
+    width:120px;
+    display: block;
+    position: absolute;
+}
+#farmEquipment div span.icon
+{
+    display:block;
+    height:58px;
+    position:absolute;
+    right:18px;
+    top:24px;
+    width:58px;
 }
 
 

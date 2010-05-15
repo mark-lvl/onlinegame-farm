@@ -171,7 +171,14 @@
 
         $lang['haventMission'] = "الان درخواستی از یامی نداری";
         $lang['haventPlant'] = "هنوز گیاهی نکاشتی";
+        $lang['haventStack'] = "تو این مرحله هنوز چیزی جمع نکردی";
+        $lang['haventEquipment'] = "الان تجهیزات کمکی نداری";
         $lang['gotoMission'] = "شروع کن";
+        $lang['yummyRequest'] = "درخواست یامی";
+        $lang['equipment'] = "تجهیزات کمکی";
+        $lang['equipment-grassCutter'] = "با استفاده از چمنزن میتونی قطعه۲ مزرعتو باز کنی";
+        $lang['equipment-waterPump'] = "با استفاده از موتورآب میتونی قطعه۳ مزرعتو باز کنی";
+        $lang['equipment-rockBreaker'] = "با استفاده از سنگ شکن میتونی قطعه۴ مزرعتو باز کنی";
 
         $lang['plant'] = "گیاه";
         $lang['growthTime'] = "زمان رشد";
@@ -365,7 +372,7 @@
          * MISSION
          */
 
-        $lang['mission']['stack'] = "تا حالا تونستی __AMOUNT__ کیلوگرم __TYPENAME__ برای مزرعت جمع کنی";
+        $lang['mission']['stack'] = "تا حالا تونستی<br/> <b>__AMOUNT__</b> کیلوگرم <b>__TYPENAME__</b>  جمع کنی";
 
 
 

@@ -160,15 +160,14 @@ class Farms extends MainController {
 			$misObj = $misMdl->get_by_level($userFarm->level);
 			$missionBox = $misObj;
 		}
-                else
-                {
-                        $frmMisMdl = new Farmmission();
-                        $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
-                        $missionBox[] = str_replace(array('__AMOUNT__','__TYPENAME__'),
-                                               array($frmMisObj->stack,$userPlant->typeName),
-                                               $this->data['lang']['mission']['stack']);
+                
+                $frmMisMdl = new Farmmission();
+                $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
+                if($frmMisObj->id)
+                    $statusBox = str_replace(array('__AMOUNT__','__TYPENAME__'),
+                                           array($frmMisObj->stack,$userPlant->typeName),
+                                           $this->data['lang']['mission']['stack']);
                         
-                }
 
 		$farmAccModel = new Farmaccessory();
 		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
@@ -209,12 +208,12 @@ class Farms extends MainController {
 
                 $equipments = array();
                 //control farm machine items
-                if($userFarm->level > 4 && $userFarm->section == 1 && !$userPlant->id)
-                        $equipments[] = 'rockBreaker';
-                if($userFarm->level > 6 && $userFarm->section == 2 && !$userPlant->id)
-                        $equipments[] = 'waterpump';
-                if($userFarm->level > 8 && $userFarm->section == 3 && !$userPlant->id)
+                if($userFarm->level > 4  && !$userPlant->id && $userFarm->section < 2)
                         $equipments[] = 'grassCutter';
+                if($userFarm->level > 6  && !$userPlant->id && $userFarm->section < 3)
+                        $equipments[] = 'waterPump';
+                if($userFarm->level > 8  && !$userPlant->id && $userFarm->section < 4)
+                        $equipments[] = 'rockBreaker';
 
 
 		$this->data['accessories'] = $accessories;
@@ -226,6 +225,7 @@ class Farms extends MainController {
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
 		$this->data['missionBox'] = $missionBox;
+		$this->data['statusBox'] = $statusBox;
 		$this->data['notifications'] = $notification;
 		$this->data['equipments'] = $equipments;
 
@@ -602,7 +602,7 @@ class Farms extends MainController {
                         if($frmObj->money > self::SECTION_INCREASE_PRICE)
 			switch($_POST['equipment'])
 			{
-				case 'rockBreaker':
+				case 'grassCutter':
 					if($frmObj->level > 4 && $frmObj->section == 1)
 					{
 						$frmObj->money -= self::SECTION_INCREASE_PRICE;
@@ -610,7 +610,7 @@ class Farms extends MainController {
 						$frmObj->save();
 					}
 					break;
-				case 'waterpump':
+                                case 'waterPump':
 					if($frmObj->level > 6 && $frmObj->section == 2)
 					{
 						$frmObj->money -= self::SECTION_INCREASE_PRICE;
@@ -618,7 +618,7 @@ class Farms extends MainController {
 						$frmObj->save();
 					}
 					break;
-				case 'grassCutter':
+                                case 'rockBreaker':
 					if($frmObj->level > 8 && $frmObj->section == 3)
 					{
 						$frmObj->money -= self::SECTION_INCREASE_PRICE;
@@ -629,13 +629,15 @@ class Farms extends MainController {
 			}
                         else
                         {
-                            $params = array('money'=>$frmObj->money,'price'=>self::SECTION_INCREASE_PRICE);
+                            $params = array('money'=>$frmObj->money,'price'=>self::SECTION_INCREASE_PRICE,'height'=>80);
                             $this->error_reporter('money',$params);
                             return FALSE;
                         }
 
-
-			echo $frmObj->section;
+                        if($frmObj->plow)
+                            echo "<div class=\"plow\"></div>";
+                        else
+                            echo "<div class=\"unPlow\"></div>";
         	}	    
         }
 

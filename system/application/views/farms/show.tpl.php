@@ -104,7 +104,23 @@
         params['equipment'] = equipment;
         params['farm_id'] = farm_id;
 
-        ajax_request('#farmSection', '<?= base_url() ?>farms/useEquipment', params, moneyCalculate)
+        if(equipment == 'grassCutter')
+            placeHolder = "#section-2";
+        else if(equipment == 'waterPump')
+            placeHolder = "#section-3";
+        else if(equipment == 'rockBreaker')
+            placeHolder = "#section-4";
+        
+        if($("#equipmentHolder-"+equipment).next() != "")
+        {
+            $("#equipmentHolder-"+equipment).hide();
+            $("#equipmentHolder-"+equipment).next().fadeIn('fast');
+        }
+        
+
+        $(placeHolder).children().fadeOut();
+
+        ajax_request(placeHolder, '<?= base_url() ?>farms/useEquipment', params, moneyCalculate)
     }
     function deffenceWithGun(farm_id)
     {
@@ -341,7 +357,21 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <div id="farmStatus"></div>
+            <div id="farmStatus">
+                <?php if($statusBox): ?>
+                <div class="on">
+                    <span class="statusText">
+                        <?= $statusBox ?>
+                    </span>
+                </div>
+                <?php else: ?>
+                <div class="off">
+                    <span class="statusText">
+                        <?= $lang['haventStack'] ?>
+                    </span>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
     <div id="panel">
@@ -377,19 +407,53 @@
         </div>
         <div id="farmMission">
             <?php if(!$plant->id): ?>
-                <div class="active">
-                    <span><?= $missionBox->description ."<br/>". anchor("farms/mission/$missionBox->id",$lang['gotoMission'],array('onClick'=>"mission($missionBox->id);return false")) ?>
+                <div class="on">
+                    <span class="title"><?= $lang['yummyRequest'] ?></span>
+                    <span class="text"><?= $missionBox->description ."<br/>". anchor("farms/mission/$missionBox->id",$lang['gotoMission'],array('onClick'=>"mission($missionBox->id);return false")) ?>
                     </span>
                 </div>
             <?php else: ?>
-                <div class="inactive">
-                    <span>
+                <div class="off">
+                    <span class="title"><?= $lang['yummyRequest'] ?></span>
+                    <span class="text">
                         <?= $lang['haventMission'] ?>
                     </span>
                 </div>
             <?php endif; ?>
         </div>
-        <div id="farmEquipment"></div>
+        <div id="farmEquipment">
+            <?php if(!$equipments): ?>
+                <div class="off">
+                    <span class="title"><?= $lang['equipment'] ?></span>
+                    <span class="text"><?= $lang['haventEquipment'] ?></span>
+                </div>
+            <?php else: ?>
+                <div class="on">
+                    <span class="title"><?= $lang['equipment'] ?></span>
+                    <?php
+                    $equipCounter = 0;
+                    foreach($equipments AS $equipment): ?>
+                        <div id="equipmentHolder-<?= $equipment ?>" <?php if($equipCounter > 0) echo "style=\"display:none\"" ?>>
+                            <span class="icon">
+                                <?=  anchor("farms/useEquipment/".$equipment."/".$farm->id,
+                                    "<img src=\"".$base_img."farm/equipment/".strtolower($equipment).".png\"  title=\"".$equipment."\"/>",
+                                     array('onclick'=>"useEquipment('".$equipment."',$farm->id);return false;")) ?>
+                            </span>
+                            <span class="text"><?= $lang["equipment-$equipment"] ?></span>
+                        </div>
+                    <?php
+                    $equipCounter++;
+                    endforeach; ?>
+                        <div style="display:none">
+                            <span class="icon">
+                            </span>
+                            <span class="text">
+                                <?= $lang["haventEquipment"] ?>
+                            </span>
+                        </div>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
     <div id="bar"></div>
 </div>
