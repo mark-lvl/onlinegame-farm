@@ -17,7 +17,7 @@ class Farmaccessory extends DataMapper {
 		
 		$farmModel = new Farm();
 		$farm = $farmModel->get_by_id($farm_id);
-		if($farm->money > $accessory->price)
+		if($farm->money >= $accessory->price)
                 {
 		    if($farm->level >= $accessory->level)
                     {
@@ -27,6 +27,7 @@ class Farmaccessory extends DataMapper {
                                                  ->get();
 
 			if(($accessory->type == 1 && $accessory->group == 1) ||
+                           ($accessory->type == 2 && $accessory->group == 2 && $accessory->id == 5) ||
 			   ($accessory->type == 1 && $accessory->group == 2))
 			{
                             if($faObject->exists())
@@ -98,17 +99,20 @@ class Farmaccessory extends DataMapper {
                 else
                 {
                         return array('return'=>'false',
-                                             'type'=>'money',
-                                             'params'=>array('money'=>$farm->money,
-                                                             'price'=>$accessory->price));
+                                               'type'=>'money',
+                                               'params'=>array('money'=>$farm->money,
+                                                               'price'=>$accessory->price));
                 }
 	}
-
-	function getFarmAccessory($farm_id)
+        /*
+         * this function select only for accessory can display in user farm preview
+         * dog_id = 8
+         * scarecrow_id = 7
+         * silo_id = 45
+         */
+	function getFarmAccessoryForDisplay($farm_id)
 	{
-		$farmAcc = $this->get_where(array('farm_id'=>$farm_id))->all;
-
-		$accModel = new Accessory();
+		$farmAcc = $this->where_in('accessory_id', array('7','8','45'))->where('farm_id',$farm_id)->get()->all;
 
 		foreach($farmAcc AS &$item)
 		{
@@ -116,12 +120,15 @@ class Farmaccessory extends DataMapper {
 			if($item->expire_date)
 				if(time() > $item->expire_date)
 					$item->delete();
-			
-			$accObject = $accModel->get_where(array('id'=>$item->accessory_id));
-			$item->type = $accObject->type;
-			$item->name = $accObject->name;			
+
+                        if($item->accessory_id == 7)
+                                $return[] = 'scarecrow';
+                        elseif($item->accessory_id == 8)
+                                $return[] = 'dog';
+                        elseif($item->accessory_id == 45)
+                                $return[] = 'silo';
 		}
-		return $farmAcc;
+		return $return;
 	}
 
         function getGrowthDecreaser($farm_id, $plantCreateDate, $growthTime)

@@ -88,6 +88,25 @@
     top:263px;
     width:223px;
 }
+#accessoryPlaceDown
+{
+    background: #eee;
+    Width: 112px;
+    Height: 103px;
+    display: block;
+    position: absolute;
+    top: 321px;
+    right: 500px;
+}
+#accessoryPlaceTop
+{
+    display:block;
+    height:120px;
+    position:absolute;
+    right:5px;
+    top:5px;
+    width:200px;
+}
 .unPlow
 {
     background:url(../images/farm/unPlowGround.jpg);
@@ -698,6 +717,114 @@
     width:58px;
 }
 
+.accessoryBuyItem
+{
+    background: #333;
+}
+.inventoryContainer
+{
+    overflow:auto;
+}
+.inventoryTitle
+{
+    width: 74px;
+    height:20px;
+    display: block;
+    color: #FFFFFF;
+    background: url(../images/farm/inventory-header.png) no-repeat  center;
+}
+.inventoryTitle span
+{
+    margin-right:10px;
+    display: block;
+    padding-top: 3px;
+}
+.inventoryInner
+{
+    margin-top: 10px;
+}
+.inventorySmallBox
+{
+    background:transparent url(../images/farm/accessory-small.png) no-repeat scroll center center;
+    display:block;
+    float:right;
+    height:78px;
+    margin-bottom:10px;
+    margin-left:10px;
+    width:123px;
+    position: relative;
+
+}
+.inventoryBigBox
+{
+    background:transparent url(../images/farm/accessory-big.png) no-repeat scroll center center;
+    display:block;
+    float:right;
+    height:78px;
+    margin-bottom:10px;
+    margin-left:10px;
+    width:200px;
+    position: relative;
+    
+}
+.inventoryInner img,.inventoryBigBox img
+{
+    position: absolute;
+    top: 8px;
+    right: 7px;
+}
+.inventorySmallBox .inventoryName,.inventoryBigBox .inventoryName
+{
+    position: absolute;
+    top: 8px;
+    right: 70px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.inventorySmallBox .inventoryNameOnly
+{
+    position: absolute;
+    top: 26px;
+    right: 80px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.inventorySmallBox .inventoryCounter
+{
+    background:transparent url(../images/farm/inventory-counter.png) no-repeat scroll center center;
+    width:28px;
+    height:28px;
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 75px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.inventoryBigBox .inventoryCounter
+{
+    display:block;
+    height:33px;
+    position:absolute;
+    right:68px;
+    top:27px;
+    width:98px;
+}
+.inventorySmallBox .inventoryCounter span
+{
+    text-align: center;
+    width:28px;
+    display: block;
+    padding-top: 6px;
+}
+.inventoryBigBox .inventoryCounter span
+{
+    text-align: center;
+    width:121px;
+    height:16px;
+    display: block;
+    padding-top: 3px;
+}
 
 /*******footerPanel*******/
 #footpanel {

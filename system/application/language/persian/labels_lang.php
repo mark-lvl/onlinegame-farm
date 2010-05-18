@@ -175,6 +175,12 @@
         $lang['haventEquipment'] = "الان تجهیزات کمکی نداری";
         $lang['gotoMission'] = "شروع کن";
         $lang['yummyRequest'] = "درخواست یامی";
+        $lang['buyAccessory'] = "خرید لوازم";
+        $lang['showInventory'] = "دارایی های تو";
+        $lang['attackAccessory'] = "وسایل هجومی";
+        $lang['deffenceAccessory'] = "وسایل دفاعی";
+        $lang['toolAccessory'] = "وسایل کشاورزی";
+        $lang['specialAccessory'] = "وسایل ویژه";
         $lang['equipment'] = "تجهیزات کمکی";
         $lang['equipment-grassCutter'] = "با استفاده از چمنزن میتونی قطعه۲ مزرعتو باز کنی";
         $lang['equipment-waterPump'] = "با استفاده از موتورآب میتونی قطعه۳ مزرعتو باز کنی";
@@ -182,6 +188,8 @@
 
         $lang['plant'] = "گیاه";
         $lang['growthTime'] = "زمان رشد";
+        $lang['remainTime'] = "زمان باقی مانده";
+        $lang['price'] = "قیمت";
         $lang['firstPrice'] = "قیمت هر کیلو بذر";
         $lang['lastPrice'] = "قیمت هر کیلو موقع فروش";
         $lang['totalPrice'] = "قیمت کل";
@@ -202,6 +210,22 @@
         $lang['reap'] = "شخم";
         $lang['water'] = "آب";
         $lang['muck'] = "کود";
+
+        $lang['aphid'] = "شته";
+        $lang['grasshoppers'] = "ملخ";
+        $lang['mouse'] = "موش";
+        $lang['crow'] = "کلاغ";
+        $lang['sprayer'] = "سمپاش";
+        $lang['scarecrow'] = "مترسک";
+        $lang['gun'] = "تفنگ";
+        $lang['dog'] = "سگ";
+        $lang['clipper'] = "قیچی";
+        $lang['shovel'] = "بیلچه";
+        $lang['stand'] = "پایه";
+        $lang['silo'] = "سیلو";
+        $lang['tractor'] = "تراکتور";
+        $lang['heater'] = "بخاری";
+        $lang['lamp'] = "مهتابی";
 
 	/*
 	    Inbox

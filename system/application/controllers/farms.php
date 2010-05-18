@@ -170,7 +170,7 @@ class Farms extends MainController {
                         
 
 		$farmAccModel = new Farmaccessory();
-		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
+		$usrFrmAcc = $farmAccModel->getFarmAccessoryForDisplay($userFarm->id);
 
 		$pltObj = $pltModel->get_where(array('id'=>$userPlant->id,'farm_id'=>$userFarm->id,'reap'=>0));
 		$typSrcMdl = new Typeresource();
@@ -181,20 +181,11 @@ class Farms extends MainController {
 			$pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
 		}
                 
-                
-                $acsModel = new Accessory();
-
                 $notification = $this->user_model->get_notifications($userFarm->id);
 
                 $frmTrnMdl = new Farmtransaction();
                 
-		
-
-		//accessory available for user in this level
-		$accessories = $acsModel->get_where(array('level <='=>$userFarm->level))->all;
-
 		$allResource = $resource->get()->all;
-
 
                 $typeModel = new Type();
 
@@ -216,7 +207,6 @@ class Farms extends MainController {
                         $equipments[] = 'rockBreaker';
 
 
-		$this->data['accessories'] = $accessories;
 		$this->data['plantSources'] = $pltTypSrcHolder;
 		$this->data['farmAcc'] = $usrFrmAcc;
 		$this->data['plant'] = $userPlant;
@@ -359,10 +349,18 @@ class Farms extends MainController {
 	{
 		$accModel = new Farmaccessory();
 		$flag = $accModel->add($_POST['farm_id'],$_POST['accessory_id']);
+                
                 if(is_array($flag))
-                    $this->error_reporter($flag['type'],$flag['params']);
+                {
+                    if($flag['type'] == 'public')
+                        echo $this->lang->language['error']['farmAccessoryExists'];
+                    elseif($flag['type'] == 'money')
+                        echo str_replace(array('__PRICE__','__MONEY__'),array($flag['params']['price'],$flag['params']['money']),$this->lang->language['money']['body']);
+                }
+                else
+                    echo 'OK';
+               
 
-                $this->accessory_farm($_POST['farm_id'],true);
 	}
 
 	function addResourceToPlant($typeSrc_id = null, $plant_id = null)
@@ -505,26 +503,49 @@ class Farms extends MainController {
          * params output : determine the type of return object
          * return : the view or the output string of view
          */
-        function accessory_farm($farm_id = null,$output = null)
+        function showInventory($farm_id = null,$output = null)
 	{
           $frmAccModel = new Farmaccessory();
           $accMdl = new Accessory();
 
-          $usrFrmAcc = $frmAccModel->get_where(array('farm_id'=>$farm_id))->all;
-		foreach($usrFrmAcc AS $accItem)
+          $usrFrmAcc = $frmAccModel->get_where(array('farm_id'=>$_POST['farm_id']))->all;
+		//7 == scarecrow accessory_id and 8 == dog accessory id
+                foreach($usrFrmAcc AS $accItem)
 		{
-			$accObject = $accMdl->get_by_id($accItem->resource_id);
-			$accHolder[$accObject->name] = $accItem->count;
+                        //this section gc for expired item
+			if($accItem->expire_date)
+				if(time() > $accItem->expire_date)
+                                {
+                                    $accItem->delete();
+                                    continue;
+                                }
+
+			$accObject = $accMdl->get_by_id($accItem->accessory_id);
+                        
+                        if($accObject->type == 1)
+                                $accHolder['attack'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'count'=>$accItem->count);
+                        elseif($accObject->type == 2)
+                        {
+                                if($accObject->id == 7 || $accObject->id == 8)
+                                        $accHolder['deffence'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'expire'=>$accItem->expire_date-time());
+                                else
+                                        $accHolder['deffence'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'count'=>$accItem->count);
+                        }
+                        elseif($accObject->type == 4)
+                        {
+                                if($accObject->group == 20)
+                                    $accHolder['tools'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'count'=>$accItem->count);
+                                elseif ($accObject->group == 10 || $accObject->group == 11)
+                                    $accHolder['specialTools'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'count'=>$accItem->count);
+                        }
 		}
-	
+
 	  if(is_null($accHolder))
 		$accHolder = array();
-          $data['farmAccessories'] = $accHolder;
-          if($output)
-            $this->load->view('farms/addAccessoryToFarm',$data);
-          else
-            return $this->load->view('farms/addAccessoryToFarm',$data, TRUE);
-
+          $params['farmAccessories'] = $accHolder;
+          $params['action'] = 'showInventory';
+          $params['farm_id'] = (int) $_POST['farm_id'];
+          $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
 	}
 
         /*
@@ -768,6 +789,32 @@ class Farms extends MainController {
             }
             $params['mission'] = $mission;
             $params['action'] = 'mission';
+            $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
+        }
+
+        function buyAccessory()
+        {
+            $accMdl = new Accessory();
+            $accObjs = $accMdl->order_by('level')->get()->all;
+            foreach($accObjs AS $acc)
+            {
+                if($acc->type == 1)
+                        $accHolder['attack'][] = $acc;
+                elseif($acc->type == 2)
+                        $accHolder['deffence'][] = $acc;
+                elseif($acc->type == 4)
+                {
+                    if($acc->group == 20)
+                        $accHolder['tools'][] = $acc;
+                    elseif ($acc->group == 10 || $acc->group == 11)
+                        $accHolder['specialTools'][] = $acc;
+                }
+            }
+            $params['accessories'] = $accHolder;
+            //print_r($accHolder);exit;
+            $params['action'] = 'buyAccessory';
+            $params['farm_id'] = (int) $_POST['farm_id'];
+            $params['farm_level'] = (int) $_POST['farm_level'];
             $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
         }
 }

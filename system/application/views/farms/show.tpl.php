@@ -35,15 +35,27 @@
         else if (resource_id == 2)
             spaceHolder = "#muckAmount";
 
-        ajax_request(spaceHolder, '<?= base_url() ?>farms/addResourceToFarm', params ,moneyCalculate)
+        ajax_request(spaceHolder, '<?= base_url() ?>farms/addResourceToFarm', params ,moneyCalculate);
     }
+    function showInventory(farm_id){
+	var params = {};
+     	params['farm_id'] = farm_id;
 
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showInventory', params);
+    }
+    function buyAccessory(farm_id, level){
+	var params = {};
+     	params['farm_id'] = farm_id;
+     	params['farm_level'] = level;
+
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/buyAccessory', params);
+    }
     function addAccessoryToFarm(farm_id , accessory_id){
 	var params = {};
      	params['farm_id'] = farm_id;
 	params['accessory_id'] = accessory_id;
 
-        ajax_request('#farmAccessoryHolder', '<?= base_url() ?>farms/addAccessoryToFarm', params ,moneyCalculate)
+        ajax_request('.buyAccessoryAjaxHolder'+accessory_id+':last', '<?= base_url() ?>farms/addAccessoryToFarm', params ,moneyCalculate);
     }
 
     function addPlantToFarm(farm_id , type_id){
@@ -51,14 +63,14 @@
      	params['farm_id'] = farm_id;
 	params['type_id'] = type_id;
 
-        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addPlantToFarm', params)
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addPlantToFarm', params);
     }
     function addResourceToPlant(resource_id , plant_id){
 	var params = {};
      	params['plant_id'] = plant_id;
 	params['resource_id'] = resource_id;
 
-        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addResourceToPlant', params);
 
     }
     function reap(plant_id)
@@ -245,7 +257,11 @@
             <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
             <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
             <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
-            <div id="accessoryPlaceTop"></div>
+            <div id="accessoryPlaceTop">
+                <?php if(in_array("dog", $farmAcc)): ?>
+                asdasd
+                <?php endif; ?>
+            </div>
             <div id="accessoryPlaceDown"></div>
             <div id="farmAction">
                 <?php
@@ -375,8 +391,10 @@
         </div>
     </div>
     <div id="panel">
-        <div id="farmInventory"></div>
-        <div id="farmAccessory"></div>
+        <?= anchor("farms/showInventory/$farm->id/"," ",
+                   array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'farmInventory')); ?>
+        <?= anchor("farms/buyAccessory/$farm->id/"," ",
+                   array('onclick'=>"buyAccessory(".$farm->id.",".$farm->level.");return false;",'id'=>'farmAccessory')); ?>
         <div id="farmResource">
             <div class="waterResource">
                 <?php

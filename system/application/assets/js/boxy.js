@@ -103,7 +103,7 @@ jQuery.extend(Boxy, {
         modal:                  false,          // make dialog modal?
         fixed:                  true,           // use fixed positioning, if supported? absolute positioning used otherwise
         closeText:              '[close]',      // text to use for default close link
-        unloadOnHide:           false,          // should this dialog be removed from the DOM after being hidden?
+        unloadOnHide:           true,          // should this dialog be removed from the DOM after being hidden?
         clickToFront:           false,          // bring dialog to foreground on any click (not just titlebar)?
         behaviours:             Boxy.EF,        // function used to apply behaviours to all content embedded in dialog.
         afterDrop:              Boxy.EF,        // callback fired after dialog is dropped. executes in context of Boxy instance.
