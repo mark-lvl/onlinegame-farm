@@ -678,9 +678,9 @@ class Farms extends MainController {
 
                         if($notifications)
                         foreach($notifications AS $not)
-                            echo "<li  id=\"notification-$not[id]\">".anchor("farms/deleteNotification/$not[id]",
-                                                                             "DEL",
-                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."<p>$not[body]<br/>".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</p></li>";
+                            echo "<li  id=\"notification-$not[id]\"><p>".anchor("farms/deleteNotification/$not[id]",
+                                                                             "X",
+                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."$not[body]<br/><span class=\"notificationDate\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</span></p></li>";
 
                 }
         }

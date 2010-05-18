@@ -320,7 +320,7 @@ class Farmtransaction extends DataMapper {
                         {
                             return array('return'=>'false',
                                          'type'=>'public',
-                                         'params'=>array('message'=>'farmNotNeedSpray'));
+                                         'params'=>array('message'=>'farmNotNeedSpray','height'=>80));
                         }
 		}
 	}

@@ -42,6 +42,7 @@
     display: block;
     background: #6f8833;
 }
+
 #farm
 {
     width: 721px;
@@ -90,13 +91,19 @@
 }
 #accessoryPlaceDown
 {
-    background: #eee;
     Width: 112px;
     Height: 103px;
     display: block;
     position: absolute;
     top: 321px;
     right: 500px;
+}
+#accessoryPlaceDown .silo
+{
+    background: url(../images/farm/silo.png) no-repeat;
+    Width: 112px;
+    Height: 103px;
+    display: block;
 }
 #accessoryPlaceTop
 {
@@ -105,7 +112,24 @@
     position:absolute;
     right:5px;
     top:5px;
-    width:200px;
+    width:203px;
+}
+#accessoryPlaceTop .scarecrow
+{
+    Width: 131px;
+    Height: 121px;
+    display: block;
+    background: url(../images/farm/scarecrow.png);
+    float: right;
+}
+#accessoryPlaceTop .dog
+{
+    Width: 72px;
+    Height: 77px;
+    display: block;
+    margin-top: 40px;
+    background: url(../images/farm/dog.png) no-repeat;
+    float: left;
 }
 .unPlow
 {
@@ -191,6 +215,7 @@
 {
     background: url(../images/farm/farm-action-on.png) no-repeat;
     background-position: -116px 0;
+    cursor: pointer;
     margin-right: 0 !important;
 }
 .reap-botton-off
@@ -357,11 +382,11 @@
 }
 #moreStatistic div.moreDivation
 {
-    width: 191px;
+    width: 201px;
     height: 35px;
     display: block;
     float: right;
-    margin: 13px 22px 0 0;
+    margin: 13px 11px 0 0;
     position: relative;
 }
 #moreStatistic div span.label
@@ -827,75 +852,55 @@
 }
 
 /*******footerPanel*******/
-#footpanel {
-	position: fixed;
-	bottom: 0; left: 0;
-	z-index: 9999; /*--Keeps the panel on top of all other elements--*/
-	background: #e3e2e2;
-	border: 1px solid #c3c3c3;
-	border-bottom: none;
-	width: 94%;
-	margin: 0 3%;
-        font-size: 10px;
+.notificationDate
+{
+    font-style: italic;
+    font-size: 9px;
+    color: #888888;
 }
-
-*html #footpanel { /*--IE6 Hack - Fixed Positioning to the Bottom--*/
-	margin-top: -1px; /*--Prevents IE6 from having an infinity scroll bar - due to 1px border on #footpanel--*/
-	position: absolute;
-	top:expression(eval(document.compatMode &&document.compatMode=='CSS1Compat') ?documentElement.scrollTop+(documentElement.clientHeight-this.clientHeight) : document.body.scrollTop +(document.body.clientHeight-this.clientHeight));
-}
-#footpanel ul {
-	padding: 0; margin: 0;
-	float: left;
-	width: 100%;
-	list-style: none;
-	border-top: 1px solid #fff; /*--Gives the bevel feel on the panel--*/
-	font-size: 1.1em;
-}
+#footpanel {}
+#footpanel ul {list-style: none}
 #footpanel ul li{
 	padding: 0; margin: 0;
 	float: left;
 	position: relative;
 }
 #footpanel ul li a{
-	padding: 5px;
 	float: left;
 	text-indent: -9999px; /*--For text replacement - Shove text off of the page--*/
-	height: 16px; width: 16px;
 	text-decoration: none;
 	color: #333;
+        height: 22px;
 	position: relative;
 }
-html #footpanel ul li a:hover{	background-color: #fff; }
+html #footpanel ul li a:hover{	background-color: #fff; text-decoration: none;}
 html #footpanel ul li a.active { /*--Active state when sub-panel is open--*/
 	background-color: #fff;
-	height: 17px;
-	margin-top: -2px; /*--Push it up 2px to attach the active button to sub-panel--*/
-	border: 1px solid #555;
-	border-top: none;
+	height: 22px;
 	z-index: 200; /*--Keeps the active link on top of the sub-panel--*/
 	position: relative;
 }
 
 /*MUST CHANGE*/
-#footpanel a.profile{
-	background: url(../images/profile.png) no-repeat 15px center;
-	width: 50px;
-	padding-left: 40px;
-	border-right: 1px solid #bbb;
-	text-indent: 0; /*--Reset text indent since there will be a combination of both text and image--*/
+
+a.alerts
+{
+    width: 43px;
+    height: 22px;
+    display: block;
+    background: #91b33f url(../images/profile/inbox_counter.gif) no-repeat  center;
+    background-position: 0 0;
+    position: absolute;
+    top: 1px;
+    right: 17px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    float: right;
 }
-a.messages{ background: url(mail.png) no-repeat center center; }
-a.alerts{ background: url(newspaper.png) no-repeat center center; }
-#footpanel a.chat{
-	background: url(balloon.png) no-repeat 15px center;
-	width: 126px;
-	border-left: 1px solid #bbb;
-	border-right: 1px solid #bbb;
-	padding-left: 40px;
-	text-indent: 0; /*--Reset text indent since there will be a combination of both text and image--*/
-}
-#footpanel li#chatpanel, #footpanel li#alertpanel {	float: right; }  /*--Right align the chat and alert panels--*/
+
+#footpanel li#alertpanel {	float: right; }  /*--Right align the chat and alert panels--*/
 /*END MUST CHANGE*/
 
 #footpanel a small {
@@ -908,7 +913,7 @@ a.alerts{ background: url(newspaper.png) no-repeat center center; }
 	font-size: 1em;
 	text-indent: 0;
 }
-a.alerts{ background: url(../images/notification.png) no-repeat center center; }
+
 
 #footpanel a:hover small{
 	display: block; /*--Show on hover--*/
@@ -917,6 +922,7 @@ a.alerts{ background: url(../images/notification.png) no-repeat center center; }
 	left: 50%;
 	margin-left: -40px; /*--Center the tooltip--*/
 	z-index: 9999;
+        text-decoration: none;
 }
 
 #footpanel ul li div a { /*--Reset link style for sub-panel links--*/
@@ -927,19 +933,22 @@ a.alerts{ background: url(../images/notification.png) no-repeat center center; }
 	float: none;
 	color: #00629a;
 	position: static;
+        float: left;
 }
-#footpanel ul li div a:hover {	text-decoration: underline; } /*--Reset hover style for sub-panel links--*/
+#footpanel ul li div a:hover {	text-decoration: none;border:0; } /*--Reset hover style for sub-panel links--*/
 #footpanel .subpanel {
 	position: absolute;
-	left: 0; bottom: 27px;
+	left: 0;
+        right: 17px;
+        bottom: 22px;
 	display: none;	/*--Hide by default--*/
 	width: 198px;
-	border: 1px solid #555;
+	border: 2px solid #609334;
 	background: #fff;
 	overflow: hidden;
 }
 #footpanel h3 {
-	background: #526ea6;
+	background: #609334;
 	padding: 5px 10px;
 	color: #fff;
 	font-size: 1.1em;
@@ -954,9 +963,8 @@ a.alerts{ background: url(../images/notification.png) no-repeat center center; }
 #footpanel .subpanel ul{
 	padding: 0; margin: 0;
 	background: #fff;
-	width: 100%;
+	width: 198px;
 	overflow: auto;
-	padding-bottom: 2px;
 }
 #footpanel .subpanel li{
 	float: none; /*--Reset float--*/
@@ -970,12 +978,13 @@ a.alerts{ background: url(../images/notification.png) no-repeat center center; }
         text-align: right;
 }
 
-#alertpanel .subpanel { right: 0; left: auto; /*--Reset left positioning and make it right positioned--*/ }
+#alertpanel .subpanel {  left: auto; /*--Reset left positioning and make it right positioned--*/ }
 #alertpanel .subpanel li {
-	border-top: 1px solid #f0f0f0;
+	border-top: 1px solid #899903;
 	display: block;
+        background: #FFE45A;
 }
-#alertpanel .subpanel li p {padding: 5px 10px;}
+#alertpanel .subpanel li p {padding: 5px 10px;color:#222222;}
 #alertpanel .subpanel li a.delete{
 	background: url(../images/delete_x.gif) no-repeat;
 	float: right;

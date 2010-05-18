@@ -114,7 +114,8 @@ class Farmaccessory extends DataMapper {
 	{
 		$farmAcc = $this->where_in('accessory_id', array('7','8','45'))->where('farm_id',$farm_id)->get()->all;
 
-		foreach($farmAcc AS &$item)
+		$return = array();
+                foreach($farmAcc AS &$item)
 		{
 			//this section gc for expired item
 			if($item->expire_date)

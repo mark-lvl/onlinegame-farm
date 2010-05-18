@@ -210,6 +210,7 @@
         $lang['reap'] = "شخم";
         $lang['water'] = "آب";
         $lang['muck'] = "کود";
+        $lang['notifications'] = "هشدارها";
 
         $lang['aphid'] = "شته";
         $lang['grasshoppers'] = "ملخ";
@@ -282,6 +283,9 @@
          */
         $lang['RESOURCE-1'] = 'آب';
         $lang['RESOURCE-2'] = 'کود';
+        
+        $lang['resourceExpireMuck'] = 'کود گیاهان مزرعت تموم شد';
+        $lang['resourceExpireWater'] = 'آب گیاهان مزرعت تموم شد';
 	
 
 	/*
