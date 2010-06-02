@@ -51,7 +51,8 @@
 </div>
 <?php elseif($params['action'] == 'buyAccessory'): ?>
 <div id="buyAccessory">
-    
+    <?= $lang['attackAccessory'] ?>
+    <hr/>
     <?php foreach($params['accessories']['attack'] AS $attackTools): ?>
         <div class="accessoryBuyItem">
             <?= $attackTools->name ?><br/>

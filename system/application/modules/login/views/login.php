@@ -1,13 +1,13 @@
 <?php
-	if(!$data['user']) {
+    if(!$data['user']) {
 ?>
-		<div class="login_box">
-			<form action="<?= base_url() ?>gateway/login/" method="POST">
-				<?= $data['lang']['email'] ?>: <input type="text" name="email_login" id="email_login" maxlength="250" style="width:80px; direction:ltr;" />
-				<?= $data['lang']['password'] ?>: <input type="password" name="password_login" id="password_login" maxlength="250" style="width:80px; direction:ltr;" />
-				<input type="submit" value="<?= $data['lang']['submit'] ?>" />
-			</form>
-		</div>
+<div class="login_box">
+        <form action="<?= base_url() ?>gateway/login/" method="POST">
+            <input type="text" name="email_login" id="email_login" maxlength="250"  class="input" title="<?= $lang['email'] ?>"/>
+                <input type="text" name="password_login" id="password_login" maxlength="250" class="input" title="<?= $lang['password'] ?>"/>
+                <input type="submit" value=" " class="loginSubmit"/>
+        </form>
+</div>
 <?php
 	}
 	else {
@@ -55,4 +55,10 @@
 		}
 	    ptxsc = !ptxsc;
 	});
+</script>
+<script>
+    $(function(){
+ // find all the input elements with title attributes
+ $('input[title!=""]').hint();
+ });
 </script>

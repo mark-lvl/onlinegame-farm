@@ -764,6 +764,7 @@
     display: block;
     padding-top: 3px;
 }
+
 .inventoryInner
 {
     margin-top: 10px;
@@ -849,6 +850,21 @@
     height:16px;
     display: block;
     padding-top: 3px;
+}
+
+.buyInventoryContext
+{
+    width: 450px;
+    height: 120px;
+    display: block;
+    background: #eee;
+}
+#buyInventoryDetails
+{
+    background: url(../images/farm/buyAccessoryBorder-big.png) no-repeat  center;
+    width: 307px;
+    height: 91px;
+    display: block;
 }
 
 /*******footerPanel*******/

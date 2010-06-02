@@ -10,6 +10,11 @@ class Farm extends DataMapper {
         	// model constructor
         	parent::__construct();
     	}
+
+        function allExistsFarm()
+        {
+            return $this->get()->count();
+        }
 	
 	function isPlow($farm_id)
 	{

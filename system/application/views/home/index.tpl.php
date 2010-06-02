@@ -1,24 +1,43 @@
-<center>
-        <div class="header_bg">
+<style>
+    #content
+    {
+        background: #536229;
+}
+</style>
+<div id="homeWrapper">
+    <div id="rightBox">
+        <div id="welcome">
+            <div class="title"></div>
+            <div class="description"><?= $lang['welcome'] ?></div>
         </div>
-        <div class="container">
-                <div class="container_header">
-                    <div class="renault_home">
-                    </div>
-                        <?php
+        <div id="loginFormHolder">
+            <div class="title"></div>
+            <div class="form">
+                <?php
                                 $this->load->module('login');
                                 $this->login->method(array("user" => $user, "lang" => $lang));
-                        ?>
-                </div>
-                <p style="text-align: center">
-                    <a class="little_link" href="<?= base_url() ?>registration/">
-				        <?= $lang['registration_title'] ?>
-                    </a>
-                  </p>
+                ?>
+            </div>
         </div>
-        <?php
-                $this->load->module('footer');
-                $this->footer->method(array("lang" => $lang));
-        ?>
-</center>
-	
+        <div id="productAmount">
+            <div class="counter">
+                <?php 
+                $number = $allExistsFarm;
+                $number = (string) $number;
+                $number = preg_split('//', $number, -1);
+
+                foreach($number AS $k=>$i)
+                    if($k != 0 && $k != count($number)-1)
+                    echo "<span class=\"numbers\" style=\"background-position:-".($i*30)."px 0\"></span>";
+                ?>
+            </div>
+            <div class="discription">
+                <?= $lang['allFarmExists'] ?>
+            </div>
+        </div>
+        <div id="bestFarmers">
+            <div class="title"></div>
+        </div>
+    </div>
+    <div id="leftBox"></div>
+</div>
