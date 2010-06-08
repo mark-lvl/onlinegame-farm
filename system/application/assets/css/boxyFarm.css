@@ -7,7 +7,7 @@
 	font-size:11px;
 }
 
-.boxy-wrapper { position: absolute; width:503px; }
+.boxy-wrapper { position: absolute; width:600px; }
 .boxy-wrapper.fixed { position: fixed; }
 
   /* Modal */
@@ -54,9 +54,17 @@
             right:46px;
             top:6px;
         }
-	    .boxy-wrapper .title-bar .close { color:#4f4f4f;
-	font-family:Tahoma, Arial;
-	font-size:11px; position: absolute; top: 0px; right: 465px; font-size: 90%; line-height: 1; }
+	.boxy-wrapper .title-bar .close 
+        {
+            color:#4f4f4f;
+            font-family:Tahoma, Arial;
+            font-size:11px;
+            position: absolute;
+            top: -6px;
+            right: 570px;
+            font-size: 90%;
+            line-height: 1;
+        }
 		
 	/* Content Region */
 	
@@ -68,13 +76,13 @@
                     font-size:11px;
                     padding: 0;
                     border:0px;
-                    background: url("../images/popup/boxy/farmBoxy/content.png") repeat-y center top;
-                    width: 503px;
+                    background: url("../images/popup/boxy/farmBoxy/content.png") repeat;
+                    width: 600px;
                     height:224px !important;
                     display: block;
                     overflow: none !important;
         }
-        .boxy-footer{background: url("../images/popup/boxy/farmBoxy/footer.png") no-repeat center;width: 503px;height:4px;display: block}
+        .boxy-footer{background: url("../images/popup/boxy/farmBoxy/footer.png") no-repeat center;width: 600px;height:4px;display: block}
 	.boxy-content {color:#ffffff;
                        font-family:Tahoma, Arial;
                        font-size:11px;

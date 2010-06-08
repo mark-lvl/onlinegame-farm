@@ -18,40 +18,47 @@
 
 <?php if($params['action'] == 'mission'): ?>
 <div id="mission">
-    <span><?php echo($lang['farmLevel'].": ".$params['mission']['level']) ?></span>
-    <hr/>
-    <span><?php echo($params['mission']['description']) ?></span><br/>
-    <?php
-    foreach($params['mission']['plant'] AS $plant)
-    {
-        echo $lang['plant'].": ".$plant['name']."<br/>";
-        echo $lang['growthTime'].": ".$plant['growthTime']."<br/>";
-        echo $lang['firstPrice'].": ".$plant['price']."<br/>";
-        echo $lang['lastPrice'].": ".$plant['sellPrice']."<br/>";
-        echo $lang['weightInSection'].": ".$plant['weight']."<br/>";
-        echo $lang['waterConsume'].": ".$plant['resource'][1]."<br/>";
-        echo $lang['muckConsume'].": ".$plant['resource'][2]."<br/>";
-
-        if($params['mission']['accessories'])
-        {
-            echo "Needed Accessories: ";
-            foreach ($params['mission']['accessories'] as $acc)
-                echo $acc;
-        }
-
-        echo $lang['totalPrice'].": <br/>";
-        echo $plant['price']." x ".$plant['weight']."=".$plant['weight']*$plant['price']."<br/>";
-        if($params['mission']['farm_plow'])
-            echo anchor(" ",$lang['implant'],array('onclick'=>"addPlantToFarm(".$params['mission']['farm_id'].",".$plant['id'].");return false;"));
-        else
-            echo $lang['implant']." ".$lang['farmNotPlowed'];
-        echo "<hr/><hr/>";
-    }
-    ?>
+    <div id="missionBoxHolder">
+        <div class="levelHolder">
+            <?= $lang['farmLevel'].": ".convert_number($params['mission']['level']) ?>
+        </div>
+        <div class="missionDetailsHolder">
+            <?= $params['mission']['description'] ?>
+        </div>
+        <div class="plantHolder">
+            <?php foreach($params['mission']['plant'] AS $plant): ?>
+            <div class="plantAvatar">
+                <img src="<?= $base_img."farm/plant/$plant[name].png" ?>" />
+            </div>
+            <div class="plantName">
+                <?= $lang[$plant['name']] ?>
+            </div>
+            <div class="addPlant">
+                <?php
+                if($params['mission']['farm_plow'])
+                    echo anchor(" "," ",array('onclick'=>"addPlantToFarm(".$params['mission']['farm_id'].",".$plant['id'].");return false;"));
+                else
+                    echo $lang['implant']." ".$lang['farmNotPlowed'];
+                ?>
+            </div>
+            <div class="plantDetails">
+                <?php
+                echo "<span class=\"detailsTitle\">".$lang['growthTime'].": </span>".convert_number($plant['growthTime']).$lang['hour']."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['firstPrice'].": </span>".convert_number($plant['price']).$lang['yummyMoneyUnit']."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['lastPrice'].": </span>".convert_number($plant['sellPrice']).$lang['yummyMoneyUnit']."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['weightInSection'].": </span>".convert_number($plant['weight']).$lang['kilogram']."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['waterConsume'].": </span>".str_replace(__HOUR__,$plant['resource'][1] , $lang['usagePerHour'])."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['muckConsume'].": </span>".str_replace(__HOUR__,$plant['resource'][2] , $lang['usagePerHour'])."<br/><br/>";
+                echo "<span class=\"detailsTitle\">".$lang['totalPrice'].": </span>".$plant['price']." x ".$plant['weight']."=".$plant['weight']*$plant['price']."<br/>";
+                ?>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </div>
 <?php elseif($params['action'] == 'buyAccessory'): ?>
 <div id="buyAccessory">
-    
+
     <?php foreach($params['accessories']['attack'] AS $attackTools): ?>
         <div class="accessoryBuyItem">
             <?= $attackTools->name ?><br/>
@@ -213,6 +220,6 @@
         </div>
     </div>
     <?php endif; ?>
-    
+
 </div>
 <?php endif; ?>

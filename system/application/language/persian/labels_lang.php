@@ -188,6 +188,11 @@
         $lang['equipment-waterPump'] = "با استفاده از موتورآب میتونی قطعه۳ مزرعتو باز کنی";
         $lang['equipment-rockBreaker'] = "با استفاده از سنگ شکن میتونی قطعه۴ مزرعتو باز کنی";
 
+        $lang['hour'] = "ساعت";
+        $lang['yummyMoneyUnit'] = "یامیوم";
+        $lang['usagePerHour'] = "هر __HOUR__ ساعت یک واحد";
+        $lang['neededAccessories'] = "لوازم مورد نیاز برای کاشت این گیاه";
+        
         $lang['plant'] = "گیاه";
         $lang['growthTime'] = "زمان رشد";
         $lang['remainTime'] = "زمان باقی مانده";
@@ -229,6 +234,18 @@
         $lang['tractor'] = "تراکتور";
         $lang['heater'] = "بخاری";
         $lang['lamp'] = "مهتابی";
+
+        /*
+         * Plant
+         */
+        $lang['wheat'] = "گندم";
+        $lang['corn'] = "ذرت";
+        $lang['potato'] = "سیب زمینی";
+        $lang['beans'] = "لوبیا";
+        $lang['tomato'] = " گوجه فرنگی";
+        $lang['cucumber'] = "خیار";
+        $lang['onion'] = "پیاز";
+        $lang['eggplant'] = "بادمجان";
 
 	/*
 	    Inbox

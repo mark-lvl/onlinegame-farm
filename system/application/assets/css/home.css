@@ -462,3 +462,45 @@ width:300px;
     background: url(../images/home/bestFarmerTitle.png) no-repeat;
     margin: 6px 8px 0 0;
 }
+#bestFarmers .userList
+{
+    width: 141px;
+    height: 17px;
+    margin-top: 6px;
+    height:75px;
+    width:425px;
+}
+.userList ul
+{
+    display: inline;
+    list-style: none;
+}
+.userList ul li
+{
+    float: right;
+    width: 75px;
+    height: 75px;
+    display: block;
+    margin: 0 5px;
+}
+.userList ul li a img
+{
+    height: 57px;
+    width: 57px;
+    display: block;
+    margin: 0 auto;
+    clear: both;
+    background: #eee;
+}
+.userList ul li a span
+{
+    height: 14px;
+    width: 70px;
+    display: block;
+    margin: 4px auto 0;
+    text-align: center;
+    clear: both;
+    font-size: 10px;
+    font-weight: bold;
+    color: #FFFFFF;
+}

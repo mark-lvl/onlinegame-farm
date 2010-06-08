@@ -184,7 +184,7 @@
        var params = {};
        params['mission'] = mission;
        params['farm_id'] = <?= $farm->id ?>;
-       ($('#section-1 div').attr('class') == 'plow')?farmPlow = 1:farmPlow = 0;
+       ($('#section-1').attr('class') == 'plow')?farmPlow = 1:farmPlow = 0;
        params['farm_plow'] = farmPlow;
        ajax_request('#ajaxHolder','<?= base_url() ?>farms/mission',params);
     }

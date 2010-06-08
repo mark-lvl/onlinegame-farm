@@ -867,6 +867,164 @@
     display: block;
 }
 
+#missionBoxHolder
+{
+    background: url(../images/farm/missionBoxBorder.png) no-repeat  center;
+    width: 303px;
+    height: 303px;
+    display: block;
+    position: relative;
+    float: right;
+}
+#missionBoxHolder .levelHolder
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #FFFFFF;
+    font-size: 20px;
+
+}
+#missionBoxHolder .missionDetailsHolder
+{
+    background: url(../images/farm/missionDetailsHolder.png) no-repeat  top right;
+    width: 266px;
+    height: 22px;
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    color: #FFFFFF;
+    padding: 2px 10px 0 0;
+}
+#missionBoxHolder .plantHolder
+{
+    
+    width: 265px;
+    height: 215px;
+    display: block;
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    
+}
+.plantHolder .plantAvatar
+{
+    width: 58px;
+    height: 58px;
+    display: block;
+    float: right;
+}
+.plantHolder .plantName
+{
+    width: 190px;
+    height: 25px;
+    display: block;
+    float: left;
+    text-align: right;
+    font-size: 25px;
+    color: #FFFFFF;
+    margin: 10px 10px 0 0;
+}
+.plantHolder .addPlant
+{
+    width: 190px;
+    height: 19px;
+    display: block;
+    float: left;
+    text-align: right;
+    margin: 5px 10px 0 0;
+}
+.plantHolder .addPlant a
+{
+    background: url(../images/farm/addPlant.png);
+    background-position: 0 -17px;
+    width: 96px;
+    height: 17px;
+    display: block;
+    text-align: right;
+}
+.plantHolder .addPlant a:hover
+{
+    background-position: 0 0;
+}
+.plantHolder .plantDetails
+{
+    width: 265px;
+    height: 100px;
+    display: block;
+    float: right;
+    margin-top: 12px;
+}
+.plantHolder .plantDetails .detailsTitle
+{
+    color: #b3e357;
+}
+#missionEquipment
+{
+    background: url(../images/farm/missionEquipmentBorder.png);
+    width: 230px;
+    height: 118px;
+    display: block;
+    float: right;
+    margin-right: 10px;
+}
+#missionEquipment .equipmentTitle
+{
+    font-size: 15px;
+    color: #FFFFFF;
+    width: 230px;
+    font-weight: bold;
+    margin: 12px 18px 0 0;
+}
+#missionEquipment .details
+{
+    width: 230px;
+    margin-right:18px;
+}
+#missionEquipment .details .equipImg
+{
+    width: 58px;
+    height: 58px;;
+    display: block;
+    float: right;
+    margin-top: 10px;
+}
+#missionEquipment .details .equipContext
+{
+    width: 130px;
+    height: 45px;;
+    display: block;
+    float: right;
+    margin: 20px 15px 0 0;
+}
+
+#plantCategory
+{
+    display:block;
+    height:60px;
+    position:absolute;
+    top:312px;
+    width:308px;
+}
+#plantCategory .category
+{
+    background: url(../images/farm/missionCategory.png);
+    background-position: 0 0;
+    display:block;
+    float:right;
+    height:17px;
+    margin:3px 0 0 3px;
+    text-align:center;
+    width:74px;
+    cursor: pointer;
+}
+#plantCategory .category:hover
+{
+    background-position: 0 -17px;
+}
+
+
 /*******footerPanel*******/
 .notificationDate
 {

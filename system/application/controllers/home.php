@@ -22,7 +22,6 @@ class Home extends MainController {
 
             $usrRnkMdl = new Userrank();
             $this->data['bestUsers'] = $usrRnkMdl->getBestUser();
-            //TODO az inja bebado baiad anjam bedam
 
 	    $this->data['title']  = $this->lang->language['home_title'];
 

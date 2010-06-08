@@ -37,6 +37,18 @@
         </div>
         <div id="bestFarmers">
             <div class="title"></div>
+            <div class="userList">
+                <ul>
+                <?php foreach($bestUsers AS $bUser): ?>
+                    <li>
+                        <a href="<?= base_url() ?>profile/user/<?= $bUser->id ?>">
+                            <img  src="<?= $base_img ?>default.png"/>
+                            <span><?= $bUser->first_name." ".$bUser->last_name ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
     </div>
     <div id="leftBox"></div>
