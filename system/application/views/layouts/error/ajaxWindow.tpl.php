@@ -47,12 +47,47 @@
                 echo "<span class=\"detailsTitle\">".$lang['firstPrice'].": </span>".convert_number($plant['price']).$lang['yummyMoneyUnit']."<br/>";
                 echo "<span class=\"detailsTitle\">".$lang['lastPrice'].": </span>".convert_number($plant['sellPrice']).$lang['yummyMoneyUnit']."<br/>";
                 echo "<span class=\"detailsTitle\">".$lang['weightInSection'].": </span>".convert_number($plant['weight']).$lang['kilogram']."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['waterConsume'].": </span>".str_replace(__HOUR__,$plant['resource'][1] , $lang['usagePerHour'])."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['muckConsume'].": </span>".str_replace(__HOUR__,$plant['resource'][2] , $lang['usagePerHour'])."<br/><br/>";
-                echo "<span class=\"detailsTitle\">".$lang['totalPrice'].": </span>".$plant['price']." x ".$plant['weight']."=".$plant['weight']*$plant['price']."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['waterConsume'].": </span>".str_replace(__HOUR__,convert_number($plant['resource'][1]) , $lang['usagePerHour'])."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['muckConsume'].": </span>".str_replace(__HOUR__,convert_number($plant['resource'][2]) , $lang['usagePerHour'])."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['totalPrice'].": </span>".convert_number($plant['price'])."x".convert_number($plant['weight'])."=<b style=\"font-size:15px\">".convert_number((string)($plant['weight']*$plant['price']))."</b><br/><br/>";
+                
+                if($params['mission']['accessories'])
+                {
+                    echo "<span class=\"detailsTitle\">$lang[neededAccessories]: </span>";
+                    foreach ($params['mission']['accessories'] as $acc)
+                        echo $lang[$acc];
+                }
+                
                 ?>
             </div>
             <?php endforeach; ?>
+        </div>
+    </div>
+    <div id="missionEquipment">
+        <div class="equipmentTitle">
+            <?= $lang['equipment'] ?>
+        </div>
+        <div class="details">
+            <?php 
+            if($params['mission']['level'] == 5)
+                $equipHolder = "grassCutter";
+            elseif($params['mission']['level'] == 7)
+                $equipHolder = "waterPump";
+            elseif($params['mission']['level'] == 9)
+                $equipHolder = "rockBreaker";
+            
+            if(isset($equipHolder)):
+            ?>
+
+            <div class="equipImg">
+                <img src="<?= $base_img."farm/equipment/".strtolower($equipHolder).".png" ?>" />
+            </div>
+            <div class="equipContext">
+                <?= $lang["equipment-".$equipHolder] ?>
+            </div>
+            <?php else: ?>
+                <?= $lang['haventEquipment'] ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
