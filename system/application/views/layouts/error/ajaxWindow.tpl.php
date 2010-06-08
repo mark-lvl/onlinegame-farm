@@ -25,8 +25,10 @@
         <div class="missionDetailsHolder">
             <?= $params['mission']['description'] ?>
         </div>
-        <div class="plantHolder">
-            <?php foreach($params['mission']['plant'] AS $plant): ?>
+        <?php
+        $firstLoopChecker = TRUE;
+        foreach($params['mission']['plant'] AS $plant): ?>
+        <div class="plantHolder" id="plantHolder-<?= $plant['name'] ?>" <?php if($firstLoopChecker){echo "style=\"display:block\"";$firstLoopChecker = FALSE;} ?>>
             <div class="plantAvatar">
                 <img src="<?= $base_img."farm/plant/$plant[name].png" ?>" />
             </div>
@@ -60,8 +62,8 @@
                 
                 ?>
             </div>
-            <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     </div>
     <div id="missionEquipment">
         <div class="equipmentTitle">
@@ -86,9 +88,20 @@
                 <?= $lang["equipment-".$equipHolder] ?>
             </div>
             <?php else: ?>
-                <?= $lang['haventEquipment'] ?>
+                <span style="margin: 23px 48px 0 0;display: block"><?= $lang['haventEquipment'] ?></span>
             <?php endif; ?>
         </div>
+    </div>
+    <div id="plantCategory">
+        <?php
+        if(count($params['mission']['plant']) > 1):
+            $firstLoopChecker = TRUE;
+            foreach($params['mission']['plant'] AS $plantName): ?>
+            <div class="category" <?php if($firstLoopChecker){echo "style=\"background-position:0 -17px\"";$firstLoopChecker = FALSE;} ?>><?= $lang[$plantName['name']] ?></div>
+        <?php
+              endforeach;
+              endif;
+        ?>
     </div>
 </div>
 <?php elseif($params['action'] == 'buyAccessory'): ?>
