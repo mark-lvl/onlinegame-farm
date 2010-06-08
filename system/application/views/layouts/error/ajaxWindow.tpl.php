@@ -17,6 +17,15 @@
 </script>
 
 <?php if($params['action'] == 'mission'): ?>
+<script>
+$('#plantCategory div').click(function(){
+    $('.plantHolder').hide();
+    var idx = $(this).attr('id');
+    $('.category').css('background-position','0 0');
+    $(this).css('background-position','0 -17px');
+    $('#plantHolder-'+idx).fadeIn();
+})
+</script>
 <div id="mission">
     <div id="missionBoxHolder">
         <div class="levelHolder">
@@ -97,7 +106,7 @@
         if(count($params['mission']['plant']) > 1):
             $firstLoopChecker = TRUE;
             foreach($params['mission']['plant'] AS $plantName): ?>
-            <div class="category" <?php if($firstLoopChecker){echo "style=\"background-position:0 -17px\"";$firstLoopChecker = FALSE;} ?>><?= $lang[$plantName['name']] ?></div>
+            <div class="category" id="<?= $plantName[name] ?>" <?php if($firstLoopChecker){echo "style=\"background-position:0 -17px\"";$firstLoopChecker = FALSE;} ?>><?= $lang[$plantName['name']] ?></div>
         <?php
               endforeach;
               endif;
