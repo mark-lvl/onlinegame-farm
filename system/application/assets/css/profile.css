@@ -310,6 +310,12 @@ span .abuseReport
 {
     
 }
+.transactionDate
+{
+    color: #CCCCCC;
+    font-size: 9px;
+    float: left;
+}
 #friendBox
 {
     width: 162px;

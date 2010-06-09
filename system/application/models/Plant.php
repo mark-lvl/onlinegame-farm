@@ -223,7 +223,7 @@ class Plant extends DataMapper {
 
                             if($totalPrice >= $farmDetails->money)
                                     return array('return'=>'false',
-                                                 'type'=>'money',
+                                                 'type'=>'moneyAlert',
                                                  'params'=>array('money'=>$farmDetails->money,
                                                                  'price'=>$totalPrice));
                             else

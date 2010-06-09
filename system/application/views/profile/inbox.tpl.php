@@ -8,7 +8,16 @@
  #centerColumn
  {
      margin-bottom: 8px !important;
-}
+ }
+ .closeButton
+    {
+        width:26px;
+    	height:26px;
+    	display:block;
+        right:1px;
+        position:absolute;
+        top:1px;
+    }
 </style>
 <!--[if IE]>
 <style>
@@ -19,7 +28,9 @@
 <![endif]-->
 
 <div id="centerContainer">
+    
     <div id="inboxHolder">
+        <span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img"."popup/boxy/close.png\"/>" ) ?></span>
         <div id="delete_all"></div>
         <div class="message_list">
             <div id="messageListContainer" >

@@ -79,12 +79,12 @@
         $lang['allFriends'] = "همه دوستان";
         $lang['listAllFriends'] = "لیست همه دوستان";
         $lang['friends'] = " دوستان";
-        $lang['addFriendsToYummy'] = "با دعوت دوستانت به بازی یامی بعد از ثبت نام دوستت ۱۰۰یامی میگیری";
+        $lang['addFriendsToYummy'] = "با دعوت دوستانت به بازی یامی بعد از ثبت نام دوستت<br/> ۱۰۰یام یام میگیری";
         $lang['message_title'] = "پیغام از طرف __USERNAME__";
         $lang['send_message_successfull'] = "پیغام ارسال شد";
         $lang['send_message_faild'] = "پیغام ارسال نشد";
         $lang['searchResult'] = "__COUNT__ مورد برای <b>__PARSE__</b> یافت شد";
-        $lang['must_be_filled'] = "پر شود";
+        $lang['must_be_filled_textarea'] = "پر شود";
 
         $lang['farmDangerous'] = "میزان خطرناک بودن";
         $lang['farmSecurity'] = "میزان امنیت مزرعه";
@@ -101,7 +101,14 @@
         $lang['farm'] = "مزرعه";
         $lang['goToFarm'] = "برو به مزرعه";
         $lang['havingAnyFriend'] = "هنوز دوستی نداری";
+        $lang['havingAnytransaction'] = "هنوز مزرعت هیچ فعالیتی نداشته";
+        $lang['findingFriend'] = "برای  دوست پیدا کردن میتونی با گشت و گذار توی سایت و دیدن پروفایل سایر کاربرها باهاشون دوست بشی";
         $lang['havingAnyFarm'] = "مزرعه ندارد";
+
+        $lang['hint-1'] = "میتونی با دعوت دوستات امتیاز خودتو بالا ببری";
+        $lang['hint-2'] = "با بالا بردن تعداد دوستات امنیت مزرعت هم بیشتر میشه";
+        $lang['hint-3'] = "با کمک کردن به دیگران سطح کمک کنندگی مزرعت بالا میره";
+        $lang['hint-4'] = "همیشه حواست به میزان آب و کود گیاهات باشه";
 
         /*
          * farm Farm
@@ -189,9 +196,10 @@
         $lang['equipment-rockBreaker'] = "با استفاده از سنگ شکن میتونی قطعه۴ مزرعتو باز کنی";
 
         $lang['hour'] = "ساعت";
-        $lang['yummyMoneyUnit'] = "یامیوم";
+        $lang['yummyMoneyUnit'] = "یام یام";
         $lang['usagePerHour'] = "هر __HOUR__ ساعت یک واحد";
         $lang['neededAccessories'] = "لوازم مورد نیاز برای کاشت این گیاه";
+        $lang['accessoryLackDescrioption'] = "هنوز برای مزرعت این لوازمو نخریدی";
         
         $lang['plant'] = "گیاه";
         $lang['growthTime'] = "زمان رشد";
@@ -200,7 +208,7 @@
         $lang['firstPrice'] = "قیمت هر کیلو بذر";
         $lang['lastPrice'] = "قیمت هر کیلو موقع فروش";
         $lang['totalPrice'] = "قیمت کل";
-        $lang['weightInSection'] = "وزن قابل کشت در هر هکتار";
+        $lang['weightInSection'] = "وزن قابل کشت در هر قطعه";
         $lang['waterConsume'] = "مصرف آب";
         $lang['muckConsume'] = "مصرف کود";
         $lang['implant'] = "کاشت گیاه";

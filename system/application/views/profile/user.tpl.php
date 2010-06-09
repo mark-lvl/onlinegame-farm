@@ -167,7 +167,7 @@ $("#sendMessage").submit(function(){
     if(params['message'] == "")
 	{
     	$('#privateMess').css("color","red");
-        $('#privateMess').val('<?= $lang['must_be_filled'] ?>');
+        $('#privateMess').val('<?= $lang['must_be_filled_textarea'] ?>');
     }
     else
 	{
@@ -433,7 +433,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 </tr>
                                 <tr>
                                         <td class="title"><?= $lang['farmMoney'] ?></td>
-                                        <td><?= $userFarm->money." ".$lang['yummy'] ?></td>
+                                        <td><?= $userFarm->money." ".$lang['yummyMoneyUnit'] ?></td>
                                 </tr>
                                 <?php if($userFarm->disactive == 0): ?>
                                 <tr>
@@ -486,14 +486,16 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                                                 echo $lang['farmTransaction'.$ns.'-'.$transaction->accessory_id];
                                                             }
                                                             else
-                                                                echo $lang['farmTransactionHelpToFriend'];
+                                                                if($transaction->flag != 'newUser')
+                                                                    echo $lang['farmTransactionHelpToFriend'];
+                                                                else
+                                                                    echo $lang['havingAnytransaction'];
 
-                                                            echo fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""));
+                                                            echo "<span class=\"transactionDate\">".fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""))."</span>";
                                                             ?>
                                                     </span>
                                             </li>
                                         <?php endforeach; ?>
-
                                       </ul>
                                   </div>
                               </div>
@@ -539,7 +541,11 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             }
                             endforeach;
                             else
-                                echo $lang['havingAnyFriend'];
+                            {
+                                echo $lang['havingAnyFriend']."<br/><br/>";
+                                if(!$partner)
+                                    echo $lang['findingFriend'];
+                            }
                             ?>
                         </div>
                 </div>
@@ -574,10 +580,6 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
             <?= anchor("profile/inbox",
                        "<span>$userFarm->unreadMess</span>",
                        array('onclick'=>"inbox();return false;",'id'=>"inboxCounter"));
-            ?>
-            <?= anchor("profile/history",
-                       " ",
-                       array('onclick'=>"history();return false;",'id'=>"history"));
             ?>
         </div>
         <?php endif; ?>

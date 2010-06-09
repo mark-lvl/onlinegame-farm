@@ -97,9 +97,13 @@ class Registration extends MainController {
 			$lang = $this->lang->language;
 			User_model::send_message(1, $dr, $lang['welcome_title'], $lang['welcome_body']);
 			$_SESSION['rgkeep'] = "";
-			session_destroy();
-		    header("Location: " . base_url() . "message/index/1/");
-		    die();
+			
+                        $user = $this->user_model->log_in($_POST['email'],$_POST['password']);
+                        $_SESSION['user'] = $user;
+                        
+                        redirect(base_url()."profile/user/".$user->id);
+                        //header("Location: " . base_url() . "message/index/1/");
+		    //die();
 		}
 		else {
 		    header("Location: " . base_url() . "message/index/0/");

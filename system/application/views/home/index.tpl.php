@@ -51,5 +51,9 @@
             </div>
         </div>
     </div>
-    <div id="leftBox"></div>
+    <div id="leftBox">
+        <div id="registrationHotspot">
+            <?= anchor(base_url()."registration", " ") ?>
+        </div>
+    </div>
 </div>

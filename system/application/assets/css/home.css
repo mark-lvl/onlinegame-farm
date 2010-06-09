@@ -329,6 +329,16 @@ width:300px;
     height: 370px;
     display: block;
     background: url(../images/home/home-left.jpg) no-repeat center;
+    position: relative;
+}
+#registrationHotspot a
+{
+    cursor:pointer;
+    height:90px;
+    left:92px;
+    position:absolute;
+    top:34px;
+    width:100px;
 }
 #rightBox
 {   float: right;
@@ -389,6 +399,9 @@ width:300px;
 }
 #loginFormHolder .form input.input
 {
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-align: left;
     border: 0;
     background: url(../images/home/loginField.png) no-repeat center;
     width: 152px;

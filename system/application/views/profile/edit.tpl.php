@@ -17,15 +17,18 @@
     .closeButton
     {
     	position: absolute;
-    	top:11px;
-    	right:18px;
-    	width:26px;
+    	top:8px;
+    	right:8px;
+    }
+    .closeButton a img
+    {
+        width:26px;
     	height:26px;
     	display:block;
     }
 </style>
 <div id="centerContainer">
-	<span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img/popup/boxy/close.png\"") ?></span>
+	<span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img"."popup/boxy/close.png\"/>") ?></span>
     <div id="registerForm">
                 <form action="<?= base_url() ?>profile/edit/" id="register-form" class="registerForm" method="post">
                                 <table>

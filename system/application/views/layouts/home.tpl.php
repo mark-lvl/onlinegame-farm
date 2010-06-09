@@ -37,6 +37,7 @@
                                 </div>
                                 
                                 <?php if($user): ?>
+                                <?php if(isset($user->profilePage)): ?>
                                 <div id="search">
                                     <span class="label"><?= $lang['search'] ?></span>
                                     <form id="searchForm">
@@ -50,7 +51,7 @@
                                         <span><input type="submit" value="" class="searchSubmit"/></span>
                                     </form>
                                 </div>
-                                
+                                <?php endif; ?>
                                 <div id="userConsole">
                                     <span>
                                             <a href="<?= base_url()."profile/user/".$user->id ?>">

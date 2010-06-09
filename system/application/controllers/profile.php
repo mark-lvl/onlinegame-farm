@@ -19,7 +19,7 @@ class Profile extends MainController
 
                 $this->loadJs('jquery.loading/jquery.loading');
 	}
-	
+
 	function index()
 	{
 		header("Location: " . base_url());
@@ -28,7 +28,7 @@ class Profile extends MainController
 
 	function user($id = "")
         {
-	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches)) 
+	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches))
                     redirect("/");
 
 	    $user = $this->user_model->is_authenticated();
@@ -46,7 +46,7 @@ class Profile extends MainController
             else
                 $user_profile = $user;
 
-	    if(!$user_profile) 
+	    if(!$user_profile)
                     redirect("message/index/12");
 
             $this->data['title']        = $this->lang->language['profile_title'] . " " . $user_profile->first_name;
@@ -56,7 +56,7 @@ class Profile extends MainController
 	    $this->data['user_profile']->is_related = User_model::is_related($user_profile, $user->id);
 
             $farmSql = "SELECT f.id,f.user_id,f.name,f.money,f.section,f.level,f.disactive,p.health,t.name AS plantName
-                        FROM `farms` AS f 
+                        FROM `farms` AS f
                         LEFT JOIN `plants` AS p ON (f.id = p.farm_id AND p.reap = 0)
                         LEFT JOIN `types` AS t ON (p.type_id = t.id)
                         WHERE f.user_id = ".$user_profile->id." ORDER BY f.create_date DESC LIMIT 1;";
@@ -66,7 +66,7 @@ class Profile extends MainController
 
             $unreadMesSql = "SELECT count(m.id) AS unreadMess FROM `messages` AS m WHERE m.to = $user_profile->id AND m.checked = 0";
             $farmMessQuery = $this->db->query($unreadMesSql);
-            
+
             if(!$this->data['userFarm']->id)
                 $this->data['userFarm'] = new stdClass();
 
@@ -106,7 +106,7 @@ class Profile extends MainController
                                     $farmSign['bigProduct']['detail'] = $usrRnkObj->rank;
                             }
                     }
-                            
+
                     elseif($usrRnkObj->type == 2)
                             $farmSign['grasshoppers']['accept'] = TRUE;
                 }
@@ -123,7 +123,7 @@ class Profile extends MainController
                 $bars['attackBar'] = 0;
                 $bars['deffenceBar'] = 0;
                 $bars['helpBar'] = 0;
-                
+
                 foreach($farmAccessories AS $accessory)
                 {
                     if($accessory->type == 1)
@@ -145,7 +145,7 @@ class Profile extends MainController
                                         $userRank->save();
                                     }
                                 }
-                                    
+
                     }
                     elseif($accessory->type == 2)
                             $bars['deffenceBar'] += 15;
@@ -162,7 +162,7 @@ class Profile extends MainController
                         {
                                 if($frmTransaction->flag == 1)
                                     $attack++;
-                                
+
                                 $bars['attackBar']++;
                                 $frmTransaction->messageStyle = "offensiveBox";
                         }
@@ -201,7 +201,7 @@ class Profile extends MainController
                         $deffence = '0';
                     $farmSign['deffence']['detail'] = $deffence;
                 }
-                
+
                 if($num_friends > self::SIGN_FAMOUS_AMOUNT)
                     $farmSign['famous']['accept'] = TRUE;
                 else
@@ -228,9 +228,9 @@ class Profile extends MainController
                             $farmSign['goldenShovel']['detail'] = '0';
                     else
                             $farmSign['goldenShovel']['detail'] = $querySign->num_rows();
-                    
+
                 }
-                
+
                 if($querySign->num_rows() > self::SIGN_SICKLE_AMOUNT)
                         $farmSign['goldenSickle']['accept'] = TRUE;
                 else
@@ -267,7 +267,7 @@ class Profile extends MainController
                 $this->data['user_profile']->is_blocked = true;
 
 	    $this->data['friends'] = $friends;
-	    
+
             $this->data['farmSign'] = $farmSign;
 
 	    $this->add_css('jquery.jcarousel');
@@ -284,7 +284,7 @@ class Profile extends MainController
             $this->render('home');
 
 	}
-	
+
 
 
         function edit($id = "")
@@ -326,6 +326,21 @@ class Profile extends MainController
 
             $this->load->view("profile/edit.tpl.php", $this->data);
 	}
+        
+        function avatar()
+        {
+	    $user = $this->user_model->is_authenticated();
+
+
+            if(!$user)
+                    $this->js_redirect('/');
+
+            $this->data['heading']        = '';
+            $this->data['user_profile'] = $user;
+
+
+            $this->load->view("profile/avatar.tpl.php", $this->data);
+	}
         function inbox($id = "")
         {
 	    $user = $this->user_model->is_authenticated();
@@ -349,7 +364,7 @@ class Profile extends MainController
 			}
 		}
 
-            
+
             $this->load->view("profile/inbox.tpl.php", $this->data);
 	}
         function history()
@@ -379,12 +394,12 @@ class Profile extends MainController
             $this->load->view("profile/history.tpl.php", $this->data);
         }
 
-        
+
 
         function seeAllFriends($user_id = null)
         {
             $params['friends'] = $this->user_model->get_friends($_POST['user_id']);
-            
+
             $this->error_reporter('list',$params);
         }
         function inviteFriend()
@@ -403,7 +418,7 @@ class Profile extends MainController
                 case 3:
                         echo $this->lang->language['invitation-notComplete'];
                     break;
-                
+
                 default:
                     break;
             }
@@ -465,7 +480,7 @@ class Profile extends MainController
         function abuseReport($id = "")
         {
 	    	$user = $this->user_model->is_authenticated();
-	    	
+
             if(!$user)
             {
                 $this->error_reporter('alert',array('message'=>$this->lang->language['m_title17'],'height'=>40));
@@ -474,18 +489,18 @@ class Profile extends MainController
 			if($_POST['id'])
 			{
 				$this->data['id'] = $_POST['id'];
-				$this->load->view("profile/abuse.tpl.php", $this->data);	
+				$this->load->view("profile/abuse.tpl.php", $this->data);
 			}
 			else
 			{
 				$_POST['user_id'] = (int)$_POST['user_id'];
-            	if(!$_POST['user_id']) 
+            	if(!$_POST['user_id'])
 					echo $this->lang->language['m_title8'];
 
 				$sql = "SELECT * FROM `abuse` WHERE user_id = " . $this->db->escape($_POST['user_id']) . " AND sender = " . $this->db->escape($user->id). " AND type = " . $_POST['abuseType'];
 	    		$result = $this->db->query($sql);
 	    		$result = $result->result_array();
-	    		if(is_array($result) && count($result) > 0) 
+	    		if(is_array($result) && count($result) > 0)
 					echo $this->lang->language['m_title13'];
 			    else {
 		    		$sql = "INSERT INTO `abuse` (user_id, sender, type, `date`) VALUES (" . $this->db->escape($_POST['user_id']) . ", " . $this->db->escape($user->id). ", " . $this->db->escape($_POST['abuseType']) . ", '" . date("Y-m-d H:i:s") . "')";

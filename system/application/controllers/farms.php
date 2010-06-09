@@ -219,8 +219,9 @@ class Farms extends MainController {
 		$this->data['notifications'] = $notification;
 		$this->data['equipments'] = $equipments;
 
+                $this->data['user'] = $user;
                 $this->data['heading'] = '';
-                $this->data['title'] = 'FARM';
+                $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
@@ -340,7 +341,7 @@ class Farms extends MainController {
 		$flag = $pltModel->add($_POST['farm_id'],$_POST['type_id']);
 
                 if(is_array($flag))
-                    $this->error_reporter($flag['type'],$flag['params']);
+                    $this->error_reporter($flag['type'],$flag['params'],'main','boxyFarm');
                 else
                     $this->refresh_page();
 	}

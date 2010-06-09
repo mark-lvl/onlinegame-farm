@@ -671,7 +671,7 @@
     display: block;
     position: absolute;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
 }
 #farmMission div span.text
 {
@@ -721,7 +721,7 @@
     display: block;
     position: absolute;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
 }
 #farmEquipment div span.text
 {
@@ -1172,3 +1172,4 @@ a.alerts
 	text-align: right;
 	padding: 5px 10px 5px 0;
 }
+

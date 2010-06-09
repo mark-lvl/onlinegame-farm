@@ -97,10 +97,11 @@ $('#plantCategory div').click(function(){
                 <?= $lang["equipment-".$equipHolder] ?>
             </div>
             <?php else: ?>
-                <span style="margin: 23px 48px 0 0;display: block"><?= $lang['haventEquipment'] ?></span>
+                <span style="margin: 23px 0 0 0;display: block"><?= $lang['haventEquipment'] ?></span>
             <?php endif; ?>
         </div>
     </div>
+    <div id="ajaxAlertBox"></div>
     <div id="plantCategory">
         <?php
         if(count($params['mission']['plant']) > 1):
