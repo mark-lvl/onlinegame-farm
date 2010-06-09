@@ -262,6 +262,30 @@ class Profile extends MainController
             else
                 $this->data['mainFarm'] = $this->load->view('farms/register.php', $this->data, TRUE);
 
+            if(empty($this->data['transactions']))
+            {
+                $trans = new stdClass();
+                $trans->type = 3;
+                $trans->flag = "newUser";
+                $trans->create_date = 1276076502;
+                $transactions[] = $trans;
+                $this->data['transactions'] = $transactions;
+            }
+
+            if(empty($this->data['hints']))
+            {
+                for($i=1;$i<5;$i++)
+                {
+                    $hint = new stdClass();
+                    $hint->id = $i;
+                    $hint->body = $this->lang->language["hint-$i"];
+                    $hint->create_date = "1276076502";
+                    $notObjs[] = $hint;
+                }
+                $this->data['hints'] = $notObjs;
+            }
+
+
 
             if(User_model::is_related($user_profile, $user->id))
                 $this->data['user_profile']->is_blocked = true;

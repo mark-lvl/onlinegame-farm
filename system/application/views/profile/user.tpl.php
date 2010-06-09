@@ -101,6 +101,10 @@ function editProfile()
     $("#changeProfile").html("<?= $lang['profile_set'] ?>");
     ajax_request('#centerContainer','<?= base_url() ?>profile/edit',params);
 }
+function avatar()
+{
+    ajax_request('#centerContainer','<?= base_url() ?>profile/avatar');
+}
 function addToFriend(id)
 {
     var params = {};
@@ -241,10 +245,16 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 <?= $lang['register_date'].": ".convert_number(fa_strftime("%d %B %Y", $user_profile->registration_date . "")) ?>
                         </span>
                         <?php if(!$partner): ?>
-		                <span id="changeProfile">
+                        <span id="changeProfile">
                                 <?= anchor("profile/edit/$user_profile->id",
                                            $lang['profile_set'],
                                            array('onclick'=>"editProfile();return false;"));
+                                ?>
+                        </span>
+                        <span id="changeProfile2">
+                                <?= anchor("profile/edit/avatar",
+                                           "Avatar",
+                                           array('onclick'=>"avatar();return false;"));
                                 ?>
                         </span>
                         <?php endif; ?>
