@@ -364,7 +364,7 @@
 		}
 
 		function get_notifications($farmId) {
-		    $sql = "SELECT * FROM `notifications`  WHERE  `farm_id` = " . $this->db->escape($farmId) . " ORDER BY `create_date` ASC LIMIT 10";
+		    $sql = "SELECT * FROM `notifications`  WHERE  `farm_id` = " . $this->db->escape($farmId) . " ORDER BY `create_date` ASC";
 		    $result = $this->db->query($sql);
 		    $result = $result->result_array();
 		    

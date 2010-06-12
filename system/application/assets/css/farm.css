@@ -349,6 +349,15 @@
     width: 100px;
     display: block;
 }
+.statisticSync
+{
+    font-weight: bold;
+    color:#00FF00;
+}
+.syncIcon
+{
+    vertical-align: middle;
+}
 .expandStatistic
 {
     position: absolute;
@@ -1044,6 +1053,19 @@
     background-position: 0 -17px;
 }
 
+.errorMess
+{
+    background: url(../images/attention.png) top right no-repeat;
+    padding-right: 40px;
+    float: right;
+    margin:8px 12px 0 0;
+    width:200px;
+    height: 30px;
+    display:block;
+}
+
+
+
 
 /*******footerPanel*******/
 .notificationDate
@@ -1061,11 +1083,17 @@
 }
 #footpanel ul li a{
 	float: left;
-	text-indent: -9999px; /*--For text replacement - Shove text off of the page--*/
+	/*text-indent: -9999px; --For text replacement - Shove text off of the page--*/
 	text-decoration: none;
 	color: #333;
         height: 22px;
 	position: relative;
+}
+#notificationCounter
+{
+    display: block;
+    padding: 2px 22px 0 0;
+    color: #FFFFFF;
 }
 html #footpanel ul li a:hover{	background-color: #fff; text-decoration: none;}
 html #footpanel ul li a.active { /*--Active state when sub-panel is open--*/
@@ -1082,7 +1110,7 @@ a.alerts
     width: 43px;
     height: 22px;
     display: block;
-    background: #91b33f url(../images/profile/inbox_counter.gif) no-repeat  center;
+    background: #91b33f url(../images/farm/notification_counter.gif) no-repeat  center;
     background-position: 0 0;
     position: absolute;
     top: 1px;

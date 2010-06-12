@@ -69,13 +69,15 @@ $(document).ready(function() {
 <script>
 function ajax_request(handler, url, params ,callback) {
     $(handler).loading({
-                        pulse: false,
+                        pulse: 'fade',
                         text: 'Loading',
-                        align: 'center',
+                        align: {top:'10px',left:'10px'},
                         img: '<?= $base_img ?>ajax-loader.gif' ,
                         delay: '200',
                         max: '1000',
-                        mask: true
+                        mask: true,
+                        maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
+                            zIndex:101, display:'block', cursor:'wait' }
                         });
    $(handler).load(url, params,callback);
 }
@@ -439,7 +441,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         <table>
                                 <tr>
                                         <td class="title"><?= $lang['farmArea'] ?></td>
-                                        <td><?= ($userFarm->section*10)." ".$lang['hectare'] ?></td>
+                                        <td><?= ($userFarm->section)." ".$lang['section'] ?></td>
                                 </tr>
                                 <tr>
                                         <td class="title"><?= $lang['farmMoney'] ?></td>
@@ -453,7 +455,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 <?php if($userFarm->plantName) : ?>
                                 <tr>
                                         <td class="title"><?= $lang['plant'] ?></td>
-                                        <td><?= $userFarm->plantName ?></td>
+                                        <td><?= $lang[$userFarm->plantName] ?></td>
                                 </tr>
                                 <tr>
                                         <td class="title"><?= $lang['health'] ?></td>
@@ -512,7 +514,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             </div>
                 </div>
                 <?php else: ?>
-                <?= $mainFarm ?>
+                <?php echo (!$partner)?$mainFarm:"<span class=\"haventFarm\">".$lang['haventFarm']."</span>"; ?>
                 <?php endif; ?>
             </div>
         </div>

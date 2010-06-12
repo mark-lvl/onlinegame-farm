@@ -473,7 +473,7 @@ class Profile extends MainController
 	    if($this->user_model->relate_users($user, $_POST['id']))
             {
 	    	user_model::send_message($user->id, $_POST['id'], str_replace("XXX", $user->first_name, $this->lang->language['add_request']), str_replace("XXX", $user->id, $this->lang->language['add_requestbody']));
-                $this->error_reporter('alert',array('message'=>$this->lang->language['m_title5'],'height'=>40));
+                $this->error_reporter('alert',array('message'=>$this->lang->language['m_body5'],'height'=>60,'title'=>$this->lang->language['m_title5']));
                 return FALSE;
 	    }
 	    else {

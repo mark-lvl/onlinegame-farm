@@ -103,13 +103,7 @@
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/spraying', params);
     }
-    function sync(farm_id)
-    {
-        var params = {};
-        params['farm_id'] = farm_id;
-
-        ajax_request('#healthHolder', '<?= base_url() ?>farms/sync', params)
-    }
+    
     function disasters(farm_id)
     {
         var params = {};
@@ -153,24 +147,25 @@
         var elementHeight = $("#notification-"+id).height();
         var totalHeight = $(".subpanel").find("ul").height();
         
-        $("#notification-"+id).hide();
+        $("#notification-"+id).remove();
 
         var params = {};
         params['not_id'] = id;
 
-        
-        
         var heightHolder = totalHeight - elementHeight;
         $(".subpanel").find("ul").css({ 'height' :heightHolder})
 
-        ajax_request('#farmSection', '<?= base_url() ?>farms/deleteNotification', params)
+        notificationCounter();
+        ajax_request('#farmSection', '<?= base_url() ?>farms/deleteNotification', params);
     }
     function syncNotification()
     {
         var params = {};
         params['farm_id'] = <?= $farm->id ?>;
-        ajax_request('#notification','<?= base_url() ?>farms/syncNotification',params,heightFixer);
 
+        
+        ajax_request('#notification','<?= base_url() ?>farms/syncNotification',params,heightFixer);
+        
         
     }
     function heightFixer()
@@ -179,6 +174,12 @@
         
         if(heightHolder > 600)
             $(".subpanel").find("ul").css({ 'height' :600})
+
+        notificationCounter();
+    }
+    function notificationCounter()
+    {
+        $('#notificationCounter').html($('#mainpanel li').size()-1);
     }
     function mission(mission)
     {
@@ -220,9 +221,29 @@
         params['farm_id'] = <?= $farm->id ?>;
         ajax_request('#reset', '<?= base_url() ?>farms/resetFarm', params);
     }
+    function syncFarm(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
+        
+        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params)
+        setTimeout("syncFarm("+farm_id+")",300000);
+    }
+
+//    function sync(farm_id)
+//    {
+//        var params = {};
+//        params['farm_id'] = farm_id;
+//
+//        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params)
+//    }
+
     $(document).ready(function() {
         var timeHolder = <?= rand(50000, 500000); ?>;
         var t=setTimeout('disasters(<?= $farm->id ?>)',timeHolder);
+
+        syncFarm(<?= $farm->id ?>);
+
 
         <?php if($plant->id): ?>
         $(".expandStatistic").click(function() {
@@ -534,7 +555,7 @@
         <div id="footpanel">
                 <ul id="mainpanel">
                     <li id="alertpanel">
-                        <a href="#" class="alerts">Alerts<small><?= $lang['notifications'] ?></small></a>
+                        <a href="#" class="alerts"><span id="notificationCounter"><?= count($notifications) ?></span><small><?= $lang['notifications'] ?></small></a>
                         <div class="subpanel">
                             <h3><span></span><?= $lang['notifications'] ?></h3>
                             <ul id="notification"></ul>

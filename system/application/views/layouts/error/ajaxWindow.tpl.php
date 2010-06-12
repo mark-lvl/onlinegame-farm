@@ -202,6 +202,12 @@ $('#plantCategory div').click(function(){
 </div>
 <?php elseif($params['action'] == 'showInventory'): ?>
 <div id="showInventory">
+    <?php if(count($params['farmAccessories']['attack']) < 1 &&
+             count($params['farmAccessories']['deffence']) < 1 && 
+             count($params['farmAccessories']['specialTools']) < 1 &&
+             count($params['farmAccessories']['tools']) < 1)
+             echo "<div class=\"errorMess\">".$lang['haventAnyAccessory']."</div>";
+    ?>
     <?php if(count($params['farmAccessories']['attack']) > 0): ?>
     <div class="inventoryContainer">
         <div class="inventoryTitle">

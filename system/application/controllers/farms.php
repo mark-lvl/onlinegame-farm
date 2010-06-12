@@ -165,7 +165,7 @@ class Farms extends MainController {
                 $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
                 if($frmMisObj->id)
                     $statusBox = str_replace(array('__AMOUNT__','__TYPENAME__'),
-                                           array($frmMisObj->stack,$userPlant->typeName),
+                                           array($frmMisObj->stack,$this->lang->language[$userPlant->typeName]),
                                            $this->data['lang']['mission']['stack']);
                         
 
@@ -458,10 +458,10 @@ class Farms extends MainController {
 	{
           $pltMdl = new Plant();
 
-          $data['plant'] = $pltMdl->plantSync($_POST['farm_id']);
-          $data['base_img'] = $this->data['base_img'];
+          $this->data['plant'] = $pltMdl->plantSync($_POST['farm_id']);
+          $this->data['base_img'] = $this->data['base_img'];
 
-          echo $this->load->view('farms/sync',$data,TRUE);
+          echo $this->load->view('farms/sync',$this->data,TRUE);
           
 	}
 

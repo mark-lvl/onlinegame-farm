@@ -91,7 +91,7 @@
         $lang['farmHelp'] = "میزان کمک به دیگران";
 
         $lang['farmArea'] = "مساحت مزرعه";
-        $lang['hectare'] = "هکتار";
+        $lang['section'] = "قطعه";
         $lang['farmMoney'] = "دارایی مزرعه";
         $lang['farmLevel'] = "مرحله";
         $lang['plant'] = "گیاه در حال پرورش";
@@ -178,10 +178,12 @@
         $lang['inviteMailTitle'] = "دعوت نامه بازی سرزمین یامی از طرف دوستت";
         $lang['inviteBonus'] = "دوستی که دعوت کرده بودی به سایت اومد و به همین خاطر مزرعت ۵۰ یامی گرفت";
 
+        $lang['haventFarm'] = "این کاربر هنوز مزرعه ای ندارد";
         $lang['haventMission'] = "الان درخواستی از یامی نداری";
         $lang['haventPlant'] = "هنوز گیاهی نکاشتی";
         $lang['haventStack'] = "تو این مرحله هنوز چیزی جمع نکردی";
         $lang['haventEquipment'] = "الان تجهیزات کمکی نداری";
+        $lang['haventAnyAccessory'] = "هنوز هیچ وسیله ای برای مزرعت نخریدی<br/> با برداشت محصول و جمع کردن پول میتونی به تدریج لوازمی که میخوای رو از طریق بخش خرید لوازم تهیه کنی";
         $lang['haventEquipmentForThisLevel'] = "برای این مرحله تجهیزات کمکی نداری";
         $lang['gotoMission'] = "شروع کن";
         $lang['yummyRequest'] = "درخواست یامی";
@@ -216,13 +218,13 @@
         $lang['muckConsume'] = "مصرف کود";
         $lang['implant'] = "کاشت گیاه";
         $lang['farmNotPlowed'] = "اول مزرعت رو شخم بزن";
-        $lang['farmStatisticsText'] = "اوضاع مزرعت <b>__HEALTH__</b>";
+        $lang['farmStatisticsText'] = "وضعیت <b>__HEALTH__</b>";
         $lang['Good'] = "خوبه";
         $lang['Middle'] = "بد نیست";
         $lang['Bad'] = "بده";
         $lang['VeryBad'] = "خیلی بده";
-        $lang['syncText'] = "بروزرسانی";
-        $lang['weightInFarm'] = "وزن گیاهان مزرعه";
+        $lang['syncText'] = "بروزرسانی مزرعه";
+        $lang['weightInFarm'] = "وزن قابل برداشت";
         $lang['kilogram'] = "کیلوگرم";
         $lang['healthFarm'] = "سلامت مزرعه";
         $lang['reap'] = "شخم";
@@ -330,7 +332,7 @@
 	$lang['m_title0']       = "رمز یا ایمیلی که وارد کردی اشتباهه!";
 	$lang['m_body0']        = "دوباره تلاش کن!";
 	
-	$lang['m_title5']       = "امیدوارم با هم دوست بشید!";
+	$lang['m_title5']       = "امیدوارم دوست بشید";
 	$lang['m_body5']	= "یه پیغام دوستی براش ارسال شد.<BR />اگه تایید بکنه با هم دوست می شید!";
 	
 	$lang['m_title6']       = "یه خطایی رخ داد!";
