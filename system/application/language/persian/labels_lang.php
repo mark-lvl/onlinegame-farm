@@ -209,7 +209,8 @@
         //$lang['firstPrice'] = "قیمت هر کیلو بذر";
         //$lang['lastPrice'] = "قیمت هر کیلو موقع فروش";
         //$lang['totalPrice'] = "قیمت کل";
-        $lang['totalPrice'] = "برای این که کل مزرعت رو زیر کشت __TYPE__ ببری باید __TOTALPRICE__ پرداخت کنی";
+        $lang['totalPrice'] = "برای این که کل مزرعت رو زیر کشت __TYPE__ ببری باید __TOTALPRICE__ یام یام پرداخت کنی";
+        $lang['lastPrice'] = "اگه به مزرعت خوب برسی کل محصول برداشتی رو حداکثر __LASTPRICE__ یام یام میتونی بفروشی";
         $lang['weightInSection'] = "وزن قابل کشت در هر قطعه";
         $lang['waterConsume'] = "مصرف آب";
         $lang['muckConsume'] = "مصرف کود";

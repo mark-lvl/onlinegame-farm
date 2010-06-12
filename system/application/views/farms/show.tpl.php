@@ -441,6 +441,18 @@
         <?= anchor("farms/buyAccessory/$farm->id/"," ",
                    array('onclick'=>"buyAccessory(".$farm->id.",".$farm->level.");return false;",'id'=>'farmAccessory')); ?>
         <div id="farmResource">
+            <?php
+                if(isset($plantSources))
+                        echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
+                                    " ",
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpreadIcon'));
+            ?>
+            <?php
+                if(isset($plantSources))
+                        echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
+                                    " ",
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpreadIcon'));
+            ?>
             <div class="waterResource">
                 <?php
                 if(isset($plantSources))

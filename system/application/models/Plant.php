@@ -221,7 +221,7 @@ class Plant extends DataMapper {
                             //multiple by plantType price and return total price
                             $totalPrice = $farmDetails->section * $typeDetails->price * $typeDetails->weight;
 
-                            if($totalPrice >= $farmDetails->money)
+                            if($totalPrice > $farmDetails->money)
                                     return array('return'=>'false',
                                                  'type'=>'moneyAlert',
                                                  'params'=>array('money'=>$farmDetails->money,
