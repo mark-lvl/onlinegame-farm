@@ -182,6 +182,7 @@
         $lang['haventPlant'] = "هنوز گیاهی نکاشتی";
         $lang['haventStack'] = "تو این مرحله هنوز چیزی جمع نکردی";
         $lang['haventEquipment'] = "الان تجهیزات کمکی نداری";
+        $lang['haventEquipmentForThisLevel'] = "برای این مرحله تجهیزات کمکی نداری";
         $lang['gotoMission'] = "شروع کن";
         $lang['yummyRequest'] = "درخواست یامی";
         $lang['buyAccessory'] = "خرید لوازم";
@@ -205,9 +206,10 @@
         $lang['growthTime'] = "زمان رشد";
         $lang['remainTime'] = "زمان باقی مانده";
         $lang['price'] = "قیمت";
-        $lang['firstPrice'] = "قیمت هر کیلو بذر";
-        $lang['lastPrice'] = "قیمت هر کیلو موقع فروش";
-        $lang['totalPrice'] = "قیمت کل";
+        //$lang['firstPrice'] = "قیمت هر کیلو بذر";
+        //$lang['lastPrice'] = "قیمت هر کیلو موقع فروش";
+        //$lang['totalPrice'] = "قیمت کل";
+        $lang['totalPrice'] = "برای این که کل مزرعت رو زیر کشت __TYPE__ ببری باید __TOTALPRICE__ پرداخت کنی";
         $lang['weightInSection'] = "وزن قابل کشت در هر قطعه";
         $lang['waterConsume'] = "مصرف آب";
         $lang['muckConsume'] = "مصرف کود";
@@ -242,6 +244,9 @@
         $lang['tractor'] = "تراکتور";
         $lang['heater'] = "بخاری";
         $lang['lamp'] = "مهتابی";
+        
+        $lang['oneQuerter'] = "یک ربع";
+        $lang['half'] = "نیم";
 
         /*
          * Plant

@@ -32,6 +32,7 @@ class Profile extends MainController
                     redirect("/");
 
 	    $user = $this->user_model->is_authenticated();
+            $user->profilePage = TRUE;
 
             if(!$user)
                     redirect("/");

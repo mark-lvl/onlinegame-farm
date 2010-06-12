@@ -1,13 +1,15 @@
 <script>
     function ajax_request(handler, url, params ,callback) {
         $(handler).loading({
-                            pulse: false,
+                            pulse: 'fade',
                             text: 'Loading',
-                            align: 'center',
+                            align: {top:'10px',left:'10px'},
                             img: '<?= $base_img ?>ajax-loader.gif' ,
                             delay: '200',
                             max: '1000',
-                            mask: true
+                            mask: true,
+                            maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
+                            zIndex:101, display:'block', cursor:'wait' }
                             });
        $(handler).load(url, params,callback);
     }
@@ -181,6 +183,7 @@
     function mission(mission)
     {
        var farmPlow;
+       var section = 0;
        var params = {};
        params['mission'] = mission;
        params['farm_id'] = <?= $farm->id ?>;
@@ -189,6 +192,14 @@
        else
             ($('#section-1').attr('class') == 'plow')?farmPlow = 1:farmPlow = 0;
        params['farm_plow'] = farmPlow;
+       
+       for(i=2;i<5;i++)
+       {
+            if($('.section-'+i+'-off').size())
+                section++;
+       }
+       section = 4-section;
+       params['section'] = section;
        ajax_request('#ajaxHolder','<?= base_url() ?>farms/mission',params);
     }
     function resetConfirm1()

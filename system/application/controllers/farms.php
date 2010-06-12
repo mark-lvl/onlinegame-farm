@@ -736,6 +736,7 @@ class Farms extends MainController {
             $mission = array();
             $mission['farm_id'] = $_POST['farm_id'];
             $mission['farm_plow'] = $_POST['farm_plow'];
+            $mission['section'] = $_POST['section'];
             $mission['level'] = $misMdl->level;
             $mission['description'] = $misMdl->description;
 

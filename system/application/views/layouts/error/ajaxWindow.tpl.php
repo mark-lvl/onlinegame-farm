@@ -55,12 +55,29 @@ $('#plantCategory div').click(function(){
             <div class="plantDetails">
                 <?php
                 echo "<span class=\"detailsTitle\">".$lang['growthTime'].": </span>".convert_number($plant['growthTime']).$lang['hour']."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['firstPrice'].": </span>".convert_number($plant['price']).$lang['yummyMoneyUnit']."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['lastPrice'].": </span>".convert_number($plant['sellPrice']).$lang['yummyMoneyUnit']."<br/>";
+                //echo "<span class=\"detailsTitle\">".$lang['firstPrice'].": </span>".convert_number($plant['price']).$lang['yummyMoneyUnit']."<br/>";
+                //echo "<span class=\"detailsTitle\">".$lang['lastPrice'].": </span>".convert_number($plant['sellPrice']).$lang['yummyMoneyUnit']."<br/>";
+echo "<br/>".$plant['weight']."<br/>".$plant['price']."<br/>".$params['mission']['section']."<br/>";
+                echo "<span class=\"detailsTitle\"></span>".str_replace(array(__TYPE__,__TOTALPRICE__),array($lang[$plant['name']],$plant['weight']*$plant['price']*$params['mission']['section']), $lang['totalPrice'])."<br/>";
                 echo "<span class=\"detailsTitle\">".$lang['weightInSection'].": </span>".convert_number($plant['weight']).$lang['kilogram']."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['waterConsume'].": </span>".str_replace(__HOUR__,convert_number($plant['resource'][1]) , $lang['usagePerHour'])."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['muckConsume'].": </span>".str_replace(__HOUR__,convert_number($plant['resource'][2]) , $lang['usagePerHour'])."<br/>";
-                echo "<span class=\"detailsTitle\">".$lang['totalPrice'].": </span>".convert_number($plant['price'])."x".convert_number($plant['weight'])."=<b style=\"font-size:15px\">".convert_number((string)($plant['weight']*$plant['price']))."</b><br/><br/>";
+                
+                if($plant['resource'][1] == 0.25)
+                    $plant['resource'][1] = $lang['oneQuerter'];
+                elseif($plant['resource'][1] == 0.5)
+                    $plant['resource'][1] = $lang['half'];
+                else
+                    $plant['resource'][1] = convert_number($plant['resource'][1]);
+                
+                if($plant['resource'][2] == 0.25)
+                    $plant['resource'][2] = $lang['oneQuerter'];
+                elseif($plant['resource'][2] == 0.5)
+                    $plant['resource'][2] = $lang['half'];
+                else
+                    $plant['resource'][2] = convert_number($plant['resource'][2]);
+
+                echo "<span class=\"detailsTitle\">".$lang['waterConsume'].": </span>".str_replace(__HOUR__,$plant['resource'][1] , $lang['usagePerHour'])."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['muckConsume'].": </span>".str_replace(__HOUR__,$plant['resource'][2] , $lang['usagePerHour'])."<br/>";
+                //echo "<span class=\"detailsTitle\">".$lang['totalPrice'].": </span>".convert_number($plant['price'])."x".convert_number($plant['weight'])."=<b style=\"font-size:15px\">".convert_number((string)($plant['weight']*$plant['price']))."</b><br/><br/>";
                 
                 if($params['mission']['accessories'])
                 {
@@ -97,7 +114,7 @@ $('#plantCategory div').click(function(){
                 <?= $lang["equipment-".$equipHolder] ?>
             </div>
             <?php else: ?>
-                <span style="margin: 23px 0 0 0;display: block"><?= $lang['haventEquipment'] ?></span>
+                <span style="margin: 23px 0 0 0;display: block"><?= $lang['haventEquipmentForThisLevel'] ?></span>
             <?php endif; ?>
         </div>
     </div>
