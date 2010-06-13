@@ -144,24 +144,37 @@
     }
     function deleteNotification(id)
     {
-        var elementHeight = $("#notification-"+id).height();
-        var totalHeight = $(".subpanel").find("ul").height();
-
-        var liHeightHolder = 0;
-        $(".subpanel").find("ul li").each(function() {
-            liHeightHolder += $(this).height;
-        });
-
-        alert(liHeightHolder);
-
-
-        $("#notification-"+id).remove();
-
         var params = {};
         params['not_id'] = id;
 
-        var heightHolder = totalHeight - elementHeight;
-        $(".subpanel").find("ul").css({ 'height' :heightHolder})
+        if(id != 'all')
+        {
+            var elementHeight = $("#notification-"+id).height();
+            var totalHeight = $(".subpanel").find("ul").height();
+
+            var liHeightHolder = 0;
+            $("#notification").children().each(function() {
+                liHeightHolder += $(this).height();
+            });
+
+            if(liHeightHolder-elementHeight < totalHeight)
+            {
+                var heightHolder = liHeightHolder-elementHeight+9;
+                $(".subpanel").find("ul").css({ 'height' :heightHolder})
+            }
+            $("#notification-"+id).remove();
+        }
+        else
+        {
+            if(!confirm('<?= $lang['deleteAllNotification'] ?>'))
+                return false;
+            $("#notification").children().each(function() {
+                $(this).remove();
+                $(".subpanel").find("ul").css({ 'height' :0})
+            });
+
+            params['farm_id'] = <?= $farm->id ?>;
+        }
 
         notificationCounter();
         ajax_request('#farmSection', '<?= base_url() ?>farms/deleteNotification', params);
@@ -573,7 +586,12 @@
                             <small><?= $lang['notifications'] ?></small>
                         </a>
                         <div class="subpanel">
-                            <h3><span></span><?= $lang['notifications'] ?></h3>
+                            <h3>
+                                <span></span><?= $lang['notifications'] ?>
+                                <?php
+                                echo anchor("farms/deleteNotification/all","X",array('onclick'=>"deleteNotification('all');return false;",'title'=>$lang['deleteAll']));
+                                ?>
+                            </h3>
                             <ul id="notification"></ul>
                         </div>
                     </li>
@@ -590,6 +608,7 @@ $(document).ready(function(){
 
 	//Click event on Chat Panel + Alert Panel
 	$("#alertpanel a:first").click(function() {
+                $("#notification").removeAttr('style');
 		syncNotification();
                 if($(this).next(".subpanel").is(':visible')){
 			$(this).next(".subpanel").hide();

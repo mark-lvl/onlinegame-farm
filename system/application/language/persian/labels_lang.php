@@ -134,10 +134,6 @@
 	
 	$lang['no_friend']      = "هیچ دوستی توی لیست نیست!";
 	
-	$lang['delete_vote']    = "رای قبلیت رو پاک کن";
-	$lang['redesign_car']   = "طراحی مجدد ماشین";
-	$lang['redesign_desc']  = "این یکی از بین می ره, ادامه؟";
-	
 	$lang['no_rank']        = "هیچ مقام شایان ذکری نیست!";
 	
 	$lang['times']          = "بار مقام";
@@ -430,6 +426,9 @@
         $lang['farmTransaction']['attacker'] = "مزرعه ی حمله کننده <a href=\"" . base_url() . "farms/view/__FARMID__\">__FARMNAME__</a>";
         $lang['farmTransaction']['helpMoney'] = "مزرعه دوستت <a href=\"" . base_url() . "farms/view/__FARMID__\">__FARMNAME__</a> بهت ۵۰۰ یامی کمک کرد";
         $lang['helpFriend'] = "دوستت <a href=\"".base_url()."farms/view/__VIEWERID__\">__VIEWERNAME__</a> از مزرعت مراقبت کرد";
+
+        $lang['deleteAll'] = "پاک کردن همه";
+        $lang['deleteAllNotification'] = "همه هشدارها پاک شود؟";
 
         /*
          * MISSION

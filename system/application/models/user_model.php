@@ -376,9 +376,12 @@
 		    }
 		}
 
-                function deleteNotification($id)
+                function deleteNotification($id,$deleteAll = FALSE)
                 {
-                    $sql = "DELETE FROM `notifications` WHERE id =".$this->db->escape($id).";";
+                    if($deleteAll == TRUE)
+                        $sql = "DELETE FROM `notifications` WHERE farm_id =".$this->db->escape($id).";";
+                    else
+                        $sql = "DELETE FROM `notifications` WHERE id =".$this->db->escape($id).";";
                     $result = $this->db->query($sql);
                     if($result)
                             return TRUE;
