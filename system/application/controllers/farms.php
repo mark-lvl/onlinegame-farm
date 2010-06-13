@@ -667,7 +667,7 @@ class Farms extends MainController {
         {
                 if($_POST['not_id'])
                 {
-                        $this->user_model->deleteNotification($_POST['not_id']);
+                        //$this->user_model->deleteNotification($_POST['not_id']);
                 }
         }
 

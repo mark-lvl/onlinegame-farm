@@ -146,7 +146,15 @@
     {
         var elementHeight = $("#notification-"+id).height();
         var totalHeight = $(".subpanel").find("ul").height();
-        
+
+        var liHeightHolder = 0;
+        $(".subpanel").find("ul li").each(function() {
+            liHeightHolder += $(this).height;
+        });
+
+        alert(liHeightHolder);
+
+
         $("#notification-"+id).remove();
 
         var params = {};
@@ -555,7 +563,15 @@
         <div id="footpanel">
                 <ul id="mainpanel">
                     <li id="alertpanel">
-                        <a href="#" class="alerts"><span id="notificationCounter"><?= count($notifications) ?></span><small><?= $lang['notifications'] ?></small></a>
+                        <a href="#" class="alerts">
+                            <span id="notificationCounter">
+                                <?php if($notifications == false)
+                                            $notifications = null;
+                                      echo (count($notifications) == 0)?0:count($notifications)
+                                ?>
+                            </span>
+                            <small><?= $lang['notifications'] ?></small>
+                        </a>
                         <div class="subpanel">
                             <h3><span></span><?= $lang['notifications'] ?></h3>
                             <ul id="notification"></ul>
@@ -591,6 +607,7 @@ $(document).ready(function(){
 	//Click event outside of subpanel
 	$(document).click(function() {
 		$(".subpanel").hide();
+                $("#notification").removeAttr('style');
 		$("#footpanel li a").removeClass('active');
 	});
 	$('.subpanel ul').click(function(e) {
