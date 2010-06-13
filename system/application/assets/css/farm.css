@@ -771,10 +771,7 @@
     width:58px;
 }
 
-.accessoryBuyItem
-{
-    background: #333;
-}
+
 .inventoryContainer
 {
     overflow:auto;
@@ -888,12 +885,134 @@
     display: block;
     background: #eee;
 }
-#buyInventoryDetails
+.buyAccessoryDetails
 {
-    background: url(../images/farm/buyAccessoryBorder-big.png) no-repeat  center;
-    width: 307px;
-    height: 91px;
+    background: url(../images/farm/buyAccessoryBorder.png) no-repeat  center;
+    width: 494px;
+    height: 103px;
     display: block;
+    float: right;
+    margin-left: 15px;
+    position: relative
+}
+.buyAccessoryDetails .accessoryImg
+{
+    width: 80px;
+    height: 100px;
+    display: block;
+    position: absolute;
+}
+.accessoryImg img
+{
+    position: absolute;
+    top: 16px;
+    right: 12px;
+}
+.buyAccessoryDetails .accessoryDetail
+{
+    width: 263px;
+    height: 80px;
+    margin: 10px 0;
+    display: block;
+    position: absolute;
+    right: 80px;
+}
+.accessoryDetail .accessoryName
+{
+    width: 263px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    float: right;
+}
+.accessoryDetail .accessorySpecific
+{
+    width: 100px;
+    font-weight: bold;
+    float: right;
+}
+.accessorySpecific .title
+{
+    color: #23bc00;
+}
+
+.accessoryDescription
+{
+    width: 240px;
+    height: 60px;
+    display: block;
+    float: right;
+    margin-top: 10px;
+}
+.buyAccessoryReport
+{
+    position: absolute;
+    right: 353px;
+    top: 22px;
+    width: 140px;
+    height: 80px;
+    display: block;
+}
+.buyAccessoryButton
+{
+    width: 183px;
+    height: 18px;
+    display: block;
+    margin-bottom: 5px;
+    position: absolute;
+    right: 351px;
+}
+
+.buyAccessoryButton a
+{
+    background: url(../images/farm/buyAccessoryButton.png) no-repeat  center;
+    background-position: 0 0;
+    width: 58px;
+    height: 17px;
+    display: block;
+}
+.buyAccessoryButton a:hover
+{
+    background-position: 0 -17px;
+}
+.buyAccessoryCategory
+{
+    width: 343px;
+    height: 20px;
+    display: block;
+    float: right;
+    margin-top: 5px;
+}
+.buyAccessoryCategoryItem
+{
+    background: url(../images/farm/buyAccessoryCategory.png) no-repeat ;
+    background-position: 0 0;
+    width: 61px;
+    height: 17px;
+    display: block;
+    float: right;
+    margin-left:5px;
+    text-align: center;
+    cursor: pointer;
+}
+.buyAccessoryCategoryItem:hover
+{
+    background-position: 0 -17px;
+}
+.buyCatDisable
+{
+    background: url(../images/farm/buyAccessoryCategory.png) no-repeat ;
+    background-position: 0 -34px;
+    width: 61px;
+    height: 17px;
+    display: block;
+    float: right;
+    margin-left:5px;
+    text-align: center;
+}
+.accessoryBuyItem
+{
+    background: #333;
 }
 
 #missionBoxHolder

@@ -815,8 +815,13 @@ class Farms extends MainController {
                         $accHolder['specialTools'][] = $acc;
                 }
             }
+            $frmAccModel = new Farmaccessory();
+            $usrFrmAccs = $frmAccModel->get_where(array('farm_id'=>$_POST['farm_id']))->all;
+            foreach ($usrFrmAccs as $usrFrmAcc)
+                $farmAccs[$usrFrmAcc->accessory_id] = $usrFrmAcc->count;
+            
+            $params['farmAccs'] = $farmAccs;
             $params['accessories'] = $accHolder;
-            //print_r($accHolder);exit;
             $params['action'] = 'buyAccessory';
             $params['farm_id'] = (int) $_POST['farm_id'];
             $params['farm_level'] = (int) $_POST['farm_level'];

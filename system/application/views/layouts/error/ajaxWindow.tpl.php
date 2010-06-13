@@ -134,22 +134,67 @@ $('#plantCategory div').click(function(){
     </div>
 </div>
 <?php elseif($params['action'] == 'buyAccessory'): ?>
+<script>
+$('.buyAccessoryCategory div').click(function(){
+    $('.buyAcc').hide();
+    var idx = $(this).attr('id');
+    $('.buyAccessoryCategory div.buyAccessoryCategoryItem').css('background-position','0 0');
+    $(this).css('background-position','0 -17px');
+    $('#buyAcc-'+idx).fadeIn();
+})
+</script>
 <div id="buyAccessory">
-
-    <?php foreach($params['accessories']['attack'] AS $attackTools): ?>
-        <div class="accessoryBuyItem">
-            <?= $attackTools->name ?><br/>
-            <?= $lang['price']." : ".$attackTools->price ?><br/>
-            <?= $lang['farmLevel']." : ".$attackTools->level ?><br/>
-            <?= $attackTools->description ?><br/>
-            <?php if ($params['farm_level'] >= $attackTools->level)
-                    echo anchor(" ","BUY",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$attackTools->id.");return false;"));
-            else
-                echo "CantBuy";
-            ?>
-            <div class="buyAccessoryAjaxHolder<?= $attackTools->id ?>"></div><br/>
+    <div  class="inventoryContainer">
+        <div class="inventoryTitle">
+            <?= $lang['attackAccessory'] ?>
         </div>
-    <?php endforeach; ?>
+        <div class="inventoryInner">
+            <div class="buyAccessoryDetails">
+            <?php
+            $firstLoopChecker = TRUE;
+            foreach($params['accessories']['attack'] AS $attackTools): ?>
+                <div class="buyAcc" id="buyAcc-<?= $attackTools->name ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
+                    <div class="accessoryImg">
+                        <img src="<?= $base_img."farm/accessory/".$attackTools->name.".png" ?>" />
+                    </div>
+                    <div class="accessoryDetail">
+                        <span class="accessoryName"><?= $lang[$attackTools->name] ?></span>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['farmLevel'] ?>: </span>
+                            <span><?= convert_number($attackTools->level) ?></span>
+                        </div>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['price'] ?>: </span>
+                            <span><?= convert_number($attackTools->price)." ".$lang['yummyMoneyUnit'] ?></span>
+                        </div>
+                        <div class="accessoryDescription">
+                            <?= $attackTools->description ?>
+                        </div>
+                    </div>
+                    <div class="buyAccessoryButton">
+                        <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$attackTools->id.");return false;")); ?>
+                    </div>
+                    <div class="buyAccessoryReport">
+                    </div>
+                </div>
+            <?php
+            $firstLoopChecker = FALSE;
+            endforeach; ?>
+            </div>
+                <div class="buyAccessoryCategory">
+                    <?php
+                    $firstLoopChecker = TRUE;
+                    foreach($params['accessories']['attack'] AS $attackTools): ?>
+                        <div id="<?= $attackTools->name ?>" class="<?= ($params['farm_level'] >= $attackTools->level)?'buyAccessoryCategoryItem':'buyCatDisable' ; ?>"<?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
+                            <?= $lang[$attackTools->name] ?>
+                        </div>
+                    <?php
+                    $firstLoopChecker = FALSE;
+                    endforeach; ?>
+                </div>
+        </div>
+    </div>
+    
     <?= $lang['deffenceAccessory'] ?>
     <hr/>
     <?php foreach($params['accessories']['deffence'] AS $deffenceTools): ?>
