@@ -262,6 +262,7 @@
 {
     color: #ffde00;
     margin-right: 7px;
+    font-weight: bold;
 }
 #farmStatistic div.innerStatistic
 {
@@ -524,6 +525,7 @@
     right:69px;
     top:27px;
     width:140px;
+    color: #FFDE00;
 }
 #farmStatus div.off
 {
@@ -949,9 +951,10 @@
     position: absolute;
     right: 353px;
     top: 22px;
-    width: 140px;
-    height: 80px;
+    width: 123px;
+    height: 62px;
     display: block;
+    padding: 13px 10px 0 0;
 }
 .buyAccessoryButton
 {
@@ -974,6 +977,15 @@
 .buyAccessoryButton a:hover
 {
     background-position: 0 -17px;
+}
+.buyAccessoryButton span.disableBuyButton
+{
+    background: url(../images/farm/buyAccessoryButton.png) no-repeat  center;
+    background-position: 0 -34px;
+    width: 58px;
+    height: 17px;
+    display: block;
+    cursor: default;
 }
 .buyAccessoryCategory
 {
@@ -1181,6 +1193,17 @@
     width:200px;
     height: 30px;
     display:block;
+}
+
+.errorMessBuyAccessory
+{
+    background: url(../images/attention.png) top right no-repeat;
+    padding-right: 40px;
+    float: right;
+    width:80px;
+    height: 30px;
+    display:block;
+    font-size: 9px;
 }
 
 

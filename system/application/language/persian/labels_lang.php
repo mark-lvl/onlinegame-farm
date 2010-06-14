@@ -174,6 +174,10 @@
         $lang['inviteMailTitle'] = "دعوت نامه بازی سرزمین یامی از طرف دوستت";
         $lang['inviteBonus'] = "دوستی که دعوت کرده بودی به سایت اومد و به همین خاطر مزرعت ۵۰ یامی گرفت";
 
+        $lang['farmAccCounter'] = "در حال حاضر مزرعت __COUNT__ دونه __ACCESSORY__ داره";
+        $lang['farmHaveThisAcc'] = "مزرعت از این داره";
+        $lang['accessoryAddedSuccessfully'] = "خرید با موفقیت انجام شد";
+        $lang['farmHaventThisAcc'] = "هنوز واسه مزرعت از این نخریدی";
         $lang['haventFarm'] = "این کاربر هنوز مزرعه ای ندارد";
         $lang['haventMission'] = "الان درخواستی از یامی نداری";
         $lang['haventPlant'] = "هنوز گیاهی نکاشتی";

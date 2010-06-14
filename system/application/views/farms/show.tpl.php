@@ -62,7 +62,7 @@
      	params['farm_id'] = farm_id;
 	params['accessory_id'] = accessory_id;
 
-        ajax_request('.buyAccessoryAjaxHolder'+accessory_id+':last', '<?= base_url() ?>farms/addAccessoryToFarm', params ,moneyCalculate);
+        ajax_request('#buyAccessoryReport-'+accessory_id, '<?= base_url() ?>farms/addAccessoryToFarm', params ,moneyCalculate);
     }
 
     function addPlantToFarm(farm_id , type_id){
@@ -378,7 +378,7 @@
             <div id="farmInformation">
                 <div id="farmInformationDetails">
                     <span class="farmInfoItem"><?= $lang['farm'] ?>:<span class="infoValue"><?= $farm->name ?></span></span>
-                    <span class="farmInfoItem"><?= $lang['farmMoney'] ?>:<span class="infoValue" id="moneyHolder"><?= $farm->money ?></span></span>
+                    <span class="farmInfoItem"><?= $lang['farmMoney'] ?>:<span class="infoValue" id="moneyHolder"><?= $farm->money." ".$lang['yummyMoneyUnit'] ?></span></span>
                     <span class="farmInfoItem"><?= $lang['farmLevel'] ?>:<span class="infoValue"><?= $farm->level ?></span></span>
                 </div>
             </div>

@@ -139,6 +139,7 @@ $('.buyAccessoryCategory div').click(function(){
     $('.buyAcc').hide();
     var idx = $(this).attr('id');
     $('.buyAccessoryCategory div.buyAccessoryCategoryItem').css('background-position','0 0');
+    $('.buyAccessoryCategory div.buyCatDisable').css('background-position','0 -34px');
     $(this).css('background-position','0 -17px');
     $('#buyAcc-'+idx).fadeIn();
 })
@@ -172,9 +173,24 @@ $('.buyAccessoryCategory div').click(function(){
                         </div>
                     </div>
                     <div class="buyAccessoryButton">
-                        <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$attackTools->id.");return false;")); ?>
+                        <?php if($params['farm_level'] >= $attackTools->level): ?>
+                            <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$attackTools->id.");return false;")); ?>
+                        <?php else: ?>
+                            <span class="disableBuyButton"></span>
+                        <?php endif; ?>
                     </div>
-                    <div class="buyAccessoryReport">
+                    <div class="buyAccessoryReport" id="buyAccessoryReport-<?= $attackTools->id ?>">
+                        <?php if(key_exists($attackTools->id, $params['farmAccs']))
+                                if($params['farmAccs'][$attackTools->id] > 0)
+                                   if($params['farmAccs'][$attackTools->id] != 7 || $params['farmAccs'][$attackTools->id] != 8)
+                                        echo str_replace(array(__COUNT__,__ACCESSORY__),array(convert_number($params['farmAccs'][$attackTools->id]),$lang[$attackTools->name]), $lang['farmAccCounter']);
+                                   else
+                                        echo $lang['farmHaveThisAcc'];
+                                else
+                                        echo $lang['farmHaventThisAcc'];
+                              else
+                                        echo $lang['farmHaventThisAcc'];
+                        ?>
                     </div>
                 </div>
             <?php

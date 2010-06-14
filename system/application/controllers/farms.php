@@ -350,16 +350,16 @@ class Farms extends MainController {
 	{
 		$accModel = new Farmaccessory();
 		$flag = $accModel->add($_POST['farm_id'],$_POST['accessory_id']);
-                
+                var_dump($flag);exit;
                 if(is_array($flag))
                 {
                     if($flag['type'] == 'public')
                         echo $this->lang->language['error']['farmAccessoryExists'];
                     elseif($flag['type'] == 'money')
-                        echo str_replace(array('__PRICE__','__MONEY__'),array($flag['params']['price'],$flag['params']['money']),$this->lang->language['money']['body']);
+                        echo "<span class=\"errorMessBuyAccessory\">".str_replace(array('__PRICE__','__MONEY__'),array($flag['params']['price'],$flag['params']['money']),$this->lang->language['money']['body'])."</span>";
                 }
                 else
-                    echo 'OK';
+                    echo $this->lang->language['accessoryAddedSuccessfully'];
                
 
 	}
