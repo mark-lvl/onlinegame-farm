@@ -37,7 +37,7 @@
         $lang['level']['title'] = "level کافی رو نداری";
         $lang['level']['body'] = "برای خرید __ACCESSORY__ باید در مرحله__NEEDLEVEL__ باشی ولی الان مرحله __LEVEL__ هستی";
 
-        $lang['reapConfirm']['title'] = "گزارش مزرعت در این مرحله";
+        $lang['reapConfirm']['title'] = "گزارش درو مزرعه";
         $lang['reapConfirm']['body'] = "<table><tr><td>            گنجایش مزرعه</td><td>__FARMCAPACITY__ کیلوگرم __TYPENAME__</td></tr><tr><td>            سلامت محصولات</td><td>__HEALTH__ %</td></tr><tr><td>           وزن کل محصولات قابل برداشت</td><td>__AMOUNTPRODUCT__ کیلوگرم</td></tr><tr><td>وزن مورد نیاز یامی در این مرحله</td><td>__MISAMOUNT__ کیلوگرم</td></tr><tr><td>زمان مورد نظر یامی</td><td>__MISDEADLINE__</td></tr><tr><td>زمان درو</td><td>__REAPTIME__</td></tr><tr><td>میزان دریافتی از فروش محصولات</td><td>__TOTALCOST__</td></tr><tr><td>میزان دریافتی ویژه</td><td>__BONUS__</td></tr><tr><td>مرحله شما</td><td>__LEVEL__</td></tr></table>";
 
         $lang['farmNotNeedSpray']['title'] = "سمپاشی انجام شد";

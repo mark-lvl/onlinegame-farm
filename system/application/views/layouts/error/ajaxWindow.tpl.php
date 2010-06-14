@@ -12,8 +12,17 @@
     <?php elseif($params['action'] == 'showInventory'): ?>
         var output = $('#showInventory');
         var titleText = "<?= $lang['showInventory'] ?>";
+    <?php elseif($params['action'] == 'reapConfirm'): ?>
+        var output = $('#reapConfirm');
+        var titleText = "<?= $lang['reapConfirm']['title'] ?>";
     <?php endif; ?>
-    new Boxy(output, {title: titleText,modal: true , closeText:"<img src=\"<?= $base_img ?>/popup/boxy/farmBoxy/close.gif\" />"});
+    new Boxy(output, {title: titleText,modal: true , closeText:"<img src=\"<?= $base_img ?>/popup/boxy/farmBoxy/close.gif\" />"<?php if($params['action'] == 'reapConfirm'): ?>,afterHide: function() {
+                                                                                                                                                                                                      <?php if(!$params['details']['endGame']): ?>
+                                                                                                                                                                                                            location.reload();
+                                                                                                                                                                                                      <?php else: ?>
+                                                                                                                                                                                                            window.location.replace("<?php echo base_url().$params['details']['path']; ?>");
+                                                                                                                                                                                                      <?php endif; ?>
+                                                                                                                                                                                                      }<?php endif; ?>});
 </script>
 
 <?php if($params['action'] == 'mission'): ?>
@@ -416,7 +425,7 @@ $('.buyAccessoryCategory div').click(function(){
 <?php elseif($params['action'] == 'showInventory'): ?>
 <div id="showInventory">
     <?php if(count($params['farmAccessories']['attack']) < 1 &&
-             count($params['farmAccessories']['deffence']) < 1 && 
+             count($params['farmAccessories']['deffence']) < 1 &&
              count($params['farmAccessories']['specialTools']) < 1 &&
              count($params['farmAccessories']['tools']) < 1)
              echo "<div class=\"errorMess\">".$lang['haventAnyAccessory']."</div>";
@@ -451,7 +460,7 @@ $('.buyAccessoryCategory div').click(function(){
                 <?php if(array_key_exists('count', $deffTools)): ?>
                     <div class="inventorySmallBox">
                         <img src="<?= $base_img."farm/accessory/".$deffTools['name'].".png" ?>" />
-                        <?php if($deffTools->id != 3) :?>
+                        <?php if($deffTools['id'] != 3) :?>
                             <span class="inventoryName"><?= $lang[$deffTools['name']] ?></span>
                             <span class="inventoryCounter"><span><?= $deffTools['count'] ?></span></span>
                         <?php else: ?>
@@ -521,5 +530,68 @@ $('.buyAccessoryCategory div').click(function(){
     </div>
     <?php endif; ?>
 
+</div>
+<?php elseif($params['action'] == 'reapConfirm'): ?>
+<div id="reapConfirm">
+    <div class="reapDetails">
+        <div class="farmTitle">
+            <?= $lang['farm']." ".$params['params']['farmName'] ?>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['plantType'] ?>:</span>
+            <span><?= $lang[$params['details']['typeName']] ?></span>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['plantHealth'] ?>:</span>
+            <span><?= "%".convert_number((string) $params['details']['health']) ?></span>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['farmCapacity'] ?>:</span>
+            <span><?= $params['details']['farmCapacity']." ".$lang['kilogram'] ?></span>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['amountProduct'] ?>:</span>
+            <span><?= $params['details']['amountProduct']." ".$lang['kilogram'] ?></span>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['reapTime'] ?>:</span>
+            <span><?= convert_number(fa_strftime("%d %B %Y %H:%M:%S", date("Y-m-d H:i:s",$params['details']['reapTime']) . "")) ?></span>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['reapIncome'] ?>:</span>
+            <span><?= convert_number((string) $params['details']['totalCost'])." ".$lang['yummyMoneyUnit'] ?></span>
+        </div>
+        <div class="reapMissionItem">
+            <span class="header"><?= $lang['reapBonusIncome'] ?>:</span>
+            <span>
+                <?= ($params['details']['bonus'] != 0)?convert_number((string) $params['details']['bonus'])." ".$lang['yummyMoneyUnit']:'--' ?>
+            </span>
+        </div>
+    </div>
+    <div class="truck">
+        <?php
+        if($params['details']['level'] == 9 || $params['details']['level'] == 10 || $params['details']['level'] == 11)
+            $typeName = 'product';
+        else
+            $typeName = $params['details']['typeName'];
+        echo str_replace(array('__TYPENAME__','__NEEDED__','__AMOUNT__'),
+                         array("<span style=\"color: #b3e358\">".$lang[$typeName]."</span>","<span style=\"color: #b3e358\">".$params['details']['misAmount']."</span>","<span style=\"color: #b3e358\">".$params['details']['stackAmount']."</span>"),
+                         $lang['reapCondition']) ?>
+    </div>
+    <div class="levelUpgrade">
+        <?php if($params['details']['levelUpgrade']): ?>
+            <?php if($params['details']['level'] != 11): ?>
+                <div class="levelIncrease">
+                    <div class="oldLevel"><?= convert_number((string)($params['details']['level']-1)) ?></div>
+                    <div class="newLevel"><?= convert_number($params['details']['level']) ?></div>
+                </div>
+                <div class="levelIncreaseDescription"><?= $lang['levelUpgradeDescription'] ?></div>
+            <?php else: ?>
+                <div class="levelEnded"><?= $lang['levelEnded'] ?></div>
+            <?php endif; ?>
+        <?php else: ?>
+            <div class="levelEnded"><?= $lang['levelRetry'] ?></div>
+        <?php endif; ?>
+    </div>
 </div>
 <?php endif; ?>

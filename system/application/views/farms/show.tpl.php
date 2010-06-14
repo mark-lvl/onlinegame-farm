@@ -84,6 +84,7 @@
     {
         var params = {};
         params['plant_id'] = plant_id;
+        params['farm_name'] = '<?= $farm->name ?>';
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/reap', params)
     }

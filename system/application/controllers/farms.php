@@ -437,8 +437,15 @@ class Farms extends MainController {
 	{
 		$pltMdl = new Plant();
 		$flag = $pltMdl->reap($_POST['plant_id']);
-                if(is_array($flag))
-                    $this->error_reporter($flag['type'],$flag['params']);
+                //if(is_array($flag))
+                 //   $this->error_reporter($flag['type'],$flag['params']);
+
+                $params['details'] = $flag['params'];
+                $params['params']['farmName'] = $_POST['farm_name'];
+                $params['action'] = 'reapConfirm';
+                $params['farm_id'] = (int) $_POST['farm_id'];
+                $params['farm_level'] = (int) $_POST['farm_level'];
+                $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
 
                 //redirect('/farms/show');
 	}

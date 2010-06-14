@@ -379,6 +379,7 @@ class Plant extends DataMapper {
 		$frmObj->money += $cost;
                 
                 $pltObj->reap = 1;
+                
                 if($pltObj->save())
                 {
                     $frmMisMdl = new Farmmission();
@@ -406,6 +407,7 @@ class Plant extends DataMapper {
                             $frmMisObj->stack = $amountProduct + $frmMisObj->stack;
                             
                             $return['params']['misAmount'] = $misObj->amount;
+                            $return['params']['stackAmount'] = ($frmMisObj->stack);
 
                             $frmMisStatusHolder = $frmMisObj->status;
 
@@ -414,6 +416,7 @@ class Plant extends DataMapper {
                             if($frmMisStatusHolder == 1)
                             {
                                 $frmObj->level++;
+                                $return['params']['levelUpgrade'] = TRUE;
                                 if($frmObj->level == 11)
                                 {
                                     $gameComplete = new Userrank();
@@ -436,10 +439,7 @@ class Plant extends DataMapper {
                                 }
                             }
                             
-                            if($frmObj->level != 11)
-                                $return['params']['level'] = $frmObj->level;
-                            else
-                                $return['params']['level'] = $this->lang->language['endGame'];
+                            $return['params']['level'] = $frmObj->level;
 
                             //this section add product amount to userRank amount
                             $usrRnkMdl = new Userrank();

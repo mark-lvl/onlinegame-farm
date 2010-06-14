@@ -937,7 +937,7 @@
 }
 .accessoryDetail .accessorySpecific
 {
-    width: 100px;
+    width: 125px;
     font-weight: bold;
     float: right;
 }
@@ -963,6 +963,7 @@
     height: 62px;
     display: block;
     padding: 13px 10px 0 0;
+    color: #b1c05b;
 }
 .buyAccessoryButton
 {
@@ -1190,6 +1191,108 @@
 #plantCategory .category:hover
 {
     background-position: 0 -17px;
+}
+
+#reapConfirm
+{
+    background: url(../images/farm/reapConfirm.png) center no-repeat;
+    width: 538px;
+    height: 333px;
+    position: relative;
+    margin-right: 11px;
+}
+#reapConfirm .reapDetails
+{
+    height: 250px;
+    width: 300px;
+    display: block;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    margin: 10px 10px 0 0;
+}
+.reapDetails .farmTitle
+{
+    width: 285px;
+    height: 35px;
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.reapDetails .reapMissionItem
+{
+    width: 300px;
+    height: 20px;
+    float: right;
+    color: #FFFFFF;
+    float: right;
+}
+.reapMissionItem .header
+{
+    color: #b3e358;
+}
+
+#reapConfirm .truck
+{
+    height: 100px;
+    width: 175px;
+    display: block;
+    position: absolute;
+    top: 210px;
+    left: 41px;
+}
+#reapConfirm .levelUpgrade
+{
+    height: 70px;
+    width: 300px;
+    display: block;
+    position: absolute;
+    top: 282px;
+    right: 16px;
+}
+.levelUpgrade .levelIncrease
+{
+    background: url(../images/farm/levelUpgrade.png) center no-repeat;
+    width: 130px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+}
+.levelIncrease div
+{
+    color: #a7ff00;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 30px;
+}
+.levelIncrease div.oldLevel
+{
+    float: left;
+}
+.levelIncrease div.newLevel
+{
+    float: right;
+}
+.levelUpgrade .levelIncreaseDescription
+{
+    width: 300px;
+    height: 23px;
+    display: block;
+    margin: 0 auto;
+    color: #f1e400;
+    text-align: center;
+}
+.levelUpgrade .levelEnded
+{
+    width: 250px;
+    height: 60px;
+    display: block;
+    margin: 0 auto;
+    color: #f1e400;
+    text-align: center;
+    padding-top: 8px;
 }
 
 .errorMess
