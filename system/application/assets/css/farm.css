@@ -777,6 +777,7 @@
 .inventoryContainer
 {
     overflow:auto;
+    margin-bottom: 25px;
 }
 .inventoryTitle
 {
@@ -785,6 +786,13 @@
     display: block;
     color: #FFFFFF;
     background: url(../images/farm/inventory-header.png) no-repeat  center;
+    text-align: center;
+}
+.inventoryVerticalLine
+{
+    border-bottom: 1px solid #9f9f9f;
+    width: 342px;
+    margin: 6px 0 3px 0;
 }
 .inventoryTitle span
 {

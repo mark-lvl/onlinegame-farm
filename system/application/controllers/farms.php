@@ -350,7 +350,7 @@ class Farms extends MainController {
 	{
 		$accModel = new Farmaccessory();
 		$flag = $accModel->add($_POST['farm_id'],$_POST['accessory_id']);
-                var_dump($flag);exit;
+                
                 if(is_array($flag))
                 {
                     if($flag['type'] == 'public')

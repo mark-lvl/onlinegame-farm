@@ -136,7 +136,8 @@ $('#plantCategory div').click(function(){
 <?php elseif($params['action'] == 'buyAccessory'): ?>
 <script>
 $('.buyAccessoryCategory div').click(function(){
-    $('.buyAcc').hide();
+    var _ns = $(this).parent().attr('id');
+    $('.buyAcc'+_ns).hide();
     var idx = $(this).attr('id');
     $('.buyAccessoryCategory div.buyAccessoryCategoryItem').css('background-position','0 0');
     $('.buyAccessoryCategory div.buyCatDisable').css('background-position','0 -34px');
@@ -149,12 +150,13 @@ $('.buyAccessoryCategory div').click(function(){
         <div class="inventoryTitle">
             <?= $lang['attackAccessory'] ?>
         </div>
+        <div class="inventoryVerticalLine"></div>
         <div class="inventoryInner">
             <div class="buyAccessoryDetails">
             <?php
             $firstLoopChecker = TRUE;
             foreach($params['accessories']['attack'] AS $attackTools): ?>
-                <div class="buyAcc" id="buyAcc-<?= $attackTools->name ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
+                <div class="buyAccAttack" id="buyAcc-<?= $attackTools->name ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
                     <div class="accessoryImg">
                         <img src="<?= $base_img."farm/accessory/".$attackTools->name.".png" ?>" />
                     </div>
@@ -197,7 +199,7 @@ $('.buyAccessoryCategory div').click(function(){
             $firstLoopChecker = FALSE;
             endforeach; ?>
             </div>
-                <div class="buyAccessoryCategory">
+                <div class="buyAccessoryCategory" id="Attack">
                     <?php
                     $firstLoopChecker = TRUE;
                     foreach($params['accessories']['attack'] AS $attackTools): ?>
@@ -210,55 +212,205 @@ $('.buyAccessoryCategory div').click(function(){
                 </div>
         </div>
     </div>
+
+
+    <div  class="inventoryContainer">
+        <div class="inventoryTitle">
+            <?= $lang['deffenceAccessory'] ?>
+        </div>
+        <div class="inventoryVerticalLine"></div>
+        <div class="inventoryInner">
+            <div class="buyAccessoryDetails">
+            <?php
+            $firstLoopChecker = TRUE;
+            foreach($params['accessories']['deffence'] AS $deffenceTools): ?>
+                <div class="buyAccDeffence" id="buyAcc-<?= $deffenceTools->name ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
+                    <div class="accessoryImg">
+                        <img src="<?= $base_img."farm/accessory/".$deffenceTools->name.".png" ?>" />
+                    </div>
+                    <div class="accessoryDetail">
+                        <span class="accessoryName"><?= $lang[$deffenceTools->name] ?></span>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['farmLevel'] ?>: </span>
+                            <span><?= convert_number($deffenceTools->level) ?></span>
+                        </div>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['price'] ?>: </span>
+                            <span><?= convert_number($deffenceTools->price)." ".$lang['yummyMoneyUnit'] ?></span>
+                        </div>
+                        <div class="accessoryDescription">
+                            <?= $deffenceTools->description ?>
+                        </div>
+                    </div>
+                    <div class="buyAccessoryButton">
+                        <?php if($params['farm_level'] >= $deffenceTools->level): ?>
+                            <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$deffenceTools->id.");return false;")); ?>
+                        <?php else: ?>
+                            <span class="disableBuyButton"></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="buyAccessoryReport" id="buyAccessoryReport-<?= $deffenceTools->id ?>">
+                        <?php if(key_exists($deffenceTools->id, $params['farmAccs']))
+                                if($params['farmAccs'][$deffenceTools->id] > 0)
+                                   if($deffenceTools->id != 7 && $deffenceTools->id != 8 && $deffenceTools->id != 3)
+                                        echo str_replace(array(__COUNT__,__ACCESSORY__),array(convert_number($params['farmAccs'][$deffenceTools->id]),$lang[$deffenceTools->name]), $lang['farmAccCounter']);
+                                   else
+                                        echo $lang['farmHaveThisAcc'];
+                                else
+                                        echo $lang['farmHaventThisAcc'];
+                              else
+                                        echo $lang['farmHaventThisAcc'];
+                        ?>
+                    </div>
+                </div>
+            <?php
+            $firstLoopChecker = FALSE;
+            endforeach; ?>
+            </div>
+                <div class="buyAccessoryCategory" id="Deffence">
+                    <?php
+                    $firstLoopChecker = TRUE;
+                    foreach($params['accessories']['deffence'] AS $deffenceTools): ?>
+                        <div id="<?= $deffenceTools->name ?>" class="<?= ($params['farm_level'] >= $deffenceTools->level)?'buyAccessoryCategoryItem':'buyCatDisable' ; ?>"<?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
+                            <?= $lang[$deffenceTools->name] ?>
+                        </div>
+                    <?php
+                    $firstLoopChecker = FALSE;
+                    endforeach; ?>
+                </div>
+        </div>
+    </div>
+
+
+    <div  class="inventoryContainer">
+        <div class="inventoryTitle">
+            <?= $lang['toolAccessory'] ?>
+        </div>
+        <div class="inventoryVerticalLine"></div>
+        <div class="inventoryInner">
+            <div class="buyAccessoryDetails">
+            <?php
+            $firstLoopChecker = TRUE;
+            foreach($params['accessories']['tools'] AS $tools): ?>
+                <div class="buyAccTools" id="buyAcc-<?= $tools->name ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
+                    <div class="accessoryImg">
+                        <img src="<?= $base_img."farm/accessory/".$tools->name.".png" ?>" />
+                    </div>
+                    <div class="accessoryDetail">
+                        <span class="accessoryName"><?= $lang[$tools->name] ?></span>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['farmLevel'] ?>: </span>
+                            <span><?= convert_number($tools->level) ?></span>
+                        </div>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['price'] ?>: </span>
+                            <span><?= convert_number($tools->price)." ".$lang['yummyMoneyUnit'] ?></span>
+                        </div>
+                        <div class="accessoryDescription">
+                            <?= $tools->description ?>
+                        </div>
+                    </div>
+                    <div class="buyAccessoryButton">
+                        <?php if($params['farm_level'] >= $tools->level): ?>
+                            <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$tools->id.");return false;")); ?>
+                        <?php else: ?>
+                            <span class="disableBuyButton"></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="buyAccessoryReport" id="buyAccessoryReport-<?= $tools->id ?>">
+                        <?php if(key_exists($tools->id, $params['farmAccs']))
+                                if($params['farmAccs'][$tools->id] > 0)
+                                        echo $lang['farmHaveThisAcc'];
+                                else
+                                        echo $lang['farmHaventThisAcc'];
+                              else
+                                        echo $lang['farmHaventThisAcc'];
+                        ?>
+                    </div>
+                </div>
+            <?php
+            $firstLoopChecker = FALSE;
+            endforeach; ?>
+            </div>
+                <div class="buyAccessoryCategory" id="Tools">
+                    <?php
+                    $firstLoopChecker = TRUE;
+                    foreach($params['accessories']['tools'] AS $tools): ?>
+                        <div id="<?= $tools->name ?>" class="<?= ($params['farm_level'] >= $tools->level)?'buyAccessoryCategoryItem':'buyCatDisable' ; ?>"<?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
+                            <?= $lang[$tools->name] ?>
+                        </div>
+                    <?php
+                    $firstLoopChecker = FALSE;
+                    endforeach; ?>
+                </div>
+        </div>
+    </div>
+
+
+    <div  class="inventoryContainer">
+        <div class="inventoryTitle">
+            <?= $lang['specialAccessory'] ?>
+        </div>
+        <div class="inventoryVerticalLine"></div>
+        <div class="inventoryInner">
+            <div class="buyAccessoryDetails">
+            <?php
+            $firstLoopChecker = TRUE;
+            foreach($params['accessories']['specialTools'] AS $specialTools): ?>
+                <div class="buyAccSpecialTools" id="buyAcc-<?= $specialTools->name ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
+                    <div class="accessoryImg">
+                        <img src="<?= $base_img."farm/accessory/".$specialTools->name.".png" ?>" />
+                    </div>
+                    <div class="accessoryDetail">
+                        <span class="accessoryName"><?= $lang[$specialTools->name] ?></span>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['farmLevel'] ?>: </span>
+                            <span><?= convert_number($specialTools->level) ?></span>
+                        </div>
+                        <div class="accessorySpecific">
+                            <span class="title"><?= $lang['price'] ?>: </span>
+                            <span><?= convert_number($specialTools->price)." ".$lang['yummyMoneyUnit'] ?></span>
+                        </div>
+                        <div class="accessoryDescription">
+                            <?= $specialTools->description ?>
+                        </div>
+                    </div>
+                    <div class="buyAccessoryButton">
+                        <?php if($params['farm_level'] >= $specialTools->level): ?>
+                            <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$specialTools->id.");return false;")); ?>
+                        <?php else: ?>
+                            <span class="disableBuyButton"></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="buyAccessoryReport" id="buyAccessoryReport-<?= $specialTools->id ?>">
+                        <?php if(key_exists($specialTools->id, $params['farmAccs']))
+                                if($params['farmAccs'][$specialTools->id] > 0)
+                                    echo $lang['farmHaveThisAcc'];
+                                else
+                                    echo $lang['farmHaventThisAcc'];
+                              else
+                                echo $lang['farmHaventThisAcc'];
+                        ?>
+                    </div>
+                </div>
+            <?php
+            $firstLoopChecker = FALSE;
+            endforeach; ?>
+            </div>
+                <div class="buyAccessoryCategory" id="SpecialTools">
+                    <?php
+                    $firstLoopChecker = TRUE;
+                    foreach($params['accessories']['specialTools'] AS $specialTools): ?>
+                        <div id="<?= $specialTools->name ?>" class="<?= ($params['farm_level'] >= $specialTools->level)?'buyAccessoryCategoryItem':'buyCatDisable' ; ?>"<?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
+                            <?= $lang[$specialTools->name] ?>
+                        </div>
+                    <?php
+                    $firstLoopChecker = FALSE;
+                    endforeach; ?>
+                </div>
+        </div>
+    </div>
     
-    <?= $lang['deffenceAccessory'] ?>
-    <hr/>
-    <?php foreach($params['accessories']['deffence'] AS $deffenceTools): ?>
-        <div class="accessoryBuyItem">
-            <?= $deffenceTools->name ?><br/>
-            <?= $lang['price']." : ".$deffenceTools->price ?><br/>
-            <?= $lang['farmLevel']." : ".$deffenceTools->level ?><br/>
-            <?= $deffenceTools->description ?><br/>
-            <?php if ($params['farm_level'] >= $deffenceTools->level)
-                    echo anchor(" ","BUY",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$deffenceTools->id.");return false;"));
-            else
-                echo "CantBuy";
-            ?>
-            <div class="buyAccessoryAjaxHolder<?= $deffenceTools->id ?>"></div><br/>
-        </div>
-    <?php endforeach; ?>
-    <?= $lang['toolAccessory'] ?>
-    <hr/>
-    <?php foreach($params['accessories']['tools'] AS $tool): ?>
-        <div class="accessoryBuyItem">
-            <?= $tool->name ?><br/>
-            <?= $lang['price']." : ".$tool->price ?><br/>
-            <?= $lang['farmLevel']." : ".$tool->level ?><br/>
-            <?= $tool->description ?><br/>
-            <?php if ($params['farm_level'] >= $tool->level)
-                    echo anchor(" ","BUY",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$tool->id.");return false;"));
-            else
-                echo "CantBuy";
-            ?>
-            <div class="buyAccessoryAjaxHolder<?= $tool->id ?>"></div><br/>
-        </div>
-    <?php endforeach; ?>
-    <?= $lang['specialAccessory'] ?>
-    <hr/>
-    <?php foreach($params['accessories']['specialTools'] AS $specialTool): ?>
-        <div class="accessoryBuyItem">
-            <?= $specialTool->name ?><br/>
-            <?= $lang['price']." : ".$specialTool->price ?><br/>
-            <?= $lang['farmLevel']." : ".$specialTool->level ?><br/>
-            <?= $specialTool->description ?><br/>
-            <?php if ($params['farm_level'] >= $specialTool->level)
-                    echo anchor(" ","BUY",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$specialTool->id.");return false;"));
-            else
-                echo "CantBuy";
-            ?>
-            <div class="buyAccessoryAjaxHolder<?= $specialTool->id ?>"></div><br/>
-        </div>
-    <?php endforeach; ?>
 
 </div>
 <?php elseif($params['action'] == 'showInventory'): ?>
@@ -299,8 +451,12 @@ $('.buyAccessoryCategory div').click(function(){
                 <?php if(array_key_exists('count', $deffTools)): ?>
                     <div class="inventorySmallBox">
                         <img src="<?= $base_img."farm/accessory/".$deffTools['name'].".png" ?>" />
-                        <span class="inventoryName"><?= $lang[$deffTools['name']] ?></span>
-                        <span class="inventoryCounter"><span><?= $deffTools['count'] ?></span></span>
+                        <?php if($deffTools->id != 3) :?>
+                            <span class="inventoryName"><?= $lang[$deffTools['name']] ?></span>
+                            <span class="inventoryCounter"><span><?= $deffTools['count'] ?></span></span>
+                        <?php else: ?>
+                            <span class="inventoryNameOnly"><?= $lang[$deffTools['name']] ?></span>
+                        <?php endif; ?>
                     </div>
                 <?php else: ?>
                     <div class="inventoryBigBox">
