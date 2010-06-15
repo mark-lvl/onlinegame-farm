@@ -266,7 +266,7 @@ class Farms extends MainController {
 		}
 
 		$farmAccModel = new Farmaccessory();
-		$usrFrmAcc = $farmAccModel->getFarmAccessory($userFarm->id);
+		$usrFrmAcc = $farmAccModel->getFarmAccessoryForDisplay($userFarm->id);
 	
 		$pltObj = $pltModel->get_where(array('id'=>$userPlant->id,'farm_id'=>$userFarm->id,'reap'=>0));
 		$typSrcMdl = new Typeresource();
@@ -320,7 +320,7 @@ class Farms extends MainController {
                 $this->data['heading'] = '';
                 $this->data['title'] = 'FARM';
 		
-		$this->render();
+		$this->render('home');
 	}
 
 	function addResourceToFarm()

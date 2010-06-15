@@ -68,7 +68,7 @@ $('#plantCategory div').click(function(){
                 //echo "<span class=\"detailsTitle\">".$lang['lastPrice'].": </span>".convert_number($plant['sellPrice']).$lang['yummyMoneyUnit']."<br/>";
 
                 
-                //echo "<span class=\"detailsTitle\">".$lang['weightInSection'].": </span>".convert_number($plant['weight']).$lang['kilogram']."<br/>";
+                echo "<span class=\"detailsTitle\">".$lang['weightInSection'].": </span>".convert_number($plant['weight']).$lang['kilogram']."<br/>";
                 
                 if($plant['resource'][1] == 0.25)
                     $plant['resource'][1] = $lang['oneQuerter'];
@@ -551,7 +551,7 @@ $('.buyAccessoryCategory div').click(function(){
         </div>
         <div class="reapMissionItem">
             <span class="header"><?= $lang['amountProduct'] ?>:</span>
-            <span><?= $params['details']['amountProduct']." ".$lang['kilogram'] ?></span>
+            <span><?= (int) $params['details']['amountProduct']." ".$lang['kilogram'] ?></span>
         </div>
         <div class="reapMissionItem">
             <span class="header"><?= $lang['reapTime'] ?>:</span>
@@ -583,7 +583,7 @@ $('.buyAccessoryCategory div').click(function(){
             <?php if($params['details']['level'] != 11): ?>
                 <div class="levelIncrease">
                     <div class="oldLevel"><?= convert_number((string)($params['details']['level']-1)) ?></div>
-                    <div class="newLevel"><?= convert_number($params['details']['level']) ?></div>
+                    <div class="newLevel"><?= convert_number((string)$params['details']['level']) ?></div>
                 </div>
                 <div class="levelIncreaseDescription"><?= $lang['levelUpgradeDescription'] ?></div>
             <?php else: ?>
