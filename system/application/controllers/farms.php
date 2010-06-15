@@ -625,7 +625,7 @@ class Farms extends MainController {
 			$accObject = $accMdl->get_by_id($accItem->accessory_id);
                         
                         if($accObject->type == 1)
-                                $accHolder['attack'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'description'=>$accObject->description,'count'=>$accItem->count);
+                                $accHolder['attack'][] = array('id'=>$accObject->id,'type'=>$accObject->type,'name'=>$accObject->name,'description'=>$accObject->description,'count'=>$accItem->count);
                         
 		}
 
@@ -633,7 +633,6 @@ class Farms extends MainController {
 		$accHolder = array();
           $params['farmAccessories'] = $accHolder;
           $params['action'] = 'showPartnerInventory';
-          $params['farm_id'] = (int) $farm_id;
           $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
 	}
 

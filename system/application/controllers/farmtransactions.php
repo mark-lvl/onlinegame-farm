@@ -51,10 +51,10 @@ class Farmtransactions extends MainController {
 					 $_POST['type'],
                                          $details
                                         );
-		if(is_array($flag))
-			$this->error_reporter($flag['type'],$flag['params']);
+                if(is_array($flag))
+                        echo $this->lang->language['error'][$flag['params']['message']];
                 else
-                    echo $flag;
+                    echo $this->lang->language['attackComplete'];
 	}
 }
 ?>

@@ -231,7 +231,11 @@
         $lang['water'] = "آب";
         $lang['muck'] = "کود";
         $lang['notifications'] = "هشدارها";
+        
         $lang['inventory'] = "دارایی های";
+        $lang['attackComplete'] = "موجوداتت به این مزرعه حمله ور شدند";
+        $lang['showPartnerInventory'] = "موجوداتت هجومی";
+        $lang['harmThisFarm'] = "هنوز این مزرعه رو اذیت نکردی";
 
         $lang['aphid'] = "شته";
         $lang['grasshoppers'] = "ملخ";

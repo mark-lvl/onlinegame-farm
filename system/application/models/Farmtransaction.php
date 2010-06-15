@@ -130,7 +130,7 @@ class Farmtransaction extends DataMapper {
 					return $frmAccObj->count;
 				}
 				else
-				return array('return'=>'false',
+                                    return array('return'=>'false',
                                 	     'type'=>'public',
 	                                     'params'=>array('message'=>'cantAttack'));
 

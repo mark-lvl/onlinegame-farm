@@ -535,6 +535,16 @@ $('.buyAccessoryCategory div').click(function(){
 
 </div>
 <?php elseif($params['action'] == 'showPartnerInventory'): ?>
+<script>
+$('.buyAccessoryCategory div').click(function(){
+    var _ns = $(this).parent().attr('id');
+    $('.buyAcc'+_ns).hide();
+    var idx = $(this).attr('id');
+    $('.buyAccessoryCategory div.attackPartnerCategoryItem').css('background-position','0 0');
+    $(this).css('background-position','0 -17px');
+    $('#buyAcc-'+idx).fadeIn();
+})
+</script>
 <div id="showPartnerInventory">
     <?php if(count($params['farmAccessories']['attack']) < 1 &&
              count($params['farmAccessories']['deffence']) < 1 &&
@@ -565,20 +575,10 @@ $('.buyAccessoryCategory div').click(function(){
                         </div>
                     </div>
                     <div class="attackPartnerButton">
-                            <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$attackTools->id.");return false;")); ?>
+                            <?= anchor(" "," ",array('onclick'=>"addtransaction(".$attackTools['id'].",".$attackTools['type'].");return false;")); ?>
                     </div>
                     <div class="buyAccessoryReport" id="buyAccessoryReport-<?= $attackTools->id ?>">
-                        <?php if(key_exists($attackTools->id, $params['farmAccs']))
-                                if($params['farmAccs'][$attackTools->id] > 0)
-                                   if($params['farmAccs'][$attackTools->id] != 7 || $params['farmAccs'][$attackTools->id] != 8)
-                                        echo str_replace(array(__COUNT__,__ACCESSORY__),array(convert_number($params['farmAccs'][$attackTools->id]),$lang[$attackTools->name]), $lang['farmAccCounter']);
-                                   else
-                                        echo $lang['farmHaveThisAcc'];
-                                else
-                                        echo $lang['farmHaventThisAcc'];
-                              else
-                                        echo $lang['farmHaventThisAcc'];
-                        ?>
+                        <?= $lang['harmThisFarm'] ?>
                     </div>
                 </div>
             <?php
@@ -589,8 +589,8 @@ $('.buyAccessoryCategory div').click(function(){
                     <?php
                     $firstLoopChecker = TRUE;
                     foreach($params['farmAccessories']['attack'] AS $attackTools): ?>
-                        <div id="<?= $attackTools->name ?>" class="<?= ($params['farm_level'] >= $attackTools->level)?'buyAccessoryCategoryItem':'buyCatDisable' ; ?>"<?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
-                            <?= $lang[$attackTools->name] ?>
+                        <div id="<?= $attackTools['name'] ?>" class="attackPartnerCategoryItem" <?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
+                            <?= $lang[$attackTools['name']] ?>
                         </div>
                     <?php
                     $firstLoopChecker = FALSE;

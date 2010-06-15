@@ -96,15 +96,15 @@
         ajax_request('#plantHolder', '<?= base_url() ?>farms/reap', params)
     }
 
-    function addtransaction(goal_farm,off_farm,acc_id,type,details)
+    function addtransaction(acc_id,type)
     {
 	var params = {};
-	params['goal_farm'] = goal_farm;
-	params['off_farm'] = off_farm;
+	params['goal_farm'] = <?= $farm->id ?>;
+	params['off_farm'] = <?= $viewerFarm->id ?>;
 	params['acc_id'] = acc_id;
 	params['type'] = type;
-	params['details'] = details;
-	ajax_request('#viewerAccessoryHolder','<?= base_url() ?>farmtransactions/add',params)
+	//params['details'] = details;
+	ajax_request('.buyAccessoryReport','<?= base_url() ?>farmtransactions/add',params)
     }
 
     function syncFarm(farm_id)
