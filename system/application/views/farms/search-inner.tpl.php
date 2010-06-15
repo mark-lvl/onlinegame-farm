@@ -5,7 +5,7 @@
 ?>
             <div class="item">
                 <span class="searchAvatar">
-                    <a href="<?= base_url() ?>profile/user/<?= $k->id ?>">
+                    <a href="<?= base_url() ?>profile/user/<?= $k->user_id ?>">
                                 <img src="<?= $base_img ?>farm_default.gif" border="0" width="53px" height="62px"/>
                     </a>
                 </span>

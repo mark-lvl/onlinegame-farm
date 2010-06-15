@@ -254,16 +254,16 @@ class Farms extends MainController {
 		
 		$userPlant = $pltModel->plantSync($userFarm->id);
 
-		$frmMisMdl = new Farmmission();
-		$frmMisObj = $frmMisMdl->get_where(array('farm_id'=>$userFarm->id, 'status'=>0));
-		
-		$hints = array();
-		if(!$frmMisObj->exists())
-		{
-			$misMdl = new Mission();
-			$misObj = $misMdl->get_by_level($userFarm->level);
-			$hints[] = $misObj->description;
-		}
+//		$frmMisMdl = new Farmmission();
+//		$frmMisObj = $frmMisMdl->get_where(array('farm_id'=>$userFarm->id, 'status'=>0));
+//
+//		$hints = array();
+//		if(!$frmMisObj->exists())
+//		{
+//			$misMdl = new Mission();
+//			$misObj = $misMdl->get_by_level($userFarm->level);
+//			$hints[] = $misObj->description;
+//		}
 
 		$farmAccModel = new Farmaccessory();
 		$usrFrmAcc = $farmAccModel->getFarmAccessoryForDisplay($userFarm->id);
@@ -303,7 +303,46 @@ class Farms extends MainController {
 		$allTypes = $typeModel->get()->all;
 		foreach($allTypes AS &$typ)
 			$typ->capacity = $typ->weight * $userFarm->section;
+                
 
+                $frmMisMdl = new Farmmission();
+                $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
+                if($frmMisObj->id)
+                    $statusBox = str_replace(array('__AMOUNT__','__TYPENAME__'),
+                                           array($frmMisObj->stack,$this->lang->language[$userPlant->typeName]),
+                                           $this->data['lang']['mission']['stack']);
+
+                $frmTrnMdl = new Farmtransaction();
+                $frmTrnObjs = $frmTrnMdl->where('offset_farm',$userFarm->id)
+                                        ->or_where('goal_farm',$userFarm->id)
+                                        ->order_by('create_date DESC')->limit(3)->get()->all;
+  
+                foreach ($frmTrnObjs as $frmTransaction)
+                        if(($frmTransaction->offset_farm == $userFarm->id) && ($frmTransaction->type != 3))
+                            $frmTransaction->messageStyle = "attack";
+                        elseif(($frmTransaction->goal_farm == $userFarm->id) && ($frmTransaction->type != 3))
+                            $frmTransaction->messageStyle = "deffence";
+                        elseif(($frmTransaction->offset_farm == $userFarm->id) && ($frmTransaction->type == 3))
+                            $frmTransaction->messageStyle = "help";
+
+                $partnerHintsHolder = array($this->lang->language['partnerHints-1'],
+                                            $this->lang->language['partnerHints-2'],
+                                            $this->lang->language['partnerHints-3'],
+                                            $this->lang->language['partnerHints-4'],
+                                            $this->lang->language['partnerHints-5'],
+                                            $this->lang->language['partnerHints-6']);
+                for($i=0;$i<2;$i++)
+                {
+                    $hintId = rand(0, count($partnerHintsHolder)-1);
+                    $partnerHints[] = $partnerHintsHolder[$hintId];
+                }
+
+                $allResource = $resource->get()->all;
+
+                $this->data['resources'] = $allResource;
+                $this->data['partnerHints'] = $partnerHints;
+                $this->data['transactions'] = $frmTrnObjs;
+		$this->data['statusBox'] = $statusBox;
 		$this->data['viewerAccessories'] = $viewerAccHolder;
 		$this->data['plantSources'] = $pltTypSrcHolder;
 		$this->data['farmAcc'] = $usrFrmAcc;
@@ -318,7 +357,10 @@ class Farms extends MainController {
                 $this->data['related'] = User_model::is_related($user, $id);
 
                 $this->data['heading'] = '';
-                $this->data['title'] = 'FARM';
+                $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
+
+                $this->loadJs('boxy');
+                $this->add_css('boxyFarm');
 		
 		$this->render('home');
 	}

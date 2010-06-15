@@ -681,6 +681,35 @@
 {
    background-position: 0 -11px;
 }
+#partnerHints
+{
+    background: url(../images/farm/farmTransaction-bg.png) no-repeat  center;
+    width: 221px;
+    height: 108px;
+    display: block;
+    margin-right: 11px;
+    float: right;
+    position: relative;
+}
+#partnerHints div
+{
+    background: url(../images/farm/partnerHint-bg.png) no-repeat  left bottom;
+    width: 216px;
+    height: 88px;
+    padding: 10px 5px 10px 0;
+    display: block;
+
+}
+#partnerHints div ul
+{
+    list-style: square;
+}
+#partnerHints div ul li
+{
+    color: #d4e981;
+    margin: 0 auto;
+    width: 180px;
+}
 #farmMission
 {
     margin-right: 11px;
@@ -722,7 +751,47 @@
     background: url(../images/farm/mission-off.png) no-repeat  center;
 }
 
-
+#farmTransaction
+{
+    margin-right: 11px;
+    float: right;
+    position: relative;
+    width: 221px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/farmTransaction-bg.png) no-repeat  center;
+}
+#farmTransaction .title
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 83px;
+    height: 19px;
+    display: block;
+    background: url(../images/farm/farmTransactionTitle.png) no-repeat  center;
+}
+#farmTransaction .transactions
+{
+    position: absolute;
+    top: 31px;
+    right: 10px;
+    width: 200px;
+    height: 75px;
+    display: block;
+}
+.transactions div
+{
+    width: 200px;
+    height: 25px;
+    display: block;
+    color: #d4e981;
+}
+.transactions div img
+{
+    margin-left: 5px;
+    vertical-align: middle;
+}
 #farmEquipment
 {
     margin-right: 11px;

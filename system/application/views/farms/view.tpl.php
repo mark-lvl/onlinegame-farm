@@ -6,14 +6,17 @@
 
 <script>
     function ajax_request(handler, url, params ,callback) {
+
         $(handler).loading({
-                            pulse: false,
+                            pulse: 'fade',
                             text: 'Loading',
-                            align: 'center',
+                            align: {top:'10px',left:'10px'},
                             img: '<?= $base_img ?>ajax-loader.gif' ,
                             delay: '200',
                             max: '1000',
-                            mask: true
+                            mask: true,
+                            maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
+                            zIndex:101, display:'block', cursor:'wait' }
                             });
         $(handler).load(url, params,callback);
         
@@ -27,13 +30,24 @@
     {
        ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc');
     }
+    function showInventory(farm_id){
+	var params = {};
+     	params['farm_id'] = farm_id;
+
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showInventory', params);
+    }
 
     function addResourceToFarm(farm_id , resource_id){
 	var params = {};
      	params['farm_id'] = farm_id;
 	params['resource_id'] = resource_id;
 
-        ajax_request('#farmResourceHolder', '<?= base_url() ?>farms/addResourceToFarm', params ,moneyCalculate)
+        if(resource_id == 1)
+            spaceHolder = "#waterAmount";
+        else if (resource_id == 2)
+            spaceHolder = "#muckAmount";
+
+        ajax_request(spaceHolder, '<?= base_url() ?>farms/addResourceToFarm', params ,moneyCalculate);
     }
 
 
@@ -45,7 +59,7 @@
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
 	params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
-        ajax_request('#plantHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
     }
     function spraying(farm)
     {
@@ -85,6 +99,82 @@
 	params['details'] = details;
 	ajax_request('#viewerAccessoryHolder','<?= base_url() ?>farmtransactions/add',params)
     }
+
+    function syncFarm(farm_id)
+    {
+        var params = {};
+        params['farm_id'] = farm_id;
+
+        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params)
+        setTimeout("syncFarm("+farm_id+")",300000);
+    }
+
+    $(document).ready(function() {
+
+        syncFarm(<?= $farm->id ?>);
+
+
+        <?php if($plant->id): ?>
+        $(".expandStatistic").click(function() {
+		$('#lessStatistic').hide();
+                $('#moreStatistic').fadeIn('fast');
+                $("#healthBar").progressBar(<?= $plant->health ?>,{
+                    boxImage: '<?= $base_img ?>profile/progressbar/progressbar.gif',
+                    barImage: {
+                                0:  '<?= $base_img ?>profile/progressbar/progressbg_red.gif',
+                                30: '<?= $base_img ?>profile/progressbar/progressbg_orange.gif',
+                                70: '<?= $base_img ?>profile/progressbar/progressbg_green.gif'
+                    }
+                });
+	});
+        $(".collapseStatistic").click(function() {
+		$('#moreStatistic').hide();
+                $('#lessStatistic').fadeIn('fast');
+                $("#healthBar").progressBar(0,{
+                    boxImage: '<?= $base_img ?>profile/progressbar/progressbar.gif',
+                    barImage: {
+                                0:  '<?= $base_img ?>profile/progressbar/progressbg_red.gif',
+                                30: '<?= $base_img ?>profile/progressbar/progressbg_orange.gif',
+                                70: '<?= $base_img ?>profile/progressbar/progressbg_green.gif'
+                    }
+                });
+	});
+
+        $(function () {
+                var growthTime = <?= $plant->growth; ?>;
+                $('#plantGrowthHolder').countdown({until: growthTime,
+                                                                layout: '<div class="image{d10}"></div><div class="image{d1}"></div>' +
+                                                                        '<div class="imageDay"></div><div class="imageSpace"></div>' +
+                                                                        '<div class="image{h10}"></div><div class="image{h1}"></div>' +
+                                                                        '<div class="imageSep"></div>' +
+                                                                        '<div class="image{m10}"></div><div class="image{m1}"></div>' +
+                                                                        '<div class="imageSep"></div>' +
+                                                                        '<div class="image{s10}"></div><div class="image{s1}"></div>'
+                                                 });
+
+                <?php
+                $resourceCounter = 1;
+                if(isset($plant->plantresources))
+                    foreach($plant->plantresources AS $pltSrc):
+                ?>
+                var remainTime = <?= $pltSrc->usedTime; ?>;
+                $('#resourceCounter<?= $resourceCounter ?>').countdown({until: remainTime,
+
+                                                                       layout: '<div class="image{d10}"></div><div class="image{d1}"></div>' +
+                                                                        '<div class="imageDay"></div><div class="imageSpace"></div>' +
+                                                                        '<div class="image{h10}"></div><div class="image{h1}"></div>' +
+                                                                        '<div class="imageSep"></div>' +
+                                                                        '<div class="image{m10}"></div><div class="image{m1}"></div>' +
+                                                                        '<div class="imageSep"></div>' +
+                                                                        '<div class="image{s10}"></div><div class="image{s1}"></div>'
+                                                                    });
+
+                <?php
+                $resourceCounter++;
+                endforeach; ?>
+            });
+        <?php endif; ?>
+    });
 
 
     
@@ -282,54 +372,50 @@
                 ?>
             </div>
         </div>
-        <div id="farmMission">
-            <?php if(!$plant->id): ?>
-                <div class="on">
-                    <span class="title"><?= $lang['yummyRequest'] ?></span>
-                    <span class="text"><?= $missionBox->description ."<br/>". anchor("farms/mission/$missionBox->id",$lang['gotoMission'],array('onClick'=>"mission($missionBox->id);return false")) ?>
-                    </span>
-                </div>
-            <?php else: ?>
-                <div class="off">
-                    <span class="title"><?= $lang['yummyRequest'] ?></span>
-                    <span class="text">
-                        <?= $lang['haventMission'] ?>
-                    </span>
-                </div>
-            <?php endif; ?>
+        <div id="partnerHints">
+            <div>
+                <ul>
+                    <?php foreach($partnerHints AS $hint): ?>
+                        <li>
+                            <?= $hint ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
-        <div id="farmEquipment">
-            <?php if(!$equipments): ?>
-                <div class="off">
-                    <span class="title"><?= $lang['equipment'] ?></span>
-                    <span class="text"><?= $lang['haventEquipment'] ?></span>
-                </div>
-            <?php else: ?>
-                <div class="on">
-                    <span class="title"><?= $lang['equipment'] ?></span>
-                    <?php
-                    $equipCounter = 0;
-                    foreach($equipments AS $equipment): ?>
-                        <div id="equipmentHolder-<?= $equipment ?>" <?php if($equipCounter > 0) echo "style=\"display:none\"" ?>>
-                            <span class="icon">
-                                <?=  anchor("farms/useEquipment/".$equipment."/".$farm->id,
-                                    "<img src=\"".$base_img."farm/equipment/".strtolower($equipment).".png\"  title=\"".$equipment."\"/>",
-                                     array('onclick'=>"useEquipment('".$equipment."',$farm->id);return false;")) ?>
-                            </span>
-                            <span class="text"><?= $lang["equipment-$equipment"] ?></span>
+        <div id="farmTransaction">
+            <div class="title"></div>
+            <div class="transactions">
+                    <?php foreach ($transactions as $transaction) : ?>
+                        <div class=<?= $transaction->messageStyle ?>>
+                                <div>
+                                        <img src="<?= $base_img."profile/".$transaction->messageStyle."Icon.png" ?>">
+                                        <?php
+                                        if($transaction->type != 3)
+                                        {
+                                            if($transaction->flag == 0)
+                                                    $ns = "";
+                                            elseif($transaction->flag == 1)
+                                                    $ns = "Done";
+                                            elseif($transaction->flag == 2)
+                                                    $ns = "Reject";
+
+                                            if($transaction->offset_farm == $farm->id)
+                                                    $ns = "Attack";
+
+                                            echo $lang['farmTransaction'.$ns.'-'.$transaction->accessory_id];
+                                        }
+                                        else
+                                            if($transaction->flag != 'newUser')
+                                                echo $lang['farmTransactionHelpToFriend'];
+                                            else
+                                                echo $lang['havingAnytransaction'];
+
+                                        ?>
+                                </div>
                         </div>
-                    <?php
-                    $equipCounter++;
-                    endforeach; ?>
-                        <div style="display:none">
-                            <span class="icon">
-                            </span>
-                            <span class="text">
-                                <?= $lang["haventEquipment"] ?>
-                            </span>
-                        </div>
-                </div>
-            <?php endif; ?>
+                    <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </div>
