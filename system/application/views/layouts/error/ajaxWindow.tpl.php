@@ -12,6 +12,9 @@
     <?php elseif($params['action'] == 'showInventory'): ?>
         var output = $('#showInventory');
         var titleText = "<?= $lang['showInventory'] ?>";
+    <?php elseif($params['action'] == 'showPartnerInventory'): ?>
+        var output = $('#showPartnerInventory');
+        var titleText = "<?= $lang['showPartnerInventory'] ?>";
     <?php elseif($params['action'] == 'reapConfirm'): ?>
         var output = $('#reapConfirm');
         var titleText = "<?= $lang['reapConfirm']['title'] ?>";
@@ -530,6 +533,72 @@ $('.buyAccessoryCategory div').click(function(){
     </div>
     <?php endif; ?>
 
+</div>
+<?php elseif($params['action'] == 'showPartnerInventory'): ?>
+<div id="showPartnerInventory">
+    <?php if(count($params['farmAccessories']['attack']) < 1 &&
+             count($params['farmAccessories']['deffence']) < 1 &&
+             count($params['farmAccessories']['specialTools']) < 1 &&
+             count($params['farmAccessories']['tools']) < 1):
+                echo "<div class=\"errorMess\">".$lang['haventAnyAccessory']."</div>";
+         else:
+    ?>
+    <div  class="inventoryContainer">
+        <div class="inventoryTitle">
+            <?= $lang['attackAccessory'] ?>
+        </div>
+        <div class="inventoryVerticalLine"></div>
+        <div class="inventoryInner">
+            <div class="attackPartnerDetails">
+            <?php 
+            $firstLoopChecker = TRUE;
+            foreach($params['farmAccessories']['attack'] AS $attackTools): ?>
+                <div class="buyAccAttack" id="buyAcc-<?= $attackTools['name'] ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
+                    <div class="accessoryImg">
+                        <img src="<?= $base_img."farm/accessory/".$attackTools['name'].".png" ?>" />
+                    </div>
+                    <div class="accessoryDetail">
+                        <span class="accessoryName"><?= $lang[$attackTools['name']] ?></span>
+                        
+                        <div class="accessoryDescription">
+                            <?= $attackTools['description'] ?>
+                        </div>
+                    </div>
+                    <div class="attackPartnerButton">
+                            <?= anchor(" "," ",array('onclick'=>"addAccessoryToFarm(".$params['farm_id'].",".$attackTools->id.");return false;")); ?>
+                    </div>
+                    <div class="buyAccessoryReport" id="buyAccessoryReport-<?= $attackTools->id ?>">
+                        <?php if(key_exists($attackTools->id, $params['farmAccs']))
+                                if($params['farmAccs'][$attackTools->id] > 0)
+                                   if($params['farmAccs'][$attackTools->id] != 7 || $params['farmAccs'][$attackTools->id] != 8)
+                                        echo str_replace(array(__COUNT__,__ACCESSORY__),array(convert_number($params['farmAccs'][$attackTools->id]),$lang[$attackTools->name]), $lang['farmAccCounter']);
+                                   else
+                                        echo $lang['farmHaveThisAcc'];
+                                else
+                                        echo $lang['farmHaventThisAcc'];
+                              else
+                                        echo $lang['farmHaventThisAcc'];
+                        ?>
+                    </div>
+                </div>
+            <?php
+            $firstLoopChecker = FALSE;
+            endforeach; ?>
+            </div>
+                <div class="buyAccessoryCategory" id="Attack">
+                    <?php
+                    $firstLoopChecker = TRUE;
+                    foreach($params['farmAccessories']['attack'] AS $attackTools): ?>
+                        <div id="<?= $attackTools->name ?>" class="<?= ($params['farm_level'] >= $attackTools->level)?'buyAccessoryCategoryItem':'buyCatDisable' ; ?>"<?php if($firstLoopChecker): ?>style="background-position: 0 -17px;"<?php endif; ?>>
+                            <?= $lang[$attackTools->name] ?>
+                        </div>
+                    <?php
+                    $firstLoopChecker = FALSE;
+                    endforeach; ?>
+                </div>
+        </div>
+    </div>
+<?php endif; ?>
 </div>
 <?php elseif($params['action'] == 'reapConfirm'): ?>
 <div id="reapConfirm">

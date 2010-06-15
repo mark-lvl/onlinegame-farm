@@ -551,6 +551,25 @@
     margin-right: 8px;
     float: right;
 }
+#partnerInventory
+{
+    width: 108px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/partnerInventory.png) no-repeat top;
+    margin-right: 8px;
+    float: right;
+    text-decoration: none;
+}
+span.partnerLink
+{
+    color: #ffffff;
+    display: block;
+    color: #FFFFFF;
+    margin-top: 72px;
+    text-align: center;
+    font-weight: bold;
+}
 #farmResource
 {
     width: 243px;
@@ -974,6 +993,16 @@
     margin-left: 15px;
     position: relative
 }
+.attackPartnerDetails
+{
+    background: url(../images/farm/attackAccessoryBorder.png) no-repeat  center;
+    width: 494px;
+    height: 88px;
+    display: block;
+    float: right;
+    margin-left: 15px;
+    position: relative
+}
 .buyAccessoryDetails .accessoryImg
 {
     width: 80px;
@@ -1035,6 +1064,15 @@
     color: #b1c05b;
 }
 .buyAccessoryButton
+{
+    width: 183px;
+    height: 18px;
+    display: block;
+    margin-bottom: 5px;
+    position: absolute;
+    right: 351px;
+}
+.attackPartnerButton
 {
     width: 183px;
     height: 18px;

@@ -35,11 +35,12 @@
                             WHERE user_id = $user_id
                                 AND disactive = 0";
 
-                    $result = $this->db->query($sql)->result_array();
+                    $result = $this->db->query($sql)->row_array();
+                    
                         if(count($result) <= 0)
                             return FALSE;
                         else
-                            return TRUE;
+                            return $result['id'];
                 }
 
 		function log_in($email, $pass) {

@@ -37,6 +37,13 @@
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showInventory', params);
     }
 
+    function showPartnerInventory(){
+	var params = {};
+     	params['user_id'] = <?= $viewer->id ?>;
+
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showPartnerInventory', params);
+    }
+
     function addResourceToFarm(farm_id , resource_id){
 	var params = {};
      	params['farm_id'] = farm_id;
@@ -330,8 +337,8 @@
     <div id="panel">
         <?= anchor("farms/showInventory/$farm->id/"," ",
                    array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'farmInventory')); ?>
-        <?= anchor("farms/buyAccessory/$farm->id/"," ",
-                   array('onclick'=>"buyAccessory(".$farm->id.",".$farm->level.");return false;",'id'=>'farmAccessory')); ?>
+        <?= anchor(" ","<span class=\"partnerLink\">$lang[inventory]<br/>$viewer->first_name</span>",
+                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'partnerInventory')); ?>
         <div id="farmResource">
             <?php
                 if(isset($plantSources))

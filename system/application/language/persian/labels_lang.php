@@ -231,6 +231,7 @@
         $lang['water'] = "آب";
         $lang['muck'] = "کود";
         $lang['notifications'] = "هشدارها";
+        $lang['inventory'] = "دارایی های";
 
         $lang['aphid'] = "شته";
         $lang['grasshoppers'] = "ملخ";

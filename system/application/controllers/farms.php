@@ -571,7 +571,7 @@ class Farms extends MainController {
                                 }
 
 			$accObject = $accMdl->get_by_id($accItem->accessory_id);
-                        
+
                         if($accObject->type == 1)
                                 $accHolder['attack'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'count'=>$accItem->count);
                         elseif($accObject->type == 2)
@@ -595,6 +595,45 @@ class Farms extends MainController {
           $params['farmAccessories'] = $accHolder;
           $params['action'] = 'showInventory';
           $params['farm_id'] = (int) $_POST['farm_id'];
+          $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
+	}
+
+        /*
+         * this method return the accessory of partner user for attack
+         * params user_id
+         * return : the view of attack accessory
+         */
+        function showPartnerInventory()
+	{
+            $farm_id = $this->user_model->has_farm($_POST['user_id']);
+
+            $frmAccModel = new Farmaccessory();
+            $accMdl = new Accessory();
+
+            $usrFrmAcc = $frmAccModel->get_where(array('farm_id'=>$farm_id))->all;
+		//7 == scarecrow accessory_id and 8 == dog accessory id
+                foreach($usrFrmAcc AS $accItem)
+		{
+                        //this section gc for expired item
+			if($accItem->expire_date)
+				if(time() > $accItem->expire_date)
+                                {
+                                    $accItem->delete();
+                                    continue;
+                                }
+
+			$accObject = $accMdl->get_by_id($accItem->accessory_id);
+                        
+                        if($accObject->type == 1)
+                                $accHolder['attack'][] = array('id'=>$accObject->id,'name'=>$accObject->name,'description'=>$accObject->description,'count'=>$accItem->count);
+                        
+		}
+
+	  if(is_null($accHolder))
+		$accHolder = array();
+          $params['farmAccessories'] = $accHolder;
+          $params['action'] = 'showPartnerInventory';
+          $params['farm_id'] = (int) $farm_id;
           $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
 	}
 
