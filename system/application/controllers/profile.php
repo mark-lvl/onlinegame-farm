@@ -354,18 +354,18 @@ class Profile extends MainController
         
         function avatar()
         {
-	    $user = $this->user_model->is_authenticated();
-
+            $user = $this->user_model->is_authenticated();
 
             if(!$user)
                     $this->js_redirect('/');
 
-            $this->data['heading']        = '';
-            $this->data['user_profile'] = $user;
-
+            $this->data['heading']        	= '';
+            $this->data['user_profile'] 	= $user;
 
             $this->load->view("profile/avatar.tpl.php", $this->data);
-	}
+        }
+
+
         function inbox($id = "")
         {
 	    $user = $this->user_model->is_authenticated();

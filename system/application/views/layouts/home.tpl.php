@@ -54,9 +54,21 @@
                                 <?php endif; ?>
                                 <div id="userConsole">
                                     <span>
-                                            <a href="<?= base_url()."profile/user/".$user->id ?>">
-                                                <img src="<?= $base_img ?>default.png"/>
+                                            <?php
+                                                if($user_profile->photo != "") {
+                                            ?>
+                                            <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
+                                                <img src="<?= $base_img."avatars/".$user_profile->photo.".png" ?>" />
                                             </a>
+                                            <?php
+                                                }else{
+                                            ?>
+                                            <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
+                                                <img src="<?= $base_img ?>default.png" />
+                                            </a>
+                                            <?php
+                                                }
+                                            ?>
                                             <span class="name">
                                                 <a href="<?= base_url()."profile/user/".$user->id ?>">
                                                     <?= $user->first_name." ".$user->last_name ?>

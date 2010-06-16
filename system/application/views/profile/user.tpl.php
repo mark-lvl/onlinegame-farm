@@ -226,7 +226,9 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 <?php
                                     if($user_profile->photo != "") {
                                 ?>
-                                <img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=110&nh=110&source=../views/layouts/images/users/<?= $user_profile->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
+                                <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
+                                    <img src="<?= $base_img."avatars/".$user_profile->photo.".png" ?>" />
+                                </a>
                                 <?php
                                     }else{
                                 ?>
