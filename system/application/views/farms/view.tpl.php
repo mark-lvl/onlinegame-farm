@@ -28,7 +28,9 @@
 
     function moneyCalculate()
     {
-       ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc');
+        var params = {};
+     	params['farm_user_id'] = <?= $farm->user_id ?>;
+        ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc', params);
     }
     function showInventory(farm_id){
 	var params = {};
@@ -106,7 +108,9 @@
 	params['type'] = type;
 	params['details'] = details;
         if(type == 3)
-            ajax_request('#ajaxHolder','<?= base_url() ?>farmtransactions/add',params)
+        {
+            ajax_request('#ajaxHolder','<?= base_url() ?>farmtransactions/moneyHelp',params);
+        }
         else
             ajax_request('.buyAccessoryReport','<?= base_url() ?>farmtransactions/add',params)
     }
@@ -359,10 +363,7 @@
                                     array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpread'));
                 ?>
                 <div id="waterAmount"><?= $farmResources['Water'] ?></div>
-                <?= anchor("farms/addResourceToFarm/$farm->id/".$resources['1']->id,
-                           " ",
-                           array('onclick'=>"addResourceToFarm(".$farm->id.",".$resources['1']->id.");return false;",'class'=>'waterBuy'));
-                ?>
+                
             </div>
             <div class="muckResource">
                 <?php
@@ -372,10 +373,7 @@
                                     array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpread'));
                 ?>
                 <div id="muckAmount"><?= $farmResources['Muck'] ?></div>
-                <?= anchor("farms/addResourceToFarm/$farm->id/".$resources['2']->id,
-                           " ",
-                           array('onclick'=>"addResourceToFarm(".$farm->id.",".$resources['2']->id.");return false;",'class'=>'muckBuy'));
-                ?>
+                
             </div>
         </div>
         <div id="partnerHints">

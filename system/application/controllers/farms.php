@@ -360,6 +360,7 @@ class Farms extends MainController {
                 $this->data['viewerFarm'] = $viewerFarm;
                 $this->data['related'] = User_model::is_related($user, $id);
 
+                $this->data['user'] = $user;
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
@@ -666,8 +667,14 @@ class Farms extends MainController {
          */
         function moneyCalc()
         {
+            //this condition used in farmPartnerView mode
+            if(isset($_POST['farm_user_id']))
+                $user_id = $_POST['farm_user_id'];
+            else
+                $user_id = $this->userSessionHolder->id;
+
             $farmModel = new Farm();
-	    $userFarm = $farmModel->get_where(array('user_id'=>$this->userSessionHolder->id,
+	    $userFarm = $farmModel->get_where(array('user_id'=>$user_id,
                                                     'disactive'=>'0'));
             echo $userFarm->money;
         }

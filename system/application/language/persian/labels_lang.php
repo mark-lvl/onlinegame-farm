@@ -239,6 +239,8 @@
         $lang['helpComplete'] = "۵۰۰ یام یام به این مزرعه کمک کردی";
         $lang['showPartnerInventory'] = "موجوداتت هجومی";
         $lang['harmThisFarm'] = "هنوز این مزرعه رو اذیت نکردی";
+        $lang['moneyHelpConfirm'] = "میخوای ۵۰۰ یام یام کمک کنی؟";
+        
 
         $lang['aphid'] = "شته";
         $lang['grasshoppers'] = "ملخ";

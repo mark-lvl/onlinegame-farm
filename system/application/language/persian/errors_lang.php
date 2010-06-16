@@ -57,8 +57,8 @@
         $lang['error']['notReadyForReap'] = "هنوز زمان درو گیاهات نرسیده";
         $lang['error']['farmNotPlowed'] = "باید اول مزرعتو شخم بزنی";
         $lang['error']['farmPlowedBefore'] = "مزرعت قبلا شخم زده شده";
-        $lang['error']['farmNotNeedSpray'] = "الان مزرعت نیازی به سم پاشی نداره";
-        $lang['error']['farmNotNeedDeffence'] = "الان نیازی به دفاع از مزرعت نیست";
+        $lang['error']['farmNotNeedSpray'] = "در حال حاضر این مزرعه نیازی به سم پاشی نداره";
+        $lang['error']['farmNotNeedDeffence'] = "الان این مزرعه نیازی به دفاع نداره";
         $lang['error']['cantAttack'] = "به این مزرعه الان نمیتونی حمله کنی";
         $lang['error']['cantAttackToLevelBelow3'] = "به مزرعه با مرحله ی کمتر از ۳ نمیتونی حمله کنی";
         $lang['error']['cantAttackWithHavntAnti'] = "این مزرعه الان تو مر حله ای نیست که بتونی با این آیتم بهش حمله کنی";

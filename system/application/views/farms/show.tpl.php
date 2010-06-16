@@ -141,7 +141,7 @@
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('#farmSection', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
     }
     function deleteNotification(id)
     {
@@ -353,12 +353,17 @@
             </div>
             <div id="farmAction">
                 <?php
-                if(!$farm->plow)
-                    echo anchor("farms/plow/$farm->id",
-                               " ",
-                               array('onclick'=>"plow(".$farm->id.");return false;",'class'=>'plow-botton-on'));
+                if(!$plant->id)
+                    if(!$farm->plow)
+                        echo anchor("farms/plow/$farm->id",
+                                   " ",
+                                   array('onclick'=>"plow(".$farm->id.");return false;",'class'=>'plow-botton-on'));
+                    else
+                        echo "<a class=\"plow-botton-off\"></a>";
                 else
-                    echo "<a class=\"plow-botton-off\"></a>";
+                    echo anchor(" ",
+                               " ",
+                               array('onclick'=>"deffenceWithGun(".$farm->id.");return false;",'class'=>'gun-botton-on'));
 
                 if($farm->level == 1)
                     echo "<a class=\"spray-botton-off\"></a>";

@@ -45,6 +45,7 @@ class Farmtransactions extends MainController {
                 else
                     $details = $_POST['details'];
 
+
                 $flag = $farmTrnMdl->add($_POST['off_farm'],
 					 $_POST['goal_farm'],
 					 $_POST['acc_id'],
@@ -63,5 +64,13 @@ class Farmtransactions extends MainController {
                     else
                         $this->error_reporter('alert',array('message'=>$this->lang->language['helpComplete'],'title'=>$this->lang->language['helpTitle'],'height'=>80));
 	}
+
+        function moneyHelp()
+        {
+            if($_POST['acc_id'] == 0 && $_POST['type'] == 3 && $_POST['details'] == 3)
+            {
+                $this->error_reporter('moneyHelp',$_POST);
+            }
+        }
 }
 ?>
