@@ -86,6 +86,14 @@
                                     </tr>
                                     <tr>
                                         <td class="registerFormLable">
+                                                        <?= $lang['changeAvatars'] ?>:
+                                        </td>
+                                        <td class="registerFormInput" colspan="2">
+                                            <?= anchor("profile/edit/avatar","Avatar",array('onclick'=>"avatar();return false;")); ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="registerFormLable">
                                                         <?= $lang['new_password'] ?>:
                                         </td>
                                         <td class="registerFormInput">

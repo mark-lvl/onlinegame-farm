@@ -29,6 +29,7 @@
 	$lang['photo']			= "عکس";
 	$lang['submit']			= "ثبت";
 	$lang['province']		= "استان";
+	$lang['changeAvatars']		= "تغییر چهره";
 	
 	$lang['key']			= "کلید";
 	$lang['home']			= "خانه";

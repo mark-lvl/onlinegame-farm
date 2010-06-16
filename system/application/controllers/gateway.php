@@ -216,14 +216,13 @@ class Gateway extends MainController {
 	        }
 	    }
             if(!empty($user->photo))
-                $fileName = $user->photo;
-            else
-            {
-                $fileName = uniqid($user->id);
-                $user->photo = $fileName;
-                $fields = array("photo");
-                $this->user_model->update($user,$fields);
-            }
+                unlink($this->config->item('avatars_url').$user->photo.".png");
+
+            $fileName = uniqid($user->id);
+            $user->photo = $fileName;
+            $fields = array("photo");
+            $this->user_model->update($user,$fields);
+
 	    imagepng($image, $this->config->item('avatars_url') . $fileName . ".png");
 
             
