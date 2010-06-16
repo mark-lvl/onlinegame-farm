@@ -431,7 +431,10 @@ $('.buyAccessoryCategory div').click(function(){
              count($params['farmAccessories']['deffence']) < 1 &&
              count($params['farmAccessories']['specialTools']) < 1 &&
              count($params['farmAccessories']['tools']) < 1)
-             echo "<div class=\"errorMess\">".$lang['haventAnyAccessory']."</div>";
+                 if(!$params['partnerView'])
+                    echo "<div class=\"errorMess\">".$lang['haventAnyAccessory']."</div>";
+                 else
+                    echo "<div class=\"errorMess\">".$lang['thisFarmHaventAnyAccessory']."</div>";
     ?>
     <?php if(count($params['farmAccessories']['attack']) > 0): ?>
     <div class="inventoryContainer">

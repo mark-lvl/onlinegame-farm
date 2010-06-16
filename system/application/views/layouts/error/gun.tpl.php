@@ -1,10 +1,14 @@
+<style>
+    .boxy-inner {height: 135px!important;overflow:auto;}
+    .main-content{height:135px!important}
+</style>
 <script>
     Boxy.alert("<?php echo str_replace(array('__ACCESSORY__',
                                              '__AFFECTTIME__',
                                              '__DECWEIGHT__'),
-                                       array($params['accessory'],
+                                       array($lang[$params['accessory']],
                                              $params['affectTime'],
-                                             $params['decWeight']
+                                             $params['decWeight']." ".$lang['kilogram']
                                              ),
                                        $lang['gunDeffence']['body'])  ?>",
                null,

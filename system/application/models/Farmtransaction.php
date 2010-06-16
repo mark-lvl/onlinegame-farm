@@ -51,16 +51,16 @@ class Farmtransaction extends DataMapper {
 
                 foreach($frmTrnObjs AS $frmTrnObj)
                 {
-                    if($frmTrnObj->type == 1 && ($frmTrnObj->create_date > strtotime('-1 day')))
+                    if($frmTrnObj->type == 1 && ($frmTrnObj->create_date > strtotime('-1 day')) && $type == 1)
                             return array('return'=>'false',
                                      'type'=>'public',
                                      'params'=>array('message'=>'cantAttackTwiceInADay'));
                     elseif($frmTrnObj->type == 3 && 
                            ($frmTrnObj->create_date > strtotime('-1 day')) &&
-                           $frmTrnObj->details == 3)
+                           $frmTrnObj->details == 3 && $type == 3)
                             return array('return'=>'false',
                                      'type'=>'public',
-                                     'params'=>array('message'=>'cantHelpTwiceInADay'));
+                                     'params'=>array('message'=>'cantHelpTwiceInADay','height'=>80));
                 }
 
                 unset($frmTrnMdl);
@@ -127,7 +127,7 @@ class Farmtransaction extends DataMapper {
                         	        if($frmObjOff->id)
                		                         $details .= "<br/>".str_replace(array(__FARMID__,__FARMNAME__), array($frmObjOff->user_id,$frmObjOff->name), $this->lang->language['farmTransaction']['attacker']);
                         	        $usrMdl->add_notification($goal_farm, $details, 0);
-					return $frmAccObj->count;
+					return 'attackComplete';
 				}
 				else
                                     return array('return'=>'false',
@@ -140,17 +140,29 @@ class Farmtransaction extends DataMapper {
 		{
 			if($details == 3)
                         {
-                            $frmObjOff->money -= self::HELP_AMOUNT;
-                            $frmObjGol->money += self::HELP_AMOUNT;
-                        
-                            $frmObjOff->save();
-                            $frmObjGol->save();
+                            if($frmObjOff->money >= self::HELP_AMOUNT)
+                            {
+                                $frmObjOff->money -= self::HELP_AMOUNT;
+                                $frmObjGol->money += self::HELP_AMOUNT;
 
-                            $usrMdl->add_notification($goal_farm,
-                                                      str_replace(array(__FARMID__,__FARMNAME__),
-                                                                  array($frmObjOff->user_id,$frmObjOff->name),
-                                                                  $this->lang->language['farmTransaction']['helpMoney']),
-                                                      4);
+                                $frmObjOff->save();
+                                $frmObjGol->save();
+
+                                $usrMdl->add_notification($goal_farm,
+                                                          str_replace(array(__FARMID__,__FARMNAME__),
+                                                                      array($frmObjOff->user_id,$frmObjOff->name),
+                                                                      $this->lang->language['farmTransaction']['helpMoney']),
+                                                          4);
+                            }
+                            else
+                            {
+                                return array('return'=>'false',
+                                             'type'=>'money',
+                                             'params'=>array('money'=>$frmObjOff->money,
+                                                             'price'=>self::HELP_AMOUNT,
+                                                             'height'=>80));
+                            }
+                            
                         }
                         
                         $frmTrnObj = new Farmtransaction();
@@ -161,7 +173,7 @@ class Farmtransaction extends DataMapper {
 			$frmTrnObj->save();
                         
 
-			return TRUE;
+			return 'helpComplete';
 		}
 	}
 
@@ -288,12 +300,12 @@ class Farmtransaction extends DataMapper {
                         $pltMdl = new Plant();
                         $pltMdl->plantSync($farm_id);
 
-			$attack = $this->get_where(array('goal_farm' => $farmObj->id,
+			$attack = $this->where(array('goal_farm' => $farmObj->id,
 					                 'flag' => 0))
                                         //TODO this can be hold others accessory affect by spraying
                                         ->where_in('accessory_id', array(1,2))
                                         ->where_in('type', array(1,4))
-			                ->order_by('create_date', 'asc');
+			                ->order_by('create_date', 'asc')->get();
 
                         if($attack->exists())
                         {
@@ -365,13 +377,13 @@ class Farmtransaction extends DataMapper {
                     else
                             return array('return'=>'false',
                                          'type'=>'public',
-                                         'params'=>array('message'=>'lackAccessory'));
+                                         'params'=>array('message'=>'lackAccessory','height'=>80));
                 }
                 else
                 {
                     return array('return'=>'false',
                                  'type'=>'public',
-                                 'params'=>array('message'=>'farmNotNeedDeffence'));
+                                 'params'=>array('message'=>'farmNotNeedDeffence','height'=>80));
                 }
 	}
 
@@ -426,7 +438,7 @@ class Farmtransaction extends DataMapper {
 
                                     foreach($friendsList AS $friend)
                                             //TODO must change sender message form 1 to admin id
-                                            $usrMdl->send_message(1, $friend->id, $this->lang->language['m_title10'], str_replace(__FARM__, $farm->id, $this->lang->language['m_body10']));
+                                            $usrMdl->send_message(1, $friend->id, $this->lang->language['m_title10'], str_replace(__FARM__, $farm->user_id, $this->lang->language['m_body10']));
 
                                     $transaction->alert_flag = 1;
                             }

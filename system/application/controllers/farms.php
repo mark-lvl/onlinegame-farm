@@ -283,6 +283,10 @@ class Farms extends MainController {
                 $farmModel = new Farm();
                 $viewerFarm = $farmModel->where('user_id',$this->userSessionHolder->id)->where('disactive','0')->get();
 
+                //this section for hold user with disactive farm and havent new active farm
+                if(!$viewerFarm->id)
+                    $viewerFarm = $farmModel->where('user_id',$this->userSessionHolder->id)->where('disactive','1')->order_by("create_date DESC")->get();
+
                 $frmAcsModel = new Farmaccessory();
 		$acsModel = new Accessory();
                 
@@ -570,6 +574,13 @@ class Farms extends MainController {
                                     continue;
                                 }
 
+                        //this section gc for item with count 0
+                        if($accItem->count < 1)
+                        {
+                            $accItem->delete();
+                            continue;
+                        }
+
 			$accObject = $accMdl->get_by_id($accItem->accessory_id);
 
                         if($accObject->type == 1)
@@ -595,6 +606,11 @@ class Farms extends MainController {
           $params['farmAccessories'] = $accHolder;
           $params['action'] = 'showInventory';
           $params['farm_id'] = (int) $_POST['farm_id'];
+          
+          //this flag used for control haventAnyAccessory message in partnerView mode
+          if($_POST['partner'])
+            $params['partnerView'] = TRUE;
+          
           $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
 	}
 
@@ -621,6 +637,13 @@ class Farms extends MainController {
                                     $accItem->delete();
                                     continue;
                                 }
+
+                        //this section gc for item with count 0
+                        if($accItem->count < 1)
+                        {
+                            $accItem->delete();
+                            continue;
+                        }
 
 			$accObject = $accMdl->get_by_id($accItem->accessory_id);
                         
@@ -906,7 +929,10 @@ class Farms extends MainController {
             $usrFrmAccs = $frmAccModel->get_where(array('farm_id'=>$_POST['farm_id']))->all;
             foreach ($usrFrmAccs as $usrFrmAcc)
                 $farmAccs[$usrFrmAcc->accessory_id] = $usrFrmAcc->count;
-            
+
+            if(!is_array($farmAccs))
+                $farmAccs = array();
+
             $params['farmAccs'] = $farmAccs;
             $params['accessories'] = $accHolder;
             $params['action'] = 'buyAccessory';

@@ -224,6 +224,19 @@
     background-position: -116px 0;
     margin-right: 0 !important;
 }
+.gun-botton-on
+{
+    background: url(../images/farm/farm-action-on.png) no-repeat;
+    background-position: -174px 0;
+    cursor: pointer;
+}
+.help-botton-on
+{
+    background: url(../images/farm/farm-action-on.png) no-repeat;
+    background-position: -232px 0;
+    cursor: pointer;
+    margin-right: 0 !important;
+}
 
 
 #sidebar

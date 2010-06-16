@@ -50,7 +50,7 @@
         $lang['resource']['body'] =  "میزان __RESOURCE__ مورد نیاز __NEED__ واحد <br/>__RESOURCE__ موجود مزرعت __FARMRESOURCE__ واحد";
         $lang['error']['plantExists'] = "مزرعت هنوز محصول درو نشده داره";
         $lang['error']['plantDeath'] = "دیگه گیاهات موردن فایده نداره";
-        $lang['error']['lackAccessory'] = "دیگه از این تجهیزات نداری";
+        $lang['error']['lackAccessory'] = "این مزرعه از این وسیله نداره که بخوای ازش استفاده کنی";
         $lang['error']['plantResourceExists'] = "گیاهت از این منبع هنوز داره";
         $lang['error']['farmAccessoryExists'] = "مزرعت از این داره";
         $lang['error']['missionExists'] = "الان در حال انجام این ماموریت هستی";

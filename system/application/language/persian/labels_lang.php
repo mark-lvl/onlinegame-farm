@@ -184,6 +184,7 @@
         $lang['haventStack'] = "تو این مرحله هنوز چیزی جمع نکردی";
         $lang['haventEquipment'] = "الان تجهیزات کمکی نداری";
         $lang['haventAnyAccessory'] = "هنوز هیچ وسیله ای برای مزرعت نخریدی<br/> با برداشت محصول و جمع کردن پول میتونی به تدریج لوازمی که میخوای رو از طریق بخش خرید لوازم تهیه کنی";
+        $lang['thisFarmHaventAnyAccessory'] = "این مزرعه هیچ وسیله ی نداره";
         $lang['haventEquipmentForThisLevel'] = "برای این مرحله تجهیزات کمکی نداری";
         $lang['gotoMission'] = "شروع کن";
         $lang['yummyRequest'] = "درخواست یامی";
@@ -234,6 +235,8 @@
         
         $lang['inventory'] = "دارایی های";
         $lang['attackComplete'] = "موجوداتت به این مزرعه حمله ور شدند";
+        $lang['helpTitle'] = "آفرین";
+        $lang['helpComplete'] = "۵۰۰ یام یام به این مزرعه کمک کردی";
         $lang['showPartnerInventory'] = "موجوداتت هجومی";
         $lang['harmThisFarm'] = "هنوز این مزرعه رو اذیت نکردی";
 

@@ -51,10 +51,17 @@ class Farmtransactions extends MainController {
 					 $_POST['type'],
                                          $details
                                         );
+
                 if(is_array($flag))
+                    if ($flag['type'] == 'public' && ($flag['params']['message'] != 'cantHelpTwiceInADay'))
                         echo $this->lang->language['error'][$flag['params']['message']];
+                    else
+                        $this->error_reporter($flag['type'],$flag['params']);
                 else
-                    echo $this->lang->language['attackComplete'];
+                    if($flag == 'attackComplete')
+                        echo $this->lang->language['attackComplete'];
+                    else
+                        $this->error_reporter('alert',array('message'=>$this->lang->language['helpComplete'],'title'=>$this->lang->language['helpTitle'],'height'=>80));
 	}
 }
 ?>

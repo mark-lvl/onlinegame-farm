@@ -33,6 +33,7 @@
     function showInventory(farm_id){
 	var params = {};
      	params['farm_id'] = farm_id;
+     	params['partner'] = 'TRUE';
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showInventory', params);
     }
@@ -76,7 +77,7 @@
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
-        ajax_request('#farmSpraying', '<?= base_url() ?>farmtransactions/spraying', params);
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/spraying', params);
     }
     function deffenceWithGun(farm_id)
     {
@@ -86,7 +87,7 @@
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
-        ajax_request('#farmSection', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
     }
     function reap(plant_id)
     {
@@ -96,15 +97,18 @@
         ajax_request('#plantHolder', '<?= base_url() ?>farms/reap', params)
     }
 
-    function addtransaction(acc_id,type)
+    function addtransaction(acc_id,type,details)
     {
 	var params = {};
 	params['goal_farm'] = <?= $farm->id ?>;
 	params['off_farm'] = <?= $viewerFarm->id ?>;
 	params['acc_id'] = acc_id;
 	params['type'] = type;
-	//params['details'] = details;
-	ajax_request('.buyAccessoryReport','<?= base_url() ?>farmtransactions/add',params)
+	params['details'] = details;
+        if(type == 3)
+            ajax_request('#ajaxHolder','<?= base_url() ?>farmtransactions/add',params)
+        else
+            ajax_request('.buyAccessoryReport','<?= base_url() ?>farmtransactions/add',params)
     }
 
     function syncFarm(farm_id)
@@ -209,25 +213,20 @@
             </div>
             <div id="farmAction">
                 <?php
-                if(!$farm->plow)
-                    echo anchor("farms/plow/$farm->id",
+                    echo anchor(" ",
                                " ",
-                               array('onclick'=>"plow(".$farm->id.");return false;",'class'=>'plow-botton-on'));
-                else
-                    echo "<a class=\"plow-botton-off\"></a>";
+                               array('onclick'=>"deffenceWithGun(".$farm->id.");return false;",'class'=>'gun-botton-on'));
 
-                if($farm->level == 1)
-                    echo "<a class=\"spray-botton-off\"></a>";
-                else
-                    echo anchor("farmtransactions/spraying/$farm->id",
+                    if($farm->level == 1)
+                        echo "<a class=\"spray-botton-off\"></a>";
+                    else
+                        echo anchor("farmtransactions/spraying/$farm->id",
+                                    " ",
+                                    array('onclick'=>"spraying(".$farm->id.");return false;",'class'=>'spray-botton-on'));
+
+                    echo anchor(" ",
                                 " ",
-                                array('onclick'=>"spraying(".$farm->id.");return false;",'class'=>'spray-botton-on'));
-                if(!$plant->id || $plant->growth > 0)
-                    echo "<a class=\"reap-botton-off\"></a>";
-                else
-                    echo anchor("farms/reap/$plant->id",
-                                " ",
-                                array('onclick'=>"reap(".$plant->id.");return false;",'class'=>'reap-botton-on'))
+                                array('onclick'=>"addtransaction(0,3,3);return false;",'class'=>'help-botton-on'))
                 ?>
             </div>
         </div>
@@ -336,9 +335,9 @@
     </div>
     <div id="panel">
         <?= anchor("farms/showInventory/$farm->id/"," ",
-                   array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'farmInventory')); ?>
-        <?= anchor(" ","<span class=\"partnerLink\">$lang[inventory]<br/>$viewer->first_name</span>",
-                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'partnerInventory')); ?>
+                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'farmInventory')); ?>
+        <?= anchor(" ","<span class=\"partnerLink\">$lang[inventory] $lang[farm]<br/>$farm->name</span>",
+                   array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'partnerInventory')); ?>
         <div id="farmResource">
             <?php
                 if(isset($plantSources))
