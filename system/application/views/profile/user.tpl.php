@@ -277,74 +277,73 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             <li>
                                 <?php if($farmSign['endGame']['accept']): ?>
                                     <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/endGame-on.jpg"/></span>
-                                    <span class="rankThumbDetails">x<?= $farmSign['endGame']['detail'] ?></span>
+                                    <span class="endGameDetail">x<?= $farmSign['endGame']['detail'] ?></span>
                                 <?php else: ?>
                                     <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/endGame-off.jpg"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['topLevel']['accept']): ?>
-                                    <span class="topLevel"><?= $farmSign['topLevel']['detail'] ?></span>
-                                    <span class="topLevelLabel"><?= $lang['levelLabel'] ?></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/levelComplete-on.jpg"/></span>
+                                    <span class="levelCompleteDetail">&nbsp;<?= $farmSign['topLevel']['detail']  ?></span>
                                 <?php else: ?>
-                                    <span class="topLevel">0</span>
-                                    <span class="topLevelLabel"><?= $lang['levelLabel'] ?></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/levelComplete-off.jpg"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['deffence']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/endGame.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/bestDeffencer-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/endGame.png" title="<?= $farmSign['deffence']['detail'] ?>/20"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/bestDeffencer-off.jpg" title="<?= $farmSign['deffence']['detail'] ?>/20"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['attack']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/bestStriker-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['attack']['detail'] ?>/5"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/bestStriker-off.jpg" title="<?= $farmSign['attack']['detail'] ?>/5"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['famous']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/bestFarmer-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['famous']['detail'] ?>/50"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/bestFarmer-off.jpg" title="<?= $farmSign['famous']['detail'] ?>/50"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['goldenShovel']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenShovel-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['goldenShovel']['detail'] ?>/1"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenShovel-off.jpg" title="<?= $farmSign['goldenShovel']['detail'] ?>/1"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['goldenSickle']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenSickle-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['goldenSickle']['detail'] ?>/3"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenSickle-off.jpg" title="<?= $farmSign['goldenSickle']['detail'] ?>/3"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['goldenClock']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenClock-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['goldenClock']['detail'] ?>/5"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenClock-off.jpg" title="<?= $farmSign['goldenClock']['detail'] ?>/5"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['bigProduct']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenTomato-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['bigProduct']['detail'] ?>/1000"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenTomato-off.jpg" title="<?= $farmSign['bigProduct']['detail'] ?>/1000"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
                                 <?php if($farmSign['grasshoppers']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenGrasshopper-on.jpg"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['grasshoppers']['detail'] ?>/20"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/goldenGrasshopper-off.jpg" title="<?= $farmSign['grasshoppers']['detail'] ?>/20"/></span>
                                 <?php endif; ?>
                             </li>
                             
