@@ -22,7 +22,7 @@
 }
 #centerContainer
 {
-    background: #930044 url(../images/profile/profile_center.gif) no-repeat  center;
+    background: #930044 url(../images/profile/profile_center.jpg) no-repeat  center;
     height: 397px;
     width: 464px;
     display: block;
@@ -101,8 +101,6 @@
 }
 #userPicture a
 {
-    width: 88px;
-    height: 88px;
     display: block;
     position: relative;
     text-decoration: none;
@@ -278,14 +276,20 @@ span .abuseReport
 #farmSnapshot
 {
     position: absolute;
-    top: 27px;
+    top: 124px;
     right: 33px;
 }
 #farmSnapshot a
 {
-    height: 140px;
-    width: 135px;
+    background: url(../images/profile/gotoFarm.png);
+    background-position: 0 -44px;
+    height: 44px;
+    width: 44px;
     display: block;
+}
+#farmSnapshot a:hover
+{
+    background-position: 0 0;
 }
 #farmSnapshot .endGame
 {
@@ -420,6 +424,10 @@ span .abuseReport
     position: absolute;
     top: 67px;
     right: 20px;
+}
+#inviteRequestHolder
+{
+    font-size: 11px;
 }
 #inviteFriends .form
 {
@@ -661,6 +669,7 @@ color:#ffffff;
     padding-right:194px;
     padding-top:32px;
 }
+
 
 
 

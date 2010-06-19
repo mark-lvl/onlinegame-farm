@@ -774,6 +774,18 @@ span.partnerLink
     display: block;
     position: absolute;
 }
+#farmMission div span.text a
+{
+    background: url(../images/farm/missionStart.png);
+    background-position: 0 0;
+    height:17px;
+    width:61px;
+    display: block
+}
+#farmMission div span.text a:hover
+{
+    background-position: 0 -17px;
+}
 #farmMission .on
 {
     background: url(../images/farm/mission-on.png) no-repeat  center;

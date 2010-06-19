@@ -532,7 +532,7 @@
             <?php if(!$plant->id): ?>
                 <div class="on">
                     <span class="title"><?= $lang['yummyRequest'] ?></span>
-                    <span class="text"><?= $missionBox->description ."<br/>". anchor("farms/mission/$missionBox->id",$lang['gotoMission'],array('onClick'=>"mission($missionBox->id);return false")) ?>
+                    <span class="text"><?= $missionBox->description ."<br/><br/>". anchor("farms/mission/$missionBox->id"," ",array('onClick'=>"mission($missionBox->id);return false")) ?>
                     </span>
                 </div>
             <?php else: ?>

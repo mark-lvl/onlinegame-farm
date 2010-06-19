@@ -276,10 +276,10 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                           <ul  id="mycarousel" class="jcarousel-list">
                             <li>
                                 <?php if($farmSign['endGame']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/endGame-on.jpg"/></span>
                                     <span class="rankThumbDetails">x<?= $farmSign['endGame']['detail'] ?></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/endGame-off.jpg"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
@@ -293,9 +293,9 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             </li>
                             <li>
                                 <?php if($farmSign['deffence']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete.png"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/endGame.png"/></span>
                                 <?php else: ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/complete-off.png" title="<?= $farmSign['deffence']['detail'] ?>/20"/></span>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/ranks/endGame.png" title="<?= $farmSign['deffence']['detail'] ?>/20"/></span>
                                 <?php endif; ?>
                             </li>
                             <li>
