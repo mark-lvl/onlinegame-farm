@@ -54,16 +54,16 @@
                                 <?php endif; ?>
                                 <div id="userConsole">
                                     <span>
-                                            <?php
-                                                if($user_profile->photo != "") {
+                                            <?php 
+                                                if($user->photo != "") {
                                             ?>
-                                            <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
-                                                <img src="<?= $base_img."avatars/".$user_profile->photo.".png" ?>" />
+                                            <a href="<?= base_url() ?>profile/user/<?= $user->id ?>" >
+                                                <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=45&nh=45&source=<?= $base_img."avatars/".$user->photo.".png" ?>&stype=png&type=little" border="0" />
                                             </a>
                                             <?php
                                                 }else{
                                             ?>
-                                            <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
+                                            <a href="<?= base_url() ?>profile/user/<?= $user->id ?>" >
                                                 <img src="<?= $base_img ?>default.png" />
                                             </a>
                                             <?php

@@ -138,6 +138,9 @@ function registerNewFarm()
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
+$('#userPicture').hover(function(){$('#userPicture a div.changeAvatar').fadeIn()});
+$('#userPicture').mouseleave(function(){$('#userPicture a div.changeAvatar').fadeOut()});
+$('#userPicture a div.changeAvatar').click(function(){avatar();return false;})
 $("#inviteEmail").click(function(){$(this).val('');$(this).css("color","black");$(this).css("border","0");});
 $("#addFriend").submit(function(){
     $("#inviteEmail").css("border","");
@@ -212,6 +215,7 @@ $("#searchForm").submit(function(){
 });
 $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","black");});
 
+
 </script>
 <style>
     #content
@@ -227,13 +231,19 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                     if($user_profile->photo != "") {
                                 ?>
                                 <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
-                                    <img src="<?= $base_img."avatars/".$user_profile->photo.".png" ?>" />
+                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=88&nh=88&source=<?= $base_img."avatars/".$user_profile->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                                    <?php if(!$partner): ?>
+                                        <div class="changeAvatar"><?= $lang['changeAvatars'] ?></div>
+                                    <?php endif; ?>
                                 </a>
                                 <?php
                                     }else{
                                 ?>
                                 <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
                                     <img src="<?= $base_img ?>default.png" />
+                                    <?php if(!$partner): ?>
+                                        <div class="changeAvatar"><?= $lang['changeAvatars'] ?></div>
+                                    <?php endif; ?>
                                 </a>
                                 <?php
                                     }
@@ -253,12 +263,6 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 <?= anchor("profile/edit/$user_profile->id",
                                            $lang['profile_set'],
                                            array('onclick'=>"editProfile();return false;"));
-                                ?>
-                        </span>
-                        <span id="changeProfile2">
-                                <?= anchor("profile/edit/avatar",
-                                           "Avatar",
-                                           array('onclick'=>"avatar();return false;"));
                                 ?>
                         </span>
                         <?php endif; ?>
@@ -540,7 +544,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 ?>
                                     <div class="friendAvatarItem">
                                     <?php if($friend->photo != ""): ?>
-                                        <img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=62&nh=62&source=../views/layouts/images/users/<?= $friend->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
+                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=62&nh=62&source=<?= $base_img."avatars/".$friend->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
                                     <?php else: ?>
                                         <a href="<?= base_url() ?>profile/user/<?= $friend->id ?>" >
                                             <img src="<?= $base_img ?>default.png" />

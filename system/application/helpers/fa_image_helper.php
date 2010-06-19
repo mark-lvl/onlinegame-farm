@@ -33,7 +33,7 @@ class image_cropper
 		if($type == "big")
 		{
 			imagecopy($dimg,$simg,0,0,-$ow,-$oh,$nw,$nh);
-			imagejpeg($dimg);
+			imagepng($dimg);
 		}
 		else
 		{
@@ -55,7 +55,7 @@ class image_cropper
 			{
 				imagecopyresampled($dimg,$simg,0,0,0,0,$nw,$nh,$w,$h);
 			}
-			imagejpeg($dimg);
+			imagepng($dimg);
 		}
 	}
 }

@@ -99,12 +99,37 @@
     top: 40px;
     right:5px;
 }
-#userPicture img
+#userPicture a
 {
     width: 88px;
     height: 88px;
-    margin-top: 2px;
+    display: block;
+    position: relative;
+    text-decoration: none;
+}
+#userPicture a img
+{
+    width: 88px;
+    height: 88px;
+    display: block;
+    position: absolute;
+    top: 2px;
     background: #FFFFFF;
+}
+#userPicture a div.changeAvatar
+{
+    width: 88px;
+    height: 20px;
+    position: absolute;
+    top: 70px;
+    background: #444444;
+    opacity:0.7;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+    
 }
 #userName
 {
