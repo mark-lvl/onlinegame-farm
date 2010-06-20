@@ -8,7 +8,7 @@
 }
 #centerColumn
 {
-     margin-bottom: 8px !important;
+     margin-bottom: 10px !important;
 }
 </style>
 <script>
