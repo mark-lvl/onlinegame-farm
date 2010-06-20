@@ -673,6 +673,180 @@ color:#ffffff;
 
 
 
+/* ==============profileWizard=============*/
+#profileWizard
+{
+    position: relative;
+}
+#wizardWrapper
+{
+    width: 414px;
+    height: 241px;
+    position: absolute;
+    top: 7px;
+    right: 19px;
+    background: url(../images/profile/wizard-content-bg.png) no-repeat top center;
+}
+.wizardContentContainer
+{
+    display: none;
+}
+.wizardStep
+{
+    width: 414px;
+    height: 241px;
+    display: block;
+    position: relative;
+}
+.wizardIcon
+{
+    width: 118px;
+    height: 118px;
+    display: block;
+    position: absolute;
+    top: 34px;
+    right: 6px;
+}
+.wizardPic
+{
+    width: 200px;
+    height: 75px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 145px;
+}
+.wizardHeader
+{
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    top: 100px;
+    right: 145px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.wizardDescription
+{
+    width: 220px;
+    height: 30px;
+    position: absolute;
+    top: 130px;
+    right: 145px;
+    font-size: 11px;
+    color: #FFFFFF;
+}
+.wizardNextStep
+{
+    position: absolute;
+    top: 210px;
+    right: 30px;
+}
+.wizardNextStep a
+{
+    background: url(../images/profile/wizard-nextStep.png) no-repeat;
+    background-position: 0 0;
+    width: 86px;
+    height: 17px;
+    display: block;
+    cursor: pointer;
+}
+.wizardNextStep a:hover
+{
+    background-position: 0 -17px;
+}
+.wizardPreviousStep
+{
+    position: absolute;
+    top: 210px;
+    left: 17px;
+}
+.wizardPreviousStep a
+{
+    background: url(../images/profile/wizard-previousStep.png) no-repeat;
+    background-position: 0 0;
+    width: 86px;
+    height: 17px;
+    display: block;
+    cursor: pointer;
+}
+.wizardPreviousStep a:hover
+{
+    background-position: 0 -17px;
+}
+#wizardFormWrapper
+{
+    width: 414px;
+    height: 118px;
+    position: absolute;
+    top: 270px;
+    right: 26px;
+    background: url(../images/profile/wizard-form-bg.png) no-repeat top center;
+}
+.wizardFormContainer
+{
+    position: relative;
+}
+.createFarmHeader
+{
+    color: #3cff81;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 60px;
+}
+.createFarmDescription
+{
+    color: #FFFFFF;;
+    font-size: 10px;
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    width: 220px;
+}
+.createFarmFrom
+{
+    position: absolute;
+    top: 80px;
+    right: 60px;
+    width: 300px;
+}
+.createFarmFrom input.wizardInput
+{
+    background: url(../images/profile/wizard-formInput-bg.png) no-repeat;
+    width: 246px;
+    height: 21px;
+    border: 0;
+    float: right;
+}
+.createFarmFrom .wizardSubmit
+{
+    background: url(../images/profile/wizard-submit.png) no-repeat;
+    background-position: 0 0;
+    width: 42px;
+    height: 19px;
+    border: 0;
+    float: left;
+}
+.createFarmFrom .wizardSubmit:hover
+{
+    background-position: 0 -19px;
+}
+
+#wizardFinal
+{
+    background: url(../images/profile/wizard-final.png) no-repeat;
+    position: absolute;
+    top: 223px;
+    right: 207px;
+    width: 57px;
+    height: 87px;
+    display: none;
+}
+
+/* ===========endProfileWizard=============*/
 /* ================Inbox===================*/
 
 #inboxHolder

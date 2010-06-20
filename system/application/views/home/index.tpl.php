@@ -41,10 +41,17 @@
                 <ul>
                 <?php foreach($bestUsers AS $bUser): ?>
                     <li>
-                        <a href="<?= base_url() ?>profile/user/<?= $bUser->id ?>">
-                            <img  src="<?= $base_img ?>default.png"/>
-                            <span><?= $bUser->first_name." ".$bUser->last_name ?></span>
-                        </a>
+                        <?php if($bUser->photo != ""): ?>
+                            <a href="<?= base_url() ?>profile/user/<?= $bUser->id ?>">
+                                <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=57&nh=57&source=<?= $base_img."avatars/".$bUser->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                                <span><?= $bUser->first_name." ".$bUser->last_name ?></span>
+                            </a>
+                        <?php else: ?>
+                            <a href="<?= base_url() ?>profile/user/<?= $bUser->id ?>">
+                                <img  src="<?= $base_img ?>default.png"/>
+                                <span><?= $bUser->first_name." ".$bUser->last_name ?></span>
+                            </a>
+                        <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
                 </ul>
