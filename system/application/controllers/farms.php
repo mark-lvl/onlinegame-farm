@@ -122,7 +122,7 @@ class Farms extends MainController {
 	    }
 	    else
 	    {
-                $this->load->view("farms/register.php", $this->data);
+                redirect('profile/user/'.$user_id);
 	    }
         }
     }

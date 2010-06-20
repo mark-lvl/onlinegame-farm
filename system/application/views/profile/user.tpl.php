@@ -487,6 +487,9 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                         <?php foreach ($transactions as $transaction) : ?>
                                             <li class=<?= $transaction->messageStyle ?>>
                                                     <span class="container">
+                                                            <?php if($transaction->messageStyle != ""): ?>
+                                                                <img src="<?= $base_img."profile/".$transaction->messageStyle."Icon.png" ?>">
+                                                            <?php endif; ?>
                                                             <?php
                                                             if($transaction->type != 3)
                                                             {
@@ -504,7 +507,12 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                                             }
                                                             else
                                                                 if($transaction->flag != 'newUser')
-                                                                    echo $lang['farmTransactionHelpToFriend'];
+                                                                {
+                                                                    if($transaction->offset_farm == $userFarm->id)
+                                                                        echo $lang['farmTransactionHelpToFriend'];
+                                                                    else
+                                                                        continue;
+                                                                }
                                                                 else
                                                                     echo $lang['havingAnytransaction'];
 
@@ -543,7 +551,9 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 ?>
                                     <div class="friendAvatarItem">
                                     <?php if($friend->photo != ""): ?>
+                                        <a href="<?= base_url() ?>profile/user/<?= $friend->id ?>" >
                                         <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=62&nh=62&source=<?= $base_img."avatars/".$friend->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                                        </a>
                                     <?php else: ?>
                                         <a href="<?= base_url() ?>profile/user/<?= $friend->id ?>" >
                                             <img src="<?= $base_img ?>default.png" />

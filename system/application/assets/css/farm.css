@@ -247,14 +247,66 @@
     float: left;
     margin-right: 7px;
 }
+#farmReset
+{
+    width: 221px;
+    height: 70px;
+    display: block;
+    background: url(../images/farm/farmReset-bg.png) no-repeat  center;
+    position: relative;
+}
+#resetGame
+{
+    position: absolute;
+    top: 18px;
+    right: 57px;
+}
+#resetGame a
+{
+    background: url(../images/farm/resetGame.png) no-repeat;
+    background-position: 0 -42px;
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+#resetGame a:hover
+{
+    background-position: 0 0;
+}
+#resetLevel
+{
+    position: absolute;
+    top: 18px;
+    right: 120px;
+}
+#resetLevel a
+{
+    background: url(../images/farm/resetLevel.png) no-repeat;
+    background-position: 0 -42px;
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+#resetLevel a:hover
+{
+    background-position: 0 0;
+}
 #farmInformation
 {
     width: 221px;
-    height: 137px;
+    height: 117px;
     display: block;
     background: url(../images/farm/info.png) no-repeat  center;
-    margin-top: 50px;
     position: relative;
+}
+#farmInformationPartner
+{
+    width: 221px;
+    height: 117px;
+    display: block;
+    background: url(../images/farm/info.png) no-repeat  center;
+    position: relative;
+    margin-top: 50px;
 }
 #farmInformationDetails
 {
@@ -262,7 +314,7 @@
     height:67px;
     position:absolute;
     right:50px;
-    top:60px;
+    top:40px;
     width:160px;
 }
 .farmInfoItem
@@ -553,6 +605,14 @@
     height: 108px;
     display: block;
     background: url(../images/farm/inventory.png) no-repeat  center;
+    float: right;
+}
+#partnerFarmInventory
+{
+    width: 107px;
+    height: 108px;
+    display: block;
+    background: url(../images/farm/yourAttackInventory.png) no-repeat  center;
     float: right;
 }
 #farmAccessory

@@ -26,7 +26,14 @@
                 $('.wizardSubmit').removeAttr("disabled");
                 $('#wizardFinal').fadeIn();
             }
-        })
+        });
+        $('.wizardSubmit').click(function(){
+            if($('.wizardInput').val() == "")
+            {
+                $('.wizardInput').css('border','1px red solid');
+                return false;
+            }
+        });
     })
     
 </script>
@@ -149,7 +156,7 @@
                 </div>
                 <div class="createFarmFrom">
                     <form action="<?= base_url() ?>farms/register"  method="post">
-                        <input type="text" name="name" class="wizardInput" value="<?= $lang['firstReadHelp'] ?>" disabled/>
+                        <input type="text" name="name" class="wizardInput" value="<?= $lang['firstReadHelp'] ?>" maxlength="40" disabled/>
                         <input type="submit" value=" " class="wizardSubmit" disabled/>
                     </form>
                 </div>

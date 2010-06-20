@@ -276,7 +276,7 @@ span .abuseReport
 #farmSnapshot
 {
     position: absolute;
-    top: 124px;
+    top: 28px;
     right: 33px;
 }
 #farmSnapshot a
@@ -286,6 +286,7 @@ span .abuseReport
     height: 44px;
     width: 44px;
     display: block;
+    margin-top: 100px;
 }
 #farmSnapshot a:hover
 {
@@ -297,7 +298,7 @@ span .abuseReport
     width: 135px;
     display: block;
     border: 0;
-    background: url(../images/profile/farm_disactive.gif) no-repeat center;
+    background: url(../images/profile/farm_disactive.png) no-repeat center;
 }
 
 

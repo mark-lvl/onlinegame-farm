@@ -235,7 +235,7 @@
             </div>
         </div>
         <div id="sidebar">
-            <div id="farmInformation">
+            <div id="farmInformationPartner">
                 <div id="farmInformationDetails">
                     <span class="farmInfoItem"><?= $lang['farm'] ?>:<span class="infoValue"><?= $farm->name ?></span></span>
                     <span class="farmInfoItem"><?= $lang['farmMoney'] ?>:<span class="infoValue" id="moneyHolder"><?= $farm->money." ".$lang['yummyMoneyUnit'] ?></span></span>
@@ -339,7 +339,7 @@
     </div>
     <div id="panel">
         <?= anchor("farms/showInventory/$farm->id/"," ",
-                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'farmInventory')); ?>
+                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'partnerFarmInventory')); ?>
         <?= anchor(" ","<span class=\"partnerLink\">$lang[inventory] $lang[farm]<br/>$farm->name</span>",
                    array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'partnerInventory')); ?>
         <div id="farmResource">

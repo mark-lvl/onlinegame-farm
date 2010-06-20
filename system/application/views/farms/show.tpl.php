@@ -227,15 +227,15 @@
     }
     function resetConfirm1()
     {
-        Boxy.confirm('<?= $lang['resetFarmConfirm-1'] ?>', resetConfirm2);
+        Boxy.confirm('<?= $lang['resetFarmConfirm-1'] ?>', resetConfirm2,{title: '<?= $lang['becareful'] ?>'});
     }
     function resetConfirm2()
     {
-        Boxy.confirm('<?= $lang['resetFarmConfirm-2'] ?>', resetConfirm3);
+        Boxy.confirm('<?= $lang['resetFarmConfirm-2'] ?>', resetConfirm3,{title: '<?= $lang['becareful'] ?>'});
     }
     function resetConfirm3()
     {
-        Boxy.confirm('<?= $lang['resetFarmConfirm-3'] ?>', resetFarm);
+        Boxy.confirm('<?= $lang['resetFarmConfirm-3'] ?>', resetFarm,{title: '<?= $lang['becareful'] ?>'});
     }
     function resetFarm()
     {
@@ -381,6 +381,14 @@
             </div>
         </div>
         <div id="sidebar">
+            <div id="farmReset">
+                <div id="resetGame">
+                    <?= anchor(" ", " ", array('onclick'=>'resetConfirm1();return false;')) ?>
+                </div>
+                <div id="resetLevel">
+                    <a></a>
+                </div>
+            </div>
             <div id="farmInformation">
                 <div id="farmInformationDetails">
                     <span class="farmInfoItem"><?= $lang['farm'] ?>:<span class="infoValue"><?= $farm->name ?></span></span>
