@@ -51,6 +51,9 @@ $(document).ready(function() {
     $(".goldenTomatoBadge").ezpz_tooltip({contentId:"goldenTomatoBadgeTooltip"});
     $(".goldenGrasshopperBadge").ezpz_tooltip({contentId:"goldenGrasshopperBadgeTooltip"});
     $(".famousFarmerBadge").ezpz_tooltip({contentId:"famousFarmerBadgeTooltip"});
+    $("#dangerBar").ezpz_tooltip({contentId:"dangerBarTooltip"});
+    $("#secureBar").ezpz_tooltip({contentId:"secureBarTooltip"});
+    $("#helpBar").ezpz_tooltip({contentId:"helpBarTooltip"});
 
 
     $("#dangerBar").progressBar(<?= $bars['attackBar'] ?>,{
@@ -250,6 +253,9 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
         <div id="goldenTomatoBadgeTooltip" class="tooltip"><?= str_replace(array('__RANK__','__NEED__'), array($farmSign['bigProduct']['detail'],10000), $lang['tooltip']['badge']['goldenTomato']) ?></div>
         <div id="goldenGrasshopperBadgeTooltip" class="tooltip"><?= str_replace(array('__RANK__','__NEED__'), array($farmSign['grasshoppers']['detail'],20), $lang['tooltip']['badge']['goldenGrasshopper']) ?></div>
         <div id="famousFarmerBadgeTooltip" class="tooltip"><?= str_replace(array('__RANK__','__NEED__'), array($farmSign['famous']['detail'],50), $lang['tooltip']['badge']['famousFarmer']) ?></div>
+        <div id="dangerBarTooltip" class="tooltip"><?= $lang['tooltip']['dangerBar'] ?></div>
+        <div id="secureBarTooltip" class="tooltip"><?= $lang['tooltip']['secureBar'] ?></div>
+        <div id="helpBarTooltip" class="tooltip"><?= $lang['tooltip']['helpBar'] ?></div>
         <!-- End tooltipHolder -->
 
         <div id="rightColumn">

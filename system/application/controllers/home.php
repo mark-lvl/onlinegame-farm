@@ -11,11 +11,9 @@ class Home extends MainController {
                 $this->load->model(array('Farm','Userrank'));
 	}
 	
-	function index()
+	function index($reason = null)
 	{
 	    $user = $this->user_model->is_authenticated();
-
-            $this->loadJs('jquery.hints');
 
             $frmMdl = new Farm();
             $this->data['allExistsFarm'] = $frmMdl->allExistsFarm();
@@ -28,6 +26,17 @@ class Home extends MainController {
             $this->data['heading'] = '';
             
             $this->data['user'] = $user;
+
+            
+            if(isset($reason))
+            {
+                $this->data['reason'] = $reason;
+            }
+                
+
+            $this->loadJs('jquery.hints');
+            $this->loadJs('boxy');
+            $this->add_css('boxy');
 
 	    $this->render('home');
 	}

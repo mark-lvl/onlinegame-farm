@@ -1,8 +1,9 @@
 <style>
-    #content
-    {
-        background: #536229;
-}
+    #content{background: #536229;}
+    .boxy-inner {height: 80px!important;overflow:auto;}
+    .main-content{height:80px!important;}
+    .boxy-content{padding:0px 20px!important}
+    .boxy-wrapper .question {min-height: 35px!important;}
 </style>
 <div id="homeWrapper">
     <div id="rightBox">
@@ -66,3 +67,16 @@
         </div>
     </div>
 </div>
+
+<script>
+<?php
+if($reason != "") {
+?>
+    var reason = "<?= $reason ?>";
+        if(reason != "") {
+                        Boxy.alert("<?= $lang['loginError'] ?>", null, {title:"<?= $lang['filling_error'] ?>"});
+            }
+<?php
+}
+?>
+</script>

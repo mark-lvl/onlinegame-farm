@@ -74,8 +74,11 @@
                                                     <?= $user->first_name." ".$user->last_name ?>
                                                 </a>
                                             </span>
-                                            <span class="date">
-                                                <?= $lang['register_date'].": ".convert_number(fa_strftime("%d %B %Y", $user->registration_date . "")) ?>
+                                            <span class="farm">
+                                                <?= anchor(base_url()."farms/view/$user->id", $lang['GotoFarm']) ?>
+                                            </span>
+                                            <span class="logout">
+                                                <?= anchor(base_url()."gateway/logout", "<img src=\"$base_img/logout.png\" />",array('title'=>$lang['logout'])) ?>
                                             </span>
                                     </span>
                                 </div>

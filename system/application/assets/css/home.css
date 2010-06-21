@@ -144,8 +144,8 @@ p {
 #userConsole span.name
 {
     position: absolute;
-    width: 130px;
-    font-size: 11px;
+    width: 105px;
+    font-size: 10px;
     font-weight:bold;
     top: 12px;
     right:67px;
@@ -157,13 +157,28 @@ p {
     text-decoration: none;
 }
 
-#userConsole span.date
+#userConsole span.logout
 {
-    font-size:10px;
-	position:absolute;
-	right:67px;
-	top:27px;
-	width:130px;
+    position:absolute;
+    right:172px;
+    top:3px;
+}
+#userConsole span.farm
+{
+    position:absolute;
+    right:67px;
+    top:26px;
+}
+#userConsole span.farm a
+{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+span.logout img
+{
+    width: 32px !important;
+    height: 32px !important;
+    background: none !important;
 }
 #navigation
 {

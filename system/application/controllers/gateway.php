@@ -25,7 +25,7 @@ class Gateway extends MainController {
                         redirect('profile/user/'.$user->id);
                     }
 		else
-                    redirect('message/index/0/');
+                    redirect('home/index/loginError');
 	    }
 	}
 	
