@@ -226,6 +226,7 @@ class Farms extends MainController {
                 $this->add_css('popup');
                 $this->loadJs('popup');
                 $this->loadJs('boxy');
+                $this->loadJs('tooltip');
                 
                 $this->add_css('boxyFarm');
 
@@ -365,6 +366,7 @@ class Farms extends MainController {
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
                 $this->loadJs('boxy');
+                $this->loadJs('tooltip');
                 $this->add_css('boxyFarm');
 		
 		$this->render('home');

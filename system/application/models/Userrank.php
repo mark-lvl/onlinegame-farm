@@ -19,13 +19,15 @@ class Userrank extends DataMapper {
             else
                 $users[$bu->user_id] += $bu->rank;
         }
-        arsort($users,SORT_NUMERIC);
-        $users = array_slice($users, 0,$limit,TRUE);
-        $usrMdl = new User_model();
-	foreach($users AS $user=>$rank)
-	$usersHolder[] = $usrMdl->get_user_by_id($user);
-        return $usersHolder;
+        if(is_array($users))
+        {
+            arsort($users,SORT_NUMERIC);
+            $users = array_slice($users, 0,$limit,TRUE);
+            $usrMdl = new User_model();
+            foreach($users AS $user=>$rank)
+            $usersHolder[] = $usrMdl->get_user_by_id($user);
+            return $usersHolder;
+        }
     }
-
 }
 ?>

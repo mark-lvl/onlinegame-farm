@@ -129,6 +129,22 @@
         syncFarm(<?= $farm->id ?>);
 
 
+        //this section holding all tooltip in page
+        $("#partnerInventory").ezpz_tooltip({contentId:"partnerInventoryTooltip"});
+        $("#partnerFarmInventory").ezpz_tooltip({contentId:"partnerFarmInventoryTooltip"});
+        $(".gun-botton-on").ezpz_tooltip({contentId:"gunActiveTooltip"});
+        $(".gun-botton-off").ezpz_tooltip({contentId:"gunInactiveTooltip"});
+        $(".spray-botton-on").ezpz_tooltip({contentId:"sprayingActiveTooltip"});
+        $(".spray-botton-off").ezpz_tooltip({contentId:"sprayingInactiveTooltip"});
+        $(".help-botton-on").ezpz_tooltip({contentId:"moneyHelpTooltip"});
+        $(".waterSpread").ezpz_tooltip({contentId:"waterSpreadTooltip"});
+        $(".muckSpread").ezpz_tooltip({contentId:"muckSpreadTooltip"});
+        $(".reapCounter").ezpz_tooltip({contentId:"reapCounterTooltip"});
+        $("#resourceCounter1").ezpz_tooltip({contentId:"waterCounterTooltip"});
+        $("#resourceCounter2").ezpz_tooltip({contentId:"muckCounterTooltip"});
+
+
+
         <?php if($plant->id): ?>
         $(".expandStatistic").click(function() {
 		$('#lessStatistic').hide();
@@ -196,6 +212,22 @@
 </script>
 <div id="farmWrapper">
     <div id="ajaxHolder"></div>
+     <!-- Start tooltipHolder -->
+    <div id="partnerInventoryTooltip" class="tooltip"><?= $lang['tooltip']['partnerInventory'] ?></div>
+    <div id="partnerFarmInventoryTooltip" class="tooltip"><?= $lang['tooltip']['partnerFarmInventory'] ?></div>
+    <div id="gunActiveTooltip" class="tooltip"><?= $lang['tooltip']['partnerGun-active'] ?></div>
+    <div id="gunInactiveTooltip" class="tooltip"><?= $lang['tooltip']['partnerGun-inactive'] ?></div>
+    <div id="sprayingActiveTooltip" class="tooltip"><?= $lang['tooltip']['partnerSpraying-active'] ?></div>
+    <div id="sprayingInactiveTooltip" class="tooltip"><?= $lang['tooltip']['partnerSpraying-inactive'] ?></div>
+    <div id="moneyHelpTooltip" class="tooltip"><?= $lang['tooltip']['moneyHelp'] ?></div>
+    <div id="waterSpreadTooltip" class="tooltip"><?= $lang['tooltip']['partnerWaterSpread'] ?></div>
+    <div id="muckSpreadTooltip" class="tooltip"><?= $lang['tooltip']['partnerMuckSpread'] ?></div>
+    <div id="reapCounterTooltip" class="tooltip"><?= $lang['tooltip']['reapCounter'] ?></div>
+    <div id="waterCounterTooltip" class="tooltip"><?= $lang['tooltip']['waterCounter'] ?></div>
+    <div id="muckCounterTooltip" class="tooltip"><?= $lang['tooltip']['muckCounter'] ?></div>
+    <!-- End tooltipHolder -->
+
+
     <div id="base">
         <div id="farm">
             <div id="section-1" class="<?= ($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>

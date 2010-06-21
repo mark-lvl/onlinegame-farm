@@ -230,6 +230,11 @@
     background-position: -174px 0;
     cursor: pointer;
 }
+.gun-botton-off
+{
+    background: url(../images/farm/farm-action-off.png) no-repeat;
+    background-position: -174px 0;
+}
 .help-botton-on
 {
     background: url(../images/farm/farm-action-on.png) no-repeat;
@@ -1536,8 +1541,6 @@ span.partnerLink
     display:block;
     font-size: 9px;
 }
-
-
 
 
 /*******footerPanel*******/

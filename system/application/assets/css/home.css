@@ -517,3 +517,15 @@ width:300px;
     font-weight: bold;
     color: #FFFFFF;
 }
+
+
+.tooltip
+{
+    background: url(../images/farm/tooltip-bg.png) repeat;
+    width: 100px;
+    padding: 10px;
+    border: 2px solid black;
+    position: absolute;   /* required */
+    display: none;
+    z-index: 9999;
+}

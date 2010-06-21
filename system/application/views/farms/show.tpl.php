@@ -264,6 +264,28 @@
         var timeHolder = <?= rand(50000, 500000); ?>;
         var t=setTimeout('disasters(<?= $farm->id ?>)',timeHolder);
 
+
+        //this section holding all tooltip in page
+        $("#resetGame").ezpz_tooltip({contentId:"resetGameTooltip"});
+        $("#resetLevel").ezpz_tooltip({contentId:"resetLevelTooltip"});
+        $("#farmAccessory").ezpz_tooltip({contentId:"buyAccessoryTooltip"});
+        $("#farmInventory").ezpz_tooltip({contentId:"showInventoryTooltip"});
+        $(".plow-botton-on").ezpz_tooltip({contentId:"plowActiveTooltip"});
+        $(".plow-botton-off").ezpz_tooltip({contentId:"plowInactiveTooltip"});
+        $(".gun-botton-on").ezpz_tooltip({contentId:"gunActiveTooltip"});
+        $(".gun-botton-off").ezpz_tooltip({contentId:"gunInactiveTooltip"});
+        $(".spray-botton-on").ezpz_tooltip({contentId:"sprayingActiveTooltip"});
+        $(".spray-botton-off").ezpz_tooltip({contentId:"sprayingInactiveTooltip"});
+        $(".reap-botton-on").ezpz_tooltip({contentId:"reapActiveTooltip"});
+        $(".reap-botton-off").ezpz_tooltip({contentId:"reapInactiveTooltip"});
+        $(".waterBuy").ezpz_tooltip({contentId:"waterBuyTooltip"});
+        $(".muckBuy").ezpz_tooltip({contentId:"muckBuyTooltip"});
+        $(".waterSpread").ezpz_tooltip({contentId:"waterSpreadTooltip"});
+        $(".muckSpread").ezpz_tooltip({contentId:"muckSpreadTooltip"});
+        $(".reapCounter").ezpz_tooltip({contentId:"reapCounterTooltip"});
+        $("#resourceCounter1").ezpz_tooltip({contentId:"waterCounterTooltip"});
+        $("#resourceCounter2").ezpz_tooltip({contentId:"muckCounterTooltip"});
+
         syncFarm(<?= $farm->id ?>);
 
 
@@ -332,6 +354,29 @@
 </script>
 <div id="farmWrapper">
     <div id="ajaxHolder"></div>
+    
+    <!-- Start tooltipHolder -->
+    <div id="resetGameTooltip" class="tooltip"><?= $lang['tooltip']['resetGame'] ?></div>
+    <div id="resetLevelTooltip" class="tooltip"><?= $lang['tooltip']['resetLevel'] ?></div>
+    <div id="buyAccessoryTooltip" class="tooltip"><?= $lang['tooltip']['buyAccessory'] ?></div>
+    <div id="showInventoryTooltip" class="tooltip"><?= $lang['tooltip']['showInventory'] ?></div>
+    <div id="plowActiveTooltip" class="tooltip"><?= $lang['tooltip']['plow-active'] ?></div>
+    <div id="plowInactiveTooltip" class="tooltip"><?= $lang['tooltip']['plow-inactive'] ?></div>
+    <div id="gunActiveTooltip" class="tooltip"><?= $lang['tooltip']['gun-active'] ?></div>
+    <div id="gunInactiveTooltip" class="tooltip"><?= $lang['tooltip']['gun-inactive'] ?></div>
+    <div id="sprayingActiveTooltip" class="tooltip"><?= $lang['tooltip']['spraying-active'] ?></div>
+    <div id="sprayingInactiveTooltip" class="tooltip"><?= $lang['tooltip']['spraying-inactive'] ?></div>
+    <div id="reapActiveTooltip" class="tooltip"><?= $lang['tooltip']['reap-active'] ?></div>
+    <div id="reapInactiveTooltip" class="tooltip"><?= $lang['tooltip']['reap-inactive'] ?></div>
+    <div id="waterBuyTooltip" class="tooltip"><?= $lang['tooltip']['waterBuy'] ?></div>
+    <div id="muckBuyTooltip" class="tooltip"><?= $lang['tooltip']['muckBuy'] ?></div>
+    <div id="waterSpreadTooltip" class="tooltip"><?= $lang['tooltip']['waterSpread'] ?></div>
+    <div id="muckSpreadTooltip" class="tooltip"><?= $lang['tooltip']['muckSpread'] ?></div>
+    <div id="reapCounterTooltip" class="tooltip"><?= $lang['tooltip']['reapCounter'] ?></div>
+    <div id="waterCounterTooltip" class="tooltip"><?= $lang['tooltip']['waterCounter'] ?></div>
+    <div id="muckCounterTooltip" class="tooltip"><?= $lang['tooltip']['muckCounter'] ?></div>
+    <!-- End tooltipHolder -->
+
     <div id="base">
         <div id="farm">
             <div id="section-1" class="<?= ($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
@@ -361,9 +406,12 @@
                     else
                         echo "<a class=\"plow-botton-off\"></a>";
                 else
-                    echo anchor(" ",
-                               " ",
-                               array('onclick'=>"deffenceWithGun(".$farm->id.");return false;",'class'=>'gun-botton-on'));
+                    if($farm->level > 4)
+                        echo anchor(" ",
+                                   " ",
+                                   array('onclick'=>"deffenceWithGun(".$farm->id.");return false;",'class'=>'gun-botton-on'));
+                    else
+                        echo "<a class=\"gun-botton-off\"></a>";
 
                 if($farm->level == 1)
                     echo "<a class=\"spray-botton-off\"></a>";
@@ -385,6 +433,8 @@
                 <div id="resetGame">
                     <?= anchor(" ", " ", array('onclick'=>'resetConfirm1();return false;')) ?>
                 </div>
+                
+                
                 <div id="resetLevel">
                     <a></a>
                 </div>

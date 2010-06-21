@@ -8,7 +8,7 @@ class Profile extends MainController
         const SIGN_SICKLE_AMOUNT = 2;
         const SIGN_CLOCK_AMOUNT = 4;
         const SIGN_GRASSHOPPERS_AMOUNT = 20;
-        const SIGN_PRODUCT_AMOUNT = 1000;
+        const SIGN_PRODUCT_AMOUNT = 10000;
 
 	function Profile()
 	{
@@ -151,6 +151,9 @@ class Profile extends MainController
                     elseif($accessory->type == 2)
                             $bars['deffenceBar'] += 15;
                 }
+                if(!isset($farmSign['grasshoppers']['accept']))
+                    if(!isset($farmSign['grasshoppers']['detail']))
+                        $farmSign['grasshoppers']['detail'] = '0';
 
                 $frmTrnMdl = new Farmtransaction();
                 $frmTrnObjs = $frmTrnMdl->where('offset_farm',$this->data['userFarm']->id)
@@ -306,6 +309,7 @@ class Profile extends MainController
             $this->loadJs('boxy');
             $this->loadJs('generals');
             $this->loadJs('jquery.hints');
+            $this->loadJs('tooltip');
             $this->render('home');
 
 	}
