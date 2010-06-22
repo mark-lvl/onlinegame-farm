@@ -119,18 +119,79 @@ p {
 }
 #userConsole
 {
-    height: 59px;
-    width: 218px;
-    display: block;
+    
     position: absolute;
     top: 86px;
     right:715px;
-    background: url(../images/profile/user_console.gif) no-repeat center;
 }
-#userConsole span
+
+#userConsole span.unLogged
 {
-    position: relative;
+    margin-top: 9px;
+    background: url(../images/profile/profileLoginConsole-bg.png) no-repeat center;
+    height: 36px;
     width: 218px;
+    display: block;
+    position: relative;
+}
+span.unLogged form.login
+{
+    display:block;
+    height:30px;
+    position:absolute;
+    right:7px;
+    top:3px;
+    width:206px;
+}
+span.unLogged form.login input.text
+{
+    background: url(../images/profile/profileLogin-bg.png) no-repeat left;
+    width: 71px;
+    height: 16px;
+    display: block;
+    float: right;
+    margin-left: 5px;
+    padding: 0 4px;
+    text-align: left;
+    direction: ltr;
+    border: 0;
+    color: #888888;
+}
+span.unLogged form.login input.profileLoginsubmit
+{
+    background: url(../images/profile/loginSubmit.png);
+    background-position: 0 0;
+    width: 38px;
+    height: 16px;
+    display: block;
+    border: 0;
+}
+span.unLogged form.login input.profileLoginsubmit:hover
+{
+    background-position: 0 -16px;
+}
+span.unLogged span.register
+{
+    display:block;
+    height:20px;
+    position:absolute;
+    right:180px;
+    top:18px;
+    width:35px;
+}
+span.register a
+{
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+#userConsole span.main
+{
+    background: url(../images/profile/user_console.gif) no-repeat center;
+    height: 59px;
+    width: 218px;
+    display: block;
+    position: relative;
 }
 #userConsole img
 {
@@ -423,6 +484,7 @@ width:300px;
     height: 19px;
     margin-bottom: 6px;
     color: #666666;
+    direction: ltr;
 }
 
 #loginFormHolder .form input.loginSubmit

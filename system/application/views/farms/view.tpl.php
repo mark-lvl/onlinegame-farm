@@ -19,7 +19,7 @@
                             zIndex:101, display:'block', cursor:'wait' }
                             });
         $(handler).load(url, params,callback);
-        
+
     }
 
     function liftOff() {
@@ -42,7 +42,7 @@
 
     function showPartnerInventory(){
 	var params = {};
-     	params['user_id'] = <?= $viewer->id ?>;
+     	params['user_id'] = '<?= $viewer->id ?>';
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showPartnerInventory', params);
     }
@@ -65,7 +65,7 @@
 	var params = {};
      	params['plant_id'] = plant_id;
 	params['resource_id'] = resource_id;
-	params['viewer_id'] = <?= $viewer->id ?>;
+	params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
 	params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
@@ -75,7 +75,7 @@
     {
         var params = {};
         params['farm'] = farm;
-        params['viewer_id'] = <?= $viewer->id ?>;
+        params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
@@ -85,7 +85,7 @@
     {
         var params = {};
         params['farm_id'] = farm_id;
-        params['viewer_id'] = <?= $viewer->id ?>;
+        params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
 
@@ -103,7 +103,7 @@
     {
 	var params = {};
 	params['goal_farm'] = <?= $farm->id ?>;
-	params['off_farm'] = <?= $viewerFarm->id ?>;
+	params['off_farm'] = '<?= $viewerFarm->id ?>';
 	params['acc_id'] = acc_id;
 	params['type'] = type;
 	params['details'] = details;
@@ -208,7 +208,7 @@
     });
 
 
-    
+
 </script>
 <div id="farmWrapper">
     <div id="ajaxHolder"></div>
@@ -249,20 +249,29 @@
             </div>
             <div id="farmAction">
                 <?php
-                    echo anchor(" ",
-                               " ",
-                               array('onclick'=>"deffenceWithGun(".$farm->id.");return false;",'class'=>'gun-botton-on'));
+                    if(!$user->unAuthenticatedUser)
+                        echo anchor(" ",
+                                   " ",
+                                   array('onclick'=>"deffenceWithGun(".$farm->id.");return false;",'class'=>'gun-botton-on'));
+                    else
+                        echo "<a class=\"gun-botton-off\"></a>";
 
                     if($farm->level == 1)
                         echo "<a class=\"spray-botton-off\"></a>";
                     else
+                        if(!$user->unAuthenticatedUser)
                         echo anchor("farmtransactions/spraying/$farm->id",
                                     " ",
                                     array('onclick'=>"spraying(".$farm->id.");return false;",'class'=>'spray-botton-on'));
+                        else
+                            echo "<a class=\"spray-botton-off\"></a>";
 
-                    echo anchor(" ",
-                                " ",
-                                array('onclick'=>"addtransaction(0,3,3);return false;",'class'=>'help-botton-on'))
+                    if(!$user->unAuthenticatedUser)
+                        echo anchor(" ",
+                                    " ",
+                                    array('onclick'=>"addtransaction(0,3,3);return false;",'class'=>'help-botton-on'));
+                    else
+                        echo "<a class=\"help-botton-off\"></a>";
                 ?>
             </div>
         </div>
@@ -376,36 +385,36 @@
                    array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'partnerInventory')); ?>
         <div id="farmResource">
             <?php
-                if(isset($plantSources))
+                if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
                                     " ",
                                     array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpreadIcon'));
             ?>
             <?php
-                if(isset($plantSources))
+                if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
                                     " ",
                                     array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpreadIcon'));
             ?>
             <div class="waterResource">
                 <?php
-                if(isset($plantSources))
+                if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
                                     " ",
                                     array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpread'));
                 ?>
                 <div id="waterAmount"><?= $farmResources['Water'] ?></div>
-                
+
             </div>
             <div class="muckResource">
                 <?php
-                if(isset($plantSources))
+                if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
                                     " ",
                                     array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpread'));
                 ?>
                 <div id="muckAmount"><?= $farmResources['Muck'] ?></div>
-                
+
             </div>
         </div>
         <div id="partnerHints">

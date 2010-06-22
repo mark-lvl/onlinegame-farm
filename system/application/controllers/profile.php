@@ -29,13 +29,18 @@ class Profile extends MainController
 	function user($id = "")
         {
 	    if($id == "" || !preg_match_all ("/(\\d+)/is", $id, $matches))
-                    redirect("/");
+                redirect("/");
 
 	    $user = $this->user_model->is_authenticated();
-            $user->profilePage = TRUE;
-
+            
             if(!$user)
-                    redirect("/");
+            {
+                //this flag show this user is not logged
+                $user->unAuthenticatedUser = TRUE;
+            }
+
+            //this flag determine showing profilePage
+            $user->profilePage = TRUE;
 
 	    if($id != $user->id)
             {
@@ -77,6 +82,8 @@ class Profile extends MainController
 
             if($this->data['userFarm']->id)
             {
+                $farmSign['haveFarm']['accept'] = TRUE;
+
                 $notMdl = new Notification();
                 $notObjs = $notMdl->where(array('farm_id'=>$this->data['userFarm']->id))->where_in('type',array(0,3))->get()->all;
                 $this->data['hints'] = $notObjs;

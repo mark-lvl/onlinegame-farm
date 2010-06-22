@@ -51,6 +51,7 @@ $(document).ready(function() {
     $(".goldenTomatoBadge").ezpz_tooltip({contentId:"goldenTomatoBadgeTooltip"});
     $(".goldenGrasshopperBadge").ezpz_tooltip({contentId:"goldenGrasshopperBadgeTooltip"});
     $(".famousFarmerBadge").ezpz_tooltip({contentId:"famousFarmerBadgeTooltip"});
+    $(".haveFarmBadge").ezpz_tooltip({contentId:"haveFarmBadgeTooltip"});
     $("#dangerBar").ezpz_tooltip({contentId:"dangerBarTooltip"});
     $("#secureBar").ezpz_tooltip({contentId:"secureBarTooltip"});
     $("#helpBar").ezpz_tooltip({contentId:"helpBarTooltip"});
@@ -138,7 +139,7 @@ function deleteFriend()
 {
     var params = {};
     params['id'] = <?= $user_profile->id ?>;;
-    params['user_id'] = <?= $user->id ?>;
+    params['user_id'] = '<?= $user->id ?>';
 	$('.removeFromFriend').fadeOut();
     ajax_request('#ajaxHolder','<?= base_url() ?>profile/deleteFriend',params);
 }
@@ -187,7 +188,7 @@ $("#addFriend").submit(function(){
 $("#sendMessage").submit(function(){
     var params = {};
     params['message'] = $("#privateMess").val();
-    params['from'] = <?= $user->id ?>;
+    params['from'] = '<?= $user->id ?>';
     params['to'] = <?= $user_profile->id ?>;
     params['senderName'] = '<?= $user->first_name ?>';
     if(params['message'] == "")
@@ -253,6 +254,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
         <div id="goldenTomatoBadgeTooltip" class="tooltip"><?= str_replace(array('__RANK__','__NEED__'), array($farmSign['bigProduct']['detail'],10000), $lang['tooltip']['badge']['goldenTomato']) ?></div>
         <div id="goldenGrasshopperBadgeTooltip" class="tooltip"><?= str_replace(array('__RANK__','__NEED__'), array($farmSign['grasshoppers']['detail'],20), $lang['tooltip']['badge']['goldenGrasshopper']) ?></div>
         <div id="famousFarmerBadgeTooltip" class="tooltip"><?= str_replace(array('__RANK__','__NEED__'), array($farmSign['famous']['detail'],50), $lang['tooltip']['badge']['famousFarmer']) ?></div>
+        <div id="haveFarmBadgeTooltip" class="tooltip"><?= $lang['tooltip']['badge']['haveFarm'] ?></div>
         <div id="dangerBarTooltip" class="tooltip"><?= $lang['tooltip']['dangerBar'] ?></div>
         <div id="secureBarTooltip" class="tooltip"><?= $lang['tooltip']['secureBar'] ?></div>
         <div id="helpBarTooltip" class="tooltip"><?= $lang['tooltip']['helpBar'] ?></div>
@@ -308,6 +310,13 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         <div class="jcarousel-next"></div>
                         <div class="jcarousel-clip">
                           <ul  id="mycarousel" class="jcarousel-list">
+                            <li>
+                                <?php if($farmSign['haveFarm']['accept']): ?>
+                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/haveFarm-on.jpg"/></span>
+                                <?php else: ?>
+                                    <span class="rankThumb haveFarmBadge"><img src="<?= $base_img ?>profile/badges/haveFarm-off.jpg"/></span>
+                                <?php endif; ?>
+                            </li>
                             <li>
                                 <?php if($farmSign['endGame']['accept']): ?>
                                     <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/endGame-on.jpg"/></span>
@@ -406,6 +415,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         <?php else: ?>
                             <span class="userActivity">
                                 <br/>
+                                <?php if(!$user->unAuthenticatedUser): ?>
                                 <?php if(!$user_profile->is_related && !$user_profile->is_blocked): ?>
                                     <span class="addToFriend">
                                         <?= anchor("gateway/addToFriend/".ltrim($user_profile->id, '0'),
@@ -427,6 +437,11 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                             array('onclick'=>"abuseReport(".ltrim($user_profile->id, '0').");return false;"));
                                     ?>
                                 </span>
+                                <?php else: ?>
+                                    <span class="addToFriend">
+                                        <?= anchor(base_url(),$lang['enableAfterLogin']) ?>
+                                    </span>
+                                <?php endif; ?>
                             </span>
                         <?php endif; ?>
                 </div>
@@ -625,10 +640,14 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                     <span class="title"><?= $lang['sendMessage'] ?></span>
                     <span class="body">
                         <div class="form">
+                            <?php if(!$user->unAuthenticatedUser): ?>
                             <form id="sendMessage">
                                 <textarea id="privateMess"></textarea>
                                 <input type="submit" class="submit" value="" style="margin-top:-5px !important"/>
                             </form>
+                            <?php else: ?>
+                                <textarea id="privateMess" disabled><?= $lang['enableAfterLogin'] ?></textarea>
+                            <?php endif; ?>
                         </div>
 
                     </span>

@@ -53,7 +53,8 @@
                                 </div>
                                 <?php endif; ?>
                                 <div id="userConsole">
-                                    <span>
+                                <?php if(!$user->unAuthenticatedUser): ?>
+                                    <span class="main">
                                             <?php 
                                                 if($user->photo != "") {
                                             ?>
@@ -81,6 +82,24 @@
                                                 <?= anchor(base_url()."gateway/logout", "<img src=\"$base_img/logout.png\" />",array('title'=>$lang['logout'])) ?>
                                             </span>
                                     </span>
+                                    <?php else: ?>
+                                    <script>
+                                    $(function(){
+                                     // find all the input elements with title attributes
+                                     $('input[title!=""]').hint();
+                                     });
+                                    </script>
+                                    <span class="unLogged">
+                                            <form class="login"  action="<?= base_url() ?>gateway/login/" method="POST">
+                                                <input type="text" name="email_login" class="text" size="8" title="<?= $lang['email'] ?>"/>
+                                                <input type="password" name="password_login" class="text" size="8" title="<?= $lang['password'] ?>"/>
+                                                <input type="submit" class="profileLoginsubmit" value=" "/>
+                                            </form>
+                                            <span class="register">
+                                                <?= anchor(base_url()."registration", $lang['registeration']) ?>
+                                            </span>
+                                    </span>
+                                    <?php endif; ?>
                                 </div>
                                 <?php endif; ?>
                                 <?php if($user_profile == $user && $userFarm->id): ?>
@@ -90,6 +109,13 @@
                                 <?php elseif($userFarm->id): ?>
                                 <div id="farmNameHolder">
                                     <?= anchor(base_url()."farms/view/$user_profile->id", $lang['farm']." ".$userFarm->name);?>
+                                </div>
+                                <?php endif; ?>
+
+                                <!--this section for show farmname in show.tpl.php-->
+                                <?php if($farm->id): ?>
+                                <div id="farmNameHolder">
+                                    <?= anchor(base_url()."farms/show", $lang['farm']." ".$farm->name);?>
                                 </div>
                                 <?php endif; ?>
                         </div>

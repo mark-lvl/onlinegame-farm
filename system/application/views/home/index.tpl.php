@@ -26,7 +26,7 @@
                 $number = $allExistsFarm;
                 $number = (string) $number;
                 $number = preg_split('//', $number, -1);
-
+                $number = array_reverse($number);
                 foreach($number AS $k=>$i)
                     if($k != 0 && $k != count($number)-1)
                     echo "<span class=\"numbers\" style=\"background-position:-".($i*30)."px 0\"></span>";

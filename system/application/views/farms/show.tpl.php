@@ -1,3 +1,9 @@
+<!--this used for ajaxWindow in show.tpl only-->
+<style>
+    .boxy-inner{height:400px!important}
+    .main-content{height:400px!important}
+</style>
+<!--end ajaxWindow css clean-->
 <script>
     function ajax_request(handler, url, params ,callback) {
         $(handler).loading({

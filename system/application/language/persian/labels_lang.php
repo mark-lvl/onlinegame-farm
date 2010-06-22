@@ -9,6 +9,7 @@
         $lang['allFarmExists'] = "تعداد کل مزرعه های ثبت شده در سرزمین یامی";
         $lang['GotoFarm'] = "برو به مزرعه";
         $lang['loginError'] = "نام کاربری و رمز عبور ورودی معتبر نمیباشد مجددا تلاش کنید";
+        $lang['registeration'] = "ثبت نام";
 	
 	/*
 	    Registration
@@ -138,10 +139,13 @@
         $lang['tooltip']['badge']['goldenTomato'] = "اگه بتونی  <b style=\"color:green;\">__NEED__</b> کیلوگرم محصول در کل مزرعه هات تحویل یامی بدی میتونی این مدال رو بگیری<br/>وزن کل محصولات تو: <b style=\"color:red;\">__RANK__</b>";
         $lang['tooltip']['badge']['goldenGrasshopper'] = "اگه بتونی  <b style=\"color:green;\">__NEED__</b> عدد ملخ واسه یکی از مزرعه هات بخری میتونی این مدال رو بگیری<br/>تعداد ملخ های تو: <b style=\"color:red;\">__RANK__</b>";
         $lang['tooltip']['badge']['famousFarmer'] = "اگه بتونی  <b style=\"color:green;\">__NEED__</b> تا دوست پیدا کنی میتونی این مدال رو بگیری<br/>تعداد دوستان تو: <b style=\"color:red;\">__RANK__</b>";
+        $lang['tooltip']['badge']['haveFarm'] = "اگه واسه خودت یه مزرعه فعال داشته باشی میتونی این مدال رو بگیری";
 
         $lang['tooltip']['dangerBar'] = "میزان محاسبه:<br/># به ازای دارا بودن هر دسته از محصولات هجومی ۱۰٪<br/># به اندازه ی تعداد موجود از وسایل هجومی<br/># تعداد حمله ها به دیگر مزرعه ها";
         $lang['tooltip']['secureBar'] = "میزان محاسبه:<br/># به ازای دارا بودن هر کدام از وسایل دفاعی۱۵٪<br/># به ازای تعداد دوستان مزرعه";
         $lang['tooltip']['helpBar'] = "میزان محاسبه:<br/># به ازای هر کمک به دیگران۵٪";
+
+        $lang['enableAfterLogin'] = "بعد از ورود به سیستم فعال میگردد";
 
         /*
          * farm Farm

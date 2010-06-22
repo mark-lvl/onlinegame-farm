@@ -3,7 +3,7 @@
 ?>
 <div class="login_box">
         <form action="<?= base_url() ?>gateway/login/" method="POST" >
-            <input type="text" name="email_login" id="email_login" maxlength="250"  class="input" title="<?= $lang['email'] ?>"/>
+                <input type="text" name="email_login" id="email_login" maxlength="250"  class="input" title="<?= $lang['email'] ?>"/>
                 <input type="password" name="password_login" id="password_login" maxlength="250" class="input" title="<?= $lang['password'] ?>"/>
                 <input type="submit" value=" " class="loginSubmit"/>
         </form>

@@ -242,6 +242,12 @@
     cursor: pointer;
     margin-right: 0 !important;
 }
+.help-botton-off
+{
+    background: url(../images/farm/farm-action-off.png) no-repeat;
+    background-position: -232px 0;
+    margin-right: 0 !important;
+}
 
 
 #sidebar
@@ -965,6 +971,7 @@ span.partnerLink
     color: #FFFFFF;
     background: url(../images/farm/inventory-header.png) no-repeat  center;
     text-align: center;
+    font-size: 9px;
 }
 .inventoryVerticalLine
 {
@@ -974,9 +981,10 @@ span.partnerLink
 }
 .inventoryTitle span
 {
-    margin-right:10px;
     display: block;
     padding-top: 3px;
+    text-align: center;
+    font-size: 9px;
 }
 
 .inventoryInner
@@ -1025,7 +1033,7 @@ span.partnerLink
 {
     position: absolute;
     top: 26px;
-    right: 80px;
+    right: 68px;
     font-weight: bold;
     font-size: 14px;
 }

@@ -237,6 +237,12 @@ class Farms extends MainController {
 	function view($id)
 	{
 		$user = $this->user_model->is_authenticated();
+
+                if(!$user)
+                {
+                    //this flag show this user is not logged
+                    $user->unAuthenticatedUser = TRUE;
+                }
                 
                 //if view id same with userLogin id
                 if($id == $user->id)
@@ -366,6 +372,7 @@ class Farms extends MainController {
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
                 $this->loadJs('boxy');
+                $this->loadJs('jquery.hints');
                 $this->loadJs('tooltip');
                 $this->add_css('boxyFarm');
 		
@@ -386,6 +393,7 @@ class Farms extends MainController {
 
 	function addPlantToFarm()
 	{
+
 		$pltModel = new Plant();
 		$flag = $pltModel->add($_POST['farm_id'],$_POST['type_id']);
 
