@@ -8,6 +8,7 @@ class Plant extends DataMapper {
         var $die_duration;
 
 	const BONUS = 30;
+	const RESOURCEDELAYNOTIFICATION = 120;
 
     	public function __construct()
     	{
@@ -72,8 +73,13 @@ class Plant extends DataMapper {
 							$currentDecreaser *= -1;
                                                 if($srcLifeTimeHolder < 0)
 						{
-                                                        $usrMdl = new User_model();
-                                                        $usrMdl->add_notification($id,str_replace(__RESOURCE__, $this->lang->language['RESOURCE-'.$typSrcObj->resource_id], $this->lang->language['lackResource']),3,$pltSrcObj->modified_date);
+                                                        //this if create notification with delay for lack resource
+                                                        if(abs($srcLifeTimeHolder) > self::RESOURCEDELAYNOTIFICATION)
+                                                        {
+                                                            $usrMdl = new User_model();
+                                                            $usrMdl->add_notification($id,str_replace(__RESOURCE__, $this->lang->language['RESOURCE-'.$typSrcObj->resource_id], $this->lang->language['lackResource']),3,array('resource_id'=>$typSrcObj->resource_id,'details'=>$pltSrcObj->modified_date));
+                                                        }
+                                                        
                                                         for ($i = 0; $i <= $currentDecreaser; $i++)
 								if($pltSrcObj->current)
 								{
@@ -101,9 +107,15 @@ class Plant extends DataMapper {
 						}
                                                 //this elseif used for plants that being but havn't resources until now
                                                 elseif($pltSrcObj->create_date == $pltSrcObj->modified_date)
-                                                {       $usrMdl = new User_model();
-                                                        $usrMdl->add_notification($id,str_replace(__RESOURCE__, $this->lang->language['RESOURCE-'.$typSrcObj->resource_id], $this->lang->language['lackResource']),3,$pltSrcObj->modified_date);
+                                                {
                                                         $createDateHolder = $plant->modified_date - time();
+                                                        $pltSrcModifiedDateHolder = $pltSrcObj->modified_date - time();
+
+                                                        if(abs($pltSrcModifiedDateHolder) > self::RESOURCEDELAYNOTIFICATION)
+                                                        {
+                                                            $usrMdl = new User_model();
+                                                            $usrMdl->add_notification($id,str_replace(__RESOURCE__, $this->lang->language['RESOURCE-'.$typSrcObj->resource_id], $this->lang->language['lackResource']),3,array('resource_id'=>$typSrcObj->resource_id,'details'=>$pltSrcObj->modified_date));
+                                                        }
 
                                                         $healthDecHolder =  (int)abs((($createDateHolder/$this->die_duration)*100));
 

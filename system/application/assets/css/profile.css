@@ -56,6 +56,7 @@
     text-decoration: none;
     position: relative;
     float: right;
+    margin-left: 5px;
 }
 #inboxCounter:hover
 {
@@ -1024,7 +1025,6 @@ color:#ffffff;
 }
 
 /* =================== end Inbox ==========================*/
-
 
 
 

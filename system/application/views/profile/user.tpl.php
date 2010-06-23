@@ -153,6 +153,63 @@ function registerNewFarm()
 {
     ajax_request('#centerContainer','<?= base_url() ?>farms/register');
 }
+function deleteNotification(id)
+{
+    var params = {};
+    params['not_id'] = id;
+
+    if(id != 'all')
+    {
+        var elementHeight = $("#notification-"+id).height();
+        var totalHeight = $(".subpanel").find("ul").height();
+
+        var liHeightHolder = 0;
+        $("#notification").children().each(function() {
+            liHeightHolder += $(this).height();
+        });
+
+        if(liHeightHolder-elementHeight < totalHeight)
+        {
+            var heightHolder = liHeightHolder-elementHeight+9;
+            $(".subpanel").find("ul").css({ 'height' :heightHolder})
+        }
+        $("#notification-"+id).remove();
+    }
+    else
+    {
+        if(!confirm('<?= $lang['deleteAllNotification'] ?>'))
+            return false;
+        $("#notification").children().each(function() {
+            $(this).remove();
+            $(".subpanel").find("ul").css({ 'height' :0})
+        });
+
+        params['farm_id'] = <?= $userFarm->id ?>;
+    }
+
+    notificationCounter();
+    ajax_request('#farmSection', '<?= base_url() ?>farms/deleteNotification', params);
+}
+function syncNotification()
+{
+    var params = {};
+    params['farm_id'] = <?= $userFarm->id ?>;
+
+    ajax_request('#notification','<?= base_url() ?>farms/syncNotification',params,heightFixer);
+}
+function heightFixer()
+{
+    var heightHolder = $("#notification").height();
+
+    if(heightHolder > 300)
+        $(".subpanel").find("ul").css({ 'height' :300})
+
+    notificationCounter();
+}
+function notificationCounter()
+{
+    $('#notificationCounter').html($('#mainpanel li').size()-1);
+}
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -661,6 +718,72 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                        "<span>$userFarm->unreadMess</span>",
                        array('onclick'=>"inbox();return false;",'id'=>"inboxCounter"));
             ?>
+            <div id="footpanel">
+                <ul id="mainpanel">
+                    <li id="alertpanel">
+                        <a href="#" class="alerts">
+                            <span id="notificationCounter">
+                                <?php if($notifications == false)
+                                            $notifications = null;
+                                      echo (count($notifications) == 0)?0:count($notifications)
+                                ?>
+                            </span>
+                        </a>
+                        <div class="subpanel">
+                            <h3>
+                                <span></span><?= $lang['notifications'] ?>
+                                <?php
+                                echo anchor("farms/deleteNotification/all","X",array('onclick'=>"deleteNotification('all');return false;",'title'=>$lang['deleteAll']));
+                                ?>
+                            </h3>
+                            <ul id="notification"></ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <?php endif; ?>
 </div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	//Click event on Chat Panel + Alert Panel
+	$("#alertpanel a:first").click(function() {
+                $("#notification").removeAttr('style');
+		syncNotification();
+                if($(this).next(".subpanel").is(':visible')){
+			$(this).next(".subpanel").hide();
+			$("#footpanel li a").removeClass('active');
+		}
+		else {
+			$(".subpanel").hide();
+			$(this).next(".subpanel").toggle();
+			$("#footpanel li a").removeClass('active');
+			$(this).toggleClass('active');
+		}
+		return false;
+	});
+
+	//Click event outside of subpanel
+	$(document).click(function() {
+		$(".subpanel").hide();
+                $("#notification").removeAttr('style');
+		$("#footpanel li a").removeClass('active');
+	});
+	$('.subpanel ul').click(function(e) {
+		e.stopPropagation();
+	});
+
+	//Delete icons on Alert Panel
+	$("#alertpanel li").hover(function() {
+		$(this).find("a.delete").css({'visibility': 'visible'});
+	},function() {
+		$(this).find("a.delete").css({'visibility': 'hidden'});
+	});
+
+
+});
+
+</script>

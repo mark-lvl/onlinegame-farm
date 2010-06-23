@@ -606,3 +606,165 @@ width:300px;
     display: none;
     z-index: 9999;
 }
+
+
+/*******footerPanel*******/
+.notificationDate
+{
+    font-style: italic;
+    font-size: 9px;
+    color: #888888;
+}
+#footpanel {}
+#footpanel ul {list-style: none}
+#footpanel ul li{
+	padding: 0; margin: 0;
+	float: left;
+	position: relative;
+}
+#footpanel ul li a{
+	float: left;
+	/*text-indent: -9999px; --For text replacement - Shove text off of the page--*/
+	text-decoration: none;
+	color: #333;
+        height: 22px;
+	position: relative;
+}
+#notificationCounter
+{
+    display: block;
+    padding: 2px 22px 0 0;
+    color: #FFFFFF;
+}
+html #footpanel ul li a:hover{	background-color: #fff; text-decoration: none;}
+html #footpanel ul li a.active { /*--Active state when sub-panel is open--*/
+	background-color: #fff;
+	height: 22px;
+	z-index: 200; /*--Keeps the active link on top of the sub-panel--*/
+	position: relative;
+}
+
+/*MUST CHANGE*/
+
+a.alerts
+{
+    width: 43px;
+    height: 22px;
+    display: block;
+    background: #91b33f url(../images/farm/notification_counter.png) no-repeat  center;
+    background-position: 0 0;
+    position: absolute;
+    top: 1px;
+    right: 17px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    float: right;
+}
+a.alerts:hover
+{
+    background-position: 0 -22px;
+}
+
+#footpanel li#alertpanel {	float: right; }  /*--Right align the chat and alert panels--*/
+/*END MUST CHANGE*/
+
+#footpanel a small {
+	text-align: center;
+	width: 70px;
+	background: url(../images/footer-popup.gif) no-repeat center bottom;
+	padding: 5px 5px 11px;
+	display: none; /*--Hide by default--*/
+	color: #fff;
+	font-size: 1em;
+	text-indent: 0;
+}
+
+
+#footpanel a:hover small{
+	display: block; /*--Show on hover--*/
+	position: absolute;
+	top: -35px; /*--Position tooltip 35px above the list item--*/
+	left: 50%;
+	margin-left: -40px; /*--Center the tooltip--*/
+	z-index: 9999;
+        text-decoration: none;
+}
+
+#footpanel ul li div a { /*--Reset link style for sub-panel links--*/
+	text-indent: 0;
+	width: auto;
+	height: auto;
+	padding: 0;
+	float: none;
+	color: #00629a;
+	position: static;
+        float: left;
+}
+#footpanel ul li div a:hover {	text-decoration: none;border:0; } /*--Reset hover style for sub-panel links--*/
+#footpanel .subpanel {
+	position: absolute;
+	left: 0;
+        right: 17px;
+        bottom: 22px;
+	display: none;	/*--Hide by default--*/
+	width: 198px;
+	border: 2px solid #609334;
+	background: #fff;
+	overflow: hidden;
+        z-index: 9999;
+}
+#footpanel h3 {
+	background: #609334;
+	padding: 5px 10px;
+	color: #fff;
+	font-size: 1.1em;
+	cursor: pointer;
+}
+#footpanel h3 span { /*--Right aligned "-" icon--*/
+	font-size: 1.5em;
+	float: right;
+	line-height: 0.6em;
+	font-weight: normal;
+}
+#footpanel .subpanel ul{
+	padding: 0; margin: 0;
+	background: #fff;
+	width: 198px;
+	overflow: auto;
+}
+#footpanel .subpanel li{
+	float: none; /*--Reset float--*/
+	display: block;
+	padding: 0; margin: 0;
+	overflow: hidden;
+	clear: both;
+	background: #fff;
+	position: static;  /*--Reset relative positioning--*/
+	font-size: 0.9em;
+        text-align: right;
+}
+
+#alertpanel .subpanel {  left: auto; /*--Reset left positioning and make it right positioned--*/ }
+#alertpanel .subpanel li {
+	border-top: 1px solid #899903;
+	display: block;
+        background: #FFE45A;
+}
+#alertpanel .subpanel li p {padding: 5px 10px;color:#222222;}
+#alertpanel .subpanel li a.delete{
+	background: url(../images/delete_x.gif) no-repeat;
+	float: right;
+	width: 13px; height: 14px;
+	margin: 5px;
+	text-indent: -9999px;
+	visibility: hidden; /*--Hides by default but still takes up space (not completely gone like display:none;)--*/
+}
+#alertpanel .subpanel li a.delete:hover { background-position: left bottom; }
+#footpanel #alertpanel li.view {
+	text-align: right;
+	padding: 5px 10px 5px 0;
+}
+
+/*******EndFooterPanel*******/

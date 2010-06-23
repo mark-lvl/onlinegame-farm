@@ -334,21 +334,23 @@
 		    }
 		}
 
-
+                /*
+                 * details param used for control notification for lackResource by resource_id and modified_date
+                 */
 		function add_notification($farm_id,$body, $type, $details = null)
                 {
                     if($type == 3)
                     {
-                        $query = "SELECT id FROM `notifications` WHERE `details` = ".$this->db->escape($details).";";
+                        $query = "SELECT id FROM `notifications` WHERE `type` = 3".$details['resource_id']." AND `details` = ".$this->db->escape($details['details']).";";
                         $result = $this->db->query($query);
                         $result = $result->result_array();
                         //this section controll not sending multiple notification for the same lack resource
-                        if(count($result) < 2)
+                        if(count($result) < 1)
                             $addNotQry = "INSERT INTO `notifications` (`farm_id`, `details`, `body`, `type`, `create_date`)
                                                 VALUES (" . $this->db->escape($farm_id) .", " .
-                                                            $this->db->escape($details) .", " .
+                                                            $this->db->escape($details['details']) .", " .
                                                             $this->db->escape($body) .", " .
-                                                            $this->db->escape($type).", UNIX_TIMESTAMP())";
+                                                            $this->db->escape($type.$details['resource_id']).", UNIX_TIMESTAMP())";
                     }
                     else
                         $addNotQry = "INSERT INTO `notifications` (`farm_id`, `body`, `type`, `create_date`)

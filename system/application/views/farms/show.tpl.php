@@ -340,7 +340,7 @@
                                                  });
 
                 <?php
-                $resourceCounter = 1;
+                $resourceCounter = 2;
                 if(isset($plant->plantresources))
                     foreach($plant->plantresources AS $pltSrc):
                 ?>
@@ -358,7 +358,7 @@
                                                                     });
 
                 <?php
-                $resourceCounter++;
+                $resourceCounter--;
                 endforeach; ?>
             });
         <?php endif; ?>

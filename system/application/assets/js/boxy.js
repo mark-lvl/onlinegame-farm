@@ -173,7 +173,7 @@ jQuery.extend(Boxy, {
     // user selects OK.
     confirm: function(message, after, options) {
         return Boxy.ask(message, ['قبول', 'رد کردن'], function(response) {
-            if (response == 'OK') after();
+            if (response == 'قبول') after();
         }, options);
     },
 

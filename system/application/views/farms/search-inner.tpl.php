@@ -17,12 +17,19 @@
 
                 <span class="searchField">
                     <span><?= $lang['level_label'] ?>:</span>
-                    <B><?= convert_number($k->level . "") ?></B>
+                    <B>
+                        <?php
+                        if($k->level == 11)
+                            echo $lang['endGame'];
+                        else
+                            echo convert_number($k->level . "")
+                        ?>
+                    </B>
                 </span>
 
                 <span class="searchField">
                     <span><?= $lang['farmMoney'] ?>:</span>
-                    <B><?= $k->money ?></B>
+                    <B><?= $k->money ?></B> <?= $lang['yummyMoneyUnit'] ?>
                 </span>
             </div>
             <?php endforeach; ?>

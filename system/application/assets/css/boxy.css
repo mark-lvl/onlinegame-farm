@@ -75,7 +75,7 @@
                     display: block;
                     overflow: none !important;
         }
-        .boxy-footer{background: url("../images/popup/boxy/footer.png") no-repeat center;width: 494px;height:19px;display: block}
+        .boxy-footer{background: url("../images/popup/boxy/footer.png") no-repeat center;width: 494px;height:18px;display: block}
 	.boxy-content {color:#000000;
                        font-family:Tahoma, Arial;
                        font-size:11px;
@@ -119,7 +119,6 @@
         background:#D2A002;
         border:1px solid #bbbbbb;
         color:#FFFFFF;
-        font-weight:bold;
         padding:1px;
     }
     .answers input:hover

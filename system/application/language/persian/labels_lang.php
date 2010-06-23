@@ -238,7 +238,7 @@
         $lang['equipment-rockBreaker'] = "با استفاده از سنگ شکن میتونی قطعه۴ مزرعتو باز کنی";
 
         $lang['hour'] = "ساعت";
-        $lang['yummyMoneyUnit'] = "یام یام";
+        $lang['yummyMoneyUnit'] = "یامی";
         $lang['usagePerHour'] = "هر __HOUR__ ساعت یک واحد";
         $lang['neededAccessories'] = "لوازم مورد نیاز برای کاشت این گیاه";
         $lang['accessoryLackDescrioption'] = "هنوز برای مزرعت این لوازمو نخریدی";

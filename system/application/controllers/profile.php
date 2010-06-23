@@ -85,8 +85,10 @@ class Profile extends MainController
                 $farmSign['haveFarm']['accept'] = TRUE;
 
                 $notMdl = new Notification();
-                $notObjs = $notMdl->where(array('farm_id'=>$this->data['userFarm']->id))->where_in('type',array(0,3))->get()->all;
+                $notObjs = $notMdl->where(array('farm_id'=>$this->data['userFarm']->id))->where_in('type',array(0,31,32))->get()->all;
                 $this->data['hints'] = $notObjs;
+
+                $this->data['notifications'] = $this->user_model->get_notifications($this->data['userFarm']->id);
 
                 $usrRnkMdl = new Userrank();
                 $usrRnkObjs = $usrRnkMdl->get_where(array('user_id' => $this->data['userFarm']->user_id))->all;
