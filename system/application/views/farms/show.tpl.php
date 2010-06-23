@@ -249,6 +249,12 @@
         params['farm_id'] = <?= $farm->id ?>;
         ajax_request('#reset', '<?= base_url() ?>farms/resetFarm', params);
     }
+    function resetLevel()
+    {
+        var params = {};
+        params['farm_id'] = <?= $farm->id ?>;
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/resetLevel', params);
+    }
     function syncFarm(farm_id)
     {
         var params = {};
@@ -442,7 +448,7 @@
                 
                 
                 <div id="resetLevel">
-                    <a></a>
+                    <?= anchor(" ", " ", array('onclick'=>'resetLevel();return false;')) ?>
                 </div>
             </div>
             <div id="farmInformation">
@@ -600,10 +606,9 @@
                     </span>
                 </div>
             <?php else: ?>
-                <div class="off">
+                <div class="on">
                     <span class="title"><?= $lang['yummyRequest'] ?></span>
-                    <span class="text">
-                        <?= $lang['haventMission'] ?>
+                    <span class="text"><?= $lang['viewCurrentMission'] ."<br/><br/>". anchor(" "," ",array('onClick'=>"mission($farm->level);return false")) ?>
                     </span>
                 </div>
             <?php endif; ?>

@@ -225,6 +225,7 @@
         $lang['haventEquipmentForThisLevel'] = "برای این مرحله تجهیزات کمکی نداری";
         $lang['gotoMission'] = "شروع کن";
         $lang['yummyRequest'] = "درخواست یامی";
+        $lang['viewCurrentMission'] = "میتونی جزییات ماموریت فعلی تو از اینجا بازبینی کنی";
         $lang['buyAccessory'] = "خرید لوازم";
         $lang['showInventory'] = "دارایی های تو";
         $lang['attackAccessory'] = "وسایل هجومی";
@@ -277,6 +278,8 @@
         $lang['showPartnerInventory'] = "موجوداتت هجومی";
         $lang['harmThisFarm'] = "هنوز این مزرعه رو اذیت نکردی";
         $lang['moneyHelpConfirm'] = "میخوای ۵۰۰ یام یام کمک کنی؟";
+        $lang['resetLevelConfirm'] = "میخوای به مزرعت آتیش بزنی؟";
+        
         
 
         $lang['aphid'] = "شته";

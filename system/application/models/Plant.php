@@ -471,5 +471,26 @@ class Plant extends DataMapper {
                     }
                 }
 	}
+
+        function removePlantWithResources($plant_id)
+        {
+            if(!$plant_id)
+                return false;
+
+            $pltObj = $this->get_by_id($plant_id);
+            $pltSrcMdl = new Plantresource();
+            $pltResources = $pltSrcMdl->get_where(array('plant_id'=>$plant_id))->all;
+            foreach($pltResources AS $pltResource)
+                $pltResource->delete();
+
+            $pltObj->delete();
+            $frmMisMdl = new Farmmission();
+            $frmMisObj = $frmMisMdl->get_where(array('plant_id'=>$plant_id, 'status'=>0));
+            $frmMisObj->status = 2;
+            if($frmMisObj->save())
+                return true;
+
+            return false;
+        }
 }
 ?>

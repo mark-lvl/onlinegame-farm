@@ -26,6 +26,7 @@
                                                                                                                                                                                                             window.location.replace("<?php echo base_url().$params['details']['path']; ?>");
                                                                                                                                                                                                       <?php endif; ?>
                                                                                                                                                                                                       }<?php endif; ?>});
+
 </script>
 
 <?php if($params['action'] == 'mission'): ?>
@@ -667,3 +668,10 @@ $('.buyAccessoryCategory div').click(function(){
     </div>
 </div>
 <?php endif; ?>
+
+<script>
+$(".levelUpgrade").click(function()
+{
+    location.reload();
+})
+</script>

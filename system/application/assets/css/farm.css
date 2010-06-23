@@ -1483,6 +1483,7 @@ span.partnerLink
     position: absolute;
     top: 282px;
     right: 16px;
+    cursor: pointer;
 }
 .levelUpgrade .levelIncrease
 {

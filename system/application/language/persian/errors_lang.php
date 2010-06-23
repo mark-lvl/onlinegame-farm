@@ -67,4 +67,7 @@
         $lang['error']['cantAttackTwiceInADay'] = "در روز فقط یکبار به این مزرعه میتونی حمله کنی";
         $lang['error']['cantHelpTwiceInADay'] = "در روز فقط یکبار به این مزرعه میتونی کمک کنی";
         $lang['error']['cantResetWhenHavePlant'] = "هنوز تو مزرعت گیاه درو نشده داری فعلا نمیتونی از اول شروع کنی";
+        $lang['error']['cantResetWhenHaventPlant'] = "وقتی تو مزرعت هنوز گیاهی نکاشتی نیازی به بازگردانی مرحله نداری";
+        $lang['error']['levelResetSuccefully'] = "به مزرعت آتیش زدی دوباره تو مزرعت گیاهاتو بکار";
+        $lang['error']['levelResetfaild'] = "خطا در آتیش زدن به مزرعه";
 

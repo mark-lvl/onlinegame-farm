@@ -89,7 +89,7 @@
                                                         <?= $lang['changeAvatars'] ?>:
                                         </td>
                                         <td class="registerFormInput" colspan="2">
-                                            <?= anchor("profile/edit/avatar","Avatar",array('onclick'=>"avatar();return false;")); ?>
+                                            <?= anchor("profile/edit/avatar"," ",array('onclick'=>"avatar();return false;",'class'=>'avatarLinkInChangeProfile')); ?>
                                         </td>
                                     </tr>
                                     <tr>

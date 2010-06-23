@@ -820,7 +820,7 @@ class Farms extends MainController {
         {
                 if($_POST['farm_id'])
                         $farm_id = $_POST['farm_id'];
-                
+
                 $frmMdl = new Farm();
 
                 $frmObj = $frmMdl->get_by_id($farm_id);
@@ -857,6 +857,50 @@ class Farms extends MainController {
                         $this->js_redirect("profile/user/".$frmObj->user_id);
                         return FALSE;
                         }
+        }
+
+        function resetLevel($farm_id = null)
+        {
+                if($_POST['farm_id'] && !$_POST['confirmResetFarm'])
+                {
+                    $this->error_reporter('resetLevel',$_POST);
+                }
+                elseif($_POST['farm_id'] && $_POST['confirmResetFarm'])
+                {
+                    if($_POST['farm_id'])
+                        $farm_id = $_POST['farm_id'];
+
+                    $frmMdl = new Farm();
+
+                    $frmObj = $frmMdl->get_by_id($farm_id);
+
+                    $pltMdl = new Plant();
+
+
+                    $pltObj = $pltMdl->get_where(array('farm_id'=>$farm_id,'reap'=>0));
+                    if(!$pltObj->exists())
+                    {
+                            $this->error_reporter('public',array('message'=>'cantResetWhenHaventPlant','height'=>80));
+                            return FALSE;
+                    }
+                    else
+                    {
+                        if($pltObj->removePlantWithResources($pltObj->id))
+                            $this->error_reporter('public',array('message'=>'levelResetSuccefully','height'=>80,'afterHide'=>'reloadPage'));
+                        else
+                            $this->error_reporter('public',array('message'=>'levelResetFaild','height'=>80));
+                    }
+
+                }
+                
+
+
+                //$frmObj->disactive = 1;
+//                if($frmObj->save())
+//                        {
+//                        $this->js_redirect("profile/user/".$frmObj->user_id);
+//                        return FALSE;
+//                        }
         }
 
         function mission()

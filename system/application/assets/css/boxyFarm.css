@@ -120,3 +120,18 @@
 	font-size:11px;
 	border:1px solid #000;
 	background:#DDD; }
+
+    .answers input
+    {
+        background:#D2A002;
+        border:1px solid #bbbbbb;
+        color:#FFFFFF;
+        font-weight:bold;
+        padding:1px;
+    }
+    .answers input:hover
+    {
+        background:#E48E21;
+        color:#333333;
+        border:1px solid #999999;
+    }

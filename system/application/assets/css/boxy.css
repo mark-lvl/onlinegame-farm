@@ -39,7 +39,7 @@
 
 	/* Title bar */
 	
-	.boxy-wrapper .title-bar { background: url("../images/popup/boxy/header.gif") no-repeat center; padding: 6px; position: relative; border:0px; color:#4f4f4f;height: 55px}
+	.boxy-wrapper .title-bar { background: url("../images/popup/boxy/header.png") no-repeat center; padding: 6px; position: relative; border:0px; color:#4f4f4f;height: 55px}
 	.boxy-wrapper .title-bar.dragging { cursor: move; }
 	.boxy-wrapper .title-bar h2
         {
@@ -68,14 +68,14 @@
                     font-size:11px;
                     padding: 0;
                     border:0px;
-                    background: url("../images/popup/boxy/content.gif") no-repeat;
+                    background: url("../images/popup/boxy/content.png") no-repeat;
                     background-position: center top;
                     width: 494px;
                     height:224px !important;
                     display: block;
                     overflow: none !important;
         }
-        .boxy-footer{background: url("../images/popup/boxy/footer.gif") no-repeat center;width: 494px;height:19px;display: block}
+        .boxy-footer{background: url("../images/popup/boxy/footer.png") no-repeat center;width: 494px;height:19px;display: block}
 	.boxy-content {color:#000000;
                        font-family:Tahoma, Arial;
                        font-size:11px;
@@ -113,3 +113,18 @@
 	font-size:11px;
 	border:1px solid #000;
 	background:#DDD; }
+
+    .answers input
+    {
+        background:#D2A002;
+        border:1px solid #bbbbbb;
+        color:#FFFFFF;
+        font-weight:bold;
+        padding:1px;
+    }
+    .answers input:hover
+    {
+        background:#E48E21;
+        color:#333333;
+        border:1px solid #999999;
+    }

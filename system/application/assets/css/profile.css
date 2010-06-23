@@ -670,6 +670,19 @@ color:#ffffff;
     padding-right:194px;
     padding-top:32px;
 }
+.avatarLinkInChangeProfile
+{
+    background: url(../images/profile/avatarLink.png);
+    background-position: 0 0;
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+.avatarLinkInChangeProfile:hover
+{
+    background-position: 0 -32px;
+}
+
 
 
 

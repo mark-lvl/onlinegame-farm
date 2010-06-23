@@ -90,7 +90,7 @@ jQuery.extend(Boxy, {
                 "<div class='boxy-inner'><div class='main-content'></div></div>" +
                 "<div class='boxy-footer'></div>" +
                 "</div>",
-            
+
 
     DEFAULTS: {
         title:                  null,           // titlebar text. titlebar will not be visible if not set.
@@ -172,7 +172,7 @@ jQuery.extend(Boxy, {
     // displays an alert box with a given message, calling after callback iff
     // user selects OK.
     confirm: function(message, after, options) {
-        return Boxy.ask(message, ['OK', 'Cancel'], function(response) {
+        return Boxy.ask(message, ['قبول', 'رد کردن'], function(response) {
             if (response == 'OK') after();
         }, options);
     },
