@@ -7,6 +7,8 @@
                 <input type="password" name="password_login" id="password_login" maxlength="250" class="input" title="<?= $lang['password'] ?>"/>
                 <input type="submit" value=" " class="loginSubmit"/>
         </form>
+        <?= anchor('registration/index',$this->lang->language['registeration'],array('class'=>'whiteBoldLink')) ?> |
+        <?= anchor('gateway/forgotPassword',$this->lang->language['forgotPassword'],array('class'=>'whiteBoldLink')) ?>
 </div>
 <?php
 	}

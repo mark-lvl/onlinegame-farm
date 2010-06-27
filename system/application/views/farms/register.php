@@ -25,6 +25,7 @@
                 $('.wizardInput').attr("value","");
                 $('.wizardSubmit').removeAttr("disabled");
                 $('#wizardFinal').fadeIn();
+                $('.createFarmDescription').html('<?= $lang['farmNamingDescription-2'] ?>');
             }
         });
         $('.wizardSubmit').click(function(){

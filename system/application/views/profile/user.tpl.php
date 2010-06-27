@@ -184,7 +184,7 @@ function deleteNotification(id)
             $(".subpanel").find("ul").css({ 'height' :0})
         });
 
-        params['farm_id'] = <?= $userFarm->id ?>;
+        params['farm_id'] = '<?= $userFarm->id ?>';
     }
 
     notificationCounter();
@@ -193,7 +193,7 @@ function deleteNotification(id)
 function syncNotification()
 {
     var params = {};
-    params['farm_id'] = <?= $userFarm->id ?>;
+    params['farm_id'] = '<?= $userFarm->id ?>';
 
     ajax_request('#notification','<?= base_url() ?>farms/syncNotification',params,heightFixer);
 }

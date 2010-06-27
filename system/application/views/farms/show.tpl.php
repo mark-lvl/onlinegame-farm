@@ -110,7 +110,7 @@
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/spraying', params);
     }
-    
+
     function disasters(farm_id)
     {
         var params = {};
@@ -298,6 +298,19 @@
         $("#resourceCounter1").ezpz_tooltip({contentId:"waterCounterTooltip"});
         $("#resourceCounter2").ezpz_tooltip({contentId:"muckCounterTooltip"});
 
+        //this section hold all farm's wizard
+        $('.wizardClose').click(function(){
+            $(this).parent().fadeOut();
+            parentIdString = $(this).parent().attr('id');
+            parentId = parentIdString.substr(7);
+            parentId++;
+            if($('#wizard-'+parentId))
+            {
+                $('#wizard-'+parentId).fadeIn();
+            }
+        })
+        $("#wizard-1").show();
+
         syncFarm(<?= $farm->id ?>);
 
 
@@ -389,6 +402,56 @@
     <div id="muckCounterTooltip" class="tooltip"><?= $lang['tooltip']['muckCounter'] ?></div>
     <!-- End tooltipHolder -->
 
+    <!-- Start wizardHolder -->
+    <div id="wizard-1" class="wizard" style="top: 222px;right: 474px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['farm'] ?>
+        </div>
+    </div>
+    <div id="wizard-2" class="wizard" style="top: 245px;right: 951px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['information'] ?>
+        </div>
+    </div>
+    <div id="wizard-3" class="wizard" style="top: 360px;right: 951px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['health'] ?>
+        </div>
+    </div>
+    <div id="wizard-4" class="wizard" style="top: 460px;right: 951px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['clock'] ?>
+        </div>
+    </div>
+    <div id="wizard-5" class="wizard" style="top: 575px;right: 951px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['status'] ?>
+        </div>
+    </div>
+    <div id="wizard-6" class="wizard" style="top: 685px;right: 951px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['equipment'] ?>
+        </div>
+    </div>
+    <div id="wizard-7" class="wizard" style="top: 685px;right: 722px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['mission'] ?>
+        </div>
+    </div>
+    <div id="wizard-8" class="wizard" style="top: 685px;right: 722px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['resource'] ?>
+        </div>
+    </div>
+    <!-- End wizardHolder -->
     <div id="base">
         <div id="farm">
             <div id="section-1" class="<?= ($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
