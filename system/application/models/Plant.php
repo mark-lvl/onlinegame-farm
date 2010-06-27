@@ -51,7 +51,7 @@ class Plant extends DataMapper {
 
 
                         $pltSrcMdl = new Plantresource();
-                        $pltSrcObjs = $pltSrcMdl->get_where(array('plant_id'=>$plant->id))->all;
+                        $pltSrcObjs = $pltSrcMdl->order_by('typeresource_id')->get_where(array('plant_id'=>$plant->id))->all;
                         $plant->plantresources = $pltSrcObjs;
                         foreach($pltSrcObjs AS &$pltSrcObj)
                         {

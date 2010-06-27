@@ -31,6 +31,9 @@
         var parentHolder = $('.reap-botton-off').parent();
         $('.reap-botton-off').hide();
         parentHolder.append("<a class=\"reap-botton-on\" onClick=\"reap(<?= $plant->id ?>);return false;\"></a>");
+        <?php if($farm->level == 1 && $plant->id ): ?>
+            $('#wizard-16').show();
+        <?php endif; ?>
     }
 
     function moneyCalculate()
@@ -101,7 +104,13 @@
 
         $('.plow-botton-on').removeClass('plow-botton-on').addClass('plow-botton-off').removeAttr('href');
 
-        ajax_request('.unPlow:empty', '<?= base_url() ?>farms/plow', params ,moneyCalculate)
+        ajax_request('.unPlow:empty', '<?= base_url() ?>farms/plow', params ,moneyCalculate);
+
+        //this section used for control wizard show after plow farm
+        <?php if($farm->level == 1): ?>
+            $('#wizard-12').hide();
+            $('#wizard-13').fadeIn();
+        <?php endif; ?>
     }
     function spraying(farm)
     {
@@ -299,6 +308,7 @@
         $("#resourceCounter2").ezpz_tooltip({contentId:"muckCounterTooltip"});
 
         //this section hold all farm's wizard
+        <?php if($farm->level == 1 && !$plant->id): ?>
         $('.wizardClose').click(function(){
             $(this).parent().fadeOut();
             parentIdString = $(this).parent().attr('id');
@@ -310,7 +320,7 @@
             }
         })
         $("#wizard-1").show();
-
+        <?php endif; ?>
         syncFarm(<?= $farm->id ?>);
 
 
@@ -342,6 +352,9 @@
 
         $(function () {
                 var growthTime = <?= $plant->growth; ?>;
+                <?php if($farm->level == 1 && $plant->id && $plant->growth < 1): ?>
+                    $('#wizard-16').show();
+                <?php endif; ?>
                 $('#plantGrowthHolder').countdown({until: growthTime,
                                              onExpiry: reapTime,layout: '<div class="image{d10}"></div><div class="image{d1}"></div>' +
                                                                         '<div class="imageDay"></div><div class="imageSpace"></div>' +
@@ -353,11 +366,20 @@
                                                  });
 
                 <?php
-                $resourceCounter = 2;
+                $resourceCounter = 1;
                 if(isset($plant->plantresources))
                     foreach($plant->plantresources AS $pltSrc):
                 ?>
                 var remainTime = <?= $pltSrc->usedTime; ?>;
+                <?php if($farm->level == 1 && $plant->id && $pltSrc->usedTime < 1): ?>
+                    <?php if($resourceCounter == 2): ?>
+                        if(typeof(showFlag) == 'undefined')
+                            $('#wizard-15').show();
+                    <?php elseif($resourceCounter == 1): ?>
+                        var showFlag = true;
+                        $('#wizard-14').show();
+                    <?php endif; ?>
+                <?php endif; ?>
                 $('#resourceCounter<?= $resourceCounter ?>').countdown({until: remainTime,
                                                                        onExpiry: resourceExipre<?= $resourceCounter ?> ,
 
@@ -371,7 +393,7 @@
                                                                     });
 
                 <?php
-                $resourceCounter--;
+                $resourceCounter++;
                 endforeach; ?>
             });
         <?php endif; ?>
@@ -445,10 +467,73 @@
             <?= $lang['farmWizard']['mission'] ?>
         </div>
     </div>
-    <div id="wizard-8" class="wizard" style="top: 685px;right: 722px">
+    <div id="wizard-8" class="wizard" style="top: 685px;right: 480px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['resource'] ?>
+        </div>
+    </div>
+    <div id="wizard-9" class="wizard" style="top: 685px;right: 295px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['buy'] ?>
+        </div>
+    </div>
+    <div id="wizard-10" class="wizard" style="top: 685px;right: 176px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['inventory'] ?>
+        </div>
+    </div>
+    <div id="wizard-11" class="wizard" style="top: 565px;right: 235px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['action'] ?>
+        </div>
+    </div>
+    <div id="wizard-12" class="wizard" style="top: 486px;right: 307px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['plow'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-13" class="wizard" style="top: 581px;right: 721px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['startMission'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-14" class="wizard" style="top: 581px;right: 560px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['spreadWater'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-15" class="wizard" style="top: 581px;right: 438px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['spreadMuck'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-16" class="wizard" style="top: 470px;right: 165px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['reap'] ?>
+        </div>
+        <div class="wizardArrow">
+
         </div>
     </div>
     <!-- End wizardHolder -->

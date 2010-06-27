@@ -1557,7 +1557,7 @@ span.partnerLink
     width: 150px;
     padding: 2px 10px 10px 5px;
     border: 2px solid #9E3800;
-    z-index: 9999;
+    z-index: 2;
     position: absolute;
     display: none;
 }
@@ -1569,6 +1569,15 @@ span.partnerLink
     font-weight: bold;
     cursor: pointer;
 
+}
+.wizard .wizardArrow
+{
+    background: url(../images/farm/wizardArrow.png) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    margin: 0 auto;
+    clear: both;
 }
 .wizard .wizardClose:hover
 {
