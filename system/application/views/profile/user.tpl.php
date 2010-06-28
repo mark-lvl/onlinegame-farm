@@ -622,9 +622,10 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                                                 else
                                                                     echo $lang['havingAnytransaction'];
 
-                                                            echo "<span class=\"transactionDate\">".fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""))."</span>";
+                                                            
                                                             ?>
                                                     </span>
+                                                    <?= "<span class=\"transactionDate\">".fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""))."</span>"; ?>
                                             </li>
                                         <?php endforeach; ?>
                                       </ul>

@@ -8,6 +8,11 @@ body {
  text-decoration: none;
 }
 
+input
+{
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
 p {
  padding: 10px;
 }
@@ -145,7 +150,7 @@ span.unLogged form.login
 }
 span.unLogged form.login input.text
 {
-    background: url(../images/profile/profileLogin-bg.png) no-repeat left;
+    background: white url(../images/profile/profileLogin-bg.png) no-repeat left;
     width: 71px;
     height: 16px;
     display: block;
@@ -604,6 +609,7 @@ width:300px;
     padding: 10px;
     border: 2px solid black;
     position: absolute;   /* required */
+    top: -60px;
     display: none;
     z-index: 9999;
 }
@@ -625,8 +631,8 @@ width:300px;
     font-size: 9px;
     color: #888888;
 }
-#footpanel {}
-#footpanel ul {list-style: none}
+#footpanel {width:300px;float: right;right:17px}
+#footpanel ul {list-style: none;display: block}
 #footpanel ul li{
 	padding: 0; margin: 0;
 	float: left;
@@ -677,7 +683,7 @@ a.alerts:hover
     background-position: 0 -22px;
 }
 
-#footpanel li#alertpanel {	float: right; }  /*--Right align the chat and alert panels--*/
+#footpanel li#alertpanel {	float: right;width: 43px; }  /*--Right align the chat and alert panels--*/
 /*END MUST CHANGE*/
 
 #footpanel a small {

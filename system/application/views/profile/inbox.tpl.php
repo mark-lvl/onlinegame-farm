@@ -31,7 +31,7 @@
     
     <div id="inboxHolder">
         <span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img"."popup/boxy/close.png\"/>" ) ?></span>
-        <div id="delete_all"></div>
+        <div id="delete_all"><a style="display:block;width:16px;height:16px;" title="<?= $lang['deleteAll'] ?>"></a></div>
         <div class="message_list">
             <div id="messageListContainer" >
             <?php

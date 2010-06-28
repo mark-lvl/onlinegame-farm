@@ -341,8 +341,15 @@ span .abuseReport
 {
     
 }
+.container
+{
+    width: 180px;
+    font-size: 11px;
+    float: right;
+}
 .transactionDate
 {
+    width: 70px;
     color: #CCCCCC;
     font-size: 9px;
     float: left;
@@ -815,7 +822,7 @@ color:#ffffff;
 .createFarmDescription
 {
     color: #FFFFFF;;
-    font-size: 10px;
+    font-size: 11px;
     position: absolute;
     top: 40px;
     right: 60px;

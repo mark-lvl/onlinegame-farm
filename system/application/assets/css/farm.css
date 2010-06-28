@@ -144,7 +144,7 @@
 }
 .plantGround
 {
-    background:url(../images/farm/plantGround.jpg);
+    background:url(../images/farm/plantGround.png) top right;
     display:block;
     height:225px;
     width:223px;
@@ -1587,4 +1587,44 @@ span.partnerLink
 {
     float: right;
     font-size: 11px;
+}
+
+#attackHolder
+{
+    position: fixed;
+    top: 200px;
+    right: 0;
+    background: #FF6B00;
+    width: 42px;
+    overflow: auto;
+    z-index: 2;
+}
+#attackHolder .header
+{
+    width: 42px;
+    background: #DB4F1B;
+    float: right;
+    height: 18px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid white;
+}
+#attackHolder .details
+{
+    width: 42px;
+    float: right;
+    overflow: auto;
+    display: block;
+    text-align: center;
+}
+#attackHolder .details img
+{
+    width: 32px;
+    float: right;
+    height: 32px;
+    display: block;
+    background: #94CC05;
+    border: 1px solid white;
+    margin: 3px;
 }

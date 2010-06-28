@@ -256,7 +256,7 @@
     {
         var params = {};
         params['farm_id'] = <?= $farm->id ?>;
-        ajax_request('#reset', '<?= base_url() ?>farms/resetFarm', params);
+        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/resetFarm', params);
     }
     function resetLevel()
     {
@@ -268,9 +268,16 @@
     {
         var params = {};
         params['farm_id'] = farm_id;
-        
-        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params)
+
+        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params,syncAttackBox)
         setTimeout("syncFarm("+farm_id+")",300000);
+    }
+    function syncAttackBox()
+    {
+        var params = {};
+        params['farm_id'] = <?= $farm->id ?>;
+        
+        ajax_request('#attackHolder', '<?= base_url() ?>farms/syncAttackBox', params)
     }
 
 //    function sync(farm_id)
@@ -399,9 +406,34 @@
         <?php endif; ?>
     });
 </script>
-<div id="farmWrapper">
+<div id="farmWrapper" style="position: relative">
     <div id="ajaxHolder"></div>
-    
+    <div id="attackHolder" >
+        <?php if(isset($attacksToFarm)): ?>
+        <div class="header">
+            <?= $lang['attackToFarm'] ?>
+        </div>
+        <div class="details">
+            <?php foreach($attacksToFarm as $att): ?>
+                <?php switch ($att->accessory_id) {
+                                            case 1:
+                                                $attImg = "aphid";
+                                            break;
+                                            case 2:
+                                                $attImg = "grasshoppers";
+                                            break;
+                                            case 4:
+                                                $attImg = "mouse";
+                                            break;
+                                            case 6:
+                                                $attImg = "crow";
+                                            break;
+                                        }  ?>
+            <img src="<?= $base_img."farm/accessory/".$attImg.".png" ?>" title="<?= $lang[$attImg] ?>"/>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+    </div>
     <!-- Start tooltipHolder -->
     <div id="resetGameTooltip" class="tooltip"><?= $lang['tooltip']['resetGame'] ?></div>
     <div id="resetLevelTooltip" class="tooltip"><?= $lang['tooltip']['resetLevel'] ?></div>
@@ -425,73 +457,73 @@
     <!-- End tooltipHolder -->
 
     <!-- Start wizardHolder -->
-    <div id="wizard-1" class="wizard" style="top: 222px;right: 474px">
+    <div id="wizard-1" class="wizard" style="top: 76px;right: 280px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['farm'] ?>
         </div>
     </div>
-    <div id="wizard-2" class="wizard" style="top: 245px;right: 951px">
+    <div id="wizard-2" class="wizard" style="top: 100px;right: 760px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['information'] ?>
         </div>
     </div>
-    <div id="wizard-3" class="wizard" style="top: 360px;right: 951px">
+    <div id="wizard-3" class="wizard" style="top: 199px;right:762px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['health'] ?>
         </div>
     </div>
-    <div id="wizard-4" class="wizard" style="top: 460px;right: 951px">
+    <div id="wizard-4" class="wizard" style="top: 303px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['clock'] ?>
         </div>
     </div>
-    <div id="wizard-5" class="wizard" style="top: 575px;right: 951px">
+    <div id="wizard-5" class="wizard" style="top: 408px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['status'] ?>
         </div>
     </div>
-    <div id="wizard-6" class="wizard" style="top: 685px;right: 951px">
+    <div id="wizard-6" class="wizard" style="top: 525px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['equipment'] ?>
         </div>
     </div>
-    <div id="wizard-7" class="wizard" style="top: 685px;right: 722px">
+    <div id="wizard-7" class="wizard" style="top: 533px;right: 531px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['mission'] ?>
         </div>
     </div>
-    <div id="wizard-8" class="wizard" style="top: 685px;right: 480px">
+    <div id="wizard-8" class="wizard" style="top: 533px;right: 283px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['resource'] ?>
         </div>
     </div>
-    <div id="wizard-9" class="wizard" style="top: 685px;right: 295px">
+    <div id="wizard-9" class="wizard" style="top: 533px;right: 105px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['buy'] ?>
         </div>
     </div>
-    <div id="wizard-10" class="wizard" style="top: 685px;right: 176px">
+    <div id="wizard-10" class="wizard" style="top: 533px;right: 0px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['inventory'] ?>
         </div>
     </div>
-    <div id="wizard-11" class="wizard" style="top: 565px;right: 235px">
+    <div id="wizard-11" class="wizard" style="top: 410px;right: 44px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['action'] ?>
         </div>
     </div>
-    <div id="wizard-12" class="wizard" style="top: 486px;right: 307px">
+    <div id="wizard-12" class="wizard" style="top: 327px;right: 111px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['plow'] ?>
@@ -500,7 +532,7 @@
 
         </div>
     </div>
-    <div id="wizard-13" class="wizard" style="top: 581px;right: 721px">
+    <div id="wizard-13" class="wizard" style="top: 416px;right: 529px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['startMission'] ?>
@@ -509,7 +541,7 @@
 
         </div>
     </div>
-    <div id="wizard-14" class="wizard" style="top: 581px;right: 560px">
+    <div id="wizard-14" class="wizard" style="top: 416px;right: 366px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['spreadWater'] ?>
@@ -518,7 +550,7 @@
 
         </div>
     </div>
-    <div id="wizard-15" class="wizard" style="top: 581px;right: 438px">
+    <div id="wizard-15" class="wizard" style="top: 416px;right: 247px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['spreadMuck'] ?>
@@ -527,7 +559,7 @@
 
         </div>
     </div>
-    <div id="wizard-16" class="wizard" style="top: 470px;right: 165px">
+    <div id="wizard-16" class="wizard" style="top: 304px;right: -32px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['reap'] ?>

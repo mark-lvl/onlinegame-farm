@@ -184,7 +184,13 @@ class Farms extends MainController {
                 $notification = $this->user_model->get_notifications($userFarm->id);
 
                 $frmTrnMdl = new Farmtransaction();
+
+                if($frmTrnMdl->get_where(array('goal_farm'=>$userFarm->id,'type'=>1,'flag'=>0))->exists())
+                {
+                    $this->data['attacksToFarm'] = $frmTrnMdl->group_by('accessory_id')->where(array('goal_farm'=>$userFarm->id,'type'=>1,'flag'=>0))->get()->all;
+                }
                 
+
 		$allResource = $resource->get()->all;
 
                 $typeModel = new Type();
@@ -207,6 +213,7 @@ class Farms extends MainController {
                         $equipments[] = 'rockBreaker';
 
 
+		
 		$this->data['plantSources'] = $pltTypSrcHolder;
 		$this->data['farmAcc'] = $usrFrmAcc;
 		$this->data['plant'] = $userPlant;
@@ -528,6 +535,17 @@ class Farms extends MainController {
           echo $this->load->view('farms/sync',$this->data,TRUE);
           
 	}
+
+        function syncAttackBox()
+        {
+            $frmTrnMdl = new Farmtransaction();
+
+            if($frmTrnMdl->get_where(array('goal_farm'=>$_POST['farm_id'],'type'=>1,'flag'=>0))->exists())
+            {
+                $this->data['attacksToFarm'] = $frmTrnMdl->group_by('accessory_id')->where(array('goal_farm'=>$_POST['farm_id'],'type'=>1,'flag'=>0))->get()->all;
+            }
+            echo $this->load->view('farms/syncAttackBox',$this->data,TRUE);
+        }
 
 
         /*
