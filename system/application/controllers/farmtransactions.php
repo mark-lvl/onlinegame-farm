@@ -12,24 +12,32 @@ class Farmtransactions extends MainController {
 
         function spraying($farm = null)
         {
-            $frmTrnMdl = new Farmtransaction();
-            $flag = $frmTrnMdl->spraying($_POST['farm']);
+            if(!isset($_POST['confirmAccept']))
+                $this->error_reporter('farmActionConfirm',$_POST);
+            else
+            {
+                $frmTrnMdl = new Farmtransaction();
+                $flag = $frmTrnMdl->spraying($_POST['farm']);
 
-            //if($_POST['viewer_id'])
-                    //$this->user_model->add_notification($_POST['farm'], str_replace(array(__VIEWERID__,__VIEWERNAME__), array($_POST['viewer_id'],$_POST['viewer_name']), $this->lang->language['helpFriend']), 4);
-
-            if(is_array($flag))
+                if(is_array($flag))
                     $this->error_reporter($flag['type'],$flag['params']);
+            }
         }
 
         function deffenceWithGun()
         {
-                $frmTrnMdl = new Farmtransaction();
-                $flag = $frmTrnMdl->deffenceWithGun($_POST['farm_id']);
+                if(!isset($_POST['confirmAccept']))
+                    $this->error_reporter('farmActionConfirm',$_POST);
+                else
+                {
+                    $frmTrnMdl = new Farmtransaction();
+                    $flag = $frmTrnMdl->deffenceWithGun($_POST['farm_id']);
 
 
-                if(is_array($flag))
-                        $this->error_reporter($flag['type'],$flag['params']);
+                    if(is_array($flag))
+                            $this->error_reporter($flag['type'],$flag['params']);
+                }
+                
         }
 
 	function add()

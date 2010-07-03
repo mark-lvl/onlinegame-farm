@@ -16,7 +16,7 @@
     float: right;
 }
 #centerColumn {
-    
+
     float: right;
     position: relative;
     margin-bottom: 11px;
@@ -129,7 +129,7 @@
     font-weight: bold;
     text-align: center;
     display: none;
-    
+
 }
 #userName
 {
@@ -328,7 +328,7 @@ span .abuseReport
     right: 80px;
     width: 310px;
     height: 100px;
-    display: block;    
+    display: block;
 }
 #profileFarmTransactions .title
 {
@@ -340,13 +340,17 @@ span .abuseReport
 }
 #profileFarmTransactions .body
 {
-    
+
 }
 .container
 {
     width: 180px;
-    font-size: 11px;
+    font-size: 10px;
     float: right;
+}
+.container img
+{
+    vertical-align: middle;
 }
 .transactionDate
 {
@@ -414,7 +418,7 @@ span .abuseReport
     padding-top: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    
+
 }
 .friendAvatarItem a
 {
@@ -542,7 +546,7 @@ float:left; font-weight:bold; color:#666666
 {
     font-size: 9px;
     color: #2B3B09;
-    
+
 }
 #hints .del a
 {
@@ -654,7 +658,7 @@ color:#ffffff;
 #searchAjaxHolder
 {
     height:386px;
-    width:438px;    
+    width:438px;
 }
 
 .solidLink

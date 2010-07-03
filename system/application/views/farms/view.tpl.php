@@ -74,6 +74,7 @@
     function spraying(farm)
     {
         var params = {};
+        params['action'] = 'spraying';
         params['farm'] = farm;
         params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
@@ -84,7 +85,8 @@
     function deffenceWithGun(farm_id)
     {
         var params = {};
-        params['farm_id'] = farm_id;
+        params['action'] = 'deffenceWithGun';
+        params['farm'] = farm_id;
         params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
@@ -213,6 +215,31 @@
 </script>
 <div id="farmWrapper">
     <div id="ajaxHolder"></div>
+    <div id="attackHolder" >
+        <?php if(isset($attacksToFarm)): ?>
+        <div class="header"></div>
+        <div class="details">
+            <?php foreach($attacksToFarm as $att): ?>
+                <?php switch ($att->accessory_id) {
+                                            case 1:
+                                                $attImg = "aphid";
+                                            break;
+                                            case 2:
+                                                $attImg = "grasshoppers";
+                                            break;
+                                            case 4:
+                                                $attImg = "mouse";
+                                            break;
+                                            case 6:
+                                                $attImg = "crow";
+                                            break;
+                                        }  ?>
+            <img src="<?= $base_img."farm/accessory/".$attImg.".png" ?>" title="<?= $lang[$attImg] ?>"/>
+            <?php endforeach; ?>
+        </div>
+        <div class="footer"></div>
+        <?php endif; ?>
+    </div>
      <!-- Start tooltipHolder -->
     <div id="partnerInventoryTooltip" class="tooltip"><?= $lang['tooltip']['partnerInventory'] ?></div>
     <div id="partnerFarmInventoryTooltip" class="tooltip"><?= $lang['tooltip']['partnerFarmInventory'] ?></div>
@@ -466,10 +493,14 @@
                                         }
                                         else
                                             if($transaction->flag != 'newUser')
-                                                echo $lang['farmTransactionHelpToFriend'];
+                                            {
+                                                if($transaction->offset_farm == $farm->id)
+                                                    echo $lang['farmTransactionHelpToFriend'];
+                                                else
+                                                    echo $lang['farmTransactionFriendHelpToU'];
+                                            }
                                             else
                                                 echo $lang['havingAnytransaction'];
-
                                         ?>
                                 </div>
                         </div>

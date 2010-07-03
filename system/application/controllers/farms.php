@@ -342,6 +342,14 @@ class Farms extends MainController {
                             $frmTransaction->messageStyle = "deffence";
                         elseif(($frmTransaction->offset_farm == $userFarm->id) && ($frmTransaction->type == 3))
                             $frmTransaction->messageStyle = "help";
+                        elseif(($frmTransaction->goal_farm == $userFarm->id) && ($frmTransaction->type == 3))
+                                $frmTransaction->messageStyle = "help";
+
+                $frmTrnMdl = new Farmtransaction();
+                if($frmTrnMdl->get_where(array('goal_farm'=>$userFarm->id,'type'=>1,'flag'=>0))->exists())
+                {
+                    $this->data['attacksToFarm'] = $frmTrnMdl->group_by('accessory_id')->where(array('goal_farm'=>$userFarm->id,'type'=>1,'flag'=>0))->get()->all;
+                }
 
                 $partnerHintsHolder = array($this->lang->language['partnerHints-1'],
                                             $this->lang->language['partnerHints-2'],

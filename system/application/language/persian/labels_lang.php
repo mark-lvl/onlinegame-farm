@@ -143,9 +143,9 @@
         $lang['tooltip']['badge']['famousFarmer'] = "اگه بتونی  <b style=\"color:green;\">__NEED__</b> تا دوست پیدا کنی میتونی این مدال رو بگیری<br/>تعداد دوستان تو: <b style=\"color:red;\">__RANK__</b>";
         $lang['tooltip']['badge']['haveFarm'] = "اگه واسه خودت یه مزرعه فعال داشته باشی میتونی این مدال رو بگیری";
 
-        $lang['tooltip']['dangerBar'] = "میزان محاسبه:<br/># به ازای دارا بودن هر دسته از محصولات هجومی ۱۰٪<br/># به اندازه ی تعداد موجود از وسایل هجومی<br/># تعداد حمله ها به دیگر مزرعه ها";
-        $lang['tooltip']['secureBar'] = "میزان محاسبه:<br/># به ازای دارا بودن هر کدام از وسایل دفاعی۱۵٪<br/># به ازای تعداد دوستان مزرعه";
-        $lang['tooltip']['helpBar'] = "میزان محاسبه:<br/># به ازای هر کمک به دیگران۵٪";
+        $lang['tooltip']['dangerBar'] = "میزان محاسبه:<br/>* به ازای دارا بودن هر دسته از محصولات هجومی ۱۰٪<br/>* به اندازه ی تعداد موجود از وسایل هجومی<br/>* تعداد حمله ها به دیگر مزرعه ها";
+        $lang['tooltip']['secureBar'] = "میزان محاسبه:<br/>* به ازای دارا بودن هر کدام از وسایل دفاعی۱۵٪<br/>* به ازای تعداد دوستان مزرعه";
+        $lang['tooltip']['helpBar'] = "میزان محاسبه:<br/>* به ازای هر کمک به دیگران۵٪";
 
         $lang['enableAfterLogin'] = "بعد از ورود به سیستم فعال میگردد";
 
@@ -219,13 +219,13 @@
         $lang['accessoryAddedSuccessfully'] = "خرید با موفقیت انجام شد";
         $lang['farmHaventThisAcc'] = "هنوز واسه مزرعت از این نخریدی";
         $lang['haventFarm'] = "این کاربر هنوز مزرعه ای ندارد";
-        $lang['haventMission'] = "الان درخواستی از یامی نداری";
-        $lang['haventPlant'] = "هنوز گیاهی نکاشتی";
-        $lang['haventStack'] = "تو این مرحله هنوز چیزی جمع نکردی";
-        $lang['haventEquipment'] = "الان تجهیزات کمکی نداری";
+        $lang['haventMission'] = "الان درخواستی از طرف یامی وجود ندارد";
+        $lang['haventPlant'] = "هنوز گیاهی کاشته نشده است";
+        $lang['haventStack'] = "در این مرحله هنوز محصولی جمع آوری نشده است";
+        $lang['haventEquipment'] = "الان تجهیزات کمکی وجود ندارد";
         $lang['haventAnyAccessory'] = "هنوز هیچ وسیله ای برای مزرعت نخریدی<br/> با برداشت محصول و جمع کردن پول میتونی به تدریج لوازمی که میخوای رو از طریق بخش خرید لوازم تهیه کنی";
         $lang['thisFarmHaventAnyAccessory'] = "این مزرعه هیچ وسیله ی نداره";
-        $lang['haventEquipmentForThisLevel'] = "برای این مرحله تجهیزات کمکی نداری";
+        $lang['haventEquipmentForThisLevel'] = "برای این مرحله تجهیزات کمکی وجود ندارد";
         $lang['gotoMission'] = "شروع کن";
         $lang['yummyRequest'] = "درخواست یامی";
         $lang['viewCurrentMission'] = "میتونی جزییات ماموریت فعلی تو از اینجا بازبینی کنی";
@@ -281,6 +281,8 @@
         $lang['showPartnerInventory'] = "موجوداتت هجومی";
         $lang['harmThisFarm'] = "هنوز این مزرعه رو اذیت نکردی";
         $lang['moneyHelpConfirm'] = "میخوای ۵۰۰ یامی کمک کنی؟";
+        $lang['sprayingConfirm'] = "آیا میخوای که این مزرعه سمپاشی بشه؟";
+        $lang['deffenceWithGunConfirm'] = "آیا میخوای که مهاجم های این مزرعه رو با تفنگ دور کنی؟";
         $lang['resetLevelConfirm'] = "میخوای به مزرعت آتیش بزنی؟";
         
         
@@ -527,11 +529,12 @@
         $lang['farmTransaction-6'] = "کلاغ ها به مزرعت حمله کردن سریع با تفنگ دورشون کن اگه مزرعت مترسک داشته باشه کمتر بهت آسیب میزنن";
 
         $lang['farmTransactionHelpToFriend'] = "به مزرعه دوستات کمک کردی";
+        $lang['farmTransactionFriendHelpToU'] = "دوستات بهت کمک کردن";
 
-        $lang['farmTransactionAttack-1'] = "با شته به مزرعه های دیگه حمله کردی";
-        $lang['farmTransactionAttack-2'] = "با ملخ به مزرعه های دیگران حمله کردی";
-        $lang['farmTransactionAttack-4'] = "با موش به مزرعه های دیگران حمله کردی";
-        $lang['farmTransactionAttack-6'] = "با کلاغ به مزرعه های دیگران حمله کردی";
+        $lang['farmTransactionAttack-1'] = "با شته به مزرعه دیگه حمله کردی";
+        $lang['farmTransactionAttack-2'] = "با ملخ به مزرعه دیگران حمله کردی";
+        $lang['farmTransactionAttack-4'] = "با موش به مزرعه دیگران حمله کردی";
+        $lang['farmTransactionAttack-6'] = "با کلاغ به مزرعه دیگران حمله کردی";
 
         $lang['farmTransactionDone-1'] = "شته ها سر فرصت مزرعتو خراب کردند و ۳۰٪ از سلامت گیاهات کم شد";
         $lang['farmTransactionDone-2'] = "ملخ ها سر فرصت مزرعتو خراب کردند و ۵۰٪ از سلامت گیاهات کم شد";

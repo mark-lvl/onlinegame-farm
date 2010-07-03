@@ -177,18 +177,20 @@ class Profile extends MainController
                                     $attack++;
 
                                 $bars['attackBar']++;
-                                $frmTransaction->messageStyle = "offensive";
+                                $frmTransaction->messageStyle = "attack";
                         }
                         elseif(($frmTransaction->goal_farm == $this->data['userFarm']->id) && ($frmTransaction->type != 3))
                         {
                                 $deffence++;
-                                $frmTransaction->messageStyle = "attack";
+                                $frmTransaction->messageStyle = "deffence";
                         }
                         elseif(($frmTransaction->offset_farm == $this->data['userFarm']->id) && ($frmTransaction->type == 3))
                         {
                                 $frmTransaction->messageStyle = "help";
                                 $bars['helpBar'] += 5;
                         }
+                        elseif(($frmTransaction->goal_farm == $this->data['userFarm']->id) && ($frmTransaction->type == 3))
+                                $frmTransaction->messageStyle = "help";
 
                 $this->data['transactions'] = $frmTrnObjs;
 
