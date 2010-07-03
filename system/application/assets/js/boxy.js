@@ -166,7 +166,7 @@ jQuery.extend(Boxy, {
     // displays an alert box with a given message, calling optional callback
     // after dismissal.
     alert: function(message, callback, options) {
-        return Boxy.ask(message, ['OK'], callback, options);
+        return Boxy.ask(message, ['قبول'], callback, options);
     },
 
     // displays an alert box with a given message, calling after callback iff

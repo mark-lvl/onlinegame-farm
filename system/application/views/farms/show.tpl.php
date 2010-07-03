@@ -115,7 +115,8 @@
     function spraying(farm)
     {
         var params = {};
-        params['farm'] = farm;
+        params['farm_id'] = farm;
+        params['action'] = 'spraying';
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/spraying', params);
     }
@@ -155,6 +156,7 @@
     {
         var params = {};
         params['farm_id'] = farm_id;
+        params['action'] = 'deffenceWithGun';
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farmtransactions/deffenceWithGun', params)
     }

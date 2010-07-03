@@ -8,7 +8,7 @@
     Boxy.confirm("<?= $lang[$params['action']."Confirm"] ?>", function() {
 
         var params = {};
-        params['farm'] = <?= $params['farm'] ?>;
+        params['farm_id'] = <?= $params['farm_id'] ?>;
         params['confirmAccept'] = true;
         params['viewer_id'] = "<?= $params['viewer_id'] ?>";
 	params['viewer_name'] = "<?= $params['viewer_name'] ?>";

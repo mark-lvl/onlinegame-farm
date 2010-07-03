@@ -59,7 +59,7 @@
                                                 if($user->photo != "") {
                                             ?>
                                             <a href="<?= base_url() ?>profile/user/<?= $user->id ?>" >
-                                                <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=45&nh=45&source=<?= $base_img."avatars/".$user->photo.".png" ?>&stype=png&type=little" border="0" />
+                                                <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=45&nh=45&source=<?= $avatar_img."avatars/".$user->photo.".png" ?>&stype=png&type=little" border="0" />
                                             </a>
                                             <?php
                                                 }else{

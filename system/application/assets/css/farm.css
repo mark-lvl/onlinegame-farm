@@ -1363,29 +1363,29 @@ span.partnerLink
     color: #FFFFFF;
     margin: 10px 10px 0 0;
 }
-.plantHolder .addPlant
+.addPlant
 {
     width: 190px;
-    height: 19px;
+    height: 40px;
     display: block;
     float: left;
     text-align: right;
-    margin: 5px 10px 0 0;
+    margin: 35px 10px 0 0;
 }
-.plantHolder .addPlant a
+.addPlant a
 {
     background: url(../images/farm/addPlant.png);
-    background-position: 0 -17px;
-    width: 96px;
-    height: 17px;
+    background-position: 0 0;
+    width: 129px;
+    height: 35px;
     display: block;
     text-align: right;
 }
-.plantHolder .addPlant a:hover
+.addPlant a:hover
 {
-    background-position: 0 0;
+    background-position: 0 -35px;
 }
-.plantHolder .plantDetails
+.plantDetails
 {
     width: 265px;
     height: 100px;

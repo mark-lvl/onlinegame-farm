@@ -75,7 +75,7 @@
     {
         var params = {};
         params['action'] = 'spraying';
-        params['farm'] = farm;
+        params['farm_id'] = farm;
         params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
@@ -86,7 +86,7 @@
     {
         var params = {};
         params['action'] = 'deffenceWithGun';
-        params['farm'] = farm_id;
+        params['farm_id'] = farm_id;
         params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
         params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";

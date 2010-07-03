@@ -57,14 +57,7 @@ $('#plantCategory div').click(function(){
             <div class="plantName">
                 <?= $lang[$plant['name']] ?>
             </div>
-            <div class="addPlant">
-                <?php
-                if($params['mission']['farm_plow'])
-                    echo anchor(" "," ",array('onclick'=>"addPlantToFarm(".$params['mission']['farm_id'].",".$plant['id'].");return false;"));
-                else
-                    echo $lang['implant']." ".$lang['farmNotPlowed'];
-                ?>
-            </div>
+            
             <div class="plantDetails">
                 <?php
                 echo "<span class=\"detailsTitle\">".$lang['growthTime'].": </span>".convert_number($plant['growthTime']).$lang['hour']."<br/>";
@@ -132,6 +125,14 @@ $('#plantCategory div').click(function(){
                 <span style="margin: 23px 0 0 0;display: block"><?= $lang['haventEquipmentForThisLevel'] ?></span>
             <?php endif; ?>
         </div>
+    </div>
+    <div class="addPlant">
+                <?php
+                if($params['mission']['farm_plow'])
+                    echo anchor(" "," ",array('onclick'=>"addPlantToFarm(".$params['mission']['farm_id'].",".$plant['id'].");return false;"));
+                else
+                    echo "<img src=\"".$base_img."attention.png\" style=\"vertical-align:middle\"/>"." ".$lang['farmNotPlowed'];
+                ?>
     </div>
     <div id="ajaxAlertBox"></div>
     <div id="plantCategory">

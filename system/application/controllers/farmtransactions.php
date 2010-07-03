@@ -17,7 +17,7 @@ class Farmtransactions extends MainController {
             else
             {
                 $frmTrnMdl = new Farmtransaction();
-                $flag = $frmTrnMdl->spraying($_POST['farm']);
+                $flag = $frmTrnMdl->spraying($_POST['farm_id']);
 
                 if(is_array($flag))
                     $this->error_reporter($flag['type'],$flag['params']);

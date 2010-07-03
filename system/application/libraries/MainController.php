@@ -30,6 +30,7 @@ class MainController extends Controller {
         $this->data['content'] = '';
         $this->data['css'] = '';
         $this->data['base_img'] = css_url()."system/application/assets/images/";
+        $this->data['avatar_img'] = "../assets/images/";
         $this->data['title'] = 'Page Title';
         $this->data['lang'] = $this->lang->language;
 

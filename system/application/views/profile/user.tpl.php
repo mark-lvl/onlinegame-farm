@@ -324,7 +324,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                     if($user_profile->photo != "") {
                                 ?>
                                 <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
-                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=88&nh=88&source=<?= $base_img."avatars/".$user_profile->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=88&nh=88&source=<?= $avatar_img."avatars/".$user_profile->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
                                     <?php if(!$partner): ?>
                                         <div class="changeAvatar"><?= $lang['changeAvatars'] ?></div>
                                     <?php endif; ?>
@@ -659,7 +659,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                     <div class="friendAvatarItem">
                                     <?php if($friend->photo != ""): ?>
                                         <a href="<?= base_url() ?>profile/user/<?= $friend->id ?>" >
-                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=62&nh=62&source=<?= $base_img."avatars/".$friend->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=62&nh=62&source=<?= $avatar_img."avatars/".$friend->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
                                         </a>
                                     <?php else: ?>
                                         <a href="<?= base_url() ?>profile/user/<?= $friend->id ?>" >
