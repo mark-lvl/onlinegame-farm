@@ -208,7 +208,7 @@ function heightFixer()
 }
 function notificationCounter()
 {
-    $('#notificationCounter').html($('#mainpanel li').size()-1);
+    $('#notificationCounter').html($('#mainpanel li p img').size());
 }
 </script>
 <script type="text/javascript">
@@ -726,7 +726,12 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             <span id="notificationCounter">
                                 <?php if($notifications == false)
                                             $notifications = null;
-                                      echo (count($notifications) == 0)?0:count($notifications)
+
+                                      $notChecked = 0;
+                                      foreach($notifications AS $not)
+                                          if($not['checked'] == 0)
+                                              $notChecked++;
+                                      echo $notChecked;
                                 ?>
                             </span>
                         </a>
@@ -770,8 +775,10 @@ $(document).ready(function(){
 	//Click event outside of subpanel
 	$(document).click(function() {
 		$(".subpanel").hide();
+                $("#notification li").remove();
                 $("#notification").removeAttr('style');
 		$("#footpanel li a").removeClass('active');
+                $('#notificationCounter').html('0');
 	});
 	$('.subpanel ul').click(function(e) {
 		e.stopPropagation();

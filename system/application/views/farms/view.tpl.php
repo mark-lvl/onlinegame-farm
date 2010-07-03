@@ -142,6 +142,7 @@
         $(".reapCounter").ezpz_tooltip({contentId:"reapCounterTooltip"});
         $("#resourceCounter1").ezpz_tooltip({contentId:"waterCounterTooltip"});
         $("#resourceCounter2").ezpz_tooltip({contentId:"muckCounterTooltip"});
+        $("#farmOwner").ezpz_tooltip({contentId:"farmOwnerTooltip"});
 
 
 
@@ -225,6 +226,7 @@
     <div id="reapCounterTooltip" class="tooltip"><?= $lang['tooltip']['reapCounter'] ?></div>
     <div id="waterCounterTooltip" class="tooltip"><?= $lang['tooltip']['waterCounter'] ?></div>
     <div id="muckCounterTooltip" class="tooltip"><?= $lang['tooltip']['muckCounter'] ?></div>
+    <div id="farmOwnerTooltip" class="tooltip"><?= $lang['tooltip']['farmOwner'] ?></div>
     <!-- End tooltipHolder -->
 
 
@@ -234,6 +236,18 @@
             <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
             <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
             <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
+            <div id="farmOwner">
+                <div class="avatarImg">
+                    <a href="<?= base_url() ?>profile/user/<?= $farmOwner->id ?>">
+                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $base_img."avatars/".$farmOwner->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                    </a>
+                </div>
+                <div class="avatarName">
+                    <a href="<?= base_url() ?>profile/user/<?= $farmOwner->id ?>">
+                        <?= $farmOwner->first_name." ".$farmOwner->last_name ?>
+                    </a>
+                </div>
+            </div>
             <div id="accessoryPlaceTop">
                 <?php if(in_array("scarecrow", $farmAcc)): ?>
                 <div class="scarecrow"></div>

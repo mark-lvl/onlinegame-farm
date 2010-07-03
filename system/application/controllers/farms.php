@@ -357,6 +357,8 @@ class Farms extends MainController {
 
                 $allResource = $resource->get()->all;
 
+                
+
                 $this->data['resources'] = $allResource;
                 $this->data['partnerHints'] = $partnerHints;
                 $this->data['transactions'] = $frmTrnObjs;
@@ -369,11 +371,12 @@ class Farms extends MainController {
 		$this->data['types'] = $allTypes;
 		$this->data['farm'] = $userFarm;
 		$this->data['hints'] = $hints;
-                //this flag handel that this farm for his friend
+                //this flag handel this farm for his friend
                 $this->data['viewer'] = $user;
                 $this->data['viewerFarm'] = $viewerFarm;
                 $this->data['related'] = User_model::is_related($user, $id);
 
+                $this->data['farmOwner'] = $this->user_model->get_user_by_id($id);
                 $this->data['user'] = $user;
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
@@ -823,14 +826,20 @@ class Farms extends MainController {
         {
                 if($_POST['farm_id'])
                 {
-                        $notifications = $this->user_model->get_notifications($_POST['farm_id']);
+                        $notifications = $this->user_model->get_notifications($_POST['farm_id'],true);
 
                         if($notifications)
                         foreach($notifications AS $not)
+                        {
+                            if($not['checked'] == 0)
+                                $notDescription = "<img src=\"".$this->data['base_img']."/newNotification.png\">&nbsp;&nbsp;".$not['body']."<br/><span class=\"notificationDate\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</span>";
+                            else
+                                $notDescription = $not['body']."<br/><span class=\"notificationDate\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</span>";
+                                
                             echo "<li  id=\"notification-$not[id]\"><p>".anchor("farms/deleteNotification/$not[id]",
                                                                              "X",
-                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."$not[body]<br/><span class=\"notificationDate\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</span></p></li>";
-
+                                                                             array('onclick'=>"deleteNotification(".$not[id].");return false;"))."$notDescription</p></li>";
+                        }
                 }
         }
 

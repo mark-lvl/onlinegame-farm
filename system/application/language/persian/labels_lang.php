@@ -343,6 +343,7 @@
         $lang['tooltip']['reapCounter'] = "اینقدر مونده تا رشد کامل گیاهان";
         $lang['tooltip']['waterCounter'] = "اینقدر زمان مونده تا آب گیاهان تموم بشه";
         $lang['tooltip']['muckCounter'] = "اینقدر مونده تا کود گیاهان تموم بشه";
+        $lang['tooltip']['farmOwner'] = "این مشخصات صاحب این مزرعه است";
         
         $lang['tooltip']['partnerFarmInventory'] = "از اینجا میتونی همه وسایل هجومی خودتو ببینی تا ازشون واسه اذیت کردن این مزرعه اسنفاده کنی";
         $lang['tooltip']['partnerInventory'] = "ایست همه وسایل همین مزرعه که الان توش هستی";
