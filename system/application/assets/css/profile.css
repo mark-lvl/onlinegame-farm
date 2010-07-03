@@ -8,6 +8,7 @@
     width: 920px;
     height: 432px;
     float: left;
+    position: relative;
 }
 #rightColumn {
     height: 397px;

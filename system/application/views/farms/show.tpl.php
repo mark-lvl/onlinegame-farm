@@ -406,13 +406,11 @@
         <?php endif; ?>
     });
 </script>
-<div id="farmWrapper" style="position: relative">
+<div id="farmWrapper">
     <div id="ajaxHolder"></div>
     <div id="attackHolder" >
         <?php if(isset($attacksToFarm)): ?>
-        <div class="header">
-            <?= $lang['attackToFarm'] ?>
-        </div>
+        <div class="header"></div>
         <div class="details">
             <?php foreach($attacksToFarm as $att): ?>
                 <?php switch ($att->accessory_id) {
@@ -432,6 +430,7 @@
             <img src="<?= $base_img."farm/accessory/".$attImg.".png" ?>" title="<?= $lang[$attImg] ?>"/>
             <?php endforeach; ?>
         </div>
+        <div class="footer"></div>
         <?php endif; ?>
     </div>
     <!-- Start tooltipHolder -->

@@ -16,6 +16,7 @@
 {
     width: 955px;
     height: 672px;
+    position: relative;
 }
 #base
 {
@@ -1594,37 +1595,44 @@ span.partnerLink
     position: fixed;
     top: 200px;
     right: 0;
-    background: #FF6B00;
-    width: 42px;
+    width: 56px;
     overflow: auto;
     z-index: 2;
 }
 #attackHolder .header
 {
-    width: 42px;
-    background: #DB4F1B;
+    background: url(../images/farm/attackBox-header.png) no-repeat;
+    width: 56px;
     float: right;
-    height: 18px;
+    height: 28px;
     display: block;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid white;
 }
 #attackHolder .details
 {
-    width: 42px;
+    background: #2b4c1b url(../images/farm/attackBox-content.png) repeat-y;
+    width: 56px;
     float: right;
     overflow: auto;
     display: block;
     text-align: center;
+    min-height: 40px
+}
+#attackHolder .footer
+{
+    background: #2b4c1b url(../images/farm/attackBox-footer.png) no-repeat;
+    /*
+    * TODO badan baiad ino uncomment konam alan to ie moshkel dare
+    width: 56px; */
+    height: 3px;
+    display: block;
+    float: right;
 }
 #attackHolder .details img
 {
-    width: 32px;
+    width: 34px;
     float: right;
-    height: 32px;
+    height: 34px;
     display: block;
-    background: #94CC05;
-    border: 1px solid white;
-    margin: 3px;
+    background: #2b4c1b url(../images/farm/attackBox-item.png) no-repeat;
+    margin: 3px 10px 3px 3px;
 }

@@ -609,7 +609,7 @@ width:300px;
     padding: 10px;
     border: 2px solid black;
     position: absolute;   /* required */
-    top: -60px;
+    top: -160px;
     display: none;
     z-index: 9999;
 }
