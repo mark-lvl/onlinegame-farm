@@ -91,9 +91,8 @@ function ajax_request(handler, url, params ,callback) {
                         text: 'Loading',
                         align: {top:'10px',left:'10px'},
                         img: '<?= $base_img ?>ajax-loader.gif' ,
-                        delay: '200',
-                        max: '1000',
                         mask: true,
+                        onAjax:true,
                         maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
                             zIndex:101, display:'block', cursor:'wait' }
                         });
@@ -333,7 +332,11 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                     }else{
                                 ?>
                                 <a href="<?= base_url() ?>profile/user/<?= $user_profile->id ?>" >
-                                    <img src="<?= $base_img ?>default.png" />
+                                    <?php if($user_profile->sex == 0): ?>
+                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=88&nh=88&source=<?= $avatar_img."avatars/default-m.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                    <?php else: ?>
+                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=88&nh=88&source=<?= $avatar_img."avatars/default-f.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                    <?php endif; ?>
                                     <?php if(!$partner): ?>
                                         <div class="changeAvatar"><?= $lang['changeAvatars'] ?></div>
                                     <?php endif; ?>
@@ -725,13 +728,19 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         <a href="#" class="alerts">
                             <span id="notificationCounter">
                                 <?php if($notifications == false)
+                                      {
                                             $notifications = null;
-
-                                      $notChecked = 0;
-                                      foreach($notifications AS $not)
-                                          if($not['checked'] == 0)
-                                              $notChecked++;
-                                      echo $notChecked;
+                                            echo '0';
+                                      }
+                                      else
+                                      {
+                                          $notChecked = 0;
+                                          foreach($notifications AS $not)
+                                              if($not['checked'] == 0)
+                                                  $notChecked++;
+                                          echo $notChecked;
+                                      }
+                                      
                                 ?>
                             </span>
                         </a>

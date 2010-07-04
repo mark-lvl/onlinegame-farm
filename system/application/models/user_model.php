@@ -346,17 +346,17 @@
                         $result = $result->result_array();
                         //this section controll not sending multiple notification for the same lack resource
                         if(count($result) < 1)
-                            $addNotQry = "INSERT INTO `notifications` (`farm_id`, `details`, `body`, `type`, `create_date`)
+                            $addNotQry = "INSERT INTO `notifications` (`farm_id`, `details`, `body`, `type`, `checked`, `create_date`)
                                                 VALUES (" . $this->db->escape($farm_id) .", " .
                                                             $this->db->escape($details['details']) .", " .
                                                             $this->db->escape($body) .", " .
-                                                            $this->db->escape($type.$details['resource_id']).", UNIX_TIMESTAMP())";
+                                                            $this->db->escape($type.$details['resource_id']).",0, UNIX_TIMESTAMP())";
                     }
                     else
-                        $addNotQry = "INSERT INTO `notifications` (`farm_id`, `body`, `type`, `create_date`)
+                        $addNotQry = "INSERT INTO `notifications` (`farm_id`, `body`, `type`, `checked`, `create_date`)
                                             VALUES (" . $this->db->escape($farm_id) .", " .
                                                         $this->db->escape($body) .", " .
-                                                        $this->db->escape($type).", UNIX_TIMESTAMP())";
+                                                        $this->db->escape($type).", 0,UNIX_TIMESTAMP())";
                     if($addNotQry)
                         if($this->db->query($addNotQry)) {
                             return TRUE;
@@ -367,22 +367,28 @@
 		}
 
 		function get_notifications($farmId,$update = false) {
-		    $sql = "SELECT * FROM `notifications`  WHERE  `farm_id` = " . $this->db->escape($farmId) . " ORDER BY `create_date` DESC";
-		    $result = $this->db->query($sql);
-		    $result = $result->result_array();
-
-                    if($update)
+                    if($farmId)
                     {
-                        $updateSql = "UPDATE `notifications` SET checked = 1 WHERE farm_id = " .$farmId.";";
-                        $this->db->query($updateSql);
+                        $sql = "SELECT * FROM `notifications`  WHERE  `farm_id` = " . $this->db->escape($farmId) . " ORDER BY `create_date` DESC";
+                        $result = $this->db->query($sql);
+                        $result = $result->result_array();
+
+                        if($update)
+                        {
+                            $updateSql = "UPDATE `notifications` SET checked = 1 WHERE farm_id = " .$farmId.";";
+                            $this->db->query($updateSql);
+                        }
+
+                        if(count($result) > 0) {
+                            return $result;
+                        }
+                        else {
+                            return FALSE;
+                        }
                     }
-                    
-		    if(count($result) > 0) {
-		        return $result;
-		    }
-		    else {
-		        return FALSE;
-		    }
+                    else
+                        return false;
+		    
 		}
 
                 function deleteNotification($id,$deleteAll = FALSE)

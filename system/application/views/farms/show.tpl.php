@@ -11,10 +11,9 @@
                             text: 'Loading',
                             align: {top:'10px',left:'10px'},
                             img: '<?= $base_img ?>ajax-loader.gif' ,
-                            delay: '200',
-                            max: '1000',
                             mask: true,
-                            maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
+                            onAjax:true,
+                            maskCss: { position:'absolute', opacity:.7, background:'#333',top:0,left:0,
                             zIndex:101, display:'block', cursor:'wait' }
                             });
        $(handler).load(url, params,callback);
@@ -783,13 +782,13 @@
             <?php if(!$plant->id): ?>
                 <div class="on">
                     <span class="title"><?= $lang['yummyRequest'] ?></span>
-                    <span class="text"><?= $missionBox->description ."<br/><br/>". anchor("farms/mission/$missionBox->id"," ",array('onClick'=>"mission($missionBox->id);return false")) ?>
+                    <span class="text"><?= $missionBox->description ."<br/><br/>". anchor("farms/mission/$missionBox->id",$lang['start'],array('onClick'=>"mission($missionBox->id);return false")) ?>
                     </span>
                 </div>
             <?php else: ?>
                 <div class="on">
                     <span class="title"><?= $lang['yummyRequest'] ?></span>
-                    <span class="text"><?= $lang['viewCurrentMission'] ."<br/><br/>". anchor(" "," ",array('onClick'=>"mission($farm->level);return false")) ?>
+                    <span class="text"><?= $lang['viewCurrentMission'] ."<br/><br/>". anchor(" ",$lang['review'],array('onClick'=>"mission($farm->level);return false")) ?>
                     </span>
                 </div>
             <?php endif; ?>
@@ -835,13 +834,19 @@
                         <a href="#" class="alerts">
                             <span id="notificationCounter">
                                 <?php if($notifications == false)
+                                      {
                                             $notifications = null;
+                                            echo '0';
+                                      }
+                                      else
+                                      {
+                                          $notChecked = 0;
+                                          foreach($notifications AS $not)
+                                              if($not['checked'] == 0)
+                                                  $notChecked++;
+                                          echo $notChecked;
+                                      }
 
-                                      $notChecked = 0;
-                                      foreach($notifications AS $not)
-                                          if($not['checked'] == 0)
-                                              $notChecked++;
-                                      echo $notChecked;
                                 ?>
                             </span>
                             <small><?= $lang['notifications'] ?></small>

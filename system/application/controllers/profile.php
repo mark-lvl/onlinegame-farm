@@ -17,7 +17,6 @@ class Profile extends MainController
                 $this->add_css('home');
                 $this->add_css('profile');
 
-                $this->loadJs('jquery.loading/jquery.loading');
 	}
 
 	function index()

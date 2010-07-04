@@ -50,7 +50,11 @@
                                 </a>
                             <?php else: ?>
                                 <a href="<?= base_url() ?>profile/user/<?= $bUser->id ?>">
-                                    <img  src="<?= $base_img ?>default.png"/>
+                                    <?php if($bUser->sex == 0): ?>
+                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=57&nh=57&source=<?= $avatar_img."avatars/default-m.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                    <?php else: ?>
+                                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=57&nh=57&source=<?= $avatar_img."avatars/default-f.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                    <?php endif; ?>
                                     <span><?= $bUser->first_name." ".$bUser->last_name ?></span>
                                 </a>
                             <?php endif; ?>

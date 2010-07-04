@@ -266,7 +266,15 @@
             <div id="farmOwner">
                 <div class="avatarImg">
                     <a href="<?= base_url() ?>profile/user/<?= $farmOwner->id ?>">
-                        <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $base_img."avatars/".$farmOwner->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                        <?php if($farmOwner->photo != ""): ?>
+                            <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $base_img."avatars/".$farmOwner->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                        <?php else: ?>
+                            <?php if($farmOwner->sex == 0): ?>
+                                <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $avatar_img."avatars/default-m.png" ?>&stype=png&dest=x&type=little" border="0" />
+                            <?php else: ?>
+                                <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $avatar_img."avatars/default-f.png" ?>&stype=png&dest=x&type=little" border="0" />
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </a>
                 </div>
                 <div class="avatarName">

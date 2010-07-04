@@ -9,7 +9,11 @@
                             <?php if($k->photo != ""): ?>
                                 <img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=52&nh=52&source=<?= $avatar_img."avatars/".$k->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
                             <?php else: ?>
-                                <img src="<?= $base_img ?>default.png" border="0" width="52px" height="52px"/>
+                                <?php if($k->sex == 0): ?>
+                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=52&nh=52&source=<?= $avatar_img."avatars/default-m.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                <?php else: ?>
+                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=52&nh=52&source=<?= $avatar_img."avatars/default-f.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                <?php endif; ?>
                             <?php endif; ?>
                     </a>
                 </span>

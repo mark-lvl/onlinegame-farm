@@ -886,7 +886,10 @@ span.partnerLink
     background-position: 0 0;
     height:17px;
     width:61px;
-    display: block
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF;
 }
 #farmMission div span.text a:hover
 {

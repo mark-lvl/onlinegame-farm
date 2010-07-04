@@ -4,6 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $title; ?></title>
 
+
+<link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/main.css" />
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/jquery.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/boxy.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/jquery.loading/jquery.loading.js'; ?>">
+</script>
 <?php echo $css; ?>
 <?php echo $js; ?>
 <!--[if IE]>
@@ -65,7 +76,11 @@
                                                 }else{
                                             ?>
                                             <a href="<?= base_url() ?>profile/user/<?= $user->id ?>" >
-                                                <img src="<?= $base_img ?>default.png" />
+                                                <?php if($user->sex == 0): ?>
+                                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=45&nh=45&source=<?= $avatar_img."avatars/default-m.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                                <?php else: ?>
+                                                    <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=45&nh=45&source=<?= $avatar_img."avatars/default-f.png" ?>&stype=png&dest=x&type=little" border="0" />
+                                                <?php endif; ?>
                                             </a>
                                             <?php
                                                 }
