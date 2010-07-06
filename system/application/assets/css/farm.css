@@ -1617,6 +1617,15 @@ span.partnerLink
     margin: 0 auto;
     clear: both;
 }
+.wizard .wizardUpArrow
+{
+    background: url(../images/farm/wizardUp-arrow.png) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    margin: 0 auto;
+    clear: both;
+}
 .wizard .wizardClose:hover
 {
     color: white;

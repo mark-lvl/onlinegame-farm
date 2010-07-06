@@ -1,6 +1,6 @@
 <style>
-    .boxy-inner{height:400px!important}
-    .main-content{height:400px!important}
+    .boxy-innerFarm{height:400px!important}
+    .main-contentFarm{height:400px!important}
 </style>
 <script>
     <?php if($params['action'] == 'mission'): ?>
@@ -19,7 +19,7 @@
         var output = $('#reapConfirm');
         var titleText = "<?= $lang['reapConfirm']['title'] ?>";
     <?php endif; ?>
-    new Boxy(output, {title: titleText,modal: true , closeText:"<img src=\"<?= $base_img ?>/popup/boxy/farmBoxy/close.gif\" />"<?php if($params['action'] == 'reapConfirm'): ?>,afterHide: function() {
+    new BoxyFarm(output, {title: titleText,modal: true , closeText:"<img src=\"<?= $base_img ?>/popup/boxy/farmBoxy/close.gif\" />"<?php if($params['action'] == 'reapConfirm'): ?>,afterHide: function() {
                                                                                                                                                                                                       <?php if(!$params['details']['endGame']): ?>
                                                                                                                                                                                                             location.reload();
                                                                                                                                                                                                       <?php else: ?>
@@ -126,6 +126,7 @@ $('#plantCategory div').click(function(){
             <?php endif; ?>
         </div>
     </div>
+    <?php if(!$params['mission']['reviewMode']): ?>
     <div class="addPlant">
                 <?php
                 if($params['mission']['farm_plow'])
@@ -134,6 +135,7 @@ $('#plantCategory div').click(function(){
                     echo "<img src=\"".$base_img."attention.png\" style=\"vertical-align:middle\"/>"." ".$lang['farmNotPlowed'];
                 ?>
     </div>
+    <?php endif; ?>
     <div id="ajaxAlertBox"></div>
     <div id="plantCategory">
         <?php

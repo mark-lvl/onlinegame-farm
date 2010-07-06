@@ -1,14 +1,12 @@
 <style>
-  #centerContainer {
-    background: #2b3b09 url(<?= $base_img ?>profile/edit_background.gif) no-repeat top center;
-    height: 395px;
-    width: 464px;
-    display: block;
-    margin-top: 2px;
-}
-</style>
-<style>
-    
+    #centerContainerSecondLayer
+    {
+        background: #2b3b09 url(<?= $base_img ?>profile/edit_background.gif) no-repeat top center;
+        height: 388px;
+        width: 464px;
+        display: block;
+        margin-top: 9px;
+    }
     #registerForm
     {
         right: 75px;
@@ -16,19 +14,25 @@
     }
     .closeButton
     {
-    	position: absolute;
-    	top:8px;
-    	right:8px;
+        position: absolute;
+        top:16px;
+        right:8px;
     }
-    .closeButton a img
+    .closeButton img
     {
         width:26px;
-    	height:26px;
-    	display:block;
+        height:26px;
+        display:block;
+        cursor: pointer;
     }
 </style>
-<div id="centerContainer">
-	<span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img"."popup/boxy/close.png\"/>") ?></span>
+<script>
+    $('.closeButton').click(function(){
+        $('#centerContainerSecondLayer').hide();
+        $('#centerContainer').show();
+    })
+</script>
+<span class="closeButton"><img src="<?= $base_img ?>popup/boxy/close.png" /></span>
     <div id="registerForm">
                 <form action="<?= base_url() ?>profile/edit/" id="register-form" class="registerForm" method="post">
                                 <table>
@@ -147,7 +151,6 @@
 
                         </form>
                 </div>
-</div>
 
 <script type="text/javascript" charset="utf-8">
   function validateDay()

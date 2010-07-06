@@ -13,7 +13,10 @@
         src="<?php echo css_url() . 'system/application/assets/js/boxy.js'; ?>">
 </script>
 <script type="text/javascript" language="javascript"
-        src="<?php echo css_url() . 'system/application/assets/js/jquery.loading/jquery.loading.js'; ?>">
+        src="<?php echo css_url() . 'system/application/assets/js/boxyFarm.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/verbose.js'; ?>">
 </script>
 <?php echo $css; ?>
 <?php echo $js; ?>
@@ -87,7 +90,10 @@
                                             ?>
                                             <span class="name">
                                                 <a href="<?= base_url()."profile/user/".$user->id ?>">
-                                                    <?= $user->first_name." ".$user->last_name ?>
+                                                    <?php
+                                                    mb_internal_encoding('UTF-8');
+                                                    echo  mb_substr($user->first_name." ".$user->last_name, 0, 13)
+                                                    ?>
                                                 </a>
                                             </span>
                                             <span class="farm">
@@ -144,6 +150,21 @@
                 </div>
                 <div id="footer">
                         <div id="footer-up">
+                            <div id="topUserHolder">
+                                <div id="newUsers">
+                                    <div class="navigator"></div>
+                                    <div></div>
+                                    <div class="navigator"></div>
+                                </div>
+                                <div id="bestUserRanks">
+                                    
+                                    <div class="content">
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
                         </div>
                         <div id="footer-bottom">
                             <p style="text-align: center">Copyright &copy; 2010 Yummy,Nik Pars.All Right Reserved</p>

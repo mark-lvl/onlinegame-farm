@@ -1,22 +1,27 @@
 <style>
-  #centerContainer {
+    #centerContainerSecondLayer
+    {
     background: #2b3b09 url(<?= $base_img ?>profile/inbox_bg.gif) no-repeat center;
-    height: 395px;
+    height: 388px;
     width: 464px;
     display: block;
-}
- #centerColumn
- {
-     margin-bottom: 8px !important;
- }
- .closeButton
+    margin-top: 9px;
+    }
+    .closeButton
     {
         width:26px;
-    	height:26px;
-    	display:block;
+        height:26px;
+        display:block;
         right:1px;
         position:absolute;
         top:1px;
+    }
+    .closeButton img
+    {
+        width:26px;
+        height:26px;
+        display:block;
+        cursor: pointer;
     }
 </style>
 <!--[if IE]>
@@ -26,11 +31,14 @@
 }
 </style>
 <![endif]-->
-
-<div id="centerContainer">
-    
+<script>
+    $('.closeButton').click(function(){
+        $('#centerContainerSecondLayer').hide();
+        $('#centerContainer').show();
+    })
+</script>
     <div id="inboxHolder">
-        <span class="closeButton"><?= anchor("profile/user/$user_profile->id","<img src=\"$base_img"."popup/boxy/close.png\"/>" ) ?></span>
+        <span class="closeButton"><img src="<?= $base_img ?>popup/boxy/close.png" /></span>
         <div id="delete_all"><a style="display:block;width:16px;height:16px;" title="<?= $lang['deleteAll'] ?>"></a></div>
         <div class="message_list">
             <div id="messageListContainer" >
@@ -151,4 +159,3 @@
 		});
 	}
 </script>
-</div>

@@ -34,6 +34,10 @@ class MainController extends Controller {
         $this->data['title'] = 'Page Title';
         $this->data['lang'] = $this->lang->language;
 
+//        $this->add_css('main');
+//        $this->loadJs('jquery');
+//        $this->loadJs('boxy');
+
         $this->controller_name = $this->router->fetch_directory() . $this->router->fetch_class();
         $this->action_name = $this->router->fetch_method();
 
@@ -60,15 +64,20 @@ class MainController extends Controller {
 
     function error_reporter($type, $params = null , $template='main',$specialCss = null)
     {
+        //$this->loadJs('boxy');
+
         if(!$specialCss)
             $this->add_css('boxy');
+        else
+            $this->add_css($specialCss);
+
 
         $this->data['params'] = $params;
         $this->data['content'] = $this->load->view("layouts/error/$type.tpl.php", $this->data, TRUE);
-        
+
         $this->load->view("layouts/error/$template.tpl.php", $this->data);
     }
-    
+
 
     function refresh_page()
     {
@@ -79,7 +88,7 @@ class MainController extends Controller {
     {
         $this->load->view("partials/redirect.tpl.php", array('path' => $path));
     }
-    
+
 
 }
 ?>

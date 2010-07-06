@@ -7,41 +7,41 @@
 	font-size:11px;
 }
 
-.boxy-wrapper { position: absolute; width:600px; }
-.boxy-wrapper.fixed { position: fixed; }
+.boxy-wrapperFarm { position: absolute; width:600px; }
+.boxy-wrapperFarm .fixed { position: fixed; }
 
   /* Modal */
   
-  .boxy-modal-blackout { position: absolute; background-color: black; left: 0; top: 0; z-index:1002; }
+  .boxy-modal-blackoutFarm { position: absolute; background-color: black; left: 0; top: 0; z-index:1002; }
   
   /* Border */
 
-  .boxy-wrapper { empty-cells: show; }
-	.boxy-wrapper .top-left,
-	.boxy-wrapper .top-right,
-	.boxy-wrapper .bottom-right,
-	.boxy-wrapper .bottom-left {  }
+  .boxy-wrapperFarm { empty-cells: show; }
+	.boxy-wrapperFarm .top-left,
+	.boxy-wrapperFarm .top-right,
+	.boxy-wrapperFarm .bottom-right,
+	.boxy-wrapperFarm .bottom-left {  }
 	
-	.boxy-wrapper .top-right { }
-	.boxy-wrapper .top-left { }
-	.boxy-wrapper .bottom-left{}
-	.boxy-wrapper .bottom-right {}
+	.boxy-wrapperFarm .top-right { }
+	.boxy-wrapperFarm .top-left { }
+	.boxy-wrapperFarm .bottom-left{}
+	.boxy-wrapperFarm .bottom-right {}
 
 	/* IE6+7 hacks for the border. IE7 should support this natively but fails in conjuction with modal blackout bg. */
 	/* NB: these must be absolute paths or URLs to your images */
 
 
-	.boxy-wrapper .top,
-	.boxy-wrapper .bottom {}
+	.boxy-wrapperFarm .top,
+	.boxy-wrapperFarm .bottom {}
 
-	.boxy-wrapper .left,
-	.boxy-wrapper .right {}
+	.boxy-wrapperFarm .left,
+	.boxy-wrapperFarm .right {}
 
 	/* Title bar */
 	
-	.boxy-wrapper .title-bar { background: url("../images/popup/boxy/farmBoxy/header.png") no-repeat center; padding: 6px; position: relative; border:0px; color:#4f4f4f;height: 10px}
-	.boxy-wrapper .title-bar.dragging { cursor: move; }
-	.boxy-wrapper .title-bar h2
+	.boxy-wrapperFarm .title-bar { background: url("../images/popup/boxy/farmBoxy/header.png") no-repeat center; padding: 6px; position: relative; border:0px; color:#4f4f4f;height: 10px}
+	.boxy-wrapperFarm .title-bar.dragging { cursor: move; }
+	.boxy-wrapperFarm .title-bar h2
         {
             color:#c1c1c1;
             font-family:Tahoma,Arial;
@@ -54,7 +54,7 @@
             right:46px;
             top:6px;
         }
-	.boxy-wrapper .title-bar .close 
+	.boxy-wrapperFarm .title-bar .close
         {
             color:#4f4f4f;
             font-family:Tahoma, Arial;
@@ -69,7 +69,7 @@
 	/* Content Region */
 	
 	.boxy-header{background: url("../images/popup/boxy/farmBoxy/header.png") no-repeat center;height: 10px;width: 503px}
-        .boxy-inner{color:#000000;
+        .boxy-innerFarm{color:#000000;
                     line-height:16px;
                     font-family:Tahoma, Arial;
                     text-align: right;
@@ -82,14 +82,14 @@
                     display: block;
                     overflow: none !important;
         }
-        .boxy-footer{background: url("../images/popup/boxy/farmBoxy/footer.png") no-repeat center;width: 600px;height:4px;display: block}
-	.boxy-content {color:#ffffff;
+        .boxy-footerFarm{background: url("../images/popup/boxy/farmBoxy/footer.png") no-repeat center;width: 600px;height:4px;display: block}
+	.boxy-contentFarm {color:#ffffff;
                        font-family:Tahoma, Arial;
                        font-size:11px;
                        padding: 15px;
                        border:0px;
         }
-        .main-content
+        .main-contentFarm
         {
             height: 224px;
             overflow: auto;
@@ -99,7 +99,7 @@
 	
 	/* Question Boxes */
 
-    .boxy-wrapper .question 
+    .boxy-wrapperFarm .question
     {   width: 350px;
         min-height: 80px;
         direction:rtl;
@@ -107,7 +107,7 @@
 	font-family:Tahoma, Arial;
 	font-size:11px;
     }
-    .boxy-wrapper .answers 
+    .boxy-wrapperFarm .answers
     {   text-align: left;
         color:#666;
 	font-family:Tahoma, Arial;

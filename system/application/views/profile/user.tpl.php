@@ -86,17 +86,22 @@ $(document).ready(function() {
 <?php endif; ?>
 <script>
 function ajax_request(handler, url, params ,callback) {
-    $(handler).loading({
-                        pulse: 'fade',
-                        text: 'Loading',
-                        align: {top:'10px',left:'10px'},
-                        img: '<?= $base_img ?>ajax-loader.gif' ,
-                        mask: true,
-                        onAjax:true,
-                        maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
-                            zIndex:101, display:'block', cursor:'wait' }
-                        });
-   $(handler).load(url, params,callback);
+
+        if(handler == '#ajaxHolder')
+        {
+            $('#ajaxHolder').css('top',($(window).height()/2)-50);
+            $('#ajaxHolder').css('right',($(window).width()/2)-50);
+            $('#ajaxHolder').show();
+        }
+        else if(handler == '#centerContainer')
+        {
+            $('#centerContainer').hide();
+            $('#centerContainerSecondLayer').show();
+            handler = '#centerContainerSecondLayer';
+        }
+       var height = $(handler).height();
+       var width = $(handler).width();
+       $(handler).verboseLoad("<div style=\"width:"+width+"px;height:"+height+"px;display:block;background:url(<?= $base_img ?>popup/boxy/farmBoxy/content.png);\"><img src=<?= $base_img ?>ajax-loader.gif style=\"display:block;margin:0 auto;padding-top:"+((height/2)-5)+"px\" /></div>",url, params,callback);
 }
 function seeAllFriends(user_id)
 {
@@ -117,7 +122,7 @@ function editProfile()
 {
     var params = {};
     params['user_id'] = <?= $user_profile->id ?>;
-    $("#changeProfile").html("<?= $lang['profile_set'] ?>");
+    //$("#changeProfile").html("<?= $lang['profile_set'] ?>");
     ajax_request('#centerContainer','<?= base_url() ?>profile/edit',params);
 }
 function avatar()
@@ -275,7 +280,7 @@ $("#searchForm").submit(function(){
     if(params['filter'] == "")
     {
         $('#searchUserByName').css("color","red");
-        $('#searchUserByName').val('<?= $lang['must_be_filled'] ?>');
+        $('#searchUserByName').val('<?= $lang['must_be_filled_textarea'] ?>');
         searchHasError = true;
     }
     if(!searchHasError)
@@ -346,7 +351,10 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 ?>
                         </span>
                         <span id="userName">
-                                <?= $user_profile->first_name . " " . $user_profile->last_name ?>
+                                <?php
+                                mb_internal_encoding('UTF-8');
+                                echo  mb_substr($user_profile->first_name . " " . $user_profile->last_name, 0, 13)
+                                ?>
                         </span>
                         <span id="userCity">
                                 <?= $lang['fromCity'].": ".$user_profile->city ?>
@@ -356,6 +364,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         </span>
                         <?php if(!$partner): ?>
                         <span id="changeProfile">
+                                <img src="<?= $base_img ?>profile/editProfile.png" style="vertical-align: middle"/>
                                 <?= anchor("profile/edit/$user_profile->id",
                                            $lang['profile_set'],
                                            array('onclick'=>"editProfile();return false;"));
@@ -508,6 +517,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
         </div>
         <div id="centerColumn">
             <div id="ajaxHolder"></div>
+            <div id="centerContainerSecondLayer"></div>
             <div id="centerContainer">
                 <!-- this div just used for ajax loader position -->
                 <?php if($userFarm->id): ?>
@@ -579,10 +589,12 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                 <?php else: ?>
                                 <tr>
                                     <td colspan="2" style="text-align: center">
+                                        <?php if(!$partner): ?>
                                         <br/>
                                         <?= anchor("",$lang['registerNewFarm'],
                                             array('onclick'=>"registerNewFarm();return false;",'class'=>'solidLink'));
                                         ?>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                                 <?php endif; ?>

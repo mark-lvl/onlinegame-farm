@@ -7,19 +7,15 @@
 <script>
     function ajax_request(handler, url, params ,callback) {
 
-        $(handler).loading({
-                            pulse: 'fade',
-                            text: 'Loading',
-                            align: {top:'10px',left:'10px'},
-                            img: '<?= $base_img ?>ajax-loader.gif' ,
-                            delay: '200',
-                            max: '1000',
-                            mask: true,
-                            maskCss: { position:'absolute', opacity:.15, background:'#333',top:0,left:0,
-                            zIndex:101, display:'block', cursor:'wait' }
-                            });
-        $(handler).load(url, params,callback);
-
+        if(handler == '#ajaxHolder')
+        {
+            $('#ajaxHolder').css('top',($(window).height()/2)-50);
+            $('#ajaxHolder').css('right',($(window).width()/2)-50);
+            $('#ajaxHolder').show();
+        }
+       var height = $(handler).height();
+       var width = $(handler).width();
+       $(handler).verboseLoad("<div style=\"width:"+width+"px;height:"+height+"px;display:block;background:url(<?= $base_img ?>popup/boxy/farmBoxy/content.png);\"><img src=<?= $base_img ?>ajax-loader.gif style=\"display:block;margin:0 auto;padding-top:"+((height/2)-5)+"px\" /></div>",url, params,callback);
     }
 
     function liftOff() {
@@ -44,7 +40,7 @@
 	var params = {};
      	params['user_id'] = '<?= $viewer->id ?>';
 
-        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showPartnerInventory', params);
+        ajax_request('#partnerFarmInventory', '<?= base_url() ?>farms/showPartnerInventory', params);
     }
 
     function addResourceToFarm(farm_id , resource_id){
@@ -128,7 +124,21 @@
 
     $(document).ready(function() {
 
-        syncFarm(<?= $farm->id ?>);
+        $('.wizardClose').click(function(){
+            $(this).parent().fadeOut();
+            parentIdString = $(this).parent().attr('id');
+            parentId = parentIdString.substr(7);
+            parentId++;
+            if($('#wizard-'+parentId))
+            {
+                $('#wizard-'+parentId).fadeIn();
+            }
+        })
+        <?php if($viewerFarm->level < 4): ?>
+        $("#wizard-1").show();
+        <?php endif; ?>
+
+        setTimeout("syncFarm("+<?= $farm->id ?>+")",300000);
 
 
         //this section holding all tooltip in page
@@ -257,6 +267,33 @@
     <!-- End tooltipHolder -->
 
 
+    <!-- Start wizardHolder -->
+    <div id="wizard-1" class="wizard" style="top: 418px;right: -6px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['yourInventory'] ?>
+        </div>
+    </div>
+    <div id="wizard-2" class="wizard" style="top: 433px;right: 104px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['farmInventory'] ?>
+        </div>
+    </div>
+    <div id="wizard-3" class="wizard" style="top: 433px;right: 280px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['farmKeeper'] ?>
+        </div>
+    </div>
+    <div id="wizard-4" class="wizard" style="top: 305px;right: 40px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['partnerAction'] ?>
+        </div>
+    </div>
+    <!-- End wizardHolder -->
+
     <div id="base">
         <div id="farm">
             <div id="section-1" class="<?= ($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
@@ -267,7 +304,7 @@
                 <div class="avatarImg">
                     <a href="<?= base_url() ?>profile/user/<?= $farmOwner->id ?>">
                         <?php if($farmOwner->photo != ""): ?>
-                            <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $base_img."avatars/".$farmOwner->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
+                            <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $avatar_img."avatars/".$farmOwner->photo.".png" ?>&stype=png&dest=x&type=little" border="0" />
                         <?php else: ?>
                             <?php if($farmOwner->sex == 0): ?>
                                 <img src="<?= css_url() ?>system/application/helpers/fa_image_helper.php?nw=48&nh=48&source=<?= $avatar_img."avatars/default-m.png" ?>&stype=png&dest=x&type=little" border="0" />

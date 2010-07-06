@@ -23,10 +23,17 @@
 }
 #centerContainer
 {
-    background: #930044 url(../images/profile/profile_center.jpg) no-repeat  center;
+    background: #2b3b09 url(../images/profile/profile_center.jpg) no-repeat  center;
     height: 397px;
     width: 464px;
     display: block;
+}
+#centerContainerSecondLayer
+{
+    background: #2b3b09 url(../images/profile/profile_center.jpg) no-repeat  center;
+    height: 397px;
+    width: 464px;
+    display: none;
 }
 #leftColumn
 {
@@ -91,7 +98,7 @@
 }
 #userThumb
 {
-    background: #930044 url(../images/profile/right-up.gif) no-repeat  center;
+    background: #2B3B09 url(../images/profile/right-up.png) no-repeat  center;
     height: 148px;
     position: relative;
 }
@@ -157,7 +164,7 @@
 #changeProfile
 {
     position:absolute;
-    right:126px;
+    right:106px;
     top:113px;
 }
 #changeProfile a

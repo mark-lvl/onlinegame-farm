@@ -32,15 +32,14 @@ class Farms extends MainController {
 				 'Plantresource',
                                  'Userrank'));
         //load css files
-        $this->add_css('jquery.countdown');
-        $this->add_css('farm');
-        $this->add_css('home');
+//        $this->add_css('jquery.countdown');
+//        $this->add_css('farm');
+//        $this->add_css('home');
 
         //load js files
-        $this->loadJs('jquery.countdown/jquery.countdown.min');
-        $this->loadJs('jquery.countdown/jquery.countdown-fa');
-        $this->loadJs('jquery.loading/jquery.loading');
-        $this->loadJs('jquery.progressbar');
+        //$this->loadJs('jquery.countdown/jquery.countdown.min');
+        //$this->loadJs('jquery.countdown/jquery.countdown-fa');
+        //$this->loadJs('jquery.progressbar');
 
         if($_SESSION['user']){
                   $this->userSessionHolder = unserialize($_SESSION['user']);}
@@ -49,7 +48,7 @@ class Farms extends MainController {
     function find($page = 0, $filter = "")
     {
 		$this->data['controllerName'] = 'farms';
-                
+
                 $page = (int) $_POST['page'];
                 if($page <= 0)
                     $page = 1;
@@ -60,7 +59,7 @@ class Farms extends MainController {
                     $frmMdl = new Farm();
                     $this->data['cnt'] = $frmMdl->get_count_farms_by_name($_POST['filter']);
                     unset($frmMdl);
-                    
+
                     $this->data['parse'] = $_POST['filter'];
 
                     $frmMdl = new Farm();
@@ -87,7 +86,7 @@ class Farms extends MainController {
 
     function register()
     {
-        
+
         $user_id = $this->userSessionHolder->id;
         $farm = new Farm();
             $userFarm = $farm->where('user_id',$user_id)->where('disactive','0')->get();
@@ -103,7 +102,7 @@ class Farms extends MainController {
             	if($farm->save())
 		{
 			$farmId = $this->db->insert_id();
-		
+
 			$resource = array(self::WATER_ID => 10,
 					  self::MUCK_ID => 5);
 
@@ -114,7 +113,7 @@ class Farms extends MainController {
 				$frmSrcMdl->count = $count;
 				$frmSrcMdl->farm_id = $farmId;
 				$frmSrcMdl->save();
-                                
+
 			}
                         $this->user_model->add_notification($farmId, $this->lang->language['welcomeToFarm'], 4);
                 	redirect("profile/user/$user_id");
@@ -147,7 +146,7 @@ class Farms extends MainController {
 
                 $typeModel = new Type();
 		$userPlant->typeName = $typeModel->get_where(array('id'=>$userPlant->type_id))->name;
-		
+
 		//this set disasters for farm in this level by random method
 		$this->disasters($userFarm->id);
 
@@ -160,14 +159,14 @@ class Farms extends MainController {
 			$misObj = $misMdl->get_by_level($userFarm->level);
 			$missionBox = $misObj;
 		}
-                
+
                 $frmMisMdl = new Farmmission();
                 $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
                 if($frmMisObj->id)
                     $statusBox = str_replace(array('__AMOUNT__','__TYPENAME__'),
                                            array($frmMisObj->stack,$this->lang->language[$userPlant->typeName]),
                                            $this->data['lang']['mission']['stack']);
-                        
+
 
 		$farmAccModel = new Farmaccessory();
 		$usrFrmAcc = $farmAccModel->getFarmAccessoryForDisplay($userFarm->id);
@@ -180,7 +179,7 @@ class Farms extends MainController {
 			$srcHolder = $resource->get_by_id($pltTypSrc->resource_id);
 			$pltTypSrcHolder[$srcHolder->name] = array($pltTypSrc->id,$pltObj->id);
 		}
-                
+
                 $notification = $this->user_model->get_notifications($userFarm->id);
 
                 $frmTrnMdl = new Farmtransaction();
@@ -189,7 +188,7 @@ class Farms extends MainController {
                 {
                     $this->data['attacksToFarm'] = $frmTrnMdl->group_by('accessory_id')->where(array('goal_farm'=>$userFarm->id,'type'=>1,'flag'=>0))->get()->all;
                 }
-                
+
 
 		$allResource = $resource->get()->all;
 
@@ -213,7 +212,7 @@ class Farms extends MainController {
                         $equipments[] = 'rockBreaker';
 
 
-		
+
 		$this->data['plantSources'] = $pltTypSrcHolder;
 		$this->data['farmAcc'] = $usrFrmAcc;
 		$this->data['plant'] = $userPlant;
@@ -234,8 +233,17 @@ class Farms extends MainController {
                 $this->loadJs('popup');
                 $this->loadJs('boxy');
                 $this->loadJs('tooltip');
-                
+
+                $this->loadJs('jquery.countdown/jquery.countdown.min');
+                $this->loadJs('jquery.countdown/jquery.countdown-fa');
+                $this->loadJs('jquery.progressbar');
+
+                $this->add_css('boxy');
                 $this->add_css('boxyFarm');
+
+		$this->add_css('jquery.countdown');
+                $this->add_css('farm');
+                $this->add_css('home');
 
 		$this->render('home');
 	}
@@ -250,7 +258,7 @@ class Farms extends MainController {
                     //this flag show this user is not logged
                     $user->unAuthenticatedUser = TRUE;
                 }
-                
+
                 //if view id same with userLogin id
                 if($id == $user->id)
                         redirect('farms/show');
@@ -258,14 +266,14 @@ class Farms extends MainController {
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
-		
+
 		$farmModel = new Farm();
 		$userFarm = $farmModel->where('user_id',$id)->where('disactive','0')->get();
 
 		$resource = new Resource();
 
 		$pltModel = new Plant();
-		
+
 		$userPlant = $pltModel->plantSync($userFarm->id);
 
 //		$frmMisMdl = new Farmmission();
@@ -281,7 +289,7 @@ class Farms extends MainController {
 
 		$farmAccModel = new Farmaccessory();
 		$usrFrmAcc = $farmAccModel->getFarmAccessoryForDisplay($userFarm->id);
-	
+
 		$pltObj = $pltModel->get_where(array('id'=>$userPlant->id,'farm_id'=>$userFarm->id,'reap'=>0));
 		$typSrcMdl = new Typeresource();
 		$pltTypSrcs = $typSrcMdl->get_where(array('type_id'=>$pltObj->type_id))->all;
@@ -303,7 +311,7 @@ class Farms extends MainController {
 
                 $frmAcsModel = new Farmaccessory();
 		$acsModel = new Accessory();
-                
+
 		$viewerAccHolder = $frmAcsModel->get_where(array('farm_id'=>$viewerFarm->id))->all;
                 foreach ($viewerAccHolder as $key=>&$viAcc)
                 {
@@ -316,12 +324,12 @@ class Farms extends MainController {
                     $viAcc->name = $acc->name;
                     $viAcc->type = $acc->type;
                 }
-                
+
 		$typeModel = new Type();
 		$allTypes = $typeModel->get()->all;
 		foreach($allTypes AS &$typ)
 			$typ->capacity = $typ->weight * $userFarm->section;
-                
+
 
                 $frmMisMdl = new Farmmission();
                 $frmMisObj = $frmMisMdl->order_by("create_date","desc")->get_where(array('farm_id'=>$userFarm->id,'status'=>'2','mission_id'=>$userFarm->level));
@@ -334,7 +342,7 @@ class Farms extends MainController {
                 $frmTrnObjs = $frmTrnMdl->where('offset_farm',$userFarm->id)
                                         ->or_where('goal_farm',$userFarm->id)
                                         ->order_by('create_date DESC')->limit(3)->get()->all;
-  
+
                 foreach ($frmTrnObjs as $frmTransaction)
                         if(($frmTransaction->offset_farm == $userFarm->id) && ($frmTransaction->type != 3))
                             $frmTransaction->messageStyle = "attack";
@@ -365,7 +373,7 @@ class Farms extends MainController {
 
                 $allResource = $resource->get()->all;
 
-                
+
 
                 $this->data['resources'] = $allResource;
                 $this->data['partnerHints'] = $partnerHints;
@@ -389,24 +397,35 @@ class Farms extends MainController {
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
+
+
+                $this->loadJs('popup');
                 $this->loadJs('boxy');
-                $this->loadJs('jquery.hints');
                 $this->loadJs('tooltip');
+                $this->loadJs('jquery.countdown/jquery.countdown.min');
+                $this->loadJs('jquery.countdown/jquery.countdown-fa');
+                $this->loadJs('jquery.progressbar');
+
+                $this->add_css('boxy');
+                $this->add_css('popup');
                 $this->add_css('boxyFarm');
-		
+		$this->add_css('jquery.countdown');
+                $this->add_css('farm');
+                $this->add_css('home');
+
 		$this->render('home');
 	}
 
 	function addResourceToFarm()
-	{ 
+	{
           $frmSrcModel = new Farmresource();
 
           $flag = $frmSrcModel->add($_POST['farm_id'],$_POST['resource_id']);
           if(is_array($flag))
               $this->error_reporter($flag['type'],$flag['params']);
-          
+
           $this->resource_farm($_POST['farm_id'],$_POST['resource_id']);
-		
+
 	}
 
 	function addPlantToFarm()
@@ -425,7 +444,7 @@ class Farms extends MainController {
 	{
 		$accModel = new Farmaccessory();
 		$flag = $accModel->add($_POST['farm_id'],$_POST['accessory_id']);
-                
+
                 if(is_array($flag))
                 {
                     if($flag['type'] == 'public')
@@ -435,7 +454,7 @@ class Farms extends MainController {
                 }
                 else
                     echo $this->lang->language['accessoryAddedSuccessfully'];
-               
+
 
 	}
 
@@ -443,12 +462,12 @@ class Farms extends MainController {
         {
 		//this section check for healthn of plant
 		$pltMdl = new Plant();
-                
+
 		$pltObj = $pltMdl->get_by_id($_POST['plant_id']);
 
                 //first sync plant for add resoure to that
                 $pltMdl->plantSync($pltObj->farm_id);
-                
+
 		if(!$pltObj->health)
                 {
                     $this->error_reporter('public',array('message'=>'plantDeath'));
@@ -477,7 +496,7 @@ class Farms extends MainController {
 					$frmSrcObj->count -= $typSrcObj->minNeed;
 					$pltSrcObjHolder->current += $typSrcObj->minNeed;
                                         $pltScrMdlHolder->updated_field = 'modified_date';
-					
+
 					//let's go baby
 					$frmSrcObj->save();
 					$pltSrcObjHolder->save();
@@ -493,7 +512,7 @@ class Farms extends MainController {
                                             if($_POST['viewer_farm_id'])
                                                 $frmTrnMdl->add($_POST['viewer_farm_id'], $pltObj->farm_id, 0, 3, 1);
                                         }
-                                        
+
 				}
 				else
                                 {
@@ -503,7 +522,7 @@ class Farms extends MainController {
                                                                            'need'=>$typSrcObj->minNeed ));
                                     return FALSE;
                                 }
-				
+
                         }
                         $this->refresh_page();
         }
@@ -544,7 +563,7 @@ class Farms extends MainController {
           $this->data['base_img'] = $this->data['base_img'];
 
           echo $this->load->view('farms/sync',$this->data,TRUE);
-          
+
 	}
 
         function syncAttackBox()
@@ -579,7 +598,7 @@ class Farms extends MainController {
 
 	  if(is_null($resourceHolder))
 		$resourceHolder = array();
-          
+
           if(!$resourceParam)
             return $resourceHolder;
           else
@@ -646,12 +665,12 @@ class Farms extends MainController {
           $params['farmAccessories'] = $accHolder;
           $params['action'] = 'showInventory';
           $params['farm_id'] = (int) $_POST['farm_id'];
-          
+
           //this flag used for control haventAnyAccessory message in partnerView mode
           if($_POST['partner'])
             $params['partnerView'] = TRUE;
-          
-          $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
+
+          $this->error_reporter('ajaxWindow',$params,'main','boxyFarm');
 	}
 
         /*
@@ -686,17 +705,17 @@ class Farms extends MainController {
                         }
 
 			$accObject = $accMdl->get_by_id($accItem->accessory_id);
-                        
+
                         if($accObject->type == 1)
                                 $accHolder['attack'][] = array('id'=>$accObject->id,'type'=>$accObject->type,'name'=>$accObject->name,'description'=>$accObject->description,'count'=>$accItem->count);
-                        
+
 		}
 
 	  if(is_null($accHolder))
 		$accHolder = array();
           $params['farmAccessories'] = $accHolder;
           $params['action'] = 'showPartnerInventory';
-          $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
+          $this->error_reporter('ajaxWindow',$params,'main','boxyFarm');
 	}
 
         /*
@@ -727,7 +746,7 @@ class Farms extends MainController {
                                         2=>array('1')
                                         );
                 $farm_id = $_POST['farm_id'];
-                
+
                 $frmMdl = new Farm();
                 $frmObj = $frmMdl->get_by_id($farm_id);
 
@@ -816,7 +835,7 @@ class Farms extends MainController {
                             echo "<div class=\"plow\"></div>";
                         else
                             echo "<div class=\"unPlow\"></div>";
-        	}	    
+        	}
         }
 
         function deleteNotification()
@@ -843,13 +862,34 @@ class Farms extends MainController {
                                 $notDescription = "<img src=\"".$this->data['base_img']."/newNotification.png\">&nbsp;&nbsp;".$not['body']."<br/><span class=\"notificationDate\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</span>";
                             else
                                 $notDescription = $not['body']."<br/><span class=\"notificationDate\">".fa_strftime("%H:%M:%S %p %d %B %Y", date("Y-m-d H:i:s", $not[create_date]))."</span>";
-                                
+
                             echo "<li  id=\"notification-$not[id]\"><p>".anchor("farms/deleteNotification/$not[id]",
                                                                              "X",
                                                                              array('onclick'=>"deleteNotification(".$not[id].");return false;"))."$notDescription</p></li>";
                         }
                 }
         }
+
+	function syncNotificationCounter()
+	{
+		if($_POST['farm_id'])
+                {
+                        $notifications = $this->user_model->get_notifications($_POST['farm_id']);
+			if($notifications == false)
+                                      {
+                                            $notifications = null;
+                                            echo '0';
+                                      }
+                                      else
+                                      {
+                                          $notChecked = 0;
+                                          foreach($notifications AS $not)
+                                              if($not['checked'] == 0)
+                                                  $notChecked++;
+                                          echo $notChecked;
+                                      }
+		}
+	}
 
         function resetFarm($farm_id = null)
         {
@@ -927,7 +967,7 @@ class Farms extends MainController {
                     }
 
                 }
-                
+
 
 
                 //$frmObj->disactive = 1;
@@ -946,6 +986,10 @@ class Farms extends MainController {
             $mission['farm_id'] = $_POST['farm_id'];
             $mission['farm_plow'] = $_POST['farm_plow'];
             $mission['section'] = $_POST['section'];
+
+            //this flag used for compare mission box with review mode
+            if($_POST['reviewMode'])
+                $mission['reviewMode'] = TRUE;
             $mission['level'] = $misMdl->level;
             $mission['description'] = $misMdl->description;
 
@@ -1034,7 +1078,7 @@ class Farms extends MainController {
             $params['action'] = 'buyAccessory';
             $params['farm_id'] = (int) $_POST['farm_id'];
             $params['farm_level'] = (int) $_POST['farm_level'];
-            $this->error_reporter('ajaxWindow',$params,'ajaxWindow',true);
+            $this->error_reporter('ajaxWindow',$params,'main','boxyFarm');
         }
 }
 ?>

@@ -1,22 +1,21 @@
 <!--this used for ajaxWindow in show.tpl only-->
 <style>
-    .boxy-inner{height:400px!important}
-    .main-content{height:400px!important}
+    .boxy-innerFarm{height:400px!important}
+    .main-contentFarm{height:400px!important}
 </style>
 <!--end ajaxWindow css clean-->
 <script>
     function ajax_request(handler, url, params ,callback) {
-        $(handler).loading({
-                            pulse: 'fade',
-                            text: 'Loading',
-                            align: {top:'10px',left:'10px'},
-                            img: '<?= $base_img ?>ajax-loader.gif' ,
-                            mask: true,
-                            onAjax:true,
-                            maskCss: { position:'absolute', opacity:.7, background:'#333',top:0,left:0,
-                            zIndex:101, display:'block', cursor:'wait' }
-                            });
-       $(handler).load(url, params,callback);
+
+        if(handler == '#ajaxHolder')
+        {
+            $('#ajaxHolder').css('top',($(window).height()/2)-50);
+            $('#ajaxHolder').css('right',($(window).width()/2)-50);
+            $('#ajaxHolder').show();
+        }
+       var height = $(handler).height();
+       var width = $(handler).width();
+       $(handler).verboseLoad("<div style=\"width:"+width+"px;height:"+height+"px;display:block;background:url(<?= $base_img ?>popup/boxy/farmBoxy/content.png);\"><img src=<?= $base_img ?>ajax-loader.gif style=\"display:block;margin:0 auto;padding-top:"+((height/2)-5)+"px\" /></div>",url, params,callback);
     }
 
     function resourceExipre2() {
@@ -56,14 +55,14 @@
 	var params = {};
      	params['farm_id'] = farm_id;
 
-        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/showInventory', params);
+        ajax_request('#farmInventory', '<?= base_url() ?>farms/showInventory', params);
     }
     function buyAccessory(farm_id, level){
 	var params = {};
      	params['farm_id'] = farm_id;
      	params['farm_level'] = level;
 
-        ajax_request('#ajaxHolder', '<?= base_url() ?>farms/buyAccessory', params);
+        ajax_request('#farmAccessory', '<?= base_url() ?>farms/buyAccessory', params);
     }
     function addAccessoryToFarm(farm_id , accessory_id){
 	var params = {};
@@ -107,8 +106,8 @@
 
         //this section used for control wizard show after plow farm
         <?php if($farm->level == 1): ?>
-            $('#wizard-12').hide();
-            $('#wizard-13').fadeIn();
+            $('#wizard-2').hide();
+            $('#wizard-3').fadeIn();
         <?php endif; ?>
     }
     function spraying(farm)
@@ -201,15 +200,19 @@
         var params = {};
         params['farm_id'] = <?= $farm->id ?>;
 
-        
         ajax_request('#notification','<?= base_url() ?>farms/syncNotification',params,heightFixer);
-        
-        
+    }
+    function syncNotificationCounter()
+    {
+        var params = {};
+        params['farm_id'] = <?= $farm->id ?>;
+
+        ajax_request('#notificationCounter','<?= base_url() ?>farms/syncNotificationCounter',params<?php if($farm->level > 1): ?>,syncAttackBox<?php endif; ?>);
     }
     function heightFixer()
     {
         var heightHolder = $("#notification").height();
-        
+
         if(heightHolder > 600)
             $(".subpanel").find("ul").css({ 'height' :600})
 
@@ -231,7 +234,7 @@
        else
             ($('#section-1').attr('class') == 'plow')?farmPlow = 1:farmPlow = 0;
        params['farm_plow'] = farmPlow;
-       
+
        for(i=2;i<5;i++)
        {
             if($('.section-'+i+'-off').size())
@@ -239,6 +242,9 @@
        }
        section = 4-section;
        params['section'] = section;
+       <?php if($plant->id): ?>
+           params['reviewMode'] = true;
+       <?php endif; ?>
        ajax_request('#ajaxHolder','<?= base_url() ?>farms/mission',params);
     }
     function resetConfirm1()
@@ -270,14 +276,14 @@
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params,syncAttackBox)
+        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params,syncNotificationCounter)
         setTimeout("syncFarm("+farm_id+")",300000);
     }
     function syncAttackBox()
     {
         var params = {};
         params['farm_id'] = <?= $farm->id ?>;
-        
+
         ajax_request('#attackHolder', '<?= base_url() ?>farms/syncAttackBox', params)
     }
 
@@ -316,7 +322,7 @@
         $("#resourceCounter2").ezpz_tooltip({contentId:"muckCounterTooltip"});
 
         //this section hold all farm's wizard
-        <?php if($farm->level == 1 && !$plant->id): ?>
+
         $('.wizardClose').click(function(){
             $(this).parent().fadeOut();
             parentIdString = $(this).parent().attr('id');
@@ -327,9 +333,11 @@
                 $('#wizard-'+parentId).fadeIn();
             }
         })
+        <?php if($farm->level == 1 && !$plant->id): ?>
         $("#wizard-1").show();
         <?php endif; ?>
-        syncFarm(<?= $farm->id ?>);
+
+	setTimeout("syncFarm("+<?= $farm->id ?>+")",300000);
 
 
         <?php if($plant->id): ?>
@@ -374,6 +382,7 @@
                                                  });
 
                 <?php
+                $everyThingOkFlag = true;
                 $resourceCounter = 1;
                 if(isset($plant->plantresources))
                     foreach($plant->plantresources AS $pltSrc):
@@ -382,10 +391,12 @@
                 <?php if($farm->level == 1 && $plant->id && $pltSrc->usedTime < 1): ?>
                     <?php if($resourceCounter == 2): ?>
                         if(typeof(showFlag) == 'undefined')
-                            $('#wizard-15').show();
+                            $('#wizard-5').show();
+                        <?php $everyThingOkFlag = false; ?>
                     <?php elseif($resourceCounter == 1): ?>
                         var showFlag = true;
-                        $('#wizard-14').show();
+                        $('#wizard-4').show();
+                        <?php $everyThingOkFlag = false; ?>
                     <?php endif; ?>
                 <?php endif; ?>
                 $('#resourceCounter<?= $resourceCounter ?>').countdown({until: remainTime,
@@ -404,6 +415,9 @@
                 $resourceCounter++;
                 endforeach; ?>
             });
+        <?php endif; ?>
+        <?php if($everyThingOkFlag && $farm->level == 1): ?>
+            $('#wizard-6').show();
         <?php endif; ?>
     });
 </script>
@@ -463,6 +477,59 @@
             <?= $lang['farmWizard']['farm'] ?>
         </div>
     </div>
+    <div id="wizard-2" class="wizard" style="top: 327px;right: 111px">
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['plow'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-3" class="wizard" style="top: 432px;right: 529px">
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['startMission'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-4" class="wizard" style="top: 432px;right: 366px">
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['spreadWater'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-5" class="wizard" style="top: 432px;right: 247px">
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['spreadMuck'] ?>
+        </div>
+        <div class="wizardArrow">
+
+        </div>
+    </div>
+    <div id="wizard-6" class="wizard" style="top: 304px;right: 566px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['attentToClock'] ?>
+        </div>
+    </div>
+    <div id="wizard-7" class="wizard" style="top: 0px;right: 660px">
+        <div class="wizardClose">X</div>
+        <div class="wizardUpArrow">
+
+        </div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['tryToFindFreind'] ?>
+        </div>
+    </div>
+
+
+
+
+<!--
+
     <div id="wizard-2" class="wizard" style="top: 100px;right: 760px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
@@ -523,42 +590,11 @@
             <?= $lang['farmWizard']['action'] ?>
         </div>
     </div>
-    <div id="wizard-12" class="wizard" style="top: 327px;right: 111px">
-        <div class="wizardClose">X</div>
-        <div class="wizardContent">
-            <?= $lang['farmWizard']['plow'] ?>
-        </div>
-        <div class="wizardArrow">
+-->
 
-        </div>
-    </div>
-    <div id="wizard-13" class="wizard" style="top: 416px;right: 529px">
-        <div class="wizardClose">X</div>
-        <div class="wizardContent">
-            <?= $lang['farmWizard']['startMission'] ?>
-        </div>
-        <div class="wizardArrow">
 
-        </div>
-    </div>
-    <div id="wizard-14" class="wizard" style="top: 416px;right: 366px">
-        <div class="wizardClose">X</div>
-        <div class="wizardContent">
-            <?= $lang['farmWizard']['spreadWater'] ?>
-        </div>
-        <div class="wizardArrow">
 
-        </div>
-    </div>
-    <div id="wizard-15" class="wizard" style="top: 416px;right: 247px">
-        <div class="wizardClose">X</div>
-        <div class="wizardContent">
-            <?= $lang['farmWizard']['spreadMuck'] ?>
-        </div>
-        <div class="wizardArrow">
 
-        </div>
-    </div>
     <div id="wizard-16" class="wizard" style="top: 304px;right: -32px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
@@ -625,8 +661,8 @@
                 <div id="resetGame">
                     <?= anchor(" ", " ", array('onclick'=>'resetConfirm1();return false;')) ?>
                 </div>
-                
-                
+
+
                 <div id="resetLevel">
                     <?= anchor(" ", " ", array('onclick'=>'resetLevel();return false;')) ?>
                 </div>
