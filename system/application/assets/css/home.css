@@ -284,7 +284,7 @@ width:300px;
 #footer-up
 {
     background: #d1a000 url(../images/home/footer-up.png) no-repeat bottom;
-    height: 140px;
+    height: 115px;
     display: block;
 }
 #topUserHolder
@@ -293,23 +293,58 @@ width:300px;
     width: 940px;
     height: 95px;
     display: block;
-    padding-top: 34px;
+    padding-top: 11px;
     margin: 0 auto;
 }
 #bestUserRanks
 {
     width: 300px;
-    height: 85px;
+    height: 80px;
     float: left;
-    margin: 10px 0 0 14px;
+    margin: 15px 0 0 14px;
 }
 #newUsers
 {
-    height:85px;
+    height:80px;
     margin-right:111px;
-    margin-top:10px;
+    margin-top:15px;
     width:300px;
     float: right;
+}
+
+.userHolder
+{
+    width: 300px;
+    height: 80px;
+    display: block;
+    float: left;
+}
+.userHolder .perUserItem
+{
+    width: 65px;
+    height: 80px;
+    display: block;
+    float: right;
+}
+.perUserItem a
+{
+    text-decoration: none;
+}
+.perUserItem a img
+{
+    margin: 0 10px 5px 10px;
+    clear: both;
+}
+.perUserItem a span
+{
+    text-align: center;
+    font-weight: bold;
+    color: #FFFFFF;
+    clear: both;
+    margin: 0 auto;
+    width: 50px;
+    display: block;
+    font-size: 9px;
 }
 
 #footer-bottom

@@ -152,14 +152,20 @@
                         <div id="footer-up">
                             <div id="topUserHolder">
                                 <div id="newUsers">
-                                    <div class="navigator"></div>
-                                    <div></div>
-                                    <div class="navigator"></div>
+                                    <?= $newUsers ?>
                                 </div>
                                 <div id="bestUserRanks">
-                                    
-                                    <div class="content">
-                                        
+                                    <div class="navigator">
+                                        <div class="previous"></div>
+                                    </div>
+                                    <div class="userHolder">
+                                        <div class="perUserItem"></div>
+                                        <div class="perUserItem"></div>
+                                        <div class="perUserItem"></div>
+                                        <div class="perUserItem"></div>
+                                    </div>
+                                    <div class="navigator">
+                                        <div class="next"></div>
                                     </div>
                                 </div>
                                 

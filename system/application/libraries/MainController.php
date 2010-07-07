@@ -89,6 +89,13 @@ class MainController extends Controller {
         $this->load->view("partials/redirect.tpl.php", array('path' => $path));
     }
 
+    function newestUser($offset,$limit = 16)
+    {
+        $this->data['users'] = $this->user_model->get_newest_users($offset,$limit);
+        $this->data['page'] = $offset;
+        return $this->load->view("home/topUser.tpl.php", $this->data,true);
+    }
+
 
 }
 ?>

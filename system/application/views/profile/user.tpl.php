@@ -12,6 +12,7 @@
     };
 
     jQuery(document).ready(function() {
+    $('.jcarousel-skin-tango .jcarousel-container').show();
     jQuery('#mycarousel').jcarousel({
     easing: 'BounceEaseOut',
     animation: 1000,

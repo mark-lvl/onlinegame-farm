@@ -481,6 +481,26 @@
                     return FALSE;
                 }
 
+                function get_newest_users($page = 0, $count = 4)
+                {
+                    $offset = 0;
+                    if($page)
+                        $offset = ($page-1)* $count;
+
+                    $sql = "SELECT * FROM `users` ORDER BY registration_date DESC LIMIT " . $offset . ", " . $count;
+                    $result = $this->db->query($sql);
+                    $result = $result->result_array();
+
+                    if(is_array($result) && count($result) > 0) {
+                        $ret = array();
+                        foreach($result as $x => $k) {
+                                $ret[] = new User_entity($k);
+                        }
+                        return $ret;
+                    }
+                    return FALSE;
+                }
+
                 function get_count_users($filter = "") {
                     if($filter != "") {
                         $filter = " WHERE CONCAT(first_name, ' ', last_name) LIKE '%" . $filter . "%'";
