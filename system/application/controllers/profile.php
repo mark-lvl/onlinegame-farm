@@ -309,6 +309,7 @@ class Profile extends MainController
             $this->data['farmSign'] = $farmSign;
 
             $this->data['newUsers'] = $this->newestUser(0);
+            $this->data['topestUsers'] = $this->topestUser(0);
 
 	    $this->add_css('jquery.jcarousel');
             $this->add_css('skin');

@@ -247,6 +247,10 @@
        <?php endif; ?>
        ajax_request('#ajaxHolder','<?= base_url() ?>farms/mission',params);
     }
+    function showHelp()
+    {
+        $("#wizard-101").show();
+    }
     function resetConfirm1()
     {
         Boxy.confirm('<?= $lang['resetFarmConfirm-1'] ?>', resetConfirm2,{title: '<?= $lang['becareful'] ?>'});
@@ -301,6 +305,7 @@
 
 
         //this section holding all tooltip in page
+        $("#help").ezpz_tooltip({contentId:"helpTooltip"});
         $("#resetGame").ezpz_tooltip({contentId:"resetGameTooltip"});
         $("#resetLevel").ezpz_tooltip({contentId:"resetLevelTooltip"});
         $("#farmAccessory").ezpz_tooltip({contentId:"buyAccessoryTooltip"});
@@ -449,6 +454,7 @@
         <?php endif; ?>
     </div>
     <!-- Start tooltipHolder -->
+    <div id="helpTooltip" class="tooltip"><?= $lang['tooltip']['help'] ?></div>
     <div id="resetGameTooltip" class="tooltip"><?= $lang['tooltip']['resetGame'] ?></div>
     <div id="resetLevelTooltip" class="tooltip"><?= $lang['tooltip']['resetLevel'] ?></div>
     <div id="buyAccessoryTooltip" class="tooltip"><?= $lang['tooltip']['buyAccessory'] ?></div>
@@ -528,69 +534,68 @@
 
 
 
-<!--
 
-    <div id="wizard-2" class="wizard" style="top: 100px;right: 760px">
+    <div id="wizard-101" class="wizard" style="top: 100px;right: 760px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['information'] ?>
         </div>
     </div>
-    <div id="wizard-3" class="wizard" style="top: 199px;right:762px">
+    <div id="wizard-102" class="wizard" style="top: 199px;right:762px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['health'] ?>
         </div>
     </div>
-    <div id="wizard-4" class="wizard" style="top: 303px;right: 759px">
+    <div id="wizard-103" class="wizard" style="top: 303px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['clock'] ?>
         </div>
     </div>
-    <div id="wizard-5" class="wizard" style="top: 408px;right: 759px">
+    <div id="wizard-104" class="wizard" style="top: 408px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['status'] ?>
         </div>
     </div>
-    <div id="wizard-6" class="wizard" style="top: 525px;right: 759px">
+    <div id="wizard-105" class="wizard" style="top: 525px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['equipment'] ?>
         </div>
     </div>
-    <div id="wizard-7" class="wizard" style="top: 533px;right: 531px">
+    <div id="wizard-106" class="wizard" style="top: 533px;right: 531px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['mission'] ?>
         </div>
     </div>
-    <div id="wizard-8" class="wizard" style="top: 533px;right: 283px">
+    <div id="wizard-107" class="wizard" style="top: 533px;right: 283px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['resource'] ?>
         </div>
     </div>
-    <div id="wizard-9" class="wizard" style="top: 533px;right: 105px">
+    <div id="wizard-108" class="wizard" style="top: 533px;right: 105px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['buy'] ?>
         </div>
     </div>
-    <div id="wizard-10" class="wizard" style="top: 533px;right: 0px">
+    <div id="wizard-109" class="wizard" style="top: 533px;right: 0px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['inventory'] ?>
         </div>
     </div>
-    <div id="wizard-11" class="wizard" style="top: 410px;right: 44px">
+    <div id="wizard-110" class="wizard" style="top: 410px;right: 44px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['action'] ?>
         </div>
     </div>
--->
+
 
 
 
@@ -607,10 +612,32 @@
     <!-- End wizardHolder -->
     <div id="base">
         <div id="farm">
-            <div id="section-1" class="<?= ($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
-            <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
-            <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
-            <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
+            <?php
+            if($plant->id)
+            {
+                $plantGrowthTime = $plant->growthTimeHolder * 3600;
+                if($plant->growth > ($plantGrowthTime * (2/3)))
+                        if($plant->health > 40)
+                            $plantPic = "plant-low";
+                        else
+                            $plantPic = "plant-low-sick";
+                elseif($plant->growth > ($plantGrowthTime * (1/3)))
+                        if($plant->health > 40)
+                            $plantPic = "plant-middle";
+                        else
+                            $plantPic = "plant-middle-sick";
+                else
+                        if($plant->health > 40)
+                            $plantPic = "plant-high";
+                        else
+                            $plantPic = "plant-high-sick";
+
+            }
+            ?>
+            <div id="section-1" class="<?= ($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
+            <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
+            <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
+            <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
             <div id="accessoryPlaceTop">
                 <?php if(in_array("scarecrow", $farmAcc)): ?>
                 <div class="scarecrow"></div>
@@ -658,6 +685,11 @@
         </div>
         <div id="sidebar">
             <div id="farmReset">
+                
+                <div id="help">
+                    <?= anchor(" ", " ", array('onclick'=>'showHelp();return false;')) ?>
+                </div>
+
                 <div id="resetGame">
                     <?= anchor(" ", " ", array('onclick'=>'resetConfirm1();return false;')) ?>
                 </div>

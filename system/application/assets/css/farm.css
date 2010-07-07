@@ -179,10 +179,33 @@
 }
 .plantGround
 {
-    background:url(../images/farm/plantGround.png) top right;
     display:block;
     height:225px;
     width:223px;
+}
+.plant-low
+{
+    background:url(../images/farm/plantGrowth/low.png) top right;
+}
+.plant-low-sick
+{
+    background:url(../images/farm/plantGrowth/low-sick.png) top right;
+}
+.plant-middle
+{
+    background:url(../images/farm/plantGrowth/middle.png) top right;
+}
+.plant-middle-sick
+{
+    background:url(../images/farm/plantGrowth/middle-sick.png) top right;
+}
+.plant-high
+{
+    background:url(../images/farm/plantGrowth/high.png) top right;
+}
+.plant-high-sick
+{
+    background:url(../images/farm/plantGrowth/high-sick.png) top right;
 }
 .section-2-off
 {
@@ -301,11 +324,29 @@
     background: url(../images/farm/farmReset-bg.png) no-repeat  center;
     position: relative;
 }
+#help
+{
+    position: absolute;
+    top: 18px;
+    right: 26px;
+}
+#help a
+{
+    background: url(../images/farm/help.png) no-repeat;
+    background-position: 0 -42px;
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+#help a:hover
+{
+    background-position: 0 0;
+}
 #resetGame
 {
     position: absolute;
     top: 18px;
-    right: 57px;
+    right: 89px;
 }
 #resetGame a
 {
@@ -323,7 +364,7 @@
 {
     position: absolute;
     top: 18px;
-    right: 120px;
+    right: 152px;
 }
 #resetLevel a
 {

@@ -40,11 +40,4 @@ class Home extends MainController {
 
 	    $this->render('home');
 	}
-
-        function getNewestUser()
-        {echo '1';
-            //$this->data['users'] = $this->user_model->get_newest_users($_POST['offset']);
-            //$this->data['page'] = $offset;
-            //$this->load->view("home/topUser.tpl.php", $this->data);
-        }
 }

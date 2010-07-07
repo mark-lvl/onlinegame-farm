@@ -1,7 +1,7 @@
 <script>
 jQuery(document).ready(function() {
     $('.jcarousel-skin-topuser .jcarousel-container').show();
-    jQuery('#newuserf').jcarousel({
+    jQuery('.topUsersHodlers').jcarousel({
     animation: 1000,
     scroll:4
     });
@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
               <div disabled="disabled" class="jcarousel-prev jcarousel-prev-disabled"></div>
               <div class="jcarousel-next"></div>
               <div class="jcarousel-clip">
-                  <ul  id="newuserf" class="jcarousel-list">
+                  <ul  class="topUsersHodlers" class="jcarousel-list">
                     <?php foreach ($users as $user) : ?>
                         <li>
                             <div class="perUserItem">

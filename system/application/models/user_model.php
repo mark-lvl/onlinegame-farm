@@ -487,7 +487,8 @@
                     if($page)
                         $offset = ($page-1)* $count;
 
-                    $sql = "SELECT * FROM `users` ORDER BY registration_date DESC LIMIT " . $offset . ", " . $count;
+                    $sql = "SELECT * FROM `users` WHERE photo != \"\" ORDER BY registration_date DESC LIMIT " . $offset . ", " . $count;
+                    
                     $result = $this->db->query($sql);
                     $result = $result->result_array();
 

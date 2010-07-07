@@ -229,10 +229,14 @@ class Farms extends MainController {
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
+                $this->data['newUsers'] = $this->newestUser(0);
+                $this->data['topestUsers'] = $this->topestUser(0);
+
                 $this->add_css('popup');
                 $this->loadJs('popup');
                 $this->loadJs('boxy');
                 $this->loadJs('tooltip');
+                $this->loadJs('jquery.hints');
 
                 $this->loadJs('jquery.countdown/jquery.countdown.min');
                 $this->loadJs('jquery.countdown/jquery.countdown-fa');
@@ -397,11 +401,15 @@ class Farms extends MainController {
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
+                $this->data['newUsers'] = $this->newestUser(0);
+                $this->data['topestUsers'] = $this->topestUser(0);
+
 
 
                 $this->loadJs('popup');
                 $this->loadJs('boxy');
                 $this->loadJs('tooltip');
+                $this->loadJs('jquery.hints');
                 $this->loadJs('jquery.countdown/jquery.countdown.min');
                 $this->loadJs('jquery.countdown/jquery.countdown-fa');
                 $this->loadJs('jquery.progressbar');

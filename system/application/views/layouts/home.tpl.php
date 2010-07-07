@@ -6,6 +6,8 @@
 
 
 <link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/main.css" />
+<link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/skin.css" />
+<link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/jquery.jcarousel.css" />
 <script type="text/javascript" language="javascript"
         src="<?php echo css_url() . 'system/application/assets/js/jquery.js'; ?>">
 </script>
@@ -13,10 +15,13 @@
         src="<?php echo css_url() . 'system/application/assets/js/boxy.js'; ?>">
 </script>
 <script type="text/javascript" language="javascript"
-        src="<?php echo css_url() . 'system/application/assets/js/boxyFarm.js'; ?>">
+        src="<?php echo css_url() . 'system/application/assets/js/boxyFarm.min.js'; ?>">
 </script>
 <script type="text/javascript" language="javascript"
         src="<?php echo css_url() . 'system/application/assets/js/verbose.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/jquery.jcarousel.js'; ?>">
 </script>
 <?php echo $css; ?>
 <?php echo $js; ?>
@@ -150,27 +155,17 @@
                 </div>
                 <div id="footer">
                         <div id="footer-up">
+                            <?php if(isset($newUsers) || isset($topestUsers)): ?>
                             <div id="topUserHolder">
                                 <div id="newUsers">
                                     <?= $newUsers ?>
                                 </div>
                                 <div id="bestUserRanks">
-                                    <div class="navigator">
-                                        <div class="previous"></div>
-                                    </div>
-                                    <div class="userHolder">
-                                        <div class="perUserItem"></div>
-                                        <div class="perUserItem"></div>
-                                        <div class="perUserItem"></div>
-                                        <div class="perUserItem"></div>
-                                    </div>
-                                    <div class="navigator">
-                                        <div class="next"></div>
-                                    </div>
+                                    <?= $topestUsers ?>
                                 </div>
                                 
                             </div>
-                            
+                            <?php endif; ?>
                         </div>
                         <div id="footer-bottom">
                             <p style="text-align: center">Copyright &copy; 2010 Yummy,Nik Pars.All Right Reserved</p>

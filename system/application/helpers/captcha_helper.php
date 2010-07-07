@@ -1,8 +1,8 @@
 <?php
 if ( ! function_exists('load_captcha')) {
 	function load_captcha(& $title, & $output, $lang, $captcha_images_number = 4, $enclosure = "&nbsp;") {
-	    $images = array("key", "home", "zoom", "link", "shopping", "lock", "tool", "flag", "cut", "calculator", "calendar");
-	    $images_name = array($lang['key'], $lang['home'], $lang["zoom"], $lang["link"], $lang["shopping"], $lang["lock"], $lang["tool"], $lang["flag"], $lang["cut"], $lang["calculator"], $lang["calendar"]);
+	    $images = array("basket", "corn", "gourd", "plant", "shovel", "sun", "sunflower", "tomato", "watercan", "wheat");
+	    $images_name = array($lang['basket'], $lang['corn'], $lang['gourd'], $lang['plant'], $lang['shovel'], $lang['sun'], $lang['sunflower'], $lang['tomato'], $lang['watercan'], $lang['wheat']);
 	    $chosen_nums = array(); //Chosen numbers
 	    $chosen_images = array(); //Chosen images
 	    

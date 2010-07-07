@@ -296,10 +296,32 @@
 
     <div id="base">
         <div id="farm">
-            <div id="section-1" class="<?= ($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
-            <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
-            <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
-            <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?"plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
+            <?php
+            if($plant->id)
+            {
+                $plantGrowthTime = $plant->growthTimeHolder * 3600;
+                if($plant->growth > ($plantGrowthTime * (2/3)))
+                        if($plant->health > 40)
+                            $plantPic = "plant-low";
+                        else
+                            $plantPic = "plant-low-sick";
+                elseif($plant->growth > ($plantGrowthTime * (1/3)))
+                        if($plant->health > 40)
+                            $plantPic = "plant-middle";
+                        else
+                            $plantPic = "plant-middle-sick";
+                else
+                        if($plant->health > 40)
+                            $plantPic = "plant-high";
+                        else
+                            $plantPic = "plant-high-sick";
+
+            }
+            ?>
+            <div id="section-1" class="<?= ($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
+            <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
+            <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
+            <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
             <div id="farmOwner">
                 <div class="avatarImg">
                     <a href="<?= base_url() ?>profile/user/<?= $farmOwner->id ?>">

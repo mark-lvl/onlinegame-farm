@@ -42,6 +42,7 @@ class Plant extends DataMapper {
 			$typObj = $typMdl->get_by_id($plant->type_id);
                         $frmAccMdl = new Farmaccessory();
                         $plant->growth = $frmAccMdl->getGrowthDecreaser($id, $plant->create_date, $typObj->growth_time);
+                        $plant->growthTimeHolder = $typObj->growth_time;
 
                         //this section calculate dieDuration of palnt based on growth time
                         if($typObj->growth_time < 3)

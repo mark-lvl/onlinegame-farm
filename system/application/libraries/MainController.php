@@ -96,6 +96,27 @@ class MainController extends Controller {
         return $this->load->view("home/topUser.tpl.php", $this->data,true);
     }
 
+    function topestUser($offset,$limit = 16)
+    {
+        $this->load->model(array('Userrank'));
+        $usrrnkMdl = new Userrank();
+        $users = $usrrnkMdl->getBestUser(16);
+        $counter = count($users);
+        if($counter < 16)
+        {
+            $limitHolder = 16 - $counter;
+
+            $sql = "SELECT * FROM `farms` WHERE disactive = 0 order by level desc limit ".$limitHolder.";";
+            $result = $this->db->query($sql)->result_array();
+
+            foreach($result AS $farm)
+            $users[] = $this->user_model->get_user_by_id($farm['user_id']);
+        }
+//        var_dump($users);exit;
+        $this->data['users'] = $users;
+        return $this->load->view("home/topUser.tpl.php", $this->data,true);
+    }
+
 
 }
 ?>
