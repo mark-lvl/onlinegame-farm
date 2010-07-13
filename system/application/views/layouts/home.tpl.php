@@ -30,9 +30,7 @@
 <script type="text/javascript" language="javascript"
         src="<?php echo css_url() . 'system/application/assets/js/mouseWheel.js'; ?>">
 </script>
-<script type="text/javascript" language="javascript"
-        src="<?php echo css_url() . 'system/application/assets/js/jquery.em.js'; ?>">
-</script>
+
 <?php echo $css; ?>
 <?php echo $js; ?>
 <!--[if IE]>

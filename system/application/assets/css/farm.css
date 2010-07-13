@@ -117,6 +117,7 @@
     top: 115px;
     right: 5px;
     text-align: center;
+    overflow:hidden;
 }
 #farmOwner .avatarName a
 {
@@ -227,7 +228,7 @@
 {
     background:url(../images/farm/section-4-locker.png) no-repeat;
     width: 191px;
-    height: 224px;
+    height: 210px;
     display: block;
     margin-top: 15px;
 }
@@ -623,7 +624,7 @@
 .reapTimeHolder
 {
     height: 20px;
-    width: 160px;
+    width: 180px;
     display: block;
     margin-bottom: 3px;
 }
@@ -642,9 +643,10 @@
 .resourceTimeHolder
 {
     height: 15px;
-    width: 160px;
+    width: 180px;
     display: block;
     margin-bottom: 3px;
+    _margin: 0 0 1px 0;
 }
 .resourceTimeHolder .label
 {
@@ -655,7 +657,12 @@
 {
     float: left;
 }
-.resourceCounter{height:13px;width:125px;float: right}
+.resourceCounter
+{
+	height:13px;
+	width:125px;
+	float: left;
+}
 
 #farmStatus
 {

@@ -473,7 +473,7 @@
 </script>
 <div id="farmWrapper">
     <div id="ajaxHolder"></div>
-    <div id="attackHolder" >
+    <div id="attackHolder" <?php if(!isset($attacksToFarm))echo "style=\"display:none\"" ?>>
         <?php if(isset($attacksToFarm)): ?>
         <div class="header"></div>
         <div class="details">

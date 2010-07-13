@@ -106,7 +106,7 @@
 	params['goal_farm'] = <?= $farm->id ?>;
 	params['off_farm'] = '<?= $viewerFarm->id ?>';
 	params['acc_id'] = acc_id;
-	params['user_id'] = <?= $user->id ?>;
+	params['user_id'] = '<?= $user->id ?>';
 	params['type'] = type;
 	params['details'] = details;
         if(type == 3)
@@ -207,8 +207,7 @@
                 ?>
                 var remainTime = <?= $pltSrc->usedTime; ?>;
                 $('#resourceCounter<?= $resourceCounter ?>').countdown({until: remainTime,
-
-                                                                       layout: '<div class="image{d10}"></div><div class="image{d1}"></div>' +
+																		layout: '<div class="image{d10}"></div><div class="image{d1}"></div>' +
                                                                         '<div class="imageDay"></div><div class="imageSpace"></div>' +
                                                                         '<div class="image{h10}"></div><div class="image{h1}"></div>' +
                                                                         '<div class="imageSep"></div>' +
@@ -229,7 +228,7 @@
 </script>
 <div id="farmWrapper">
     <div id="ajaxHolder"></div>
-    <div id="attackHolder" >
+    <div id="attackHolder" <?php if(!isset($attacksToFarm))echo "style=\"display:none\"" ?>>
         <?php if(isset($attacksToFarm)): ?>
         <div class="header"></div>
         <div class="details">

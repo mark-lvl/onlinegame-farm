@@ -24,13 +24,7 @@
         cursor: pointer;
     }
 </style>
-<!--[if IE]>
-<style>
-  #bottomBar {
-    margin-top:4px;
-}
-</style>
-<![endif]-->
+
 <script>
     $('.closeButton').click(function(){
         $('#centerContainerSecondLayer').hide();

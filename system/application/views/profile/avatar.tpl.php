@@ -5,7 +5,7 @@
         height: 388px;
         width: 464px;
         display: block;
-        margin-top: 7px;
+        margin-top: 9px;
     }
     .closeButton
     {
