@@ -18,7 +18,7 @@
     animation: 1000,
     scroll:2
     });
-    
+
     jQuery('#transactionHolder').jcarousel({
     vertical :true,
     animation: 'slow',
@@ -389,7 +389,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             </li>
                             <li>
                                 <?php if($farmSign['endGame']['accept']): ?>
-                                    <span class="rankThumb"><img src="<?= $base_img ?>profile/badges/endGame-on.jpg"/></span>
+                                    <span class="rankThumb endGameBadge"><img src="<?= $base_img ?>profile/badges/endGame-on.jpg"/></span>
                                     <span class="endGameDetail endGameBadge">x<?= $farmSign['endGame']['detail'] ?></span>
                                 <?php else: ?>
                                     <span class="rankThumb endGameBadge"><img src="<?= $base_img ?>profile/badges/endGame-off.jpg"/></span>
@@ -459,7 +459,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                     <span class="rankThumb goldenGrasshopperBadge"><img src="<?= $base_img ?>profile/badges/goldenGrasshopper-off.jpg" title="<?= $farmSign['grasshoppers']['detail'] ?>/20"/></span>
                                 <?php endif; ?>
                             </li>
-                            
+
                           </ul>
                         </div>
                       </div>
@@ -549,7 +549,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         </div>
                 </div>
 
-                
+
                 <div id="farmSnapshot">
                     <?php if($userFarm->disactive == 0): ?>
                     <?php if(!$partner)
@@ -638,7 +638,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                                                 else
                                                                     echo $lang['havingAnytransaction'];
 
-                                                            
+
                                                             ?>
                                                     </span>
                                                     <?= "<span class=\"transactionDate\">".fa_strftime("%d %B %Y", date("Y-m-d", $transaction->create_date . ""))."</span>"; ?>
@@ -668,7 +668,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                         <div id="friendAvatars">
                             <?php
                             $i= 0;
-                            if(!empty ($friends))
+                            if(!empty ($friends)){
                             foreach($friends as $friend):
                             if($i > 3){break;}else{
                                 ?>
@@ -690,13 +690,25 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                             $i++;
                             }
                             endforeach;
-                            else
-                            {
-                                echo $lang['havingAnyFriend']."<br/><br/>";
-                                if(!$partner)
-                                    echo $lang['findingFriend'];
+			    if($i < 4)
+			    {
+				for($j = 0;$j < 4-$i;$j++)
+				{
+				?>
+					<div class="friendAvatarItem"><a><img src="<?= $base_img ?>profile/unknown-friend.jpg" title="<?= $lang['empty'] ?>"/></a></div>
+				<?php
+				}
                             }
-                            ?>
+			    }
+                            else
+                            {?>
+				<div class="friendAvatars">
+
+				<?php for($j = 0;$j < 4;$j++): ?>
+					<div class="friendAvatarItem"><a><img src="<?= $base_img ?>profile/unknown-friend.jpg" title="<?= $lang['empty'] ?>"/></a></div>
+				<?php endfor; ?>
+				</div>
+                            <?php } ?>
                         </div>
                 </div>
                 <?php if(!$partner): ?>
@@ -753,7 +765,7 @@ $('#searchUserByName').click(function(){$(this).val('');$(this).css("color","bla
                                                   $notChecked++;
                                           echo $notChecked;
                                       }
-                                      
+
                                 ?>
                             </span>
                         </a>

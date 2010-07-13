@@ -90,6 +90,9 @@
 	$(function(){
 		$('input[title!=""]').hint("blur_hint");
 
+                $('#messageListContainer').jScrollPane();
+                $('.messageShowBox').jScrollPane();
+
 		$("#delete_all").click( function() {
 		    Boxy.confirm("<?= $lang['message_all_delete'] ?>", function() {
 				$.post("<?= base_url() ?>gateway/delete_all_message/", { },

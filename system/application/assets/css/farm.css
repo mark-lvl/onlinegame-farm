@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : farm
     Created on : Feb 20, 2010, 12:00:26 PM
     Author     : mark
@@ -64,7 +64,7 @@
 }
 #section-2
 {
-    
+
     display:block;
     height:225px;
     position:absolute;
@@ -1092,7 +1092,7 @@ span.partnerLink
     margin-left:10px;
     width:200px;
     position: relative;
-    
+
 }
 .inventoryInner img,.inventoryBigBox img
 {
@@ -1380,7 +1380,7 @@ span.partnerLink
 }
 #missionBoxHolder .plantHolder
 {
-    
+
     width: 265px;
     height: 215px;
     display: block;
@@ -1409,7 +1409,7 @@ span.partnerLink
 }
 .addPlant
 {
-    width: 190px;
+    width: 200px;
     height: 40px;
     display: block;
     float: left;

@@ -1,8 +1,21 @@
 <script>
+jQuery.easing['BounceEaseOut'] = function(p, t, b, c, d) {
+    if ((t/=d) < (1/2.75)) {
+    return c*(7.5625*t*t) + b;
+    } else if (t < (2/2.75)) {
+    return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
+    } else if (t < (2.5/2.75)) {
+    return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
+    } else {
+    return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
+    }
+    };
+
 jQuery(document).ready(function() {
     $('.jcarousel-skin-topuser .jcarousel-container').show();
-    jQuery('.topUsersHodlers').jcarousel({
-    animation: 1000,
+    jQuery('.<?= $type ?>').jcarousel({
+    easing:'BounceEaseOut',
+    animation:1000,
     scroll:4
     });
     });
@@ -14,7 +27,7 @@ jQuery(document).ready(function() {
               <div disabled="disabled" class="jcarousel-prev jcarousel-prev-disabled"></div>
               <div class="jcarousel-next"></div>
               <div class="jcarousel-clip">
-                  <ul  class="topUsersHodlers" class="jcarousel-list">
+                  <ul  class="<?= $type ?>" class="jcarousel-list">
                     <?php foreach ($users as $user) : ?>
                         <li>
                             <div class="perUserItem">

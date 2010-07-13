@@ -24,14 +24,18 @@ class Farmtransaction extends DataMapper {
 		     $goal_farm,
 		     $accessory_id,
 		     $type,
-		     $details = null)
+		     $details = null,
+                     $user_id = null)
 	{
 		$frmMdl = new Farm();
 		$frmObjOff = $frmMdl->get_by_id($off_farm);
                 $frmMdl = new Farm();
 		$frmObjGol = $frmMdl->get_by_id($goal_farm);
 
-
+                if(($frmObjGol->user_id == $user_id) && ($type == 3) && ($details == 3))
+                        return array('return'=>'false',
+                                     'type'=>'public',
+                                     'params'=>array('message'=>'suspiciousUsage'));
 
 		//farm with level 1,2,3 only attack from farm with the same level
 		if($frmObjGol->level < 4 && $frmObjOff > 3 && $type == 1)
@@ -55,7 +59,7 @@ class Farmtransaction extends DataMapper {
                             return array('return'=>'false',
                                      'type'=>'public',
                                      'params'=>array('message'=>'cantAttackTwiceInADay'));
-                    elseif($frmTrnObj->type == 3 && 
+                    elseif($frmTrnObj->type == 3 &&
                            ($frmTrnObj->create_date > strtotime('-1 day')) &&
                            $frmTrnObj->details == 3 && $type == 3)
                             return array('return'=>'false',
@@ -98,7 +102,7 @@ class Farmtransaction extends DataMapper {
         	                return array('return'=>'false',
                 	                     'type'=>'public',
                         	             'params'=>array('message'=>'cantAttackAttackAlreadyExists'));
-                
+
 	                //farm with have 5 attack rejected new attack
         	        $frmTrnObj = new Farmtransaction();
 			$attackedFarm = $frmTrnObj->get_where(array('goal_farm'=>$goal_farm,'type'=>1,'flag'=>0));
@@ -123,7 +127,7 @@ class Farmtransaction extends DataMapper {
 					$accObj = $accMdl->get_by_id($accessory_id);
                         	        $frmTrnObj->efficacy_date = (time() + ($accObj->life_time * 3600));
 					$frmTrnObj->save();
-                	                
+
                         	        if($frmObjOff->id)
                		                         $details .= "<br/>".str_replace(array(__FARMID__,__FARMNAME__), array($frmObjOff->user_id,$frmObjOff->name), $this->lang->language['farmTransaction']['attacker']);
                         	        $usrMdl->add_notification($goal_farm, $details, 0);
@@ -162,16 +166,16 @@ class Farmtransaction extends DataMapper {
                                                              'price'=>self::HELP_AMOUNT,
                                                              'height'=>80));
                             }
-                            
+
                         }
-                        
+
                         $frmTrnObj = new Farmtransaction();
 			$frmTrnObj->offset_farm = $off_farm;
 			$frmTrnObj->goal_farm = $goal_farm;
 			$frmTrnObj->type = $type;
 			$frmTrnObj->details = 3;
 			$frmTrnObj->save();
-                        
+
 
 			return 'helpComplete';
 		}
@@ -185,7 +189,7 @@ class Farmtransaction extends DataMapper {
 		$frmObj = $frmMdl->get_by_id($farm_id);
 
 		$goalFarms = $this->get_where(array('goal_farm'=>$farm_id,'flag'=>0))->all;
-		
+
 		foreach($goalFarms AS $goal)
 		{
 			switch($goal->accessory_id)
@@ -232,7 +236,7 @@ class Farmtransaction extends DataMapper {
                         $transaction->save();
                 }
 	}
-        
+
 	function type_4_effect($transaction, $farm, $plant)
 	{
                 $accessory = $this->accMdl->get_by_id($transaction->accessory_id);

@@ -1,7 +1,3 @@
-<style>
-    .boxy-innerFarm{height:400px!important}
-    .main-contentFarm{height:400px!important}
-</style>
 <script>
     <?php if($params['action'] == 'mission'): ?>
         var output = $('#mission');
@@ -57,23 +53,23 @@ $('#plantCategory div').click(function(){
             <div class="plantName">
                 <?= $lang[$plant['name']] ?>
             </div>
-            
+
             <div class="plantDetails">
                 <?php
                 echo "<span class=\"detailsTitle\">".$lang['growthTime'].": </span>".convert_number($plant['growthTime']).$lang['hour']."<br/>";
                 //echo "<span class=\"detailsTitle\">".$lang['firstPrice'].": </span>".convert_number($plant['price']).$lang['yummyMoneyUnit']."<br/>";
                 //echo "<span class=\"detailsTitle\">".$lang['lastPrice'].": </span>".convert_number($plant['sellPrice']).$lang['yummyMoneyUnit']."<br/>";
 
-                
+
                 echo "<span class=\"detailsTitle\">".$lang['weightInSection'].": </span>".convert_number($plant['weight']).$lang['kilogram']."<br/>";
-                
+
                 if($plant['resource'][1] == 0.25)
                     $plant['resource'][1] = $lang['oneQuerter'];
                 elseif($plant['resource'][1] == 0.5)
                     $plant['resource'][1] = $lang['half'];
                 else
                     $plant['resource'][1] = convert_number($plant['resource'][1]);
-                
+
                 if($plant['resource'][2] == 0.25)
                     $plant['resource'][2] = $lang['oneQuerter'];
                 elseif($plant['resource'][2] == 0.5)
@@ -86,14 +82,14 @@ $('#plantCategory div').click(function(){
                 //echo "<span class=\"detailsTitle\">".$lang['totalPrice'].": </span>".convert_number($plant['price'])."x".convert_number($plant['weight'])."=<b style=\"font-size:15px\">".convert_number((string)($plant['weight']*$plant['price']))."</b><br/><br/>";
                 echo str_replace(array(__TYPE__,__TOTALPRICE__),array("<span class=\"detailsTitle\">".$lang[$plant['name']]."</span>","<span class=\"detailsTitle\">".($plant['weight']*$plant['price']*$params['mission']['section'])."</span>"), $lang['totalPrice'])."<br/>";
                 echo str_replace(array(__LASTPRICE__),array("<span class=\"detailsTitle\">".($plant['weight']*$plant['sellPrice']*$params['mission']['section'])."</span>"), $lang['lastPrice'])."<br/>";
-                
+
                 if($params['mission']['accessories'])
                 {
                     echo "<span class=\"detailsTitle\">$lang[neededAccessories]: </span>";
                     foreach ($params['mission']['accessories'] as $acc)
                         echo $lang[$acc];
                 }
-                
+
                 ?>
             </div>
         </div>
@@ -104,14 +100,14 @@ $('#plantCategory div').click(function(){
             <?= $lang['equipment'] ?>
         </div>
         <div class="details">
-            <?php 
+            <?php
             if($params['mission']['level'] == 5)
                 $equipHolder = "grassCutter";
             elseif($params['mission']['level'] == 7)
                 $equipHolder = "waterPump";
             elseif($params['mission']['level'] == 9)
                 $equipHolder = "rockBreaker";
-            
+
             if(isset($equipHolder)):
             ?>
 
@@ -426,7 +422,7 @@ $('.buyAccessoryCategory div').click(function(){
                 </div>
         </div>
     </div>
-    
+
 
 </div>
 <?php elseif($params['action'] == 'showInventory'): ?>
@@ -567,7 +563,7 @@ $('.buyAccessoryCategory div').click(function(){
         <div class="inventoryVerticalLine"></div>
         <div class="inventoryInner">
             <div class="attackPartnerDetails">
-            <?php 
+            <?php
             $firstLoopChecker = TRUE;
             foreach($params['farmAccessories']['attack'] AS $attackTools): ?>
                 <div class="buyAccAttack" id="buyAcc-<?= $attackTools['name'] ?>" <?php if(!$firstLoopChecker): ?> style="display: none;" <?php endif; ?>>
@@ -576,7 +572,7 @@ $('.buyAccessoryCategory div').click(function(){
                     </div>
                     <div class="accessoryDetail">
                         <span class="accessoryName"><?= $lang[$attackTools['name']] ?></span>
-                        
+
                         <div class="accessoryDescription">
                             <?= $attackTools['description'] ?>
                         </div>
@@ -673,6 +669,9 @@ $('.buyAccessoryCategory div').click(function(){
 <?php endif; ?>
 
 <script>
+<?php if($params['action'] != 'mission'): ?>
+$('.main-contentFarm').jScrollPane();
+<? endif; ?>
 $(".levelUpgrade").click(function()
 {
     location.reload();

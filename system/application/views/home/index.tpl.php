@@ -11,8 +11,16 @@
             <div class="title"></div>
             <div class="description"><?= $lang['welcome'] ?></div>
         </div>
+        
         <div id="loginFormHolder">
+            <?php if(!$user->id): ?>
+            <div class="register">
+                <?= anchor('registration/index',$this->lang->language['registeration'],array('class'=>'whiteBoldLink')) ?>
+            </div>
             <div class="title"></div>
+            <?php else: ?>
+            <div class="titleLogged"></div>
+            <?php endif; ?>
             <div class="form">
                 <?php
                                 $this->load->module('login');

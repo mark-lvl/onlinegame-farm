@@ -229,8 +229,8 @@ class Farms extends MainController {
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
-                $this->data['newUsers'] = $this->newestUser(0);
-                $this->data['topestUsers'] = $this->topestUser(0);
+                $this->data['newUsers'] = $this->newestUser('newUsersHolder');
+                $this->data['topestUsers'] = $this->topestUser('topUserHolder');
 
                 $this->add_css('popup');
                 $this->loadJs('popup');
@@ -401,10 +401,8 @@ class Farms extends MainController {
                 $this->data['heading'] = '';
                 $this->data['title'] = $this->lang->language['farm']." ".$userFarm->name;
 
-                $this->data['newUsers'] = $this->newestUser(0);
-                $this->data['topestUsers'] = $this->topestUser(0);
-
-
+                $this->data['newUsers'] = $this->newestUser('newUsersHolder');
+                $this->data['topestUsers'] = $this->topestUser('topUserHolder');
 
                 $this->loadJs('popup');
                 $this->loadJs('boxy');
@@ -438,7 +436,8 @@ class Farms extends MainController {
 
 	function addPlantToFarm()
 	{
-
+                $this->is_logged_user($_POST['user_id']);
+                
 		$pltModel = new Plant();
 		$flag = $pltModel->add($_POST['farm_id'],$_POST['type_id']);
 
@@ -450,6 +449,8 @@ class Farms extends MainController {
 
 	function addAccessoryToFarm($farm_id = null,$acc_id = null)
 	{
+                $this->is_logged_user($_POST['user_id']);
+                
 		$accModel = new Farmaccessory();
 		$flag = $accModel->add($_POST['farm_id'],$_POST['accessory_id']);
 
@@ -520,6 +521,10 @@ class Farms extends MainController {
                                             if($_POST['viewer_farm_id'])
                                                 $frmTrnMdl->add($_POST['viewer_farm_id'], $pltObj->farm_id, 0, 3, 1);
                                         }
+					$this->data['consumeTime'] = $typSrcObj->consumeTime;
+					$this->data['placeHolder'] = $_POST['placeHolder'];
+
+					echo $this->load->view('farms/addResource',$this->data,TRUE);
 
 				}
 				else
@@ -532,11 +537,13 @@ class Farms extends MainController {
                                 }
 
                         }
-                        $this->refresh_page();
+                        //$this->refresh_page();
         }
 
 	function reap($plant_id = null)
 	{
+                $this->is_logged_user($_POST['user_id']);
+                
 		$pltMdl = new Plant();
 		$flag = $pltMdl->reap($_POST['plant_id']);
                 //if(is_array($flag))
@@ -554,6 +561,7 @@ class Farms extends MainController {
 
         function plow()
 	{
+          $this->is_logged_user($_POST['user_id']);
           $frmModel = new Farm();
 
           $flag = $frmModel->plow($_POST['farm_id']);
@@ -742,7 +750,7 @@ class Farms extends MainController {
             $farmModel = new Farm();
 	    $userFarm = $farmModel->get_where(array('user_id'=>$user_id,
                                                     'disactive'=>'0'));
-            echo $userFarm->money;
+            echo $this->lang->language['farmMoney'].":<span id=\"moneyHolder\" class=\"infoValue\">".$userFarm->money." یامی</span>";
         }
 
         function disasters($farm_id = null)
@@ -901,6 +909,8 @@ class Farms extends MainController {
 
         function resetFarm($farm_id = null)
         {
+                $this->is_logged_user($_POST['user_id']);
+                
                 if($_POST['farm_id'])
                         $farm_id = $_POST['farm_id'];
 
@@ -944,6 +954,8 @@ class Farms extends MainController {
 
         function resetLevel($farm_id = null)
         {
+                $this->is_logged_user($_POST['user_id']);
+                
                 if($_POST['farm_id'] && !$_POST['confirmResetFarm'])
                 {
                     $this->error_reporter('resetLevel',$_POST);

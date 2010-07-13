@@ -60,7 +60,7 @@
             font-family:Tahoma, Arial;
             font-size:11px;
             position: absolute;
-            top: 0px;
+            top: -6px;
             right: 570px;
             font-size: 90%;
             line-height: 1;

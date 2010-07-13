@@ -8,6 +8,7 @@
     Boxy.confirm("<?= $lang['resetLevelConfirm'] ?>", function() {
         var params = {};
 	params['farm_id'] = <?= $params['farm_id'] ?>;
+	params['user_id'] = <?= $params['user_id'] ?>;
 	params['confirmResetFarm'] = true;
         ajax_request('#ajaxHolder','<?= base_url() ?>farms/resetLevel',params) }, {title: '<?= $lang['becareful'] ?>'});
 

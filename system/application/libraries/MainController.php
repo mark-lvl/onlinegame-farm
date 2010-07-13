@@ -89,14 +89,15 @@ class MainController extends Controller {
         $this->load->view("partials/redirect.tpl.php", array('path' => $path));
     }
 
-    function newestUser($offset,$limit = 16)
+    function newestUser($type,$offset = 0,$limit = 16)
     {
         $this->data['users'] = $this->user_model->get_newest_users($offset,$limit);
+        $this->data['type'] = $type;
         $this->data['page'] = $offset;
         return $this->load->view("home/topUser.tpl.php", $this->data,true);
     }
 
-    function topestUser($offset,$limit = 16)
+    function topestUser($type,$offset= 0,$limit = 16)
     {
         $this->load->model(array('Userrank'));
         $usrrnkMdl = new Userrank();
@@ -113,10 +114,15 @@ class MainController extends Controller {
             $users[] = $this->user_model->get_user_by_id($farm['user_id']);
         }
 //        var_dump($users);exit;
+        $this->data['type'] = $type;
         $this->data['users'] = $users;
         return $this->load->view("home/topUser.tpl.php", $this->data,true);
     }
-
-
+    //this function check that action requested for authenticated user is actualy is for logged user
+    function is_logged_user($user_id)
+    {
+        if(($user_id != $this->userSessionHolder->id) || ($user_id == ""))
+            redirect(base_url()."message/index/21");
+    }
 }
 ?>

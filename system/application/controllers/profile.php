@@ -13,7 +13,7 @@ class Profile extends MainController
 	function Profile()
 	{
 		parent::MainController();
-                $this->load->model(array('Farm','Notification','Farmtransaction','Userrank'));
+                $this->load->model(array('Plant','Farm','Notification','Farmtransaction','Userrank'));
                 $this->add_css('home');
                 $this->add_css('profile');
 
@@ -31,7 +31,7 @@ class Profile extends MainController
                 redirect("/");
 
 	    $user = $this->user_model->is_authenticated();
-            
+
             if(!$user)
             {
                 //this flag show this user is not logged
@@ -81,6 +81,10 @@ class Profile extends MainController
 
             if($this->data['userFarm']->id)
             {
+                //this section sync plant farm
+                $pltMdl =new Plant();
+                $pltMdl->plantSync($this->data['userFarm']->id);
+
                 $farmSign['haveFarm']['accept'] = TRUE;
 
                 $notMdl = new Notification();
@@ -166,6 +170,7 @@ class Profile extends MainController
                 $frmTrnMdl = new Farmtransaction();
                 $frmTrnObjs = $frmTrnMdl->where('offset_farm',$this->data['userFarm']->id)
                                         ->or_where('goal_farm',$this->data['userFarm']->id)
+					->order_by('create_date DESC')
                                         ->get()->all;
 
 
@@ -308,8 +313,8 @@ class Profile extends MainController
 
             $this->data['farmSign'] = $farmSign;
 
-            $this->data['newUsers'] = $this->newestUser(0);
-            $this->data['topestUsers'] = $this->topestUser(0);
+            $this->data['newUsers'] = $this->newestUser('newUsersHolder');
+            $this->data['topestUsers'] = $this->topestUser('topUserHolder');
 
 	    $this->add_css('jquery.jcarousel');
             $this->add_css('skin');
@@ -368,7 +373,7 @@ class Profile extends MainController
 
             $this->load->view("profile/edit.tpl.php", $this->data);
 	}
-        
+
         function avatar()
         {
             $user = $this->user_model->is_authenticated();

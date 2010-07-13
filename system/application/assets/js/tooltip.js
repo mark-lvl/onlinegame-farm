@@ -8,12 +8,21 @@
 		return this.each(function(){
 			var	content = $("#" + getContentId(this.id));
 			var targetMousedOver = $(this).mouseover(function(){
+                            
+                                
 				settings.beforeShow(content, $(this));
 			}).mousemove(function(e){
+                                //added by mark
+                                var flagHolder = $(this).attr('class');
+                                if(flagHolder == "")
+                                    var flagHolder = $(this).attr('id');
 				contentInfo = getElementDimensionsAndPosition(content);
 				targetInfo = getElementDimensionsAndPosition($(this));
 				contentInfo = $.fn.ezpz_tooltip.positions[settings.contentPosition](contentInfo, e.pageX, e.pageY, settings.offset, targetInfo);
-				contentInfo = keepInWindow(contentInfo);
+				contentInfo = keepInWindow(contentInfo,flagHolder);
+                                if($.browser.msie)
+                                fwidth = $(window).width() * (20/100);
+                                else
                                 fwidth = $(window).width() * (14/100);
                                 fheight = $(window).height() * (25/100);
 				content.css('top', contentInfo['top']-fheight);
@@ -68,9 +77,24 @@
 			return info;
 		};
 
-		function keepInWindow(contentInfo){
-			var windowWidth = $(window).width();
-			var windowTop = $(window).scrollTop();
+		function keepInWindow(contentInfo,flag){
+
+                        if(flag == "progressBar")
+                        {
+                            var windowWidth = $('#profile').width();
+                            var windowTop = $('#profile').offset().top;
+                        }
+                        else if(flag == "resetGame" || flag == "resetLevel" || flag == "help" )
+                        {
+                            var windowWidth = $('#farmWrapper').width();
+                            var windowTop = $('#farmWrapper').offset().top;
+                        }
+                        else
+                        {
+                            var windowWidth = $(window).width();
+                            var windowTop = $(window).scrollTop();
+                        }
+                        
 			var output = new Array();
 
 			output = contentInfo;
@@ -87,8 +111,9 @@
 
 			return output;
 		};
+                
 	};
-
+        
 	$.fn.ezpz_tooltip.positionContent = function(contentInfo, mouseX, mouseY, offset, targetInfo) {
 		contentInfo['top'] = mouseY - offset - contentInfo['height'];
 		contentInfo['left'] = mouseX + offset;

@@ -124,7 +124,7 @@ p {
 }
 #userConsole
 {
-    
+
     position: absolute;
     top: 86px;
     right:715px;
@@ -534,6 +534,28 @@ width:300px;
     background: url(../images/home/loginTitle.png) no-repeat center;
     margin: 7px 7px 0 0;
 }
+#loginFormHolder .titleLogged
+{
+    display: block;
+    width: 161px;
+    height: 27px;
+    background: url(../images/home/loginTitle-logged.png) no-repeat center;
+    margin: 7px 7px 0 0;
+}
+#loginFormHolder .register
+{
+    display: block;
+    width: 68px;
+    height: 16px;
+    margin: 7px 7px 0 0;
+    float: left;
+
+}
+#loginFormHolder .register a
+{
+    font-size: 11px;
+}
+
 #loginFormHolder .form
 {
     display: block;
@@ -855,3 +877,91 @@ a.alerts:hover
 }
 
 /*******EndFooterPanel*******/
+
+
+.genericPage
+{
+    background: url(../images/home/generic-bg.jpg);
+    width: 955px;
+    height: 370px;
+    display: block;
+    position: relative;
+}
+.genericContainer
+{
+    background: url(../images/home/genericContainer.jpg);
+    width: 789px;
+    height: 310px;
+    display: block;
+    position: absolute;
+    top: 19px;
+    right: 81px;
+
+}
+.forgotContainer
+{
+    background: url(../images/home/forgot.jpg) no-repeat;
+    display:block;
+    height:148px;
+    position:absolute;
+    right:215px;
+    top:55px;
+    width:444px;
+}
+.forgotDescription
+{
+    height:50px;
+    width:300px;
+    color: white;
+    font-size: 10px;
+    padding: 8px 125px 0 0;
+}
+.forgotForm
+{
+    height:30px;
+    width:300px;
+    display: block;
+    padding: 8px 125px 0 0;
+}
+.forgotForm table
+{
+    height:30px;
+    width:300px;
+}
+.helpContainerHolder
+{
+    padding-right:25px;
+    width:675px;
+    height: 250px;
+    margin: 0 auto;
+    display: block;
+    margin-top:20px;
+}
+.helpContainer
+{
+    width:675px;
+    height: 250px;
+    margin: 0 auto;
+    display: block;
+    overflow: auto;
+}
+.helpTitle
+{
+    color: #D3A908;
+    font-weight: bold;
+    font-size: 14px;
+    clear: both;
+    display: block;
+}
+
+.linkToHome
+{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.loginBoxLogged ul li a
+{
+    text-decoration: none;
+    color: white;
+}

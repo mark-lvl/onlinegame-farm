@@ -1,7 +1,7 @@
 <!--this used for ajaxWindow in show.tpl only-->
 <style>
-    .boxy-innerFarm{height:400px!important}
-    .main-contentFarm{height:400px!important}
+    /*.boxy-innerFarm{height:400px!important}
+    .main-contentFarm{height:400px!important}*/
 </style>
 <!--end ajaxWindow css clean-->
 <script>
@@ -15,9 +15,17 @@
         }
        var height = $(handler).height();
        var width = $(handler).width();
-       $(handler).verboseLoad("<div style=\"width:"+width+"px;height:"+height+"px;display:block;background:url(<?= $base_img ?>popup/boxy/farmBoxy/content.png);\"><img src=<?= $base_img ?>ajax-loader.gif style=\"display:block;margin:0 auto;padding-top:"+((height/2)-5)+"px\" /></div>",url, params,callback);
-    }
 
+       if(handler == '.unPlow:empty')
+       {
+           $(handler).verboseLoad("<div style=\"width:"+width+"px;height:"+height+"px;display:block;background:url(<?= $base_img ?>popup/boxy/farmBoxy/content.png);\"><img src=<?= $base_img ?>ajax-loader.gif style=\"display:block;margin:0 auto;padding-top:"+((height/2)-5)+"px\" /></div>");
+	   $('#ajaxHolder').verboseLoad("",url, params,callback);
+       }
+       else
+       {
+           $(handler).verboseLoad("<div style=\"width:"+width+"px;height:"+height+"px;display:block;background:url(<?= $base_img ?>popup/boxy/farmBoxy/content.png);\"><img src=<?= $base_img ?>ajax-loader.gif style=\"display:block;margin:0 auto;padding-top:"+((height/2)-5)+"px\" /></div>",url, params,callback);
+       }
+    }
     function resourceExipre2() {
         alert('<?= $lang['resourceExpireMuck'] ?>');
     }
@@ -36,7 +44,7 @@
 
     function moneyCalculate()
     {
-       ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc');
+       ajax_request('.farmInfoItem:eq(1)', '<?= base_url() ?>farms/moneyCalc');
     }
 
     function addResourceToFarm(farm_id , resource_id){
@@ -66,6 +74,7 @@
     }
     function addAccessoryToFarm(farm_id , accessory_id){
 	var params = {};
+     	params['user_id'] = <?= $user->id ?>;
      	params['farm_id'] = farm_id;
 	params['accessory_id'] = accessory_id;
 
@@ -74,40 +83,62 @@
 
     function addPlantToFarm(farm_id , type_id){
 	var params = {};
+     	params['user_id'] = <?= $user->id ?>;
      	params['farm_id'] = farm_id;
 	params['type_id'] = type_id;
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addPlantToFarm', params);
     }
-    function addResourceToPlant(resource_id , plant_id){
+    function addResourceToPlant(resource_id , plant_id,placeHolder){
 	var params = {};
      	params['plant_id'] = plant_id;
 	params['resource_id'] = resource_id;
+	params['placeHolder'] = placeHolder;
+
+	<?php if($farm->level == 1): ?>
+	if(placeHolder == 1)
+	{
+		$('#wizard-3').hide();
+		$('#wizard-4').fadeIn();
+	}
+	else if(placeHolder == 2)
+	{
+		$('#wizard-4').hide();
+		$('#wizard-5').fadeIn();
+	}
+	<?php endif; ?>
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addResourceToPlant', params);
-
     }
     function reap(plant_id)
     {
         var params = {};
         params['plant_id'] = plant_id;
+        params['user_id'] = <?= $user->id ?>;
         params['farm_name'] = '<?= $farm->name ?>';
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/reap', params)
+    }
+    function plowComplete()
+    {
+	var holder = $('#ajaxHolder').html();
+	$('.unPlow > div').replaceWith(holder);
+        moneyCalculate();
     }
     function plow(farm_id)
     {
         var params = {};
         params['farm_id'] = farm_id;
+        params['user_id'] = <?= $user->id ?>;
 
         $('.plow-botton-on').removeClass('plow-botton-on').addClass('plow-botton-off').removeAttr('href');
 
-        ajax_request('.unPlow:empty', '<?= base_url() ?>farms/plow', params ,moneyCalculate);
+        ajax_request('.unPlow:empty', '<?= base_url() ?>farms/plow', params ,plowComplete);
 
         //this section used for control wizard show after plow farm
         <?php if($farm->level == 1): ?>
-            $('#wizard-2').hide();
-            $('#wizard-3').fadeIn();
+            $('#wizard-1').hide();
+            $('#wizard-2').fadeIn();
         <?php endif; ?>
     }
     function spraying(farm)
@@ -249,6 +280,11 @@
     }
     function showHelp()
     {
+	for(i=1;i<12;i++)
+	{
+		j = 100+i;
+		$("#wizard-"+j).hide();
+	}
         $("#wizard-101").show();
     }
     function resetConfirm1()
@@ -267,12 +303,14 @@
     {
         var params = {};
         params['farm_id'] = <?= $farm->id ?>;
+        params['user_id'] = <?= $user->id ?>;
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/resetFarm', params);
     }
     function resetLevel()
     {
         var params = {};
         params['farm_id'] = <?= $farm->id ?>;
+        params['user_id'] = <?= $user->id ?>;
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/resetLevel', params);
     }
     function syncFarm(farm_id)
@@ -280,9 +318,15 @@
         var params = {};
         params['farm_id'] = farm_id;
 
-        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params,syncNotificationCounter)
-        setTimeout("syncFarm("+farm_id+")",300000);
+        ajax_request('.farmStatisticOn', '<?= base_url() ?>farms/sync', params,plantImageSync);
+	setTimeout("syncFarm("+farm_id+")",300000);
     }
+    function plantImageSync()
+    {
+	$('.plantGround').toggleClass($('#plantImageHolder').text());
+        syncNotificationCounter();
+    }
+
     function syncAttackBox()
     {
         var params = {};
@@ -342,8 +386,9 @@
         $("#wizard-1").show();
         <?php endif; ?>
 
-	setTimeout("syncFarm("+<?= $farm->id ?>+")",300000);
-
+	<?php if($farm->id): ?>
+		setTimeout("syncFarm("+<?= $farm->id ?>+")",300000);
+	<?php endif; ?>
 
         <?php if($plant->id): ?>
         $(".expandStatistic").click(function() {
@@ -396,11 +441,11 @@
                 <?php if($farm->level == 1 && $plant->id && $pltSrc->usedTime < 1): ?>
                     <?php if($resourceCounter == 2): ?>
                         if(typeof(showFlag) == 'undefined')
-                            $('#wizard-5').show();
+                            $('#wizard-4').show();
                         <?php $everyThingOkFlag = false; ?>
                     <?php elseif($resourceCounter == 1): ?>
                         var showFlag = true;
-                        $('#wizard-4').show();
+                        $('#wizard-3').show();
                         <?php $everyThingOkFlag = false; ?>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -422,7 +467,7 @@
             });
         <?php endif; ?>
         <?php if($everyThingOkFlag && $farm->level == 1): ?>
-            $('#wizard-6').show();
+            $('#wizard-5').show();
         <?php endif; ?>
     });
 </script>
@@ -477,13 +522,8 @@
     <!-- End tooltipHolder -->
 
     <!-- Start wizardHolder -->
-    <div id="wizard-1" class="wizard" style="top: 76px;right: 280px">
-        <div class="wizardClose">X</div>
-        <div class="wizardContent">
-            <?= $lang['farmWizard']['farm'] ?>
-        </div>
-    </div>
-    <div id="wizard-2" class="wizard" style="top: 327px;right: 111px">
+
+    <div id="wizard-1" class="wizard" style="top: 327px;right: 111px">
         <div class="wizardContent">
             <?= $lang['farmWizard']['plow'] ?>
         </div>
@@ -491,7 +531,7 @@
 
         </div>
     </div>
-    <div id="wizard-3" class="wizard" style="top: 432px;right: 529px">
+    <div id="wizard-2" class="wizard" style="top: 432px;right: 529px">
         <div class="wizardContent">
             <?= $lang['farmWizard']['startMission'] ?>
         </div>
@@ -499,7 +539,7 @@
 
         </div>
     </div>
-    <div id="wizard-4" class="wizard" style="top: 432px;right: 366px">
+    <div id="wizard-3" class="wizard" style="top: 432px;right: 366px">
         <div class="wizardContent">
             <?= $lang['farmWizard']['spreadWater'] ?>
         </div>
@@ -507,21 +547,22 @@
 
         </div>
     </div>
-    <div id="wizard-5" class="wizard" style="top: 432px;right: 247px">
-        <div class="wizardContent">
+    <div id="wizard-4" class="wizard" style="top: 432px;right: 247px">
+	<div class="wizardClose">X</div>
+	<div class="wizardContent">
             <?= $lang['farmWizard']['spreadMuck'] ?>
         </div>
         <div class="wizardArrow">
 
         </div>
     </div>
-    <div id="wizard-6" class="wizard" style="top: 304px;right: 566px">
+    <div id="wizard-5" class="wizard" style="top: 304px;right: 566px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['attentToClock'] ?>
         </div>
     </div>
-    <div id="wizard-7" class="wizard" style="top: 0px;right: 660px">
+    <div id="wizard-6" class="wizard" style="top: 0px;right: 660px">
         <div class="wizardClose">X</div>
         <div class="wizardUpArrow">
 
@@ -534,62 +575,67 @@
 
 
 
-
-    <div id="wizard-101" class="wizard" style="top: 100px;right: 760px">
+    <div id="wizard-101" class="wizard" style="top: 76px;right: 280px">
+        <div class="wizardClose">X</div>
+        <div class="wizardContent">
+            <?= $lang['farmWizard']['farm'] ?>
+        </div>
+    </div>
+    <div id="wizard-102" class="wizard" style="top: 100px;right: 760px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['information'] ?>
         </div>
     </div>
-    <div id="wizard-102" class="wizard" style="top: 199px;right:762px">
+    <div id="wizard-103" class="wizard" style="top: 199px;right:762px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['health'] ?>
         </div>
     </div>
-    <div id="wizard-103" class="wizard" style="top: 303px;right: 759px">
+    <div id="wizard-104" class="wizard" style="top: 303px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['clock'] ?>
         </div>
     </div>
-    <div id="wizard-104" class="wizard" style="top: 408px;right: 759px">
+    <div id="wizard-105" class="wizard" style="top: 408px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['status'] ?>
         </div>
     </div>
-    <div id="wizard-105" class="wizard" style="top: 525px;right: 759px">
+    <div id="wizard-106" class="wizard" style="top: 525px;right: 759px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['equipment'] ?>
         </div>
     </div>
-    <div id="wizard-106" class="wizard" style="top: 533px;right: 531px">
+    <div id="wizard-107" class="wizard" style="top: 533px;right: 531px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['mission'] ?>
         </div>
     </div>
-    <div id="wizard-107" class="wizard" style="top: 533px;right: 283px">
+    <div id="wizard-108" class="wizard" style="top: 533px;right: 283px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['resource'] ?>
         </div>
     </div>
-    <div id="wizard-108" class="wizard" style="top: 533px;right: 105px">
+    <div id="wizard-109" class="wizard" style="top: 533px;right: 105px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['buy'] ?>
         </div>
     </div>
-    <div id="wizard-109" class="wizard" style="top: 533px;right: 0px">
+    <div id="wizard-110" class="wizard" style="top: 533px;right: 0px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['inventory'] ?>
         </div>
     </div>
-    <div id="wizard-110" class="wizard" style="top: 410px;right: 44px">
+    <div id="wizard-111" class="wizard" style="top: 410px;right: 44px">
         <div class="wizardClose">X</div>
         <div class="wizardContent">
             <?= $lang['farmWizard']['action'] ?>
@@ -634,10 +680,12 @@
 
             }
             ?>
-            <div id="section-1" class="<?= ($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
-            <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
-            <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
-            <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
+	    <div id="farmSections" >
+	            <div id="section-1" class="<?= ($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow") ?>"></div>
+        	    <div id="section-2" class="<?= ($farm->section <2)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <2): ?><span class="section-2-off"></span><?php endif; ?></div>
+        	    <div id="section-3" class="<?= ($farm->section <3)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <3): ?><span class="section-3-off"></span><?php endif; ?></div>
+        	    <div id="section-4" class="<?= ($farm->section <4)?"unPlow":(($plant->id)?$plantPic." plantGround":(($farm->plow)?"plow":"unPlow")) ?>"><?php if($farm->section <4): ?><span class="section-4-off"></span><?php endif; ?></div>
+            </div>
             <div id="accessoryPlaceTop">
                 <?php if(in_array("scarecrow", $farmAcc)): ?>
                 <div class="scarecrow"></div>
@@ -685,7 +733,7 @@
         </div>
         <div id="sidebar">
             <div id="farmReset">
-                
+
                 <div id="help">
                     <?= anchor(" ", " ", array('onclick'=>'showHelp();return false;')) ?>
                 </div>
@@ -811,20 +859,20 @@
                 if(isset($plantSources))
                         echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpreadIcon'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].",'1');return false;",'class'=>'waterSpreadIcon'));
             ?>
             <?php
                 if(isset($plantSources))
                         echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpreadIcon'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].",'2');return false;",'class'=>'muckSpreadIcon'));
             ?>
             <div class="waterResource">
                 <?php
                 if(isset($plantSources))
                         echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpread'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].",'1');return false;",'class'=>'waterSpread'));
                 ?>
                 <div id="waterAmount"><?= $farmResources['Water'] ?></div>
                 <?= anchor("farms/addResourceToFarm/$farm->id/".$resources['1']->id,
@@ -837,7 +885,7 @@
                 if(isset($plantSources))
                         echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpread'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].",'2');return false;",'class'=>'muckSpread'));
                 ?>
                 <div id="muckAmount"><?= $farmResources['Muck'] ?></div>
                 <?= anchor("farms/addResourceToFarm/$farm->id/".$resources['2']->id,

@@ -26,7 +26,7 @@
     {
         var params = {};
      	params['farm_user_id'] = <?= $farm->user_id ?>;
-        ajax_request('#moneyHolder', '<?= base_url() ?>farms/moneyCalc', params);
+        ajax_request('.farmInfoItem:eq(1)', '<?= base_url() ?>farms/moneyCalc', params);
     }
     function showInventory(farm_id){
 	var params = {};
@@ -57,13 +57,16 @@
     }
 
 
-    function addResourceToPlant(resource_id , plant_id){
+    function addResourceToPlant(resource_id , plant_id,placeHolder){
 	var params = {};
      	params['plant_id'] = plant_id;
 	params['resource_id'] = resource_id;
 	params['viewer_id'] = '<?= $viewer->id ?>';
 	params['viewer_name'] = "<?= $viewer->first_name ?>";
 	params['viewer_farm_id'] = "<?= $viewerFarm->id ?>";
+	params['placeHolder'] = placeHolder;
+   
+	
 
         ajax_request('#ajaxHolder', '<?= base_url() ?>farms/addResourceToPlant', params)
     }
@@ -103,6 +106,7 @@
 	params['goal_farm'] = <?= $farm->id ?>;
 	params['off_farm'] = '<?= $viewerFarm->id ?>';
 	params['acc_id'] = acc_id;
+	params['user_id'] = <?= $user->id ?>;
 	params['type'] = type;
 	params['details'] = details;
         if(type == 3)
@@ -487,8 +491,12 @@
         </div>
     </div>
     <div id="panel">
-        <?= anchor("farms/showInventory/$farm->id/"," ",
-                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'partnerFarmInventory')); ?>
+        <?php if(isset($viewer->id))
+        echo anchor(""," ",
+                   array('onclick'=>"showPartnerInventory();return false;",'id'=>'partnerFarmInventory'));
+        else
+            echo "<a id='partnerFarmInventory'></a>";
+        ?>
         <?= anchor(" ","<span class=\"partnerLink\">$lang[inventory] $lang[farm]<br/>$farm->name</span>",
                    array('onclick'=>"showInventory(".$farm->id.");return false;",'id'=>'partnerInventory')); ?>
         <div id="farmResource">
@@ -496,20 +504,20 @@
                 if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpreadIcon'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].",'1');return false;",'class'=>'waterSpreadIcon'));
             ?>
             <?php
                 if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpreadIcon'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].",'2');return false;",'class'=>'muckSpreadIcon'));
             ?>
             <div class="waterResource">
                 <?php
                 if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Water']['0']."/".$plantSources['Water']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].");return false;",'class'=>'waterSpread'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Water']['0'].",".$plantSources['Water']['1'].",'1');return false;",'class'=>'waterSpread'));
                 ?>
                 <div id="waterAmount"><?= $farmResources['Water'] ?></div>
 
@@ -519,7 +527,7 @@
                 if(isset($plantSources) && !$user->unAuthenticatedUser)
                         echo anchor("farms/addResourceToPlant/".$plantSources['Muck']['0']."/".$plantSources['Muck']['1'],
                                     " ",
-                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].");return false;",'class'=>'muckSpread'));
+                                    array('onclick'=>"addResourceToPlant(".$plantSources['Muck']['0'].",".$plantSources['Muck']['1'].",'2');return false;",'class'=>'muckSpread'));
                 ?>
                 <div id="muckAmount"><?= $farmResources['Muck'] ?></div>
 

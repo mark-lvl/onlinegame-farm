@@ -7,36 +7,19 @@
                 <input type="password" name="password_login" id="password_login" maxlength="250" class="input" title="<?= $lang['password'] ?>"/>
                 <input type="submit" value=" " class="loginSubmit"/>
         </form>
-        <?= anchor('registration/index',$this->lang->language['registeration'],array('class'=>'whiteBoldLink')) ?> |
         <?= anchor('gateway/forgotPassword',$this->lang->language['forgotPassword'],array('class'=>'whiteBoldLink')) ?>
 </div>
 <?php
 	}
 	else {
 ?>
-	    <div class="personal_menu">
-	        <div class="personal_menu_photo">
-			    <?php
-			        if($data['user']->photo != "") {
-			    ?>
-			    	<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=15&nh=15&source=../views/layouts/images/users/<?= $data['user']->photo ?>&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
-				<?php
-				    }
-				    else {
-			    ?>
-	       			<img src="<?= base_url() ?>system/application/helpers/fa_image_helper.php?nw=15&nh=15&source=../views/layouts/images/users/default.jpg&stype=jpg&dest=x&type=little&dd=<?= date("Y-m-d H:i:s") ?>" border="0" />
-				<?php
-				    }
-				?>
-			</div>
-	    </div>
-	    <div class="personal_menu_down">
+	    <div class="loginBoxLogged">
 	        <ul>
 		        <li>
 		        	<a href="<?= base_url() ?>profile/user/<?= $data['user']->id ?>/"><?= $data['lang']['profile'] ?></a>
 		        </li>
 		        <li>
-		        	<a href="<?= base_url() ?>inbox/"><?= $data['lang']['inbox'] ?> <?= ($data['unchecked'] != 0) ? "(" . convert_number($data['unchecked'] . "") . ")" : NULL;  ?></a>
+                                <?= anchor(base_url()."farms/view/".$data['user']->id, $this->lang->language['GotoFarm']) ?>
 		        </li>
 		        <li>
 		        	<a href="<?= base_url() ?>gateway/logout/"><?= $data['lang']['logout'] ?></a>

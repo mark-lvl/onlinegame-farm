@@ -1,6 +1,8 @@
 <?php
 class Farmtransactions extends MainController {
 
+        var $userSessionHolder;
+
         public function __construct()
         {
             parent::__construct();
@@ -8,6 +10,9 @@ class Farmtransactions extends MainController {
                                      'Farm','Accessory'));
 
             $this->loadJs('jquery.loading/jquery.loading');
+
+            if($_SESSION['user']){
+                  $this->userSessionHolder = unserialize($_SESSION['user']);}
         }
 
         function spraying($farm = null)
@@ -37,7 +42,7 @@ class Farmtransactions extends MainController {
                     if(is_array($flag))
                             $this->error_reporter($flag['type'],$flag['params']);
                 }
-                
+
         }
 
 	function add()
@@ -58,7 +63,8 @@ class Farmtransactions extends MainController {
 					 $_POST['goal_farm'],
 					 $_POST['acc_id'],
 					 $_POST['type'],
-                                         $details
+                                         $details,
+                                         $_POST['user_id']
                                         );
 
                 if(is_array($flag))
@@ -75,6 +81,7 @@ class Farmtransactions extends MainController {
 
         function moneyHelp()
         {
+            $this->is_logged_user($_POST['user_id']);
             if($_POST['acc_id'] == 0 && $_POST['type'] == 3 && $_POST['details'] == 3)
             {
                 $this->error_reporter('moneyHelp',$_POST);

@@ -125,6 +125,18 @@
 		function get_user_by_id($id) {
 		    $sql = "SELECT * FROM `users` WHERE id = " . $this->db->escape($id);
 		    $result = $this->db->query($sql)->result_array();
+
+		    if(count($result) <= 0) {
+		        return FALSE;
+		    }
+		    else {
+		        $user = new User_entity($result[0]);
+		        return $user;
+		    }
+		}
+		function get_user_by_mail($mail) {
+		    $sql = "SELECT * FROM `users` WHERE email = " . $this->db->escape($mail);
+		    $result = $this->db->query($sql)->result_array();
 		    
 		    if(count($result) <= 0) {
 		        return FALSE;
@@ -488,10 +500,9 @@
                         $offset = ($page-1)* $count;
 
                     $sql = "SELECT * FROM `users` WHERE photo != \"\" ORDER BY registration_date DESC LIMIT " . $offset . ", " . $count;
-                    
                     $result = $this->db->query($sql);
                     $result = $result->result_array();
-
+                    
                     if(is_array($result) && count($result) > 0) {
                         $ret = array();
                         foreach($result as $x => $k) {

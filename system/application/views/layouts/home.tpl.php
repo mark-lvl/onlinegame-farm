@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/main.css" />
 <link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/skin.css" />
 <link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/jquery.jcarousel.css" />
+<link rel="stylesheet" type="text/css" href="<?= css_url() ?>system/application/assets/css/jscroll.css" />
 <script type="text/javascript" language="javascript"
         src="<?php echo css_url() . 'system/application/assets/js/jquery.js'; ?>">
 </script>
@@ -22,6 +23,15 @@
 </script>
 <script type="text/javascript" language="javascript"
         src="<?php echo css_url() . 'system/application/assets/js/jquery.jcarousel.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/jscroll.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/mouseWheel.js'; ?>">
+</script>
+<script type="text/javascript" language="javascript"
+        src="<?php echo css_url() . 'system/application/assets/js/jquery.em.js'; ?>">
 </script>
 <?php echo $css; ?>
 <?php echo $js; ?>
@@ -43,12 +53,12 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="little_link" href="<?= base_url() ?>policy/">
+                                                <a class="little_link" href="<?= base_url() ?>home/help">
                                                     <?= $lang['laws'] ?>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="little_link" href="<?= base_url() ?>contact/">
+                                                <a class="little_link" href="<?= base_url() ?>home/contact">
                                                     <?= $lang['contact'] ?>
                                                 </a>
                                             </li>

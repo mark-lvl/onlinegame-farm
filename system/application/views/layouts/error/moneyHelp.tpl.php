@@ -9,6 +9,7 @@
         var params = {};
 	params['goal_farm'] = <?= $params['goal_farm'] ?>;
 	params['off_farm'] = <?= $params['off_farm'] ?>;
+	params['user_id'] = <?= $params['user_id'] ?>;
 	params['acc_id'] = 0;
 	params['type'] = 3;
 	params['details'] = 3;
